@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>File Menu</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Main Window</h1>
+
+      <h2>File Menu</h2>
+
+      <div class="dp-right">
+        <p><a href="Main_Edit.shtml">Next</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <h4 class="style1">Print Decoder Definitions...</h4>
+
+      <p>Opens your computer Print dialog to print the installed decoder definitions. The complete
+      list may be more than 25 printed pages. The format is shown below. My suggestion is to print
+      out as pdf file to save paper.</p>
+
+      <p class="dp-center"><img style="width: 728px; height: 587px;" alt="printout" src=
+      "images/Main_file_01.png"><br>
+      </p>
+
+      <h4><span class="style1">Print Preview Decoder Definitions..</span>.</h4>
+
+      <p>Opens your computer Preview window opens. A list of all the Decoder Definitions installed
+      in DecoderPro will be displayed. You then can decide whether to print the pages.</p>
+
+      <p class="dp-center"><img style="width: 669px; height: 521px;" alt="preview" src=
+      "images/Main_file_02.png"><br>
+      </p>
+
+      <p><img src="images/separator.png" alt="sep" height="4" width="340">
+      </p>
+
+      <h4 class="style1">Quit</h4>
+
+      <p>Closes DecoderPro and all associated functions, same as clicking on the Quit button</p>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Main_Edit.shtml">Next</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

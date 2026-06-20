@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../XSLT/decoder.xsl"?>
+<!-- Copyright (C) JMRI 2005, 2022 All rights reserved -->
+<!--                                                                        -->
+<!-- JMRI is free software; you can redistribute it and/or modify it under  -->
+<!-- the terms of version 2 of the GNU General Public License as published  -->
+<!-- by the Free Software Foundation. See the "COPYING" file for a copy     -->
+<!-- of this license.                                                       -->
+<!--                                                                        -->
+<!-- JMRI is distributed in the hope that it will be useful, but WITHOUT    -->
+<!-- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  -->
+<!-- FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License  -->
+<!-- for more details.                                                      -->
+<decoder-config xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/decoder-4-15-2.xsd" showEmptyPanes="no">
+  <version author="georg.kautzsch@arcor.de" version="1.1" lastUpdated="20100204"/>
+  <version author="Egbert Broerse" version="1.2" lastUpdated="20220807"/>
+  <!-- version 1.2 adds include for ServoPower, tooltips for i18n, labels 1x, layout -->
+  <decoder>
+    <family name="Servo Decoder" mfg="Uhlenbrock Elektronik">
+      <model model="67800" highVersionID="3" lowVersionID="85" comment="67800 is programmable 4 Servo Decoder"/>
+    </family>
+    <programming direct="yes" paged="no" register="no" ops="no"/>
+    <variables>
+      <variable CV="112" item="Decoder Version" readOnly="yes" default="3">
+        <decVal/>
+        <label>Decoder Version:</label>
+      </variable>
+      <variable CV="113" readOnly="yes" item="Manufacturer" default="85">
+        <decVal/>
+        <label>Manufacturer:</label>
+      </variable>
+      <variable item="Power Servo_1 on" CV="119" mask="XXXXXXXV" default="1">
+        <xi:include href="http://jmri.org/xml/decoders/uhlenbrock/enumServoPower.xml"/>
+        <label>Power Servo 1:</label>
+      </variable>
+      <variable item="Power Servo_2 on" CV="119" mask="XXXXXXVX" default="1">
+        <xi:include href="http://jmri.org/xml/decoders/uhlenbrock/enumServoPower.xml"/>
+        <label>Power Servo 2:</label>
+      </variable>
+      <variable item="Power Servo_3 on" CV="119" mask="XXXXXVXX" default="1">
+        <xi:include href="http://jmri.org/xml/decoders/uhlenbrock/enumServoPower.xml"/>
+        <label>Power Servo 3:</label>
+      </variable>
+      <variable item="Power Servo_4 on" CV="119" mask="XXXXVXXX" default="1">
+        <xi:include href="http://jmri.org/xml/decoders/uhlenbrock/enumServoPower.xml"/>
+        <label>Power Servo 4:</label>
+      </variable>
+      <variable item="Operation" CV="119" mask="VXXXXXXX" default="0">
+        <enumVal>
+          <enumChoice choice="DCC" value="0"/>
+          <enumChoice choice="Motorola" value="1"/>
+        </enumVal>
+        <label>Operation:</label>
+      </variable>
+      <variable item="Address 1 Servo 1" CV="121" mask="VVVVVVVV" default="1">
+        <splitVal highCV="120" upperMask="XXXXXVVV"/>
+        <label>Address 1:</label>
+        <tooltip>Servo 1 Address 1 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 2 Servo 1" CV="161" mask="VVVVVVVV" default="0">
+        <splitVal highCV="160" upperMask="XXXXXVVV"/>
+        <label>Address 2:</label>
+        <tooltip>Servo 1 Address 2 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 1 Servo 2" CV="131" mask="VVVVVVVV" default="3">
+        <splitVal highCV="130" upperMask="XXXXXVVV"/>
+        <label>Address 1:</label>
+        <tooltip>Servo 2 Address 1 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 2 Servo 2" CV="171" mask="VVVVVVVV" default="0">
+        <splitVal highCV="170" upperMask="XXXXXVVV"/>
+        <label>Address 2:</label>
+        <tooltip>Servo 2 Address 2 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 1 Servo 3" CV="141" mask="VVVVVVVV" default="5">
+        <splitVal highCV="140" upperMask="XXXXXVVV"/>
+        <label>Address 1:</label>
+        <tooltip>Servo 3 Address 1 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 2 Servo 3" CV="181" mask="VVVVVVVV" default="0">
+        <splitVal highCV="180" upperMask="XXXXXVVV"/>
+        <label>Address 2:</label>
+        <tooltip>Servo 3 Address 2 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 1 Servo 4" CV="151" mask="VVVVVVVV" default="7">
+        <splitVal highCV="150" upperMask="XXXXXVVV"/>
+        <label>Address 1:</label>
+        <tooltip>Servo 4 Address 1 (1-2048)</tooltip>
+      </variable>
+      <variable item="Address 2 Servo 4" CV="191" mask="VVVVVVVV" default="0">
+        <splitVal highCV="190" upperMask="XXXXXVVV"/>
+        <label>Address 2:</label>
+        <tooltip>Servo 4 Address 2 (1-2048)</tooltip>
+      </variable>
+      <variable CV="124" item="Speed_servo1" default="40">
+        <decVal min="0" max="127"/>
+        <label>Movement Speed:</label>
+        <tooltip>A value of 1 will increase each 1 millisecond by 1</tooltip>
+      </variable>
+      <variable CV="122" item="Stop_red_servo1_Address 1" default="30">
+        <decVal min="0" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="123" item="Stop_green_servo1_Address 1" default="95">
+        <decVal min="0" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="162" item="Stop_red_servo1_Address 2" default="30">
+        <decVal min="0" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="163" item="Stop_green_servo1_Address 2" default="95">
+        <decVal min="0" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="134" item="Speed_servo2" default="40">
+        <decVal min="1" max="127"/>
+        <label>Movement Speed:</label>
+        <tooltip>A value of 1 will increase each 1 millisecond by 1</tooltip>
+      </variable>
+      <variable CV="132" item="Stop_red_servo2_Address 1" default="30">
+        <decVal min="1" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="133" item="Stop_green_servo2_Address 1" default="95">
+        <decVal min="1" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="172" item="Stop_red_servo2_Address 2" default="30">
+        <decVal min="1" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="173" item="Stop_green_servo2_Address 2" default="95">
+        <decVal min="1" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="144" item="Speed_servo3" default="40">
+        <decVal min="1" max="127"/>
+        <label>Movement Speed:</label>
+        <tooltip>A value of 1 will increase each 1 millisecond by 1</tooltip>
+      </variable>
+      <variable CV="142" item="Stop_red_servo3_Address 1" default="30">
+        <decVal min="1" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="143" item="Stop_green_servo3_Address 1" default="95">
+        <decVal min="1" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="182" item="Stop_red_servo3_Address 2" default="30">
+        <decVal min="1" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="183" item="Stop_green_servo3_Address 2" default="95">
+        <decVal min="1" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="154" item="Speed_servo4" default="40">
+        <decVal min="1" max="127"/>
+        <label>Movement Speed:</label>
+        <tooltip>A value of 1 will increase each 1 millisecond by 1</tooltip>
+      </variable>
+      <variable CV="152" item="Stop_red_servo4_Address 1" default="30">
+        <decVal min="1" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="153" item="Stop_green_servo4_Address 1" default="95">
+        <decVal min="1" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="192" item="Stop_red_servo4_Address 2" default="30">
+        <decVal min="1" max="127"/>
+        <label>Red Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+      <variable CV="193" item="Stop_green_servo4_Address 2" default="95">
+        <decVal min="1" max="127"/>
+        <label>Green Stop Position:</label>
+        <tooltip>A value from 0 to 127 will increase the Stop position</tooltip>
+      </variable>
+
+      <variable CV="125" item="Bounce_Amplitude_red_servo1" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="126" item="Bounce_Duration_red_servo1" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="127" item="Bounce_Amplitude_green_servo1" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="128" item="Bounce_Duration_green_servo_1" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="135" item="Bounce_Amplitude_red_servo_2" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="136" item="Bounce_Duration_red_servo_2" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="137" item="Bounce_Amplitude_green_servo_2" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="138" item="Bounce_Duration_green_servo_2" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="145" item="Bounce_Amplitude_red_servo_3" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="146" item="Bounce_Duration_red_servo_3" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="147" item="Bounce_Amplitude_green_servo_3" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="148" item="Bounce_Duration_green_servo_3" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="155" item="Bounce_Amplitude_red_servo_4" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="156" item="Bounce_Duration_red_servo_4" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Red:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+      <variable CV="157" item="Bounce_Amplitude_green_servo_4" default="0">
+        <decVal max="127"/>
+        <label>Amplitude of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Distance</tooltip>
+      </variable>
+      <variable CV="158" item="Bounce_Duration_green_servo_4" default="0">
+        <decVal max="127"/>
+        <label>Duration of Bounce Green:</label>
+        <tooltip>A value from 0 to 127 will increase Bouncing Duration</tooltip>
+      </variable>
+    </variables>
+  </decoder>
+
+  <pane>
+    <name>General Config</name>
+    <column>
+      <label>
+        <text>Decoder Configuration (CV119)</text>
+      </label>
+      <display item="Power Servo_1 on"/>
+      <display item="Power Servo_2 on"/>
+      <display item="Power Servo_3 on"/>
+      <display item="Power Servo_4 on"/>
+      <label>
+        <text>          </text>
+      </label>
+      <display item="Operation"/>
+      <label>
+        <text>          </text>
+      </label>
+      <display item="Manufacturer"/>
+      <display item="Decoder Version"/>
+    </column>
+  </pane>
+  <pane>
+    <name>Servo 1</name>
+    <column>
+      <row>
+        <column>
+          <label>
+            <text>Servo 1</text>
+          </label>
+          <display item="Address 1 Servo 1"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo1_Address 1"/>
+          <display item="Stop_green_servo1_Address 1"/>
+        </column>
+        <column>
+          <label>
+            <text>                     </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>Address 2 optional for further 2 positions of servo 1 - all bouncing values must be 0</text>
+          </label>
+          <display item="Address 2 Servo 1"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo1_Address 2"/>
+          <display item="Stop_green_servo1_Address 2"/>
+        </column>
+      </row>
+      <row>
+        <column>
+          <label>
+            <text> </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <display item="Speed_servo1"/>
+          <display item="Power Servo_1 on" label="Always Power Servo" format="checkbox"/>
+          <label>
+            <text> </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>                        </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>Bounce Options, only valid for Address 1 </text>
+          </label>
+          <label>
+            <text>Address 2 can not be used on bounce operation</text>
+          </label>
+          <display item="Bounce_Amplitude_red_servo1"/>
+          <display item="Bounce_Duration_red_servo1"/>
+          <display item="Bounce_Amplitude_green_servo1"/>
+          <display item="Bounce_Duration_green_servo_1"/>
+        </column>
+      </row>
+    </column>
+  </pane>
+  <pane>
+    <name>Servo 2</name>
+    <column>
+      <row>
+        <column>
+          <label>
+            <text>Servo 2</text>
+          </label>
+          <display item="Address 1 Servo 2"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo2_Address 1"/>
+          <display item="Stop_green_servo2_Address 1"/>
+        </column>
+        <column>
+          <label>
+            <text>                     </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>Address 2 optional for further 2 positions of servo 2 - all bouncing values must be 0</text>
+          </label>
+          <display item="Address 2 Servo 2"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo2_Address 2"/>
+          <display item="Stop_green_servo2_Address 2"/>
+        </column>
+      </row>
+      <row>
+        <column>
+          <label>
+            <text> </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <display item="Speed_servo2"/>
+          <display item="Power Servo_2 on" label="Always Power Servo" format="checkbox"/>
+          <label>
+            <text> </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>                        </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>Bounce Options, only valid for Address 1 </text>
+          </label>
+          <label>
+            <text>Address 2 can not be used on bounce operation</text>
+          </label>
+          <display item="Bounce_Amplitude_red_servo_2"/>
+          <display item="Bounce_Duration_red_servo_2"/>
+          <display item="Bounce_Amplitude_green_servo_2"/>
+          <display item="Bounce_Duration_green_servo_2"/>
+        </column>
+      </row>
+    </column>
+  </pane>
+  <pane>
+    <name>Servo 3</name>
+    <column>
+      <row>
+        <column>
+          <label>
+            <text>Servo 3</text>
+          </label>
+          <display item="Address 1 Servo 3"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo3_Address 1"/>
+          <display item="Stop_green_servo3_Address 1"/>
+        </column>
+        <column>
+          <label>
+            <text>                     </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>Address 2 optional for further 2 positions of servo 3 - all bouncing values must be 0</text>
+          </label>
+          <display item="Address 2 Servo 3"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo3_Address 2"/>
+          <display item="Stop_green_servo3_Address 2"/>
+        </column>
+      </row>
+      <row>
+        <column>
+          <label>
+            <text> </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <display item="Speed_servo3"/>
+          <display item="Power Servo_3 on" label="Always Power Servo" format="checkbox"/>
+          <label>
+            <text> </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>                        </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>Bounce Options, only valid for Address 1 </text>
+          </label>
+          <label>
+            <text>Address 2 can not be used on bounce operation</text>
+          </label>
+          <display item="Bounce_Amplitude_red_servo_3"/>
+          <display item="Bounce_Duration_red_servo_3"/>
+          <display item="Bounce_Amplitude_green_servo_3"/>
+          <display item="Bounce_Duration_green_servo_3"/>
+        </column>
+      </row>
+    </column>
+  </pane>
+  <pane>
+    <name>Servo 4</name>
+    <column>
+      <row>
+        <column>
+          <label>
+            <text>Servo 4</text>
+          </label>
+          <display item="Address 1 Servo 4"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo4_Address 1"/>
+          <display item="Stop_green_servo4_Address 1"/>
+        </column>
+        <column>
+          <label>
+            <text>                     </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>Address 2 optional for further 2 positions of servo 4 - all bouncing values must be 0</text>
+          </label>
+          <display item="Address 2 Servo 4"/>
+          <label>
+            <text> </text>
+          </label>
+          <display item="Stop_red_servo4_Address 2"/>
+          <display item="Stop_green_servo4_Address 2"/>
+        </column>
+      </row>
+      <row>
+        <column>
+          <label>
+            <text> </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <display item="Speed_servo4"/>
+          <display item="Power Servo_4 on" label="Always Power Servo" format="checkbox"/>
+          <label>
+            <text> </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>                        </text>
+          </label>
+        </column>
+        <column>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>       </text>
+          </label>
+          <label>
+            <text>Bounce Options, only valid for Address 1 </text>
+          </label>
+          <label>
+            <text>Address 2 can not be used on bounce operation</text>
+          </label>
+          <display item="Bounce_Amplitude_red_servo_4"/>
+          <display item="Bounce_Duration_red_servo_4"/>
+          <display item="Bounce_Amplitude_green_servo_4"/>
+          <display item="Bounce_Duration_green_servo_4"/>
+        </column>
+      </row>
+    </column>
+  </pane>
+
+</decoder-config>

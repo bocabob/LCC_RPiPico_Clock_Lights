@@ -1,0 +1,69 @@
+package jmri.jmrix.pi;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ * Tests for RaspberryPiSensorManager.
+ * <p>
+ * Resets the GPIO support by disposing the sensors + pins.
+ *
+ * @author Paul Bender Copyright (C) 2016
+ */
+public class RaspberryPiSensorManagerTest extends jmri.managers.AbstractSensorMgrTestBase {
+
+    @Override
+    public String getSystemName(int i) {
+        return l.getSystemPrefix() + "S" + i;
+    }
+
+    @Test
+    public void testCtor(){
+        Assert.assertNotNull(l);
+    }
+
+    @Test
+    public void checkPrefix(){
+        Assert.assertEquals("Prefix", "P", l.getSystemPrefix());
+    }
+
+    @Override
+    @Test
+    public void testPullResistanceConfigurable(){
+        Assert.assertTrue("Pull Resistance Configurable", l.isPullResistanceConfigurable());
+    }
+
+    private PiGpioProviderScaffold myProvider = null;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+       JUnitUtil.setUp();
+       JUnitUtil.resetInstanceManager();
+       myProvider = new PiGpioProviderScaffold();
+       l = new RaspberryPiSensorManager(new RaspberryPiSystemConnectionMemo());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // unprovisionPin if it exists to allow reuse of GPIO pin in next test
+        RaspberryPiSensor t1 = (RaspberryPiSensor) l.getSensor(getSystemName(getNumToTest1()));
+        if (t1 != null) { t1.dispose(); }
+        t1 = (RaspberryPiSensor) l.getSensor(getSystemName(getNumToTest2()));
+        if (t1 != null) { t1.dispose(); }
+        t1 = (RaspberryPiSensor) l.getSensor(getSystemName(1));
+        if (t1 != null) { t1.dispose(); }
+        t1 = (RaspberryPiSensor) l.getSensor(getSystemName(2));
+        if (t1 != null) { t1.dispose(); }
+        Assertions.assertNotNull(myProvider);
+        myProvider.shutdown();
+        l.dispose();
+
+        JUnitUtil.clearShutDownManager();
+        JUnitUtil.resetInstanceManager();
+        JUnitUtil.tearDown();
+    }
+
+}

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="keywords" content=
+  "JMRI help CBUS Simulator simulate offline command station emulate emulator">
+  <title>JMRI: CBUS® Simulator</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI : Outil de simulation du réseau CBUS</h1>
+
+      <ul class="snav">
+        <li><a href="#direction">Direction</a>
+        </li>
+
+        <li><a href="#cs">Centrales</a>
+        </li>
+
+        <li><a href="#ev">Événements de réponse</a>
+        </li>
+
+        <li><a href="#nodes">Nœuds</a>
+        </li>
+
+        <li><a href="#opc">OPCs</a>
+        </li>
+      </ul>
+      <img src=
+      "../../../../../../html/hardware/can/cbus/images/swing/simulator/cbus-network-simulation-pane-315x322.png"
+      alt="Capture d'écran du simulateur de réseau CBUS" width="315" height="322" align="right">
+      <p>L'outil démarre en arrière-plan d'une connexion matérielle du MERG de CAN Simulation.</p>
+
+      <p>Vous pouvez également démarrer le simulateur manuellement pour toutes les connexions en
+      l'ouvrant via le menu principal du MERG.</p>
+
+      <p>Les options par défaut sont affichées à droite.</p>
+
+      <p>Vous pouvez ajouter des Centrales, des Nœuds ou des répondeurs d'événements
+      supplémentaires en sélectionnant Ajouter dans le menu supérieur.</p>
+
+      <h2><a name="direction" id="direction">Direction et délai</a>
+      </h2>
+
+      <p>La direction et le délai sont uniques à chaque objet simulé.</p>
+
+      <ul>
+        <li>Listen Outgoing - par exemple, Surveillance d'un Régulateur JMRI</li>
+
+        <li style="list-style: none">.</li>
+
+        <li>Ecoute entrante - ex : écoute d'un CANCAB</li>
+
+        <li style="list-style: none">.</li>
+
+        <li>Envoyer en tant que Incoming - exemple: envoyer à un Régulateur JMRI</li>
+
+        <li style="list-style: none">.</li>
+
+        <li>Send as Outgoing - exemple: envoi vers CANCAB</li>
+
+        <li>Delay - Délai de réponse de la simulation aux demandes ( ms )</li>
+
+        <li style="list-style: none">.</li>
+      </ul>
+
+      <h2><a name="cs" id="cs">Centrales</a>
+      </h2>
+
+      <p>Vous pouvez choisir entre un Centrales standard, ainsi que la désactivation de la
+      Centrale.</p>
+
+      <p>La désactivation de la Centrale annule toutes les sessions en cours.</p>
+
+      <p>Le nombre à droite de la liste déroulante indique le nombre actuel de sessions qu'elle
+      gère.</p>
+
+      <p>Le bouton de réinitialisation équivaut à éteindre et à rallumer la Centrale (" hard reset
+      ").</p>
+
+      <h2><a name="ev" id="ev">Événements de la réponse</a>
+      </h2>
+      &gt;
+      <p>L'outil peut émettre des événements de réponse activés ou désactivés à toutes les demandes
+      qu'il détecte sur le réseau.</p>
+
+      <p>Événement de réponse :</p>
+
+      <ul>
+        <li>Désactivé</li>
+
+        <li>Mise en marche / arrêt aléatoire</li>
+
+        <li>Odd On / Even Off</li>
+
+        <li>On</li>
+
+        <li>Désactivé</li>
+      </ul>
+
+      <p>Les demandes peuvent également être filtrées par nœud.</p>
+
+      <ul>
+        <li>-1 : Pas de filtre</li>
+
+        <li>0 : Juste des événements courts</li>
+
+        <li>&gt;0 : Ne répond qu'aux demandes pour un nœud particulier</li>
+
+        <li style="list-style: none">.</li>
+      </ul>
+
+      <h2><a name="nodes" id="nodes">Nœuds</a>
+      </h2>
+
+      <p>Aucun nœud n'est simulé par défaut.</p>
+
+      <p>Lorsque vous sélectionnez un nœud, en entrant en mode SLiM, vous devrez appuyer sur le
+      bouton FLiM pour l'introduire dans le réseau.</p>
+
+      <p>Lorsque vous sélectionnez un nouveau nœud ( ou que vous le désactivez en sélectionnant
+      SLiM ), tous les événements ou variables de nœud existants seront réinitialisés.</p>
+
+      <p>Les Nœuds simulés fournissent actuellement des opérations d'administration de nœud,
+      cependant, ils ne prennent pas en charge les événements entrants ou sortants réels.</p>
+
+      <p>Les Nœuds simulés actuels comprennent :</p>
+
+      <ul>
+        <li>SLiM ( simulation désactivée )</li>
+
+        <li>CANPAN</li>
+      </ul>
+
+      <h3><a name="opc" id="opc">Codes d'Opération Pris en Charge</a>
+      </h3>
+
+      <h4>Reçus par le simulateur ( depuis d'autres applications JMRI, et depuis l'extérieur de
+      JMRI )</h4>
+
+      <p>Centrale Standard ( basée sur le firmware CANCMD v3 )</p>
+
+      <ul>
+        <li>RTON</li>
+
+        <li>RTOF</li>
+
+        <li>RESTP</li>
+
+        <li>RLOC</li>
+
+        <li>QLOC</li>
+
+        <li>DSPD</li>
+
+        <li>DKEEP</li>
+
+        <li>KLOC</li>
+      </ul>
+
+      <p>Demandes de Statut d'Événement</p>
+
+      <ul>
+        <li>ASRQ - Envoyé lorsque l'utilisateur clique sur le bouton d'état, numéro de nœud 0</li>
+
+        <li style="list-style: none">.</li>
+
+        <li>AREQ - Envoyé lorsque l'utilisateur clique sur le bouton d'état, numéro de nœud &gt;
+        0</li>
+
+        <li style="list-style: none">.</li>
+      </ul>
+
+      <p>Simulation de nœud</p>
+
+      <ul>
+        <li>RQMN - Mode de configuration uniquement</li>
+
+        <li>RQNP - Mode configuration uniquement</li>
+
+        <li>SNN - Mode configuration uniquement</li>
+
+        <li>QNN</li>
+
+        <li>NNLRN</li>
+
+        <li>NNULN</li>
+
+        <li>NVRD</li>
+
+        <li>NVSET</li>
+
+        <li>RQEVN</li>
+
+        <li>NERD</li>
+
+        <li>REVAL</li>
+
+        <li>EVLRN - Mode apprentissage seulement</li>
+
+        <li>EVULN - Mode Apprentissage uniquement</li>
+      </ul>
+
+      <h4>Envoyé par le simulateur ( comme entrant vers d'autres applications JMRI, et vers le
+      réseau externe)</h4>
+
+      <p>Centrale Standard</p>
+
+      <ul>
+        <li>TON</li>
+
+        <li>TOF</li>
+
+        <li>ESTOP</li>
+
+        <li>ERR</li>
+
+        <li>PLOC</li>
+      </ul>
+
+      <p>Envoyés comme Réponses aux Événements</p>
+
+      <ul>
+        <li>ARON</li>
+
+        <li>AROF</li>
+
+        <li>ARSON</li>
+
+        <li>ARSOF</li>
+      </ul>
+
+      <p>Envoyé dans les Simulations de Nœuds</p>
+
+      <ul>
+        <li>NAME</li>
+
+        <li>NNACK</li>
+
+        <li>RQNN</li>
+
+        <li>WRACK</li>
+
+        <li>NVANS</li>
+
+        <li>PARAN</li>
+
+        <li>PNN</li>
+
+        <li>PARAMS</li>
+
+        <li>NEVAL</li>
+
+        <li>ENRSP</li>
+
+        <li>NUMEV</li>
+      </ul>
+
+      <h3>Aide JMRI</h3>
+
+      <p>Vous pouvez afficher cette page d'aide au sein de JMRI en sélectionnant Aide &gt; Aide de
+      la fenêtre dans la barre supérieure de la fenêtre de capture d'événements CBUS.</p>
+
+      <p><a href="../../../../../../html/hardware/can/cbus/index.shtml">Page principale
+      d'assistance CBUS de JMRI</a>.</p>
+
+      <p>CBUS® est une marque déposée du Dr Michael Bolton.</p>
+
+      <p>Traduction 2021-03-19</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div> <!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

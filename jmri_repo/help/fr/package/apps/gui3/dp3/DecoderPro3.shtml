@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>JMRI: DecoderPro 3</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Introduction à DecoderPro 3</h1>
+
+      <p>Ce fichier d'aide est en cours d'élaboration. S'il vous plaît aider JMRI en contribuant à
+      améliorer ce fichier d'aide!</p>
+      <p>DecoderPro 3 présente une liste de vos locomotives (la Liste) et fournit accès aux outils
+      pour les variables de configuration du décodeur de programmation (CV).</p>
+
+      <h1>Description de la Fenêtre DecoderPro 3</h1>
+
+      <p>La fenêtre décodeur Pro 3 est divisée en cinq grandes sections de haut en bas.</p>
+      <img src="../../images/Dp3Roster.png" width="509" height="265" alt="">
+      <ol>
+        <li><a href="#menubar">La barre de menus</a>.</li>
+
+        <li><a href="#toolbar">La barre d'outils (ou barre de boutons). Contenant des boutons et
+        commandes.</a>
+        </li>
+
+        <li>Le Tableau Liste. Contenant une liste de décodeurs dans votre Liste. Une entrée
+        figurant dans le fichier peut être mise en évidence avec la souris.</li>
+
+        <li>La zone d'information du décodeur. Celle-ci affiche des informations sur l'entrée en
+        surbrillance dans le tableau de Liste.</li>
+
+        <li>Une barre d'état. Celle-ci rapportes des informations sur une seule ligne.
+        L'information d'erreur est également affichée ici.</li>
+      </ol>
+
+      <h1>Principales tâches avec décodeur Pro 3</h1>
+
+      <p>DecoderPro 3 est conçu pour la gestion des décodeurs DCC équipant les locomotives. Les
+      locomotives reconnues par DecoderPro 3 sont affichées dans le Tableau Liste . Les tâches
+      principales sont prévues: la création d'une nouvelle locomotive et le changement des
+      paramètres dans une locomotive existante (programmation).</p>
+
+      <h2>Nouvelle locomotive</h2>
+
+      <p>Pour ajouter une nouvelle locomotive (ou la première locomotive), cliquez sur le bouton
+      "Nouvelle Loco" de la barre d'outils. Cela va ouvrir une fenêtre "Créer Nouvelle Loco", où le
+      décodeur peut être soit identifié soit choisi dans la liste. Pour créer la locomotive, après
+      avoir sélectionné (ou identifié) un décodeur, sélectionner le Format du programmateur (de
+      base ou complet) et cliquez sur "Ouvrir Programmateur". Une fenêtre de programmation pour la
+      nouvelle locomotive va ouvrir, avec l'onglet "Saisie de Liste" avant tout. Il est recommandé
+      de donner à la locomotive un nom dans le "ID:", puis cliquez sur "Sauver dans la Liste". Vous
+      pouvez également procéder à la programmation du décodeur, ce qui lui donne une adresse DCC
+      (dans l'onglet "Basic"), et définir d'autres valeurs. Après la fermeture de la Fenêtre de
+      programmation, si vous êtes invité, enregistrez les résultats dans la Liste.</p>
+
+      <h2>Identifier une Locomotive Existante</h2>
+
+      <p>Si une locomotive est placée sur la voie de programmation, le bouton "Identifier" lira les
+      détails du décodeur et essaiera de les faire correspondre à une entrée dans le tableau Liste.
+      Certains décodeurs ne fonctionnent qu'avec un nombre limité de modes de programmation , et il
+      peut être nécessaire de changer le mode de programmation avec le bouton "Set" . Si une
+      locomotive est correctement identifiée, elle sera mise en évidence dans le Tableau Liste, et
+      ses détails apparaissent dans le coin inférieurde la zone d' Information Decoder Région.</p>
+
+      <h2>Programmation d'une locomotive existante</h2>
+
+      <p>Une fois que la locomotive a été sélectionné, soit en la trouvant manuellement à
+      l'intérieur du tableau Liste, ou par le bouton "Identifier", un résumé de ses détails
+      apparaîtra dans la zone inférieur d'information du décodeur. Les boutons pour ouvrir le
+      programmateur sont à droite de la zone d'information du décodeur.</p>
+
+      <p>Sélectionnez le type de programmation nécessaire avec les boutons radio, sélectionnez
+      entre la voie de programmation et la programmation sur la ligne principale ou modifier le
+      fichier uniquement (pas de programmation d'une locomotive). Après avoir sélectionné le type
+      de programmation, vous pouvez ouvrir soit le programmeur de base (qui permet le changement de
+      l'adresse de la locomotive) ou le programmateur Complet (qui permet de changer les
+      caractéristiques du décodeur de locomotive connu de DecoderPro).</p>
+
+      <h2>Changement d'étiquettes de Régulateur et Médias de la Liste</h2>
+
+      <p>Les étiquettes régulateur sont utilisés par les écrans des Régulateurs JMRI et par les
+      régulateurs smart-phone par l'intermédiaire de l'interface WiThrottle. Elless permettent aux
+      Fonctions Clés d'avoir des noms évocateurs tels que "Corne", "Whistle", plutôt que "F2" et
+      "F4". Leur utilisation est facultative.</p>
+
+      <p>La Composition des Media Liste est l'endroit où les photos de locomotives peuvent être
+      chargées dans JMRI. Celles-ci sont affichées dans la Liste et peuvent être utilisées dans les
+      Régulateurs Throttles. Leur utilisation est en option.</p>
+
+      <h2>Groupes de fiches</h2>
+
+      <p>Les Groupes de fiches sont un moyen de filtrer les entrées dans la Liste. Par exemple ,
+      vous pourriez avoir " locos diesel ", " locos à vapeur ", mais aussi " Locos Burlington "et"
+      Locos Canadien Pacifique ". Ainsi, une seul des locomotives dans la Liste pourrait être
+      membre de plusieurs groupes. Les Groupes de fiches sont utilisés pour filtrer la vue de la
+      Liste dans Decoder Pro 3 , et sélectionner les locomotives offertes dans un écran
+      Régulateur.</p>
+
+      <p>Pour créer votre premier Groupe de fiche, utilisez la commande " Créer un groupe de Fiche
+      " dans le le menu "Réglages". Lorsque vous avez créé un groupe de Fiche , une nouvelle liste
+      déroulante est ajoutée à la barre d'outils en DecoderPro 3. Après avoir créé un groupe ,
+      c'est d'abord vide . L'étape suivante consiste à ajouter des locomotives dans le groupe .
+      Cela se fait avec la Commande " Liste du groupe Tableau " dans le menu "Paramètres" . avec l'
+      Fenêtre "Association groupe du tableau Liste" , sélectionnez le groupe de fiches dans la menu
+      déroulant , puis placer une coche à côté de toutes les locomotives exigées dans ce groupe.
+      Répétez l'opération pour tout les autres groupes, et lorsque vous avez terminé fermer la
+      fenêtre avec le gros bouton dans le coin supérieur droit .</p>
+      <a name="menubar" id="menubar"></a>
+      <h1>Barre de Menu</h1>
+
+      <h2>Menu Fichier</h2>
+
+      <ul>
+        <li>Nouvelle Fenêtre DecoderPro</li>
+
+        <li>Importer Liste</li>
+
+        <li>Importer Entrée Liste</li>
+
+        <li>Importer Fichier Décodeur</li>
+
+        <li>Importer URL Décodeur</li>
+
+        <li>------------------</li>
+
+        <li>Exporter Entrée Liste</li>
+
+        <li>Exporter Liste Complète</li>
+
+        <li>------------------</li>
+
+        <li>Imprimer Sommaire Liste</li>
+
+        <li>Imprimer Entrée Liste</li>
+
+        <li>Prévisualiser Sommaire Liste</li>
+
+        <li>Prévisualiser Entrée Liste</li>
+
+        <li>-------------------</li>
+
+        <li>Quitter</li>
+      </ul>
+
+      <h2>Menu Modifier</h2>
+
+      <ul>
+        <li>Couper</li>
+
+        <li>Copier</li>
+
+        <li>Coller</li>
+
+        <li>Dupliquer Loco</li>
+
+        <li>Delete Loco</li>
+
+        <li>-----------</li>
+
+        <li>Préférences</li>
+      </ul>
+
+      <h2>menu Réglages</h2>
+
+      <ul>
+        <li>Cacher/Montrer le Sommaire Volet</li>
+
+        <li>Réinitialiser tailles de la fenêtre</li>
+
+        <li>Cacher/Montrer image liste</li>
+
+        <li>--------------</li>
+
+        <li>Programmation -&gt;</li>
+
+        <li>--------------</li>
+
+        <li>Créer un groupe Liste</li>
+
+        <li>effacer Groupe de Liste</li>
+
+        <li>Association groupe du tableau Liste</li>
+      </ul>
+
+      <h2>Menu Actions</h2>
+
+      <ul>
+        <li>Programmateur Basic</li>
+
+        <li>Programmateur Complet</li>
+
+        <li>Programmateur CV Simple</li>
+
+        <li>Modifier Tableaux Régulateur</li>
+
+        <li>Modifier Média Liste</li>
+
+        <li>--------------</li>
+
+        <li>Nouveau Régulateurs</li>
+
+        <li>Outil de Couplage</li>
+
+        <li>Outil Aiguillage</li>
+
+        <li>Commande Alimentation</li>
+
+        <li>Tachymètre</li>
+
+        <li>--------------</li>
+
+        <li>Démarrer Serveur WiThrottle</li>
+
+        <li>Démarrer Serveur Web</li>
+
+        <li>--------------</li>
+
+        <li>Recréer l'Index Liste</li>
+
+        <li>Recréer l'Index Décodeur</li>
+
+        <li>--------------</li>
+
+        <li>Exécuter Script</li>
+      </ul>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

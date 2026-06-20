@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>JMRI: LocoNet Horloge Rapide</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help loconet fast clock monitor">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>LocoNet Outil Horloge Rapide</h1>
+
+      <p>Ceci est la page d'aide
+      help/jmri/jmrix/loconet/clockmon/ClockMonFrame</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

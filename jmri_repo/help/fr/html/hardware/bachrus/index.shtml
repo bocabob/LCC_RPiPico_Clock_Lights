@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!--Updated by Herv&#233; Blorec  2017-01-16-->
+<head>
+ <title>JMRI Hardware Support - Bachrus</title>
+    <meta name="author" content="Andrew Crosland">
+    <meta name="keywords" content="Bachrus java model railroad JMRI install windows">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+<!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+<div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+    <div id="mainContent">
+        <!-- Page Body -->
+
+<h1>Structure Mat&#233;riel: Bachrus</h1>
+
+    JMRI prend en charge le Bachrus MTS-DCC Speedometer pour train miniature, qui est un p&#233;riph&#233;rique d'entr&#233;e 
+			seulement, pour capturer les informations de vitesse &#224; partir d'un module de lecteur sur un 
+			banc d'essai Bachrus "Saddle" . 
+		
+		<p>
+<a name="hardware"></a><h2>Mat&#233;riel pris en charge</h2>	
+<h3>Bachrus MTS-DCC Model train Speedometer</h3>	
+		<p>Lorsque le Bachrus MTS-DCC est d&#233;fini comme une pr&#233;f&#233;rence de connexion de r&#233;seau, 
+		l'outil Console Speedo peut &#234;tre utilis&#233; pour afficher l'&#233;chelle de vitesse de circulation aux &#233;chelles 
+		de Z &#224; O et au-del&#224;.
+		</p>
+		<a href="images/dial.jpg">
+    <img src="images/dial.jpg"
+         width="336" height="373"
+         alt="Speedometer dial display" ></a><br>
+C&#244;t&#233; gauche du panneau Speedo
+		<p>
+		Lorsque le Bachrus MTS-DCC est d&#233;fini comme une connexion mise parall&#232;lement &#224; un syst&#232;me DCC,  
+		l'outil Speedo permet la mesure automatique du profil de vitesse d'une locomotive &#233;quip&#233;e d'un d&#233;codeur
+</p>
+		<a href="images/profile.jpg">
+    <img src="images/profile.jpg"
+         width="543" height="373"
+         alt="Speedometer speed profile graph" ></a><br>
+C&#244;t&#233; droit du panneau Speedo
+
+<a name="documentation"></a><h2>Documentation</h2>
+<h3>Plus d'informationo</h3>
+<p>Informations suppl&#233;mentaires sur les produitd de mesure de vitesse Bachrus sur le site web 
+<a href="http://www.bachrus.com/speedometer.php">Bachrus</a>.   
+      
+    <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

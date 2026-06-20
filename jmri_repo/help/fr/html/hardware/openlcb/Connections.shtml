@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Translated by Herv&#233; BLOREC on2017-02-05 -->
+  <title>JMRI Hardware Support - OpenLCB Connections</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+<h1>Documentation Mat&#233;riel: OpenLCB - Connexions</h1>
+<p>
+Cette page explique comment JMRI peut &#234;tre connect&#233; &#224; OpenLCB
+</p>
+
+<a name="connecting"></a><h2>Connexion</h2>
+<a href="images/OpenLCBConnection.png">
+<img src="images/OpenLCBConnection.png" alt="OpenLCB Connections Preference Pane" width="305" height="147"></a>
+
+<h3>Via un TCH Tech CAN=USB Connector</h3>
+
+<h3>Via un adaptateur GridConnect</h3>
+
+<h3>Via une interface R&#233;seau GridConnect </h3>
+
+<h3>Via a Lawcell CAN USB</h3>
+
+<h3>Via a <a href="../can/index.shtml">MERG CAN-RS/-USB</a></h3>
+<p>Vous pouvez simuler une connexion &#224; distance OpenLCB, par exemple
+pour d&#233;boger des choses, sur beaucoup d'ordinateurs en utilisant la commande "nc":
+<pre>
+nc -l 12022
+</pre>
+
+<a name="documentation"></a><h2>Documentation</h2>
+<h3>Aide JMRI </h3>
+<p>Retour &#224; la <a href="index.shtml">page d'aide principale OpenLCB</a></p>
+ 
+    <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

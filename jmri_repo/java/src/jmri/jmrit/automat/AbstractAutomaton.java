@@ -1,0 +1,1402 @@
+package jmri.jmrit.automat;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.concurrent.*;
+import javax.annotation.Nonnull;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
+import jmri.*;
+import jmri.jmrit.logix.OBlock;
+import jmri.jmrit.logix.Warrant;
+
+/**
+ * Abstract base for user automaton classes, which provide individual bits of
+ * automation.
+ * <p>
+ * Each individual automaton object runs in a separate thread, so they can operate
+ * independently. This class handles thread creation and scheduling, and
+ * provides a number of services for the user code.
+ * <p>
+ * Subclasses provide a "handle()" function, which does the needed work, and
+ * optionally a "init()" function. These can use any JMRI resources for input
+ * and output. It should not spin on a condition without explicit wait requests;
+ * it is more efficient to use the explicit wait services when waiting for some
+ * specific condition.
+ * <p>
+ * handle() is executed repeatedly until either the Automate object's stop() method is called,
+ * or handle() returns "false". Returning "true" will just cause handle() to be
+ * invoked again, so you can cleanly restart the Automaton's handle processing by returning from
+ * multiple points in the function.
+ * <p>
+ * Since handle() executes outside the GUI thread, it is important that access
+ * to GUI (AWT, Swing) objects be scheduled through the various service
+ * routines.
+ * <p>
+ * Services are provided by public member functions, described below. They must
+ * only be invoked from within the init() and handle() methods, as they must be used in a
+ * delayable thread. If invoked from the GUI thread, for example, the program
+ * will appear to hang. To help ensure this, a warning will be logged if they
+ * are used outside the proper thread.
+ * <p>
+ * For general use, e.g. in scripts, the most useful functions are:
+ * <ul>
+ * <li>Wait for a specific number of milliseconds: {@link #waitMsec(int)}
+ * <li>Wait for a specific sensor to be active:
+ * {@link #waitSensorActive(jmri.Sensor)} This is also available in a form that
+ * will wait for any of a group of sensors to be active.
+ * <li>Wait for a specific sensor to be inactive:
+ * {@link #waitSensorInactive(jmri.Sensor)} This is also available in a form
+ * that will wait for any of a group of sensors to be inactive.
+ * <li>Wait for a specific sensor to be in a specific state:
+ * {@link #waitSensorState(jmri.Sensor, int)}
+ * <li>Wait for a specific sensor to change:
+ * {@link #waitSensorChange(int, jmri.Sensor)}
+ * <li>Wait for a specific signal head to show a specific appearance:
+ * {@link #waitSignalHeadState(jmri.SignalHead, int)}
+ * <li>Wait for a specific signal mast to show a specific aspect:
+ * {@link #waitSignalMastState(jmri.SignalMast, String)}
+ * <li>Wait for a specific warrant to change run state:
+ * {@link #waitWarrantRunState(Warrant, int)}
+ * <li>Wait for a specific warrant to enter or leave a specific block:
+ * {@link #waitWarrantBlock(Warrant, String, boolean)}
+ * <li>Wait for a specific warrant to enter the next block or to stop:
+ * {@link #waitWarrantBlockChange(Warrant)}
+ * <li>Set a group of turnouts and wait for them to be consistent (actual
+ * position matches desired position):
+ * {@link #setTurnouts(jmri.Turnout[], jmri.Turnout[])}
+ * <li>Wait for a group of turnouts to be consistent (actually as set):
+ * {@link #waitTurnoutConsistent(jmri.Turnout[])}
+ * <li>Wait for any one of a number of Sensors, Turnouts and/or other objects to
+ * change: {@link #waitChange(jmri.NamedBean[])}
+ * <li>Wait for any one of a number of Sensors, Turnouts and/or other objects to
+ * change, up to a specified time: {@link #waitChange(jmri.NamedBean[], int)}
+ * <li>Obtain a DCC throttle: {@link #getThrottle}
+ * <li>Read a CV from decoder on programming track: {@link #readServiceModeCV}
+ * <li>Write a value to a CV in a decoder on the programming track:
+ * {@link #writeServiceModeCV}
+ * <li>Write a value to a CV in a decoder on the main track:
+ * {@link #writeOpsModeCV}
+ * </ul>
+ * <p>
+ * Although this is named an "Abstract" class, it's actually concrete so scripts
+ * can easily use some of the methods.
+ *
+ * @author Bob Jacobsen Copyright (C) 2003, 2025
+ */
+public class AbstractAutomaton implements Runnable {
+
+    public AbstractAutomaton() {
+        String className = this.getClass().getName();
+        int lastdot = className.lastIndexOf(".");
+        setName(className.substring(lastdot + 1, className.length()));
+    }
+
+    public AbstractAutomaton(String name) {
+        setName(name);
+    }
+
+    private final AutomatSummary summary = AutomatSummary.instance();
+
+    private Thread currentThread = null;
+    private volatile boolean threadIsStopped = false;
+
+    /**
+     * Start this automat's processing loop.
+     * <p>
+     * Will execute the init() method, if present, then
+     * repeatedly execute the handle() method until complete.
+     */
+    public void start() {
+        log.trace("start() invoked");
+        if (currentThread != null) {
+            log.error("Start with a thread already running!");
+            log.error("This causes an additional thread to be started.");
+        }
+        currentThread = jmri.util.ThreadingUtil.newThread(this, name);
+        currentThread.start();
+        summary.register(this);
+        count = 0;
+        log.trace("start() ends");
+    }
+
+    private volatile boolean running = false;
+
+    /**
+     * Is the thread in this object currently running?
+     * 
+     * @return true from the time the {@link #start} method is called
+     *          until the thread has completed running after 
+     *          the {@link #stop} method is called.
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Part of the implementation; not for general use.
+     * <p>
+     * This is invoked on currentThread.
+     */
+    @Override
+    public void run() {
+        log.trace("run starts with threadIsStopped {}", threadIsStopped);
+        try {
+            inThread = true;
+            init();
+            // the real processing in the next statement is in handle();
+            // and the loop call is just doing accounting
+            running = true;
+            while (!threadIsStopped && handle()) {
+                count++;
+                summary.loop(this);
+            }
+            if (threadIsStopped) {
+                log.debug("Current thread has been stopped()");
+            } else {
+                log.debug("normal termination, handle() returned false");
+            }
+        } catch (StopThreadException e1) {
+            log.debug("Current thread is stopped() via StopThreadException");
+        } catch (Exception e2) {
+            log.warn("Unexpected Exception ends AbstractAutomaton thread", e2);
+        } finally {
+            log.trace("setting currentThread to null");
+            currentThread = null;
+            threadIsStopped = false;
+            
+            done();
+        }
+        log.trace("setting running to false");
+        running = false;
+    }
+
+    /**
+     * Stop the thread as soon as possible.
+     * <p>
+     * This interrupts the thread, which will cause it to 
+     * terminate soon.  There's no guarantee as to how long that will
+     * take. It should be just a few milliseconds.
+     * <p>
+     * To see if the thread has terminated, check the 
+     * {@link #isRunning} status method.
+     * <p>
+     * Once the thread has terminated, it can be started again.
+     */
+    public void stop() {
+        log.debug("stop() invoked");
+        if (currentThread == null) {
+            log.error("Stop called with no current thread running!");
+            return;
+        }
+
+        threadIsStopped = true;
+        currentThread.interrupt();
+
+        done();
+        // note we don't set running = false here.  It's still running until the run() routine thinks it's not.
+        log.debug("stop() completed");
+    }
+
+    /**
+     * Part of the internal implementation; not for general use.
+     * <p>
+     * Common internal end-time processing
+     */
+    void done() {
+        log.trace("done invoked");
+        summary.remove(this);
+    }
+
+    private String name = null;
+
+    private int count;
+
+    /**
+     * Get the number of times the handle routine has executed
+     * since the last time {@link #start()} was called on it.
+     * <p>
+     * Used by classes such as those in {@link jmri.jmrit.automat.monitor} to monitor
+     * progress.
+     *
+     * @return the number of times {@link #handle()} has executed in this
+     *         AbstractAutomation since it was last started.
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * Get the thread name. Used by classes monitoring this AbstractAutomation,
+     * such as {@link jmri.jmrit.automat.monitor}.
+     *
+     * @return the name of this thread
+     * @see #setName(String)
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Update the name of this object.
+     * <p>
+     * name is not a bound parameter, so changes are not notified to listeners.
+     * <p> 
+     * If you're going to use this, it should generally be called
+     * before calling {@link #start()}.
+     *
+     * @param name the new name
+     * @see #getName()
+     */
+    public final void setName(String name) {
+        this.name = name;
+    }
+
+    @Deprecated(since="5.13.6", forRemoval=true) // This doesn't seem to have a purpose...
+    void defaultName() {
+    }
+
+    /**
+     * User-provided initialization routine.
+     * <p>
+     * This is called exactly once each time the object's start() method is called. This is where you
+     * put all the code that needs to be run when your object starts up: Finding
+     * sensors and turnouts, getting a throttle, etc.
+     */
+    protected void init() {
+    }
+
+    /**
+     * User-provided main routine.
+     * <p>
+     * This is run repeatedly until it signals the end by returning false. Many
+     * automata are intended to run forever, and will always return true.
+     *
+     * @return false to terminate the automaton, for example due to an error.
+     */
+    protected boolean handle() {
+        return false;
+    }
+
+    /**
+     * Control optional debugging prompt. If this is set true, each call to
+     * wait() will prompt the user whether to continue.
+     */
+    protected boolean promptOnWait = false;
+
+    /**
+     * Wait for a specified time and then return control.
+     *
+     * @param milliseconds the number of milliseconds to wait
+     */
+    public void waitMsec(int milliseconds) {
+        long target = System.currentTimeMillis() + milliseconds;
+        while (true) {
+            long stillToGo = target - System.currentTimeMillis();
+            if (stillToGo <= 0) {
+                break;
+            }
+            try {
+                Thread.sleep(stillToGo);
+            } catch (InterruptedException e) {
+                if (threadIsStopped) {
+                    throw new StopThreadException();
+                }
+                Thread.currentThread().interrupt(); // retain if needed later
+            }
+        }
+    }
+
+    private boolean waiting = false;
+
+    /**
+     * Indicates that object is waiting on a waitSomething call.
+     * <p>
+     * Specifically, the wait has progressed far enough that any change to the
+     * waited-on-condition will be detected.
+     *
+     * @return true if waiting; false otherwise
+     */
+    public boolean isWaiting() {
+        return waiting;
+    }
+
+    /**
+     * Internal common routine to handle start-of-wait bookkeeping.
+     */
+    private void startWait() {
+        waiting = true;
+    }
+
+    /**
+     * Internal common routine to handle end-of-wait bookkeeping.
+     */
+    private void endWait() {
+        if (promptOnWait) {
+            debuggingWait();
+        }
+        waiting = false;
+    }
+
+    /**
+     * Part of the internal implementation, not intended for users.
+     * <p>
+     * This handles exceptions internally, so they needn't clutter up the code.
+     * Note that the current implementation doesn't guarantee the time, either
+     * high or low.
+     * <p>
+     * Because of the way Jython access handles synchronization, this is
+     * explicitly synchronized internally.
+     *
+     * @param milliseconds the number of milliseconds to wait
+     */
+    protected void wait(int milliseconds) {
+        startWait();
+        synchronized (this) {
+            try {
+                if (milliseconds < 0) {
+                    super.wait();
+                } else {
+                    super.wait(milliseconds);
+                }
+            } catch (InterruptedException e) {
+                if (threadIsStopped) {
+                    throw new StopThreadException();
+                }
+                Thread.currentThread().interrupt(); // retain if needed later
+                log.warn("interrupted in wait");
+            }
+        }
+        endWait();
+    }
+
+    /**
+     * Flag used to ensure that service routines are only invoked in the
+     * automaton thread.
+     */
+    private boolean inThread = false;
+
+    private final AbstractAutomaton self = this;
+
+    /**
+     * Wait for a sensor to change state.
+     * <p>
+     * The current (OK) state of the Sensor is passed to avoid a possible race
+     * condition. The new state is returned for a similar reason.
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts the automaton's thread, who
+     * confirms the change.
+     *
+     * @param mState  Current state of the sensor
+     * @param mSensor Sensor to watch
+     * @return newly detected Sensor state
+     */
+    public int waitSensorChange(int mState, Sensor mSensor) {
+        if (!inThread) {
+            log.warn("waitSensorChange invoked from invalid context");
+        }
+        log.debug("waitSensorChange starts: {}", mSensor.getSystemName());
+        // register a listener
+        PropertyChangeListener l;
+        mSensor.addPropertyChangeListener(l = (PropertyChangeEvent e) -> {
+            synchronized (self) {
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        int now;
+        while (mState == (now = mSensor.getKnownState())) {
+            wait(-1);
+        }
+
+        // remove the listener & report new state
+        mSensor.removePropertyChangeListener(l);
+
+        return now;
+    }
+
+    /**
+     * Wait for a sensor to be active. (Returns immediately if already active)
+     *
+     * @param mSensor Sensor to watch
+     */
+    public void waitSensorActive(Sensor mSensor) {
+        log.debug("waitSensorActive starts");
+        waitSensorState(mSensor, Sensor.ACTIVE);
+    }
+
+    /**
+     * Wait for a sensor to be inactive. (Returns immediately if already
+     * inactive)
+     *
+     * @param mSensor Sensor to watch
+     */
+    public void waitSensorInactive(Sensor mSensor) {
+        log.debug("waitSensorInActive starts");
+        waitSensorState(mSensor, Sensor.INACTIVE);
+    }
+
+    /**
+     * Internal service routine to wait for one sensor to be in (or become in) a
+     * specific state.
+     * <p>
+     * Used by waitSensorActive and waitSensorInactive
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts this thread to confirm the change.
+     *
+     * @param mSensor the sensor to wait for
+     * @param state   the expected state
+     */
+    public synchronized void waitSensorState(Sensor mSensor, int state) {
+        if (!inThread) {
+            log.warn("waitSensorState invoked from invalid context");
+        }
+        if (mSensor.getKnownState() == state) {
+            return;
+        }
+        log.debug("waitSensorState starts: {} {}", mSensor.getSystemName(), state);
+        // register a listener
+        PropertyChangeListener l;
+        mSensor.addPropertyChangeListener(l = (PropertyChangeEvent e) -> {
+            synchronized (self) {
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        while (state != mSensor.getKnownState()) {
+            wait(-1);  // wait for notification
+        }
+
+        // remove the listener & report new state
+        mSensor.removePropertyChangeListener(l);
+
+    }
+
+    /**
+     * Wait for one of a list of sensors to be be inactive.
+     *
+     * @param mSensors sensors to wait on
+     */
+    public void waitSensorInactive(@Nonnull Sensor[] mSensors) {
+        log.debug("waitSensorInactive[] starts");
+        waitSensorState(mSensors, Sensor.INACTIVE);
+    }
+
+    /**
+     * Wait for one of a list of sensors to be be active.
+     *
+     * @param mSensors sensors to wait on
+     */
+    public void waitSensorActive(@Nonnull Sensor[] mSensors) {
+        log.debug("waitSensorActive[] starts");
+        waitSensorState(mSensors, Sensor.ACTIVE);
+    }
+
+    /**
+     * Wait for one of a list of sensors to be be in a selected state.
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts the automaton's thread, who
+     * confirms the change.
+     *
+     * @param mSensors Array of sensors to watch
+     * @param state    State to check (static value from jmri.Sensors)
+     */
+    public synchronized void waitSensorState(@Nonnull Sensor[] mSensors, int state) {
+        if (!inThread) {
+            log.warn("waitSensorState invoked from invalid context");
+        }
+        log.debug("waitSensorState[] starts");
+
+        // do a quick check first, just in case
+        if (checkForState(mSensors, state)) {
+            log.debug("returns immediately");
+            return;
+        }
+        // register listeners
+        int i;
+        PropertyChangeListener[] listeners
+                = new PropertyChangeListener[mSensors.length];
+        for (i = 0; i < mSensors.length; i++) {
+
+            mSensors[i].addPropertyChangeListener(listeners[i] = (PropertyChangeEvent e) -> {
+                synchronized (self) {
+                    log.trace("notify waitSensorState[] of property change");
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            });
+
+        }
+
+        while (!checkForState(mSensors, state)) {
+            wait(-1);
+        }
+
+        // remove the listeners
+        for (i = 0; i < mSensors.length; i++) {
+            mSensors[i].removePropertyChangeListener(listeners[i]);
+        }
+
+    }
+
+    /**
+     * Internal service routine to wait for one SignalHead to be in (or become in) a
+     * specific state.
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts this thread to confirm the change.
+     *
+     * @param mSignalHead the signal head to wait for
+     * @param state   the expected state
+     */
+    public synchronized void waitSignalHeadState(SignalHead mSignalHead, int state) {
+        if (!inThread) {
+            log.warn("waitSignalHeadState invoked from invalid context");
+        }
+        if (mSignalHead.getAppearance() == state) {
+            return;
+        }
+        log.debug("waitSignalHeadState starts: {} {}", mSignalHead.getSystemName(), state);
+        // register a listener
+        PropertyChangeListener l;
+        mSignalHead.addPropertyChangeListener(l = (PropertyChangeEvent e) -> {
+            synchronized (self) {
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        while (state != mSignalHead.getAppearance()) {
+            wait(-1);  // wait for notification
+        }
+
+        // remove the listener & report new state
+        mSignalHead.removePropertyChangeListener(l);
+
+    }
+
+    /**
+     * Internal service routine to wait for one signal mast to be showing a specific aspect
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts this thread to confirm the change.
+     *
+     * @param mSignalMast the mast to wait for
+     * @param aspect   the expected aspect
+     */
+    public synchronized void waitSignalMastState(@Nonnull SignalMast mSignalMast, @Nonnull String aspect) {
+        if (!inThread) {
+            log.warn("waitSignalMastState invoked from invalid context");
+        }
+        if (aspect.equals(mSignalMast.getAspect())) {
+            return;
+        }
+        log.debug("waitSignalMastState starts: {} {}", mSignalMast.getSystemName(), aspect);
+        // register a listener
+        PropertyChangeListener l;
+        mSignalMast.addPropertyChangeListener(l = (PropertyChangeEvent e) -> {
+            synchronized (self) {
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        while (! aspect.equals(mSignalMast.getAspect())) {
+            wait(-1);  // wait for notification
+        }
+
+        // remove the listener & report new state
+        mSignalMast.removePropertyChangeListener(l);
+
+    }
+
+    /**
+     * Wait for a warrant to change into or out of running state.
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts the automaton's thread, who
+     * confirms the change.
+     *
+     * @param warrant The name of the warrant to watch
+     * @param state   State to check (static value from jmri.logix.warrant)
+     */
+    public synchronized void waitWarrantRunState(@Nonnull Warrant warrant, int state) {
+        if (!inThread) {
+            log.warn("waitWarrantRunState invoked from invalid context");
+        }
+        log.debug("waitWarrantRunState {}, {} starts", warrant.getDisplayName(), state);
+
+        // do a quick check first, just in case
+        if (warrant.getRunMode() == state) {
+            log.debug("waitWarrantRunState returns immediately");
+            return;
+        }
+        // register listener
+        PropertyChangeListener listener;
+        warrant.addPropertyChangeListener(listener = (PropertyChangeEvent e) -> {
+            synchronized (self) {
+                log.trace("notify waitWarrantRunState of property change");
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        while (warrant.getRunMode() != state) {
+            wait(-1);
+        }
+
+        // remove the listener
+        warrant.removePropertyChangeListener(listener);
+
+    }
+
+    /**
+     * Wait for a warrant to enter a named block.
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts this thread to confirm the change.
+     *
+     * @param warrant  The name of the warrant to watch
+     * @param block    block to check
+     * @param occupied Determines whether to wait for the block to become
+     *                 occupied or unoccupied
+     */
+    public synchronized void waitWarrantBlock(@Nonnull Warrant warrant, @Nonnull String block, boolean occupied) {
+        if (!inThread) {
+            log.warn("waitWarrantBlock invoked from invalid context");
+        }
+        log.debug("waitWarrantBlock {}, {} {} starts", warrant.getDisplayName(), block, occupied);
+
+        // do a quick check first, just in case
+        if (warrant.getCurrentBlockName().equals(block) == occupied) {
+            log.debug("waitWarrantBlock returns immediately");
+            return;
+        }
+        // register listener
+        PropertyChangeListener listener;
+        warrant.addPropertyChangeListener(listener = (PropertyChangeEvent e) -> {
+            synchronized (self) {
+                log.trace("notify waitWarrantBlock of property change");
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        while (warrant.getCurrentBlockName().equals(block) != occupied) {
+            wait(-1);
+        }
+
+        // remove the listener
+        warrant.removePropertyChangeListener(listener);
+
+    }
+
+    private volatile boolean blockChanged = false;
+    private volatile String blockName = null;
+
+    /**
+     * Wait for a warrant to either enter a new block or to stop running.
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts the automaton's thread, who
+     * confirms the change.
+     *
+     * @param warrant The name of the warrant to watch
+     *
+     * @return The name of the block that was entered or null if the warrant is
+     *         no longer running.
+     */
+    public synchronized String waitWarrantBlockChange(@Nonnull Warrant warrant) {
+        if (!inThread) {
+            log.warn("waitWarrantBlockChange invoked from invalid context");
+        }
+        log.debug("waitWarrantBlockChange {}", warrant.getDisplayName());
+
+        // do a quick check first, just in case
+        if (warrant.getRunMode() != Warrant.MODE_RUN) {
+            log.debug("waitWarrantBlockChange returns immediately");
+            return null;
+        }
+        // register listeners
+        blockName = null;
+        blockChanged = false;
+
+        PropertyChangeListener listener;
+        warrant.addPropertyChangeListener(listener = (PropertyChangeEvent e) -> {
+            if (e.getPropertyName().equals("blockChange")) {
+                blockChanged = true;
+                blockName = ((OBlock) e.getNewValue()).getDisplayName();
+            }
+            if (e.getPropertyName().equals("StopWarrant")) {
+                blockName = null;
+                blockChanged = true;
+            }
+            synchronized (self) {
+                log.trace("notify waitWarrantBlockChange of property change");
+                self.notifyAll(); // should be only one thread waiting, but just in case
+            }
+        });
+
+        while (!blockChanged) {
+            wait(-1);
+        }
+
+        // remove the listener
+        warrant.removePropertyChangeListener(listener);
+
+        return blockName;
+    }
+
+    /**
+     * Wait for a list of turnouts to all be in a consistent state
+     * <p>
+     * This works by registering a listener, which is likely to run in another
+     * thread. That listener then interrupts the automaton's thread, who
+     * confirms the change.
+     *
+     * @param mTurnouts list of turnouts to watch
+     */
+    public synchronized void waitTurnoutConsistent(@Nonnull Turnout[] mTurnouts) {
+        if (!inThread) {
+            log.warn("waitTurnoutConsistent invoked from invalid context");
+        }
+        log.debug("waitTurnoutConsistent[] starts");
+
+        // do a quick check first, just in case
+        if (checkForConsistent(mTurnouts)) {
+            log.debug("returns immediately");
+            return;
+        }
+        // register listeners
+        int i;
+        PropertyChangeListener[] listeners
+                = new PropertyChangeListener[mTurnouts.length];
+        for (i = 0; i < mTurnouts.length; i++) {
+
+            mTurnouts[i].addPropertyChangeListener(listeners[i] = (PropertyChangeEvent e) -> {
+                synchronized (self) {
+                    log.trace("notify waitTurnoutConsistent[] of property change");
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            });
+
+        }
+
+        while (!checkForConsistent(mTurnouts)) {
+            wait(-1);
+        }
+
+        // remove the listeners
+        for (i = 0; i < mTurnouts.length; i++) {
+            mTurnouts[i].removePropertyChangeListener(listeners[i]);
+        }
+
+    }
+
+    /**
+     * Convenience function to set a bunch of turnouts and wait until they are
+     * all in a consistent state
+     *
+     * @param closed turnouts to set to closed state
+     * @param thrown turnouts to set to thrown state
+     */
+    public void setTurnouts(@Nonnull Turnout[] closed, @Nonnull Turnout[] thrown) {
+        Turnout[] turnouts = new Turnout[closed.length + thrown.length];
+        int ti = 0;
+        for (int i = 0; i < closed.length; ++i) {
+            turnouts[ti++] = closed[i];
+            closed[i].setCommandedState(Turnout.CLOSED);
+        }
+        for (int i = 0; i < thrown.length; ++i) {
+            turnouts[ti++] = thrown[i];
+            thrown[i].setCommandedState(Turnout.THROWN);
+        }
+        waitTurnoutConsistent(turnouts);
+    }
+
+    /**
+     * Wait, up to a specified time, for one of a list of NamedBeans (sensors,
+     * signal heads and/or turnouts) to change their state.
+     * <p>
+     * Registers a listener on each of the NamedBeans listed. The listener is
+     * likely to run in another thread. Each fired listener then queues a check
+     * to the automaton's thread.
+     *
+     * @param mInputs  Array of NamedBeans to watch
+     * @param maxDelay maximum amount of time (milliseconds) to wait before
+     *                 continuing anyway. -1 means forever
+     */
+    public void waitChange(@Nonnull NamedBean[] mInputs, int maxDelay) {
+        if (!inThread) {
+            log.warn("waitChange invoked from invalid context");
+        }
+
+        int i;
+        int[] tempState = waitChangePrecheckStates;
+        // do we need to create it now?
+        boolean recreate = false;
+        if (waitChangePrecheckBeans != null && waitChangePrecheckStates != null) {
+            // Seems precheck intended, see if done right
+            if (waitChangePrecheckBeans.length != mInputs.length) {
+                log.warn("Precheck ignored because of mismatch in size: before {}, now {}", waitChangePrecheckBeans.length, mInputs.length);
+                recreate = true;
+            }
+            if (waitChangePrecheckBeans.length != waitChangePrecheckStates.length) {
+                log.error("Precheck data inconsistent because of mismatch in size: {}, {}", waitChangePrecheckBeans.length, waitChangePrecheckStates.length);
+                recreate = true;
+            }
+            if (!recreate) { // have to check if the beans are the same, but only check if the above tests pass
+                for (i = 0; i < mInputs.length; i++) {
+                    if (waitChangePrecheckBeans[i] != mInputs[i]) {
+                        log.warn("Precheck ignored because of mismatch in bean {}", i);
+                        recreate = true;
+                        break;
+                    }
+                }
+            }
+        } else {
+            recreate = true;
+        }
+
+        if (recreate) {
+            // here, have to create a new state array
+            log.trace("recreate state array");
+            tempState = new int[mInputs.length];
+            for (i = 0; i < mInputs.length; i++) {
+                tempState[i] = mInputs[i].getState();
+            }
+        }
+        waitChangePrecheckBeans = null;
+        waitChangePrecheckStates = null;
+        final int[] initialState = tempState; // needs to be final for off-thread references
+
+        log.debug("waitChange[] starts for {} listeners", mInputs.length);
+        waitChangeQueue.clear();
+
+        // register listeners
+        PropertyChangeListener[] listeners = new PropertyChangeListener[mInputs.length];
+        for (i = 0; i < mInputs.length; i++) {
+            mInputs[i].addPropertyChangeListener(listeners[i] = (PropertyChangeEvent e) -> {
+                if (!waitChangeQueue.offer(e)) {
+                    log.warn("Waiting changes capacity exceeded; not adding {} to queue", e);
+                }
+            });
+
+        }
+
+        log.trace("waitChange[] listeners registered");
+
+        // queue a check for whether there was a change while registering
+        jmri.util.ThreadingUtil.runOnLayoutEventually(() -> {
+            log.trace("start separate waitChange check");
+            for (int j = 0; j < mInputs.length; j++) {
+                if (initialState[j] != mInputs[j].getState()) {
+                    log.trace("notify that input {} changed when initial on-layout check was finally done", j);
+                    PropertyChangeEvent e = new PropertyChangeEvent(mInputs[j], "State", initialState[j], mInputs[j].getState());
+                    if (!waitChangeQueue.offer(e)) {
+                        log.warn("Waiting changes capacity exceeded; not adding {} to queue", e);
+                    }
+                    break;
+                }
+            }
+            log.trace("end separate waitChange check");
+        });
+
+        // wait for notify from a listener
+        startWait();
+
+        PropertyChangeEvent prompt;
+        try {
+            if (maxDelay < 0) {
+                prompt = waitChangeQueue.take();
+            } else {
+                prompt = waitChangeQueue.poll(maxDelay, TimeUnit.MILLISECONDS);
+            }
+            if (prompt != null) {
+                log.trace("waitChange continues from {}", prompt.getSource());
+            } else {
+                log.trace("waitChange continues");
+            }
+        } catch (InterruptedException e) {
+            if (threadIsStopped) {
+                throw new StopThreadException();
+            }
+            Thread.currentThread().interrupt(); // retain if needed later
+            log.warn("AbstractAutomaton {} waitChange interrupted", getName());
+        }
+
+        // remove the listeners
+        for (i = 0; i < mInputs.length; i++) {
+            mInputs[i].removePropertyChangeListener(listeners[i]);
+        }
+        log.trace("waitChange[] listeners removed");
+        endWait();
+    }
+
+    NamedBean[] waitChangePrecheckBeans = null;
+    int[] waitChangePrecheckStates = null;
+    BlockingQueue<PropertyChangeEvent> waitChangeQueue = new LinkedBlockingQueue<PropertyChangeEvent>();
+
+    /**
+     * Remembers the current state of a set of NamedBeans
+     * so that a later looping call to waitChange(..) on that same
+     * list won't miss any intervening changes.
+     *
+     * @param mInputs Array of NamedBeans to watch
+     */
+    public void waitChangePrecheck(NamedBean[] mInputs) {
+        waitChangePrecheckBeans = new NamedBean[mInputs.length];
+        waitChangePrecheckStates = new int[mInputs.length];
+        for (int i = 0; i < mInputs.length; i++) {
+            waitChangePrecheckBeans[i] = mInputs[i];
+            waitChangePrecheckStates[i] = mInputs[i].getState();
+        }
+    }
+
+    /**
+     * Wait forever for one of a list of NamedBeans (sensors, signal heads
+     * and/or turnouts) to change.
+     *
+     * @param mInputs Array of NamedBeans to watch
+     */
+    public void waitChange(NamedBean[] mInputs) {
+        waitChange(mInputs, -1);
+    }
+
+    /**
+     * Wait for one of an array of sensors to change.
+     * <p>
+     * This is an older method, now superceded by waitChange, which can wait for
+     * any NamedBean.
+     *
+     * @param mSensors Array of sensors to watch
+     */
+    public void waitSensorChange(Sensor[] mSensors) {
+        waitChange(mSensors);
+    }
+
+    /**
+     * Check an array of sensors to see if any are in a specific state
+     *
+     * @param mSensors Array to check
+     * @return true if any are ACTIVE
+     */
+    private boolean checkForState(Sensor[] mSensors, int state) {
+        for (Sensor mSensor : mSensors) {
+            if (mSensor.getKnownState() == state) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkForConsistent(Turnout[] mTurnouts) {
+        for (int i = 0; i < mTurnouts.length; ++i) {
+            if (!mTurnouts[i].isConsistentState()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private DccThrottle throttle;
+    private boolean failedThrottleRequest = false;
+
+    /**
+     * Obtains a DCC throttle, including waiting for the command station
+     * response.
+     *
+     * @param address     Numeric address value
+     * @param longAddress true if this is a long address, false for a short
+     *                    address
+     * @param waitSecs    number of seconds to wait for throttle to acquire
+     *                    before returning null
+     * @return A usable throttle, or null if error
+     */
+    public DccThrottle getThrottle(int address, boolean longAddress, int waitSecs) {
+        log.debug("requesting DccThrottle for addr {}", address);
+        if (!inThread) {
+            log.warn("getThrottle invoked from invalid context");
+        }
+        throttle = null;
+        ThrottleListener throttleListener = new ThrottleListener() {
+            @Override
+            public void notifyThrottleFound(DccThrottle t) {
+                throttle = t;
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            }
+
+            @Override
+            public void notifyFailedThrottleRequest(jmri.LocoAddress address, String reason) {
+                log.error("Throttle request failed for {} because {}", address, reason);
+                failedThrottleRequest = true;
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            }
+
+            /**
+             * No steal or share decisions made locally
+             */
+            @Override
+            public void notifyDecisionRequired(jmri.LocoAddress address, DecisionType question) {
+            }
+        };
+        boolean ok = InstanceManager.getDefault(ThrottleManager.class).requestThrottle(
+            new jmri.DccLocoAddress(address, longAddress), throttleListener, false);
+
+        // check if reply is coming
+        if (!ok) {
+            log.info("Throttle for loco {} not available",address);
+            InstanceManager.getDefault(ThrottleManager.class).cancelThrottleRequest(
+                new jmri.DccLocoAddress(address, longAddress), throttleListener);  //kill the pending request
+            return null;
+        }
+
+        // now wait for reply from identified throttle
+        int waited = 0;
+        while (throttle == null && failedThrottleRequest == false && waited <= waitSecs) {
+            log.debug("waiting for throttle");
+            wait(1000);  //  1 seconds
+            waited++;
+            if (throttle == null) {
+                log.warn("Still waiting for throttle {}!", address);
+            }
+        }
+        if (throttle == null) {
+            log.debug("canceling request for Throttle {}", address);
+            InstanceManager.getDefault(ThrottleManager.class).cancelThrottleRequest(
+                new jmri.DccLocoAddress(address, longAddress), throttleListener);  //kill the pending request
+        }
+        return throttle;
+    }
+
+    public DccThrottle getThrottle(int address, boolean longAddress) {
+        return getThrottle(address, longAddress, 30);  //default to 30 seconds wait
+    }
+
+    /**
+     * Obtains a DCC throttle, including waiting for the command station
+     * response.
+     *
+     * @param re       specifies the desired locomotive
+     * @param waitSecs number of seconds to wait for throttle to acquire before
+     *                 returning null
+     * @return A usable throttle, or null if error
+     */
+    public DccThrottle getThrottle(BasicRosterEntry re, int waitSecs) {
+        log.debug("requesting DccThrottle for rosterEntry {}", re.getId());
+        if (!inThread) {
+            log.warn("getThrottle invoked from invalid context");
+        }
+        throttle = null;
+        ThrottleListener throttleListener = new ThrottleListener() {
+            @Override
+            public void notifyThrottleFound(DccThrottle t) {
+                throttle = t;
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            }
+
+            @Override
+            public void notifyFailedThrottleRequest(jmri.LocoAddress address, String reason) {
+                log.error("Throttle request failed for {} because {}", address, reason);
+                failedThrottleRequest = true;
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            }
+
+            /**
+             * No steal or share decisions made locally
+             * {@inheritDoc}
+             */
+            @Override
+            public void notifyDecisionRequired(jmri.LocoAddress address, DecisionType question) {
+            }
+        };
+        boolean ok = InstanceManager.getDefault(ThrottleManager.class)
+                .requestThrottle(re, throttleListener, false);
+
+        // check if reply is coming
+        if (!ok) {
+            log.info("Throttle for loco {} not available", re.getId());
+            InstanceManager.getDefault(ThrottleManager.class).cancelThrottleRequest(
+                re.getDccLocoAddress(), throttleListener);  //kill the pending request
+            return null;
+        }
+
+        // now wait for reply from identified throttle
+        int waited = 0;
+        while (throttle == null && failedThrottleRequest == false && waited <= waitSecs) {
+            log.debug("waiting for throttle");
+            wait(1000);  //  1 seconds
+            waited++;
+            if (throttle == null) {
+                log.warn("Still waiting for throttle {}!", re.getId());
+            }
+        }
+        if (throttle == null) {
+            log.debug("canceling request for Throttle {}", re.getId());
+            InstanceManager.getDefault(ThrottleManager.class).cancelThrottleRequest(
+                re.getDccLocoAddress(), throttleListener);  //kill the pending request
+        }
+        return throttle;
+    }
+
+    public DccThrottle getThrottle(BasicRosterEntry re) {
+        return getThrottle(re, 30);  //default to 30 seconds
+    }
+
+    /**
+     * Write a CV on the service track, including waiting for completion.
+     *
+     * @param cv    Number 1 through 512
+     * @param value Value 0-255 to be written
+     * @return true if completed OK
+     */
+    public boolean writeServiceModeCV(String cv, int value) {
+        // get service mode programmer
+        Programmer programmer = InstanceManager.getDefault(jmri.GlobalProgrammerManager.class)
+                .getGlobalProgrammer();
+
+        if (programmer == null) {
+            log.error("No programmer available as JMRI is currently configured");
+            return false;
+        }
+
+        // do the write, response will wake the thread
+        try {
+            programmer.writeCV(cv, value, (int value1, int status) -> {
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            });
+        } catch (ProgrammerException e) {
+            log.warn("Exception during writeServiceModeCV", e);
+            return false;
+        }
+        // wait for the result
+        wait(-1);
+
+        return true;
+    }
+
+    private volatile int cvReturnValue;
+
+    /**
+     * Read a CV on the service track, including waiting for completion.
+     *
+     * @param cv Number 1 through 512
+     * @return -1 if error, else value
+     */
+    public int readServiceModeCV(String cv) {
+        // get service mode programmer
+        Programmer programmer = InstanceManager.getDefault(jmri.GlobalProgrammerManager.class)
+                .getGlobalProgrammer();
+
+        if (programmer == null) {
+            log.error("No programmer available as JMRI is currently configured");
+            return -1;
+        }
+
+        // do the read, response will wake the thread
+        cvReturnValue = -1;
+        try {
+            programmer.readCV(cv, (int value, int status) -> {
+                cvReturnValue = value;
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            });
+        } catch (ProgrammerException e) {
+            log.warn("Exception during writeServiceModeCV", e);
+            return -1;
+        }
+        // wait for the result
+        wait(-1);
+        return cvReturnValue;
+    }
+
+    /**
+     * Write a CV in ops mode, including waiting for completion.
+     *
+     * @param cv          Number 1 through 512
+     * @param value       0-255 value to be written
+     * @param loco        Locomotive decoder address
+     * @param longAddress true is the locomotive is using a long address
+     * @return true if completed OK
+     */
+    public boolean writeOpsModeCV(String cv, int value, boolean longAddress, int loco) {
+        // get service mode programmer
+        Programmer programmer = InstanceManager.getDefault(jmri.AddressedProgrammerManager.class)
+                .getAddressedProgrammer(longAddress, loco);
+
+        if (programmer == null) {
+            log.error("No programmer available as JMRI is currently configured");
+            return false;
+        }
+
+        // do the write, response will wake the thread
+        try {
+            programmer.writeCV(cv, value, (int value1, int status) -> {
+                synchronized (self) {
+                    self.notifyAll(); // should be only one thread waiting, but just in case
+                }
+            });
+        } catch (ProgrammerException e) {
+            log.warn("Exception during writeServiceModeCV", e);
+            return false;
+        }
+        // wait for the result
+        wait(-1);
+
+        return true;
+    }
+
+    JFrame messageFrame = null;
+    String message = null;
+
+    /**
+     * Internal class to show a Frame
+     */
+    public class MsgFrame implements Runnable {
+
+        String mMessage;
+        boolean mPause;
+        boolean mShow;
+        JFrame mFrame = null;
+        JButton mButton;
+        JTextArea mArea;
+
+        public void hide() {
+            mShow = false;
+            // invoke the operation
+            javax.swing.SwingUtilities.invokeLater(this);
+        }
+
+        /**
+         * Show a message in the message frame, and optionally wait for the user
+         * to acknowledge.
+         *
+         * @param pMessage the message to show
+         * @param pPause   true if this automaton should wait for user
+         *                 acknowledgment; false otherwise
+         */
+        public void show(String pMessage, boolean pPause) {
+            mMessage = pMessage;
+            mPause = pPause;
+            mShow = true;
+
+            // invoke the operation
+            javax.swing.SwingUtilities.invokeLater(this);
+            // wait to proceed?
+            if (mPause) {
+                synchronized (self) {
+                    new jmri.util.WaitHandler(this);
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            // create the frame if it doesn't exist
+            if (mFrame == null) {
+                mFrame = new JFrame("");
+                mArea = new JTextArea();
+                mArea.setEditable(false);
+                mArea.setLineWrap(false);
+                mArea.setWrapStyleWord(true);
+                mButton = new JButton("Continue");
+                mFrame.getContentPane().setLayout(new BorderLayout());
+                mFrame.getContentPane().add(mArea, BorderLayout.CENTER);
+                mFrame.getContentPane().add(mButton, BorderLayout.SOUTH);
+                mButton.addActionListener((java.awt.event.ActionEvent e) -> {
+                    synchronized (self) {
+                        self.notifyAll(); // should be only one thread waiting, but just in case
+                    }
+                    mFrame.setVisible(false);
+                });
+                mFrame.pack();
+            }
+            if (mShow) {
+                // update message, show button if paused
+                mArea.setText(mMessage);
+                if (mPause) {
+                    mButton.setVisible(true);
+                } else {
+                    mButton.setVisible(false);
+                }
+                // do optional formatting
+                format();
+                // center the frame
+                mFrame.pack();
+                Dimension screen = mFrame.getContentPane().getToolkit().getScreenSize();
+                Dimension size = mFrame.getSize();
+                mFrame.setLocation((screen.width - size.width) / 2, (screen.height - size.height) / 2);
+                // and show it to the user
+                mFrame.setVisible(true);
+            } else {
+                mFrame.setVisible(false);
+            }
+        }
+
+        /**
+         * Abstract method to handle formatting of the text on a show
+         */
+        protected void format() {
+        }
+    }
+
+    JFrame debugWaitFrame = null;
+
+    /**
+     * Wait for the user to OK moving forward. This is complicated by not
+     * running in the GUI thread, and by not wanting to use a modal dialog.
+     */
+    private void debuggingWait() {
+        // post an event to the GUI pane
+        Runnable r = () -> {
+            // create a prompting frame
+            if (debugWaitFrame == null) {
+                debugWaitFrame = new JFrame("Automaton paused");
+                JButton b = new JButton("Continue");
+                debugWaitFrame.getContentPane().add(b);
+                b.addActionListener((java.awt.event.ActionEvent e) -> {
+                    synchronized (self) {
+                        self.notifyAll(); // should be only one thread waiting, but just in case
+                    }
+                    debugWaitFrame.setVisible(false);
+                });
+                debugWaitFrame.pack();
+            }
+            debugWaitFrame.setVisible(true);
+        };
+        javax.swing.SwingUtilities.invokeLater(r);
+        // wait to proceed
+        try {
+            super.wait();
+        } catch (InterruptedException e) {
+            if (threadIsStopped) {
+                throw new StopThreadException();
+            }
+            Thread.currentThread().interrupt(); // retain if needed later
+            log.warn("Interrupted during debugging wait, not expected");
+        }
+    }
+
+    /**
+     * An exception that's used internally in AbstractAutomation to stop
+     * the thread.
+     */
+    private static class StopThreadException extends RuntimeException {
+    }
+
+    // initialize logging
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AbstractAutomaton.class);
+}

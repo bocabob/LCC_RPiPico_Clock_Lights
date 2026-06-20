@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; le 2013-09-08-->
+<head>
+  <title>JMRI: Plug-in mechanisms</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI technical code plugins extension plug-in">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+<h1>JMRI: M&eacute;canismes Plug-in</h1>
+
+      <p>L'objectif initial du
+      projet &eacute;tait de produire une biblioth&egrave;que que
+      les gens pourraient utiliser pour cr&eacute;er leurs propres
+      applications. Bien que certaines personnes l'aient fait,
+      beaucoup utilisent les applications existantes telles que
+      DecoderPro, PanelPro et SoundPro. Nous voulons rendre ceci
+      plus souple en fournissant un moyen d'&eacute;tendre ces
+      programmes sans avoir &agrave; les reconstruire &agrave;
+      partir de z&eacute;ro. Cette note d&eacute;crit le
+      m&eacute;canismes de ce qui sera inclus dans JMRI 2.4 et
+      ult&eacute;rieures.</p>
+
+      <ol>
+        <li>CLASSPATH
+
+          <p>DecoderPro et les autres sont g&eacute;r&eacute;s via
+          une commande java qui fixe le CLASSPATH et diverses
+          options. Comment c'est fait r&eacute;ellement, &ccedil;a
+          varie en fonction de la plate-forme: csh ,scripts sur
+          Unix, un <a href="StartUpScripts.shtml#windows">lanceur
+          d'applications</a> sous Windows, des kits d'applications
+          sous Mac OS X, etc</p>
+
+          <p>Pour rendre facile l'ajout des plug-ins, ils englobent
+          tous les fichiers.jar dans le r&eacute;pertoire de
+          l'application, et dans son sous-r&eacute;pertoire "lib/",
+          dans le CLASSPATH.</p>
+
+          <p>Si vous cr&eacute;ez un fichier jar, y compris votre
+          code, il sera automatiquement trouv&eacute;. Vous pouvez
+          aussi mettre vos classes dans le r&eacute;pertoire
+          "classes" du r&eacute;pertoire de d&eacute;marrage, ce
+          qui est recherch&eacute; en premier.</p>
+
+          <p>Pour plus d'informations, voir la page <a href=
+          "StartUpScripts.shtml">sur les scripts de
+          d&eacute;marrage</a>.</p>
+        </li>
+
+        <li>Remplacement des classes existantes
+
+          <p>Notez que vous pouvez remplacer directement l'un des
+          fichiers dans la distribution jmri.jar avec vos propres
+          versions en les mettant dans un fichier jar c'est la
+          premi&egrave;re recherche. Par exemple, inclure une
+          version modifi&eacute;e d'un fichier .properties vous
+          permet d'inclure des versions personnalis&eacute;es de
+          menu chaines. Cela peut aussi &ecirc;tre fait avec un
+          fichier .class, par exemple en changeant l'ordre des
+          items du menu en rempla&ccedil;ant la classe
+          DecoderPro.</p>
+        </li>
+      </ol>
+
+      <h2>Autres M&eacute;canismes</h2>Il est &eacute;galement
+      possible de personnaliser votre version de JMRI utilisant des
+      scripts, et en utilisant les <a href=
+      "../../../package/apps/TabbedPreferences.shtml">pr&eacute;f&eacute;rences
+      avanc&eacute;es</a>.
+
+      <p>Les scripts peuvent localiser et acc&eacute;der &agrave;
+      n'importe quelle fen&ecirc;tre ouverte, par exemple.
+      L'exemple de script <a href=
+      "https://jmri.org/jython/AddButton.py">AddButton.py</a> est un
+      exemple de l'ajout d'un bouton de script sur la fen&ecirc;tre
+      principale. Le <a href=
+      "https://jmri.org/jython/DisableOpsMode.py">DisableOpsMode.py</a>
+      montre un exemple de script pour comment faire pour modifier
+      la fen&ecirc;tre principale et supprimer le bouton de
+      programmation voie principale. L'exemple de script <a href=
+      "https://jmri.org/jython/ReporterFontControl.py">ReporterFontControl.py</a>
+      est un exemple encore plus avanc&eacute;s qui modifie
+      l'apparence des &eacute;l&eacute;ments sur les &eacute;crans
+      du panneau.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div><!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

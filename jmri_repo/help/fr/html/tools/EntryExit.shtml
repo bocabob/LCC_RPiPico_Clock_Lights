@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Herv&#233; Blorec 2013-09-20 -->
+<head>
+  <title>JMRI: Entry Exit (NX) Documentation</title>
+  <meta name="author" content="Kevin Dickerson">
+  <meta name="keywords" content=
+  "hardware layout java model railroad JMRI CMRI decoderpro panelpro tools loconet lenz nce easydcc dcc nmra">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h2>JMRI: Documentation Routage Entrée Sortie (NX)</h2>
+
+      <h3>Qu'est ce qu'un Routage Entrée/Sortie (NX)?</h3>
+
+      <p>Le Routage NX Routing, construit un chemin dynamique d'accès valide entre deux
+      emplacements sur un Éditeur de Réseau tels que les capteurs ou les Mâts de Signalisation. Le
+      chemin peut traverser un certain nombre d'aiguillages et des cantons différents. L'entrée et
+      le points de sortie sur l'Éditeur de Réseau sont défini par l'emplacement des capteurs dans
+      différents cantons frontières. Quand deux capteurs sont activés et une voie libre et valide
+      se trouve entre eux, alors les aiguillages dans l'itinéraire seront automatiquement réglés en
+      conséquence.</p>
+
+      <p>S'il ya plusieurs chemins entre deux emplacements, le système utilisera le chemin avec le
+      plus petit coùt ou nombres de cantons différents plusieurs blocs. Si l'un des cantons sur l'
+      voie est déjà occupé, et qu'il ya un chemin alternatif valide, celui-ci sera pris.</p>
+
+      <h3>Comment configurer un Routage pour entrée et sortie :</h3>
+      D'abord, vous aurez besoin d'avoir construit une représentation de votre réseau dans l'
+      éditeur de réseau, les cantons devront également être définis de telle sorte que les capteurs
+      peuvent être attribué à la limite.
+      <h3>Plaçement des Capteurs</h3>
+      Les capteurs peuvent être placés par les aiguillages, les points d'ancrage et des
+      croisements, mais seulement là où il ya une frontière entre deux cantons de réseau
+      différents.<br>
+      Pour ajouter un capteur clic droit sur le point de l'aiguillage, croisement ou point
+      d'ancrage et si une limite de canton existe, vous aurez la possibilité de "Set capteurs ..."
+      Vous pouvez également définir des capteurs au pare-chocs d'extrémité ou butoirs.
+      <p>Il Vous sera alors présenté avec une nouvelle fenêtre qui vous permet de sélectionner le
+      capteur qui sera utilisé soit pour Â«protégerÂ» ou être à la limite du bloc x et y.<br>
+      La frontière ou le canton de protection choisi définiront la direction dans laquelle le
+      capteurs est actif.</p>
+
+      <p><img src="images/EntryExitExample1.png" height="560" width="628" alt="">
+      </p>
+
+      <p>Dans l'exemple ci-dessus, le capteur de protection du canton 51 sera utilisé pour les
+      itinéraires allant vers l'est. Alors que le capteur de protection du canton 50, sera utilisé
+      pour les itinéraires allant en direction de l'ouest.</p>
+
+      <p>Pour les aiguillages et les croisements, vous pouvez seulement ajouter un capteurs pour la
+      frontière entrer dans l'aiguillage ou ou le croisement, il n'est pas possible d'ajouter un
+      capteur pour la limite allant à l'estérieur de l'aiguillage ou du croisement.<br>
+      Par exemple, si le bloc A est la section de la voie reliée à l'aiguillage et que l'
+      aiguillage est dans le canton B, vous pouvez seulement ajouter un capteur qui fait face dans
+      le bloc A qui protège le canton B, vous ne pouvez pas ajouter un capteur qui fait face dans
+      le canton B pour protégercanton A.</p>
+
+      <p><img src="images/EntryExitLayout.png" height="232" width="725" alt="">
+      </p>
+
+      <h3>Génération paires d'Entrée-Sortie</h3>
+      Vous pouvez demander au système de générer automatiquement les paires de base d'Entrée-Sortie
+      et il est également possible d'ajouter manuellement des paires dans le système, avec l'ajout
+      de ce qui serait normalement considéré comme une configuration invalide. Pour accéder au
+      panneau d'Entrée-Sortie, sélectionnez "Entrée-Sortie" dans le menu des outils de l'éditeur de
+      réseau. Vous verrez alors apparaître l'écran suivant ...
+      <p><img src="images/AddEntryExit.png" height="302" width="633" alt="">
+      </p>
+
+      <p>Si vous appuyez sur <strong>Générer Auto paires Entrée-Sortie</strong> vous découvrirez
+      alors toutes les paires d'Entrée-Sortie valides sur le réseau.<br>
+      Utiliser les listes déroulantes, il est également possible d'ajouter manuellement des paires
+      d'Entrée-Sortie supplémentaires.<br>
+      Dans tous les cas où Le détecteur <strong>De</strong> est réglé actif suivi par le capteur
+      <strong>Vers</strong>, l' itinéraire sera établi entre ces deux points et les deux capteurs
+      seront de retour à l'état inactif. Si l'option <strong>deux Voies</strong> est cochée, alors
+      il est possible d'activer la voie dans les deux sens, par exemple vous pouvez sélectionner le
+      capteur Vers avant le capteur De et le même itinéraire sera défini.</p>
+
+      <h3>Limitation</h3>
+
+      <p>L'Entrée-Sortie actuellement ne traite que des déviations d'aiguillages entre deux
+      itinéraires, il ne fournit pas encore une méthode pour mettre en place une logique pour Mât
+      de Signalisation ou plein de verrouillage. Cela est prévu pour être développé au cours de
+      2012.</p>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

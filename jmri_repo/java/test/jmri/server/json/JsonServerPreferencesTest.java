@@ -1,0 +1,32 @@
+package jmri.server.json;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class JsonServerPreferencesTest {
+
+    @Test
+    public void testCTor() {
+        JsonServerPreferences t = new JsonServerPreferences();
+        Assertions.assertNotNull( t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        jmri.util.JUnitUtil.resetProfileManager();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(JsonServerPreferencesTest.class);
+
+}

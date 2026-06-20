@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../XSLT/decoder.xsl"?>
+<!-- Copyright (C) JMRI 2018 All rights reserved -->
+<!--                                                                        -->
+<!-- JMRI is free software; you can redistribute it and/or modify it under  -->
+<!-- the terms of version 2 of the GNU General Public License as published  -->
+<!-- by the Free Software Foundation. See the "COPYING" file for a copy     -->
+<!-- of this license.                                                       -->
+<!--                                                                        -->
+<!-- JMRI is distributed in the hope that it will be useful, but WITHOUT    -->
+<!-- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  -->
+<!-- FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License  -->
+<!-- for more details.                                                      -->
+
+<!-- Stop/Run enum for Märklin mLD/3 and mSD/3 decoders                     -->
+
+<enumVal xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/decoder-4-15-2.xsd">
+  <enumChoice value="0">
+    <choice>Both</choice>
+    <choice xml:lang="de">Beide</choice>
+    <choice xml:lang="fr">Les deux</choice>
+    <choice xml:lang="cs">Obojí</choice>
+  </enumChoice>  
+  <enumChoice value="1">
+    <choice>Stopped</choice>
+    <choice xml:lang="de">im Stand</choice>
+    <choice xml:lang="fr">Arrêté</choice>
+    <choice xml:lang="cs">Zastaveno</choice>
+  </enumChoice>
+  <enumChoice value="2">
+    <choice>Running</choice>
+    <choice xml:lang="de">bei Fahrt</choice>
+    <choice xml:lang="fr">en Marche</choice>
+    <choice xml:lang="cs">Běžící</choice>
+  </enumChoice>
+</enumVal>

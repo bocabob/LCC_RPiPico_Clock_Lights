@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.17), see www.w3.org">
+  <!-- Translated  by Blorec Herv&#224; le 2011-20-06-->
+  <title>JMRI: TCH Technology System no longer supported</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+    <div id="mainContent">
+        <!-- Page Body -->
+
+<h1>JMRI: TCH System Technology n'est plus
+      support&eacute;</h1>
+      <p>A compter du Novembre 10, 2008, JMRI ne
+      supporte plus le mat&eacute;riel de technologie TCH.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

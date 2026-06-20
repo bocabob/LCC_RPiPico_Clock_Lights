@@ -1,0 +1,32 @@
+package jmri.util.gui;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017 
+ */
+public class GuiLafPreferencesManagerTest {
+
+    @Test
+    public void testCTor() {
+        GuiLafPreferencesManager t = new GuiLafPreferencesManager();
+        Assertions.assertNotNull( t, "exists");
+    }
+
+    // The minimal setup for log4J
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(GuiLafPreferencesManagerTest.class);
+
+}

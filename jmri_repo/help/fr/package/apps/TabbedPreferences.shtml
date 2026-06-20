@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Preferences Pane</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help preferences">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/Header" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI : Volet Préférences</h1>
+
+      <p>Le volet Préférences est l'endroit où vous configurez le fonctionnement de base de votre
+      application JMRI.</p>
+      <p>L'écran est divisé en deux sections : sur le côté gauche se trouve une liste des groupes
+      de préférences qui peuvent être définis. En cliquant sur chaque élément, la partie de droite
+      se remplit des différentes options qui peuvent être configurées pour cet onglet.</p>
+
+      <p><a href="#Connexion">Connexions</a><br>
+      <a href="#Defaults">Par Défauts</a><br>
+      <a href="#FileLocations">Emplacements de fichiers</a><br>
+      <a href="#Startup">Démarrer</a><br>
+      <a href="#Display">Affichage</a><br>
+      <a href="#Messages">Messages</a><br>
+      <a href="#Roster">Inventaire</a><br>
+      <a href="#Throttle">Régulateur</a><br>
+      <a href="images/JMRIPrefsChanges.png"><img src="images/JMRIPrefsChanges.png" height="112"
+      width="250" align="right" alt="Save ? dialog"></a> <a href="#WiThrottle">WiThrottle</a><br>
+      <a href="#Profiles">Configurer les profils</a><br>
+      <a href="#RailroadName">Nom du chemin de fer</a><br>
+      <a href="#JSONServer">Serveur JSON</a><br>
+      <a href="#WebServer">Serveur Web</a><br>
+      <a href="#SRCP%20Server">Serveur SCRP</a><br>
+      <a href="#Simple%20Server">Serveur Simple</a><br>
+      <a href="#Warrants"></a>Bulletins d'Ordre<br></p>
+
+      <p>Peut-être que la commande la plus importante se trouve au bas de cette section : Le bouton
+      <strong>Sauvegarde</strong> !</p>
+
+      <p><img src="images/PrefsRestart.png" align="right" alt="">N'oubliez pas de cliquer sur
+      "Sauvegarder" lorsque vous quittez cette fenêtre. Les modifications apportées aux Préférences
+      ne prendront effet que lorsque le programme est arrêté et redémarré. Le programme vous
+      invitera à le faire après avoir enregistré les Préférences.</p>
+
+      <a name="Connexion" id="Connexion"></a>
+      <h2>Connexions</h2>
+      Vous pouvez sélectionner n'importe laquelle des diverses connexions de Réseau JMRI.
+      <p><a href="../../html/setup/images/PrefsConnexions_fr.png"><img src=
+      "../../html/setup/images/PrefsConnexions_fr.png" height="195" width="425" align="right" alt=
+      ""></a>Chaque connexion a son propre onglet.
+      Pour commencer, il faut d'abord sélectionnez d'abord le fabricant de votre système DCC, puis
+      le type de connexion que vous utilisez. Vous verrez alors apparaître une série de paramètres
+      les plus courants qui doivent être définis. Si vous avez besoin de modifier certains des
+      paramètres les plus avancés, alors cochez la case "Paramètres supplémentaires". et cela vous
+      fournira plus de détails.</p>
+
+      <p>Pour ajouter une connexion de réseau supplémentaire, dans le volet Connexions, cliquez sur
+      l'onglet avec un "+", cela vous présentera alors avec un nouvel onglet de connexion. Pour
+      supprimer une Connexion, dans la liste déroulante Fabricant de système, sélectionnez
+      <strong>(non sélectionné)</strong> pour effacer vos choix actuels et en saisir de nouveaux,
+      ou cliquez sur le petit "x" dans le nom de l'onglet pour supprimer la connexion.</p>
+
+      <p>Pour plus d'informations sur la façon de configurer ceci pour votre matériel particulier,
+      consultez la page <a href="../../html/hardware/index.shtml">Pages d'aide sur le matériel
+      informatique</a> .</p>
+
+      <p>N'oubliez pas d'appuyer sur <strong>Sauvegarder</strong>!</p>
+      <a name="Défauts" id="Défauts"></a>
+      <h2 style="float:clear">Défauts</h2>
+      <a href="images/JMRI_PrefsDefaults.png"><img src="images/JMRI_PrefsDefaults.png" height=
+      "222" width="419" align="right" alt="JMRI v2.14 Defaults Prefs tab"></a>
+      <p>Si vous utilisez plusieurs connexions, par exemple une connexion LocoNet et une connexion
+      MERG, le volet Defauts vous permet de sélectionner quelle connexion vous souhaitez utiliser
+      dans un but particulier.</p>
+
+      <p>Il s'agit de la connexion interne.</p>
+
+      <p>La connexion interne est la connexion par défaut, cependant, puisque cela est presque
+      toujours indésirable, les applications JMRI vous informeront si la Connexion interne est la
+      connexion par défaut pour chaque but. Pour faire taire cette notification, modifiez les
+      propriétés du profil, en définissant la propriété
+      <code>jmri-managers.allInternalDefaults</code> à <em>true</em>.</p>
+      <a name="FileLocations" id="FileLocations"></a>
+      <h2>LEmplacements de fichiers</h2>
+      Ces dernièrs vous permettent de définir l'emplacement par défaut où les scripts et les
+      fichiers utilisateur sont chargés et sauvegardés.
+      <p>Notez que lorsque vous modifiez l'"emplacement des fichiers utilisateur", cela modifiera
+      également l'emplacement par défaut où les éléments suivants sont stockés :</p>
+
+      <dl>
+        <dd>Panel<br>
+        Roster<br>
+        Opérations<br>
+        Throttle<br>
+        Ressources<br>
+        Dispatcher Options<br>
+        Rps</dd>
+      </dl>
+
+      <p>Il y a un <a href="*">page d'aide séparée</a> avec des informations sur le partage de
+      fichiers entre ordinateurs à l'aide de Dropbox.</p>
+
+      <a name="Démarrage" id="Démarrage"></a>
+      <h2>Démarrage</h2>
+
+      <p><em>Démarrage</em> Les préférences permettent aux fenêtres et aux fichiers d'être ouverts,
+      d'exécuter des scripts et de placer des boutons supplémentaires sur la fenêtre principale au
+      démarrage de l'application.</p>
+
+      <p>Cliquez sur le bouton <strong>Ajouter ▾</strong> et sélectionnez le type d'action de
+      démarrage à ajouter. La nouvelle action sera ajoutée en dernier.</p>
+
+      <p>L'ordre des actions de démarrage est important. Dans la plupart des cas, les scripts
+      doivent être les derniers éléments de l'ordre de démarrage. L'ordre de démarrage peut être
+      modifié en sélectionnant un élément de démarrage et en le déplaçant vers le <em>haut</em> ou
+      <em>bas</em> dans la liste.</p>
+
+      <p>Il existe cinq types d'actions de démarrage :</p>
+
+      <dl>
+        <dt>Exécuter une action</dt>
+
+        <dd>Faire en sorte que le programme exécute automatiquement les diverses sélections de menu
+        au démarrage. Par exemple, vous pouvez faire en sorte que le tableau d'aiguillage s'ouvre
+        automatiquement, ou ouvrir automatiquement une fenêtre de programmation sur la voie
+        principale.</dd>
+
+        <dt>Ajouter un bouton à la fenêtre principale</dt>
+
+        <dd>Ajouter des boutons supplémentaires à la fenêtre principale de JMRI qui sont.
+        connectés à des actions spécifiques dans les menus pour un accès facile et rapide à
+        cette action.</dd>
+
+        <dt>Ouvrir un fichier</dt>
+
+        <dd>Chargez automatiquement les fichiers du panneau au démarrage du du programme. Vous
+        pouvez charger autant de fichiers de panneau que vous le souhaitez ; chacun d'eux sera
+        complètement chargé avant que le suivant ne soit lancé.</dd>
+
+        <dt>Exécuter le script</dt>
+
+        <dd>Lancer automatiquement un script au démarrage du programme. Vous pouvez exécuter autant
+        de scripts que vous le souhaitez ; chacun sera exécuté jusqu'à son terme avant que le
+        suivant ne soit lancé. Notez que tous les fichiers dont dépend le script doivent être
+        ouverts avant l'exécution du script.</dd>
+
+        <dt>Définir un itinéraire</dt>
+
+        <dd>Définir un itinéraire lorsque le programme démarre. Vous pouvez définir autant de
+        routes que vous le souhaitez ; chacune sera définie dans l'ordre. Notez que tous les
+        fichiers dont dépend l'itinéraire doivent être ouverts avant de définir l'itinéraire.</dd>
+      </dl>
+
+      <a name="Display" id="Display"></a>
+      <h2>Affichage</h2>
+
+      <dl>
+        <dt>GUI</dt>
+
+        <dd>
+          Une rangée de cases d'option vous permet de sélectionner l'apparence du programme. Les
+          choix disponibles dépendent du type d'ordinateur que vous avez, et tous les choix
+          suivants ne sont pas nécessairement disponibles :
+          <ul>
+            <li>Métal - le style Java par défaut, utilisable sur tous les ordinateurs</li>
+
+            <li>CDE/Motif - Une forme Linux/Unix qui fonctionne bien avec les gestionnaires d'écran
+            X Windows. Il est également disponible sur (presque) tous les types d'ordinateurs.</li>
+
+            <li>Windows - disponible uniquement sur les systèmes Microsoft Windows, cela fait en
+            sorte que le programme ressemble autant que possible à une application Windows
+            ordinaire.</li>
+
+            <li>Mac OS X - disponible uniquement sur les systèmes MacOS, ceci fait ressembler le
+            programme ressemble à une application Macintosh.</li>
+          </ul>
+          <br>
+          En outre, cet onglet vous permet de définir :
+          <ul>
+            <li>La taille de la police de l'interface graphique.</li>
+
+            <li>Si vous voulez utiliser des graphiques pour montrer l'état des aiguillages,
+            lumières, capteurs et blocs dans la colonne d'état de leurs tableaux. <span class=
+            "since">depuis 4.7.4</span></li>
+
+            <li style="list-style: none">.</li>
+
+            <li>Combien de temps les infobulles (lorsqu'elles sont disponibles) doivent être
+            affichées.</li>
+          </ul>
+        </dd>
+
+        <dt>Locale</dt>
+
+        <dd><a href="../../Acknowledgements.shtml">De nombreuses personnes</a> ont contribué à des
+        "internationalisations" de JMRI. Ce site convertit (une grande partie) du texte à l'écran
+        dans une langue autre que l'anglais. Si vous sélectionnez votre pays ou région et la langue
+        ici, puis enregistrez et redémarrez les préférences, JMRI utilisera une
+        internationalisation pour ce pays et cette langue si elle est disponible. Les éléments qui
+        n'ont pas été traduits continueront d'apparaître en anglais, vous ne manquerez donc vous ne
+        manquerez rien. Pour plus d'informations sur la façon de configurer ce système, et en
+        particulier sur la façon de contribuer à de nouvelles et meilleures traductions, veuillez
+        consulter notre <a href="../../html/doc/Technical/I8N.shtml">page
+        d'internationalisation</a>.</dd>
+
+        <dt>Console</dt>
+
+        <dt>Ceci vous permet de personnaliser l'aspect de la console du système JMRI. Il est
+        possible de choisir parmi des couleurs prédéfinies et de choisir la taille et le style de
+        la police. Vous pouvez également choisir d'enregistrer la taille et l'emplacement de la
+        fenêtre de la console système qu'elle apparaisse toujours au même endroit et à la même
+        taille.</dt>
+      </dl>
+      <a href="images/PrefsMessages.png"><img src="images/PrefsMessages.png" height="193"
+      width="479" align="right" alt="JMRI v4.2 Roster Prefs tab"></a> <a name="Messages" id=
+      "Messages"></a>
+
+      <h2>Messages</h2>
+      Ceci vous permet de modifier la manière dont les messages d'information et d'avertissement
+      sont affichés dans JMRI.<br>
+      Il vous permettra également de configurer les réponses par défaut et la la question qui
+      s'affiche. <a name="Roster" id="Roster"></a>
+
+      <h2>Inventaire</h2>
+      <a href="images/PrefsRoster47.png"><img src="images/PrefsRoster47.png" height="184" width=
+      "416" align="right" alt="JMRI v4.7 Roster Prefs tab"></a>
+      <dl>
+        <dd><a id="programmeur" name="programmeur"></a>
+        </dd>
+
+        <dt>Programmeur</dt>
+
+        <dd>
+          Le programmateur de DecoderPro vous permet de sélectionner la quantité du contenu du
+          décodeur à afficher en utilisant des "Programmateurs" configurables. Vous pouvez choisir
+          l'interface de base ou interface complète lorsque <a href=
+          "../../html/apps/DecoderPro/Roster.shtml">Choix de votre décodeur de locomotive</a>, mais
+          cela fournit un endroit pratique à définir par défaut afin que vous n'ayez pas à le
+          sélectionner chaque fois que vous ouvrez un décodeur.
+          <p>Cette section comporte également des cases à cocher pour les options :</p>
+
+          <ul>
+            <li>"Afficher les onglets vides du programmateur" : Ceci vous permet de décider si le
+            programmateur DecoderPro affichera des volets (onglets) vides. volets (onglets) vides.
+            Certaines personnes aiment les voir, même s'ils sont vides ; d'autres préfèrent ne pas
+            les voir, afin qu'ils n'aient pas à essayer de les ouvrir et de les regarder. Nous vous
+            proposons cette préférence pour que vous puissiez choisir.</li>
+
+            <li>"Afficher les numéros de CV dans les info-bulles" : Si vous permettez au curseur de
+            la souris de "survoler" une valeur dans DecoderPro, une infobulle s'affiche avec plus
+            d'informations. Cocher cette case inclut le numéro de CV dans cette info-bulle.
+            Certaines personnes veulent connaître le numéro de CV, d'autres veulent que DecoderPro
+            gère les CV de manière totalement invisible, donc nous fournissons une option pour vous
+            laisser choisir.</li>
+
+            <li>"Permettre la mise en cache lors de l'écriture des CV d'index pour les opérations
+            de lecture ou d'écriture": Certains décodeurs exigent que des valeurs spécifiques
+            soient écrites dans des CV "d'index" avant que certains autres emplacements puissent
+            être être lus ou écrits. Les décodeurs QSI et ESU utilisent largement cette méthode.
+            Lorsque l'on fait beaucoup de lectures ou d'écritures, par exemple un décodeur entier,
+            les CVs d'indexation peuvent être endommagées, les CV d'index peuvent finir par être
+            écrits avec la même valeur plusieurs fois de suite. Lorsqu'elle est sélectionnée, cette
+            option permet à DecoderPro de sauter (gagner du temps) les écritures de la même valeur
+            d'index qui sont autrement redondantes. N'utilisez pas cette option (ou utilisez-la
+            seulement en combinaison avec l'opération suivante) si vous avez des problèmes de
+            fiabilité. si vous avez des problèmes de fiabilité d'écriture des décodeurs, car le bon
+            fonctionnement de cette option dépend de la fiabilité des écritures.
+              <p>Plus de détails : Une seule mauvaise écriture avec cette option désactivée met à
+              la poubelle un CV ; l'écriture d'un mauvais index avec cette option désactivée
+              détruit le CV qui était censé être écrit et le mauvais adressé être écrit et le
+              mauvais adressé par la mauvaise écriture, mais l'écriture de la CV suivante dans la
+              séquence est OK grâce à l'écriture suivante redondante de l'index.; l'écriture d'un
+              index mauvais avec cette option laisse cette valeur d'index mal écrite en place, et
+              écrit donc une séquence de mauvaises valeurs de CV. Conclusion : Si vous travaillez
+              avec un décodeur compliqué avec beaucoup de CV, vous avez besoin d'une connexion de
+              programmation fiable, voir l'option suivante.</p>
+            </li>
+
+            <li>"Lorsque cela est possible, confirmez les écritures de CV en les faisant suivre
+            d'une lecture" : Lorsque cette option est sélectionnée, DecoderPro lira chaque CV après
+            l'avoir écrit. Si la valeur ne correspond pas, il marque l'écriture comme ayant échoué.
+              <p>Si vous avez des problèmes intermittents d'écriture sur un décodeur, ceci peut
+              améliorer la fiabilité. Si DecoderPro n'est jamais capable d'écrire correctement,
+              cela n'aidera pas ; cela n'aide que si le problème est occasionnel, et réessayer le
+              fera plus souvent qu'autrement.</p>
+
+              <p>Certains systèmes DCC vérifieront la présence d'une "impulsion de reconnaissance
+              d'écriture" du décodeur avant de déclarer que l'écriture a réussi. Ceux-ci sont
+              presque aussi fiables que cela, et beaucoup plus rapides. Donc, si vous utilisez l'un
+              de ces systèmes DCC, cela peut ne pas être nécessaire. D'un autre côté, si vous
+              utilisez un système DCC qui "écrit en aveugle", sans contrôle, cela peut être très
+              utile. Pour savoir si vous avez l'un de ces systèmes, essayez d'écrire des CV avec la
+              locomotive hors de la voie. . Si DecoderPro pense que l'écriture réussit, alors le
+              système DCC écrit en aveugle, sans vérification.</p>
+
+              <p>Cela ne sert à rien (mais ne fait pas de mal) si vous ne pouvez pas relire le
+              décodeur. La plupart des systèmes DCC ne peuvent pas lire pendant la programmation en
+              mode opérationnel, par exemple. Certaines Centrale (Digitrax DB150) ne peuvent pas
+              lire le décodeur. Dans ces cas, cette option demande simplement à la Centrale
+              d'écrire sans lire en retour.</p>
+            </li>
+          </ul>
+          Ces options sont stockées avec les préférences pour une utilisation future. Une nouvelle
+          fenêtre Inventaire de DecoderPro reprendra les nouvelles valeurs des options, sans avoir
+          à fermer et redémarrer le programme.
+        </dd>
+
+        <dt>Inventaire</dt>
+
+        <dt>Normalement, l'Inventaire est stocké dans un emplacement standard comme une partie de
+        la page <a href="../../html/apps/DecoderPro/Files.shtml">répertoire des Préférences</a> .
+        Cette option vous permet de le déplacer quelque part ailleurs.<br>
+        Pour le configurer, cliquez sur le bouton " Définir... " et suivez les les
+        instructions.<br>
+        <br>
+        <br>
+        <br>
+        <br>
+        Le bouton "Réinitialiser" le rétablit à l'emplacement par défaut. Notez que cela ne fait
+        que changer l'endroit où le programme regarde. Si vous avez stocké les informations de la
+        liste ailleurs et voulez les retrouver à l'emplacement par défaut, vous devez déplacer les
+        fichiers vous-même.<br>
+        <br>
+        <br>
+        Vous pouvez également entrer une valeur par défaut pour le champ "Propriétaire" dans les
+        entrées de l'Inventaire DecoderPro ici. Cela remplit la valeur pour les nouvelles entrées,
+        ce qui peut vous éviter un peu de saisie. Cela n'a aucun effet sur les entrées existantes,
+        même si elles sont modifiées.<br>
+        <br></dt>
+      </dl>
+
+      <a name="Throttle" id="Throttle"></a>
+      <h2>Régulateur</h2>
+      Cet onglet du volet des préférences vous permet de choisir si les fonctionnalités étendues de
+      Régulateur sont disponibles, et lesquelles peuvent être utilisées. <a name="WiThrottle" id=
+      "WiThrottle"></a>
+
+      <h2>WiThrottle</h2>
+
+      <dl>
+        <dt>eStop</dt>
+
+        <dd>
+          Si sélectionné, surveille si un paquet à envoyer depuis l' appareil mobile connecté. Si
+          le serveur WiThrottle ne ne reçoit aucune communication dans le temps choisi, le
+          Régulateur JMRI concerné mettra son train à l'arrêt.
+          <p>Le temps choisi est approximatif ; la réponse peut se faire quelques quelques secondes
+          plus tôt ou plus tard.</p>
+        </dd>
+
+        <dt>Réseau</dt>
+
+        <dt>Changez le numéro du port à utiliser. Assurez-vous que votre logiciel de pare-feu
+        permette l'utilisation de ce port.<br>
+        Ne modifiez le numéro de port qu'après avoir arrêté le serveur WiThrottle, s'il y a une
+        chance que des appareils mobiles soient encore connectés.</dt>
+
+        <dt>Conmmandes autorisées</dt>
+
+        <dt>Cochez ces cases pour autoriser des fonctions spécifiques à être commandées par des
+        appareils mobiles. Cela vous permettra de limiter ce que les utilisateurs ont la
+        possibilité de contrôler.</dt>
+
+        <dd>
+          <ul>
+            <li>Alimentation Voie - Sélectionnez si les appareils mobiles connectés via cette
+            interface WiFi peuvent commander l'alimentation de la voie.</li>
+
+            <li>Aiguillages - Sélectionnez si les appareils mobiles peuvent conmmander les
+            aiguillages.</li>
+
+            <li>RItinéraires - Sélectionnez si les appareils mobiles peuvent commander les
+            itinéraires.</li>
+
+            <li>Couplage - Si cette option est sélectionnée, les appareils mobiles peuvent
+            construire des... &amp;"Couplages Avancées".
+              <ul>
+                <li>Format NMRA - Ces couplages peuvent être plus performants pour la construction
+                et la commande avec des appareils WiFi.</li>
+
+                <li>Spécifique à la marque DCC - Ces couplages devraient . être plus performants
+                lorsqu'ils sont construits avec un appareil WiFi, mais contrôlé par une manette de
+                commande du fabricant DCC de votre système.</li>
+              </ul>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+      Le bouton "Sauvegarder", en bas à gauche, mmet en vigueur les réglages modifiés. Pour un
+      <a href=".">"../jmri/jmrit/withrottle/UserInterface.shtml"&gt;Régulateur connecté</a> pour
+      utiliser les nouveaux paramètres, vous devrez redémarrer JMRI (puis WiThrottle). puis
+      redémarrer WiThrottle) comme indiqué dans la boîte de dialogue. <a name="Profils" id=
+      "Profils"></a>
+      <h2>Profils de configuration</h2>
+      Les profils de configuration JMRI facilitent le paramétrage de vos applications JMRI pour
+      fonctionner avec différentes configurations. Chaque profil spécifie un ensemble de
+      préférences. Vous pouvez ensuite sélectionner celui que vous souhaitez utiliser.
+      <p>Pour plus d'informations, consultez la page d'aide <a href=".">.
+      "../../html/setup/profiles.shtml"&gt;Profils de configuration</a>.</p>
+
+      <a name="RailroadName" id="RailroadName"></a>
+      <h2>Nom du Chemin de Fer</h2>
+
+      <p>L'onglet Nom du Chemin de Fer vous permet de spécifier le nom de votre réseau de chemin de
+      fer (module), car il est utilisé par plusieurs protocoles de serveurs .</p>
+      <a name="JSONServer" id="JSONServer"></a>
+
+      <h2>Serveur JSON</h2>
+
+      <p>JMRI <a href="../../html/web/JsonServlet.shtml">serveur JSON</a> est utilisé par les
+      applications sur d'autres ordinateurs, y compris les tablettes et les téléphones, pour se
+      connecter à JMRI afin de faire fonctionner votre chemin de fer.</p>
+
+      <p>Sur ce volet, vous pouvez spécifier le port de la connexion. (généralement laissé à la
+      valeur par défaut) et la fréquence à laquelle le serveur vérifie si la connexion a échoué via
+      un message Heartbeat</p>
+
+      <a name="WebServer" id="WebServer"></a>
+      <h2>Serveur Web</h2>
+      Le serveur Web de JMRI vous permet de vous connecter à JMRI depuis un navigateur web sur
+      votre ordinateur, tablette ou téléphone et de travailler avec votre chemin de fer.
+      <p>Cet onglet vous permet de contrôler ce que le serveur Web fournit. Pour plus
+      d'informations, consultez la page <a href=".">Préférences du serveur web.</a> . <a id=
+      "Serveur_SRCP" name="Serveur_SRCP"></a></p>
+
+      <h2>Serveur SRCP</h2>
+
+      <p>La page JMRI <a href=".">serveur SRCP</a> est un moyen standard de connecter un
+      utilisateur "client" à un serveur .</p>
+
+      <p>Sur ce volet, vous pouvez spécifier le port pour la connexion. (généralement laissé par
+      défaut).</p>
+      <a id="Simple_Server" name="Simple_Server"></a>
+      <h2>Serveur simple</h2>
+
+      <p>Le serveur simple de JMRI fait partie de <a href=".">.
+      "../../html/hardware/jmriclient/index.shtml"&gt;JMRIClient</a>, une méthode pour connecter à
+      distance un programme JMRI à un autre.</p>
+
+      <p>Sur ce volet, vous pouvez spécifier le port pour la connexion. (généralement laissé par
+      défaut).</p>
+
+      <a name="Warrants" id="Warrants"></a>
+      <h2>Bulletins d'Ordre</h2>
+
+      Cet onglet définit les paramètres utilisés dans le calcul des itinéraires et des changements
+      de vitesse pour les <a href=".">Bulletins d'Ordres</a> et pour contrôler les événements que
+      les trains mandatés peuvent rencontrer.
+
+      <h3>Tableaux de noms de vitesse</h3>
+      Lorsqu'un train en circulation automatique rencontre un aspect de signal qui demande un
+      changement de vitesse, le tableau des vitesse fournit les informations sur ce que doit être
+      le changement de vitesse . D'autres paramètres commandent la façon dont le changement de
+      vitesse est effectué.
+
+      <h2>Tableau des noms de vitesse des aspects</h2>
+      Le tableau de nom de vitesse d'aspect fait correspondre les noms de vitesse d'aspects trouvés
+      dans les définitions d'un système de signalisation à une valeur. Il est important que tous les
+      noms de vitesse utilisés dans votre système de signalisation soient répertoriés dans le
+      tableau de correspondance des vitesses. Les rangées peuvent être ajoutées ou supprimées pour
+      se conformer aux aspects du système de signalisation.
+      <p>La valeur associée à un nom de vitesse La valeur associée à un nom de vitesse peut être
+      interprétée de quatre manières différentes. quatre boutons radio pour vous permettre de
+      choisir la signification de la valeur.</p>
+
+      <ul>
+        <li><strong>Pourcent Normal</strong> - la valeur est un pourcentage du réglage actuel de
+        l'accélérateur tel qu'il est enregistré ou défini par un NXWarrant. C'est un pourcentage de
+        la vitesse "normale".</li>
+
+        <li><strong>Pourcentage du Régulateur</strong> - la valeur est un pourcentage du réglage du
+        Régulateur à fond.</li>
+
+        <li><strong>Miles par heure</strong> - la valeur est une vitesse absolue en échelle de
+        vitesse de l'échelle en miles par heure.</li>
+
+        <li><strong>Kilomètres par heure</strong> - la valeur est une vitesse absolue à l'échelle
+        en kilomètres par heure. .</li>
+      </ul>
+
+      Le choix de l'interprétation est une question de ce que vous voulez qu'il se passe lorsqu'un
+      train soumit à un bulletin d'ordre atteint un signal ou un aspect de Canton. Peourcent Normal
+      fera toujours en sorte que le train change de vitesse et... Peourcent Régulateur le fera très
+      probablement aussi. Les deux derniers choix sont les plus typiques, mais si le train est déjà
+      dans la limite de vitesse demandée, aucun changement de vitesse n'est nécessaire.
+
+      <h2>Tableau des noms d'apparence du feu</h2>
+      Le <strong>Tableau d'apparence des Feux</strong> est utilisé lorsque des têtes de signaux
+      sont utilisées comme signaux. Il fait correspondre les noms d'apparence des têtes de signal
+      aux noms de vitesse d'aspect qui, à leur tour, sont mis en correspondance par la table Aspect
+      Speed Name à des valeurs qui interprètent les limites de vitesse.
+      <h3>Échelle de réseau et profondeur de recherche</h3>
+      Il est important de choisir la bonne <strong>Échelle du Réseau</strong>. car elle est
+      nécessaire pour convertir les réglages du Régulateur et les vitesses de la voie vers et
+      depuis les vitesses à l'échelle.
+      <p>Le <strong>Nombre maximal de Cantons dans l'itinéraire</strong> est la profondeur à
+      laquelle. JMRI recherchera un itinéraire lors de la définition d'un bulletin d'ordre. Il
+      s'agit d'une valeur globale qui peut être surchargée lors de la création d'un bulletin
+      d'ordre.</p>
+
+      <h3>Modifications de la vitesse de rampe</h3>
+      La fluidité pour le ralentissement et l'accélération se font par paliers avec deux paramètres
+      de " rampe ". ; l'incrément du Régulateur par étape et le temps d'intervalle de temps de
+      chaque étape. Ces deux paramètres sont associés pour créer un modèle de "marche d'escalier"
+      pour le changement de vitesse. En général, ils sont associés de manière à ce qu'un petit
+      incrément de l'accélérateur dans un intervalle de temps court et une augmentation importante
+      dans un intervalle de temps plus long. Lors de leur réglage, l'intervalle de temps doit être
+      suffisamment long pour que l'augmentation de vitesse soit complète, compte tenu de la
+      dynamiqueque vous avez programmée dans vos décodeurs.
+      <ul>
+        <li><strong>Augmentation de l'accélération par palier</strong> Cette valeur est un rapport
+        de l'accélération maximale. Sept ou huit pas de vitesse d'un Régulateur de 128 pas est un
+        incrément approprié pour une locomotive ayant un élan modeste. Une valeur de 0,008 à 0,04
+        est recommandée. (0,0079 correspondrait à 1 pas d'un Régulateur de 128 pas)</li>
+
+        <li style="list-style: none">.</li>
+
+        <li><strong>Temps du cran de rampe</strong> Selon la manière dont vous avez configuré la
+        dynamique sur vos locomotives, ajustez cette valeur pour que le changement de vitesse soit
+        terminé dans ce laps de temps. Typiquement correspondant à ce qui précède, 300 à 1000
+        millisecondes seraient appropriées.</li>
+      </ul>
+      Vous devriez expérimenter en observant comment les NXWarrants commencent et se terminent. ou
+      en envoyant des commandes "Stop" et "Reprendre" à un bulletin d'ordre enregistré.
+
+      <h3>Facteur du Régulateur</h3>
+      La valeur du <strong>Facteur de réglage de vitesse</strong> ainsi que l'<strong>Échelle de
+      réseau</strong> permet d'ajuster un réglage du Régulateur pour qu'il corresponde à une
+      vitesse de la voie du réseau. Le facteur d'accélérateur défini ici est un défaut global.
+      <p>Pour plus d'informations sur les paramètres de vitesse dde bulletin d'ordre, voir .
+      <a href="../jmri/jmrit/logix/speedChanges.shtml">Modification des Vitesse de Bulletins
+      d'Ordre</a> et suivez ses liens.</p>
+
+      <h2>Fusion des profils de vitesse</h2>
+      Dans la version 4.9.2, Bulletin d'Ordre calcule une vitesse de voie lorsqu'il traverse un
+      chemin dont la longueur et le réglage du Régulateur sont connus. Ces mesures sont effectuées
+      pour chaque adresse qui est enregistrée sous un bulletin d'ordre et sont conservées pour
+      toute la session de réseau. Lorsque JMRI est quitté, à l'arrêt. Ces profils de vitesse de
+      session peuvent être fusionnés avec les profils de vitesse de l'Inventaire. Les choix
+      suivants sont disponibles à l'arrêt.
+      <ul>
+        <li><strong>Ne pas Fusionner</strong> - Ne pas solliciter et rejeter les profils de session
+        et laisser les profils de vitesse de la liste inchangés.</li>
+
+        <li><strong>Fusionner par Invite</strong> - A l'arrêt, une boîte de dialogue est présentée
+        où vous pouvez choisir quels profils de vitesse doivent être fusionnés et ceux qui sont
+        rejetés. Le dialogue vous permet de visualiser les profils pour chaque adresse. Sont
+        affichés : le <strong>Profil de vitesse du serveur</strong> actuel, le <strong>profil de
+        vitesse potentiel</strong>. Profil de vitesse du serveur, le <strong>Profil de vitesse
+        fusionné</strong> potentiel et le <strong>Profil de vitesse de la session</strong>.
+        <strong>Profil de vitesse de session</strong>. (par défaut)</li>
+
+        <li><strong>Fusionner tout</strong> - Ne pas demander et toujours fusionner tous les
+        <strong>profils de vitesse de session</strong> de session dans les
+        profils de vitesse de la liste.</li>
+      </ul>
+
+      <p>Traduction 2021-03-26</p>
+
+      <!--#include virtual="/Footer" -->
+    </div> <!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

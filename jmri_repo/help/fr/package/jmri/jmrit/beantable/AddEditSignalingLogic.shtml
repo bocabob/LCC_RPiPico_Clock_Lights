@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Adding/Editing Signal Mast Logic</title>
+  <!-- copy from jmrit/beantable/ to  jmrit/signalling/ to keep identical-->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="Date.Modified" content="20150523">
+  <meta name="author" content="Kevin Dickerson, Egbert Broerse">
+  <meta name="keywords" content="JMRI help SignalMast Logic Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1><a id="Adding_Editing_Routes"></a>Ajout/Modification Logique Mât de Signalisation</h1>
+
+      <p>Après avoir cliquer sur le bouton "Ajouter.." au-dessous du <a href=
+      "../beantable/SignalMastLogicTable.shtml">Tableau Logique Mât de Signalisation</a> , la
+      fenêtre suivante apparait:</p>
+      <a href="../beantable/SignalMastLogicAdd.png"><img src="../beantable/SignalMastLogicAdd.png"
+      class="floatRight" width="340" height="300" alt="Signal Head Logic Add window"></a>
+      <p>Démarrer la création d'une Logique de Mât de Signalisation en sélectionnant un <strong>Mât
+      de Signalisation Origine</strong> suivi par un <strong>Mât de Signalisation
+      Destination</strong> depuis la fenêtre. Le Mât Origine est celui que vous souhaitez commander
+      et définir les États. Le Mât Destination est le signal suivant en bas de la ligne. Les États
+      du Mât Destination ainsi que l'état des Aiguillages et des Cantons que vous cochez sur cet
+      écran auront un effet direct sur l'État du Mât Origine. Si vous n'utilisez pas l'Éditeur de
+      Panneau alors aucune validation n'est effectuée des Mâts de Signalisation source et
+      destination. Si l'Éditeur de Panneau est utilisé, alors le système essaiera et déterminera si
+      le Mât Destination est atteignable depuis le Mât Origine</p>
+
+      <p>La case "Utiliser les Chemins de l'Éditeur de Panneau" vous permet d'obtenir que JMRI
+      génère automatiquement les Cantons, Aiguillages, et Mât de Signalisation requis, ainsi que
+      leurs états, qui sont localisés entre les Mât de Signalisation origine et destination.<br>
+      Lors de la sélection "Utiliser les Chemins de l'Éditeur de Panneau", deux autres cases
+      apparaîtront: "Utilser les Détails de l'Aiguillage de l'Éditeur de Panneau" et "Utiliser les
+      Détails du Canton de l'Éditeur de Panneau". La sélection de l'une d'elles déterminera quelle
+      information de l'Éditeur de Panneau est utilisée quand le système génère automatiquement
+      l'itinéraire.<br>
+      L'information générée automatiquement n'est pas sauvegardée avec le ficihier panneau, mais
+      elle est générée à chaque ouverture de l'éditeur de panneau.<br>
+      Si l'information sur le panneau<a href="../display/LayoutEditor.shtml">l'Éditeur de
+      Réseau</a> est modifiée, les changements ne sont pas répercutéS immédiatement dans la Logique
+      Mât de Signalisation; vous devrez stocker le panneau, fermer JMRI et réouvrir le panneau pour
+      que la Logique Mât de Signalisation soit mise à jour.</p>
+
+      <p>L'option "Permettre à la Logique de Déterminer Automatiquement Les Conflits Mats de
+      Signalisation" essaie de déterminer quel Mât de signalisation pourrait éventuellement
+      entraîner un itinéraire incompatible s'il n'était pas défini à danger.</p>
+
+      <p>La fonctionnalité "Verrouiller les Aiguillages quand la Logique Mât de Signalisation est
+      active" vous permet de désactiver sélectivement des commandes d'accessoireS (Aiguillage)
+      depuis un pupitre et/ou des boutons câblés localement. Lorqu'elle est sélectionnée,JMRI
+      désactive les boutons poussoirs en envoyant une commande désactivation bouton poussoir aux
+      décodeurs d'aiguillages quand l'itinéraire est vérrouilé, et active les boutons poussoirs
+      quand l'itinéraire est déaverrouillé. Lors du verrouillage par une commande depuis un
+      pupitre, le programme JMRI surveille l'adresse accessoire de l'Aiguillage et s'il détecte un
+      changement de commande depuis un pupitre, il l'annulera immédiatement en envoyant la commande
+      opposée à l'Aiguillage. Tous les Aiguillages qui sont surveillés par le programme JMRI et qui
+      sont inclus dans l'itinéraire seront verrouillés.</p>
+      <a href="../beantable/images/SignalPairsEdit.png"><img src=
+      "../beantable/images/SignalPairsEdit.png" class="floatRight" width="341" height="274" alt=
+      "Signal Head Logic Add pane Sensor tab"></a>
+      <p>Le bouton radio "Montrer" vous permet de montrer <strong>tous</strong>ou seulement les
+      Aiguillages, Capteurs, Cantons Mât de Signalisation <strong>Inclus</strong>b&gt; sélectionnés
+      qui font parti de la Logique Mât de Signalisation.</p>
+
+      <p>Il y a quatre onglets sous les boutons "Montrer", chacun contient les détails des Cantons,
+      Aiguillages, Capteurs, et Mâts de signalisation qui font la Logique Mât de Signalisation pour
+      ce Mât Origine. Dans chacun des onglets, il y a un tableau modifiable qui vous permet de
+      sélectionner manuellement quel(s) élément(s) doit être inclus dans la Logique Mât de
+      Signalisation et l'état dans lequel chaque élément doit être.<br>
+      Dessous il y a un second tableau qui montre les éléments générés automatiquement ( excepté
+      sousl'onglet Capteur ). Les éléments entrés manuellement écraseront les éléments générés
+      automatiquement, donc si vous souhaitez écraser un élément dans cette liste générée
+      automatiquement, sélectionnez alors l'élément correspondant et définissez son état dans le
+      tableau supèrieur. Cliquez la case "Inclure" dans n'importe quel tableau pour ajouter
+      l'élément désiré dans votre Logique Mât de Signalisation. Après la case "Inclure" se trouve
+      l'option État dans lequel doit être l'élément pour que le Mât de Signalisation Origine
+      devienne actif. Par exemple, si vous souhaitez qu'un Aiguillage soit dans un état Dévié pour
+      déclencher la Logique Mât de Signalisation, Alors sélectionnez "Dévié" dans la liste
+      déroulante. Si vous souhaitez écraser un Aiguillage qui a été inclus automatiquement, et vous
+      ne vous souciez pas dans quel état il est, cochez "Inclure" dans le tableau supèrieur et
+      sélectionnez "n'Importe quel État" dans le menu déroulant.</p>
+
+      <p>Cliquer sur le bouton " Mise à Jour Logique (Mât) Signalisation" ajoutera ou mettre à jour
+      cette Logique de Mât de Signalisation dans le système. Une fois ajouté, les tableaux
+      contenant les données générées automatiquement seront reremplies.<br>
+      Astuce: Pour mettre à jour/remplir la colonne d'État sous l'onglet Mâts de Signalisation,
+      mise à jour & réouvrir l'élément Logique Mât de Signalisation</p>
+
+      <p>Retour à la page d'aide <a href="../beantable/SignalMastLogicTable.shtml">Tableau Logique
+      Mât de Signalisation</a>.</p>
+
+      <p>Traduction 2021-03-26</p>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+</body>
+</html>

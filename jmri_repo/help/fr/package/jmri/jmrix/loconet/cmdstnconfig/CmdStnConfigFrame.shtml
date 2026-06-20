@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+<head>
+  <title>JMRI: Configure Digitax Command Station</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help configure Digitrax command station">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Configurer la station de commande Digitax</h1>
+
+      <p>Cet outil Configure le Digitax MASTER DCS OPSW . Vous
+      n'avez pas besoin de d&eacute;finir l'un des
+      interrupteurs sur le DCS pour utiliser cet outil.</p>
+
+      <p>Pour configurer DBs et DCS d&eacute;fini comme des
+      Boosters vous avez besoin de suivre les instructions
+      Digitrax.</p>
+
+      <p>OpSw2 &eacute;tant mis &agrave; ON permet &agrave;
+      cet outil d&apos;acc&eacute;der au slot 127 qui contient les
+      param&egrave;tres OPSW. DB n&apos;a pas OPSW et ne peut pas
+      &ecirc;tre r&eacute;gl&eacute; avec cet
+      outil, la DCS qui ont mis OpSw2 &agrave; ferm&eacute;
+      ne sont pas programm&eacute; par cet outil.</p>
+
+      <p>Pour configurer DB et mettre DCS comme Boosters vous avez
+      besoin de suivre les instructions Digitrax.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

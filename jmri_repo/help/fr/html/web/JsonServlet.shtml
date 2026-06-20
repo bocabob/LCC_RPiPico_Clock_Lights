@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Servlet Json</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+          table#jsonResponses {
+                border-collapse:collapse;
+            }
+            table#jsonResponses td {
+                border: 1px solid gray;
+                width: 33%;
+            }
+            code {
+                white-space: normal;
+            }
+  </style><!-- /Style -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+      <h1>JMRI: Servlet Json</h1>
+
+      <p>Le <strong>Servlet Json JMRI</strong> fournit l'accès web à des listes et des valeurs pour
+      de nombreuses entités JMRI définies, dans le format <a href=
+      "http://en.wikipedia.org/wiki/JSON">moderne JSON</a>. Il fournit aussi une interface <a href=
+      "http://en.wikipedia.org/wiki/WebSocket">WebSocket</a> pour faire changer les statuts de ces
+      entités, et écouter les changements externes.</p>
+      La fonction <strong>HTTP GET</strong> du servlet répond au modéle URL suivant:
+      <ul>
+        <li>/json/cars</li>
+
+        <li>/json/cars/&lt;ID&gt;</li>
+
+        <li>/json/sensors</li>
+
+        <li>/json/sensors/&lt;name&gt;</li>
+      </ul>
+      actuellement, le servlet supporte wagons, machines, lumières, emplacements, mémoiress,
+      métadata, panneau, alimentation, chemins de fer, rapports, liste, itinéraires, capteurs,
+      Têtes signal, Mâts signal, convois, et aiguillages. Lafonction WebSocket de ce servlet
+      actuellement gère les chaînes JSON sous quatre formes différentes:
+      <ul>
+        <li>les demandes de liste dans le formulaire: <code>{"type":"list","list":"trains"}</code>
+        qui sont passées à JsonLister pour gestion.</li>
+
+        <li>status individuelle des éléments requis dans le
+        formulaire<code>{"type":"turnout","data":{"name":"LT14"}}</code> qui sont transmises aux
+        gestionnaires spécifiques. Ces demandes initieront les "auditeurs" qui enverront réponses
+        mises à jour à chaque changement d'état de l'élément.
+          <ul>
+            <li>l'état d'un élément peut être réglé par l'ajout d'un nœud d'<strong>état</strong>
+            au nœud <em>données</em> dans une requête HTTP POST:
+            <code>{"type":"turnout","data":{"name":"LT14","state":4}}</code></li>
+
+            <li>Des types différents peuvent être créés si la requête est une requête HTTP PU.Notez
+            que tous les types supportent ceci</li>
+          </ul>
+        </li>
+
+        <li>une pulsation dans le formulaire <code>*</code> ou <code>{"type":"ping"}</code>. La
+        <code>*</code> Pulsation n'obtient pas de réponse, tandis que la pulsation JSON provoque
+        une<code>{"type":"pong"}</code> réponse.</li>
+
+        <li>un signoff dans le formulaire: <code>{"type":"goodbye"}</code> pour lequel une réponse
+        identique est envoyée avant que la connexion ne se ferme.</li>
+      </ul>
+      La fonction <strong>WebSocket</strong> du Servlet peut être vue. en accédant à l' url
+      <strong>/JSON/</strong>, où une console <strong>JSON</strong> est fourni pour le test.<br>
+      Exemple de commandes et réponses:
+      <table id="jsonResponses" summary="">
+        <tr>
+          <th>commande</th>
+          <th>réponse</th>
+          <th>notes</th>
+        </tr>
+
+        <tr>
+          <td><code>{"type":"sensor","data":{"name":"IS2"}}</code>
+          </td>
+          <td><code>{"type":"sensor","data":{"name":"IS2","state":4}}</code>
+          </td>
+          <td>demande l'état actuel du capteur IS2</td>
+        </tr>
+
+        <tr>
+          <td><code>{"type":"sensor","data":{"name":"IS2","state":4}}</code>
+          </td>
+          <td><code>{"type":"sensor","data":{"name":"IS2","state":4}}</code>
+          </td>
+          <td>Définit le capteur IS2 à InActif (4)</td>
+        </tr>
+
+        <tr>
+          <td><code>{"type":"turnout","data":{"name":"IT99","state":0}}</code>
+          </td>
+          <td><code>{"type":"turnout","data":{"name":"IT99","state":4}}</code>
+          </td>
+          <td>Envoyer l'état=0 est aussi traité comme une requête pour le statut actuel</td>
+        </tr>
+
+        <tr>
+          <td><code>{"type":"power","data":{}}</code>
+          </td>
+          <td><code>{"type":"power","data":{"state":2}}</code>
+          </td>
+          <td>L'alimentation ne nécessite pas de nom</td>
+        </tr>
+
+        <tr>
+          <td><code>{"type":"ping"}</code>
+          </td>
+          <td><code>{"type":"pong"}</code>
+          </td>
+          <td>ping Requête et Réponse</td>
+        </tr>
+
+        <tr>
+          <td><code>{"type":"list","list":"panels"}</code>
+          </td>
+          <td><code>{"type":"list","list":[{"name":"Panel/Panel",
+          "URL":"/panel/Panel/Panel?format=json","userName":"Panel","type":"Panel"},
+          {"name":"Layout/Waccamaw%20Coast%20Line",
+          "URL":"/panel/Layout/Waccamaw%20Coast%20Line?format=json", "userName":"Waccamaw Coast
+          Line","type":"Layout"}]}</code>
+          </td>
+          <td>requière une liste de panneaux, répond avec un ensemble des détails de deux
+          panneaux</td>
+        </tr>
+      </table>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

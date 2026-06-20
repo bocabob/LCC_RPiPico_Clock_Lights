@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-node-server-message",
+    "type": "object",
+    "description": "Data portion of message from JMRI to client for type \"node\"",
+    "properties": {
+        "node": {
+            "type": "string",
+            "description": "The current JMRI node identity"
+        },
+        "formerNodes": {
+            "type": "array",
+            "description": "Prior node identities this node had",
+            "items": {
+                "type": "string",
+                "uniqueItems": true,
+                "description": "The former node identity"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "node",
+        "formerNodes"
+    ]
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Updated by Herv&#233; Blorec bzh56420@yahoo.fr 2013-11-04-->
+  <title>JMRI: Send Throttle Message</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI:Envoi de Message Au R&eacute;gulateur</h1>
+      <p>JMRI a une capacit&eacute; limit&eacute;e pour envoyer des messages
+      &agrave; un r&eacute;gulateur &agrave; main.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

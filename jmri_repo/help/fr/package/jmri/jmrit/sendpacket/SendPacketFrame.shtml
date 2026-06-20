@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Updated by Herv&#233; Blorec bzh56420@yahoo.fr 2013-11-11-->
+  <title>JMRI: Envoyer Paquet DCC</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Send DCC Packet">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+   <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+   <div id="mBody">
+     <div id="mainContent" class="no-sidebar">
+
+      <h1>Envoyer Paquet DCC</h1>
+
+       <p>Ceci est la page d'aide
+       help/en/package/jmri/jmrit/sendpacket/SendPacketFrame</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+   <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+package jmri.jmrit.entryexit.configurexml;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class EntryExitPairsXmlTest {
+
+    @Test
+    public void testCTor() {
+        EntryExitPairsXml t = new EntryExitPairsXml();
+        Assertions.assertNotNull(t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(EntryExitPairsXmlTest.class);
+
+}

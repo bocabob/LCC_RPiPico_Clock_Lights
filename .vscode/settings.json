@@ -1,0 +1,22 @@
+
+{
+    "arduino.defaultBaudrate": 115200,
+    "arduino.logLevel": "verbose",
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.enabled": true,
+    "C_Cpp.default.includePath": [
+        "${workspaceRoot}/src/**",
+        "${workspaceFolder}/**",
+        "C:/GdriveBG/Arduino/libraries/**",
+        "C:/Users/${env:USERNAME}/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/**",
+        "C:/Users/${env:USERNAME}/AppData/Local/Arduino15/libraries/**"
+    ],
+    "files.exclude": {
+        "**/build": true
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.formatting": "Disabled"
+}

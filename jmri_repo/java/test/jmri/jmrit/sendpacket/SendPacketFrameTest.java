@@ -1,0 +1,34 @@
+package jmri.jmrit.sendpacket;
+
+import java.awt.GraphicsEnvironment;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class SendPacketFrameTest extends jmri.util.JmriJFrameTestBase {
+
+    @BeforeEach
+    @Override
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetProfileManager();
+        JUnitUtil.initDebugCommandStation();
+        if (!GraphicsEnvironment.isHeadless()) {
+            frame = new SendPacketFrame();
+        }
+    }
+
+    @AfterEach
+    @Override
+    public void tearDown() {
+        super.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(SendPacketFrameTest.class);
+
+}

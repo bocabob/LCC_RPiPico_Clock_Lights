@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Copyright Bob Jacobsen 2008 -->
+<!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+<head>
+  <title>JMRI: Send LocoNet Packet</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help send loconet packets">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Envoyer Packet LocoNet</h1><a href=
+      "../../../../../html/apps/LocoTools/images/SendPkt.gif"><img src="../../../../../html/apps/LocoTools/images/SendPkt.gif"
+      width="200" alt="Command slot station Monitor"
+      align="right"></a><br>
+      L'outil "Envoyer Paquet LocoNet" vous permet de
+      commander directement des appareils LocoNet.
+
+      <p>Il fonctionne mieux en combinaison avec l'option "Afficher
+      des donn&eacute;es brutes" dans le <a href=
+      "../locomon/LocoMonFrame.shtml">Moniteur LocoNet</a>, parce
+      que les paquets sont entr&eacute;s ici en
+      rang&eacute;e au format hexad&eacute;cimal .</p>
+
+      <p>La section sup&eacute;rieure de la
+      fen&ecirc;tre vous permet d'envoyer un seul paquet
+      LocoNet. Il suffit de taper le contenu du paquet sous formes
+      de nombres hexad&eacute;cimaux, par exemple "83 7C", et
+      cliquez sur "Envoyer". Vous devriez inclure l'octet pour le
+      checksum &agrave; la fin du message.</p>
+
+      <p>La section du bas vous permet de saisir un &agrave;
+      quatre paquets qui seront envoy&eacute;s &agrave;
+      plusieurs reprises dans l&apos;ordre, avec des retards
+      d&eacute;finis par l'utilisateur entre les deux.
+      Appuyez sur le bouton "Go" pour d&eacute;marrer la
+      s&eacute;quence de transmission, et appuyez de nouveau
+      pour arr&ecirc;ter la s&eacute;quence.</p>
+
+      <p>Plus d'informations sur les contr&ocirc;les
+      g&eacute;n&eacute;raux est disponible sur
+      <a href="../../AbstractMonFrame.shtml">une autre page</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

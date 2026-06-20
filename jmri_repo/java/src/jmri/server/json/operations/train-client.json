@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-train-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"train\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Operations id for train being requested"
+        },
+        "location": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Operations id of location to move train to; if null, train is terminated; if absent, no action is taken"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name"
+    ]
+}

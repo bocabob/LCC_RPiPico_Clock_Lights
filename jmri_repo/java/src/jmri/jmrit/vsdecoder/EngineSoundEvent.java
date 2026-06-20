@@ -1,0 +1,233 @@
+package jmri.jmrit.vsdecoder;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.JComponent;
+import jmri.Throttle;
+import jmri.jmrit.vsdecoder.swing.DieselPane;
+import org.jdom2.Element;
+
+/**
+ * Handles sound events for all types.
+ *
+ * <hr>
+ * This file is part of JMRI.
+ * <p>
+ * JMRI is free software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published
+ * by the Free Software Foundation. See the "COPYING" file for a copy
+ * of this license.
+ * <p>
+ * JMRI is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details.
+ *
+ * @author Mark Underwood Copyright (C) 2011
+ * @author Klaus Killinger Copyright (C) 2018-2021
+ */
+public class EngineSoundEvent extends SoundEvent {
+
+    EnginePane engine_pane;
+
+    /*
+     Trigger t; // used in setXml as a temporary holder for creating the
+     // event listener class.
+
+     ButtonTrigger bt; // used in setupButtonAction() as a temporary holder
+     // for creating the button listeners.
+     */
+
+    public EngineSoundEvent(String n) {
+        super(n);
+        engine_pane = null;
+    }
+
+    @Override
+    public boolean hasButton() {
+        if ((buttontype == ButtonType.NONE) || (buttontype == ButtonType.ENGINE) || (button == null)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean hasEnginePane() {
+        if ((buttontype == ButtonType.ENGINE) && (engine_pane != null)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public JComponent getButton() {
+        log.debug("engine getButton() called.");
+        return engine_pane;
+    }
+
+    @Override
+    public EnginePane getEnginePane() {
+        return engine_pane;
+    }
+
+    @Override
+    public void setEnginePane(EnginePane e) {
+        engine_pane = e;
+    }
+
+    @Override
+    public void setButtonLabel(String bl) {
+        // can't do this.  Yet.
+    }
+
+    @Override
+    public String getButtonLabel() {
+        // can't do this. Yet.
+        //return(engine_pane.getText());
+        return "Text";
+    }
+
+    @Override
+    protected ButtonTrigger setupButtonAction(Element te) {
+        /*
+         MouseListener ml;
+         bt = new ButtonTrigger(te.getAttributeValue("name"));
+         button_trigger_list.put(bt.getName(), bt);
+         log.debug("new ButtonTrigger " + bt.getName() + " type " + btype.toString());
+         switch(btype) {
+         case TOGGLE:
+         this.getButton().addActionListener(bt);
+         break;
+         case MOMENTARY:
+         default:
+         this.getButton().addMouseListener(bt);
+         // Just send the trigger a click.
+         }
+         return(bt);  // cast OK since we just instantiated it up above.
+         */
+        return null;  // cast OK since we just instantiated it up above.
+    }
+
+    public void guiAction(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(DieselPane.START)) {
+            log.debug("GUI Start button changed. New value: {}", evt.getNewValue());
+            if (this.getParent().getEngineSound() != null) {
+                if ((Boolean) evt.getNewValue()) {
+                        this.getParent().getEngineSound().setEngineStarted(true);
+                        this.parent.getEngineSound().startEngine();
+                } else {
+                        this.getParent().getEngineSound().setEngineStarted(false);
+                        this.getParent().getEngineSound().stopEngine();
+                }
+            } else {
+                log.warn("Lost context, VSDecoder is null. Quit JMRI and start over.");
+            }
+        } else if (evt.getPropertyName().equals(DieselPane.VOLUME)) {
+            log.debug("decoder volume: {}", evt.getOldValue());
+            this.getParent().setDecoderVolume((1.0f * (Integer) evt.getOldValue()) / 100.0f);
+            // save to Roster Media
+            if (this.getParent().getRosterEntry() != null) {
+                this.getParent().getRosterEntry().putAttribute("VSDecoder_Volume", String.valueOf(this.getParent().getDecoderVolume()));
+            }
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        super.propertyChange(event);
+        if (event.getPropertyName().equals(Throttle.SPEEDSETTING)) {
+            this.getParent().getEngineSound().handleSpeedChange((Float) event.getNewValue(), engine_pane);
+        } else if (event.getPropertyName().equals(Throttle.ISFORWARD)) {
+            this.getParent().getEngineSound().changeLocoDirection((Boolean) event.getNewValue() ? 1 : -1);
+            log.debug("is forward: {}", event.getNewValue());
+        } else if (event.getPropertyName().startsWith("F")) {
+            String ev = event.getPropertyName();
+            boolean val = (Boolean) event.getNewValue();
+            for (Trigger t : trigger_list.values()) {
+                log.debug("trigger name: {}, event: {}, target: {}", t.getName(), t.getEventName(), t.getTargetName());
+                if (ev.equals(t.getEventName())) {
+                    if (t.getName().equals("ENGINE_STARTSTOP")) {
+                        getEnginePane().startButtonClick();
+                    } else {
+                        this.getParent().getEngineSound().functionKey(ev, val, t.getName());
+                        log.debug("event {} is {}", ev, val);
+                    }
+                }
+            }
+        }
+    }
+
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value="BC_UNCONFIRMED_CAST",
+            justification="DieselPane extends EnginePane")
+    private void setDecoderVolume() {
+        // Get decoder volume and pass it to the spinner
+        int dv = Math.round(this.getParent().getDecoderVolume() * 100f);
+        ((DieselPane) engine_pane).getVolumeSlider().setValue(dv);
+    }
+
+    @Override
+    public Element getXml() {
+        Element me = new Element("SoundEvent");
+        me.setAttribute("name", name);
+        me.setAttribute("label", me.getText());
+        for (Trigger t : trigger_list.values()) {
+            me.addContent(t.getXml());
+        }
+        return me;
+    }
+
+    @Override
+    public void setXml(Element el) {
+        this.setXml(el, null);
+    }
+
+    @Override
+    public void setXml(Element el, VSDFile vf) {
+        // Create the "button"  (should this be in constructor)
+        log.debug("Creating DieselPane");
+        engine_pane = new DieselPane("Engine");
+
+        setDecoderVolume();
+
+        // Handle common stuff
+        super.setXml(el, vf);
+
+        // Get the SoundEvent's button type and create it.
+        engine_pane.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                guiAction(evt);
+            }
+        });
+
+        // Forward an option passed from the trigger ENGINE_STARTSTOP
+        // The option can force speed zero before the engine can be stopped
+        for (Trigger t : trigger_list.values()) {
+            if (t.getName().equals("ENGINE_STARTSTOP")) {
+                if (t.getTargetAction().equals(jmri.jmrit.vsdecoder.Trigger.TargetAction.STOP_AT_ZERO)) {
+                    engine_pane.setStopOption(true); // force speed zero
+                } else {
+                    engine_pane.setStopOption(false); // engine can be stopped at any speed
+                }
+            }
+        }
+
+        if (log.isDebugEnabled()) {
+            for (ButtonTrigger bt : button_trigger_list.values()) {
+                log.debug("Button Trigger: {}", bt.getName());
+                log.debug("  Target: {}", bt.getTarget().getName());
+                log.debug("  Action: {}", bt.getTargetAction());
+            }
+            for (Trigger bt : trigger_list.values()) {
+                log.debug("Trigger: {}", bt.getName());
+                log.debug("  Target: {}", bt.getTarget());
+                log.debug("  Action: {}", bt.getTargetAction());
+            }
+        }
+    }
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(EngineSoundEvent.class);
+
+}

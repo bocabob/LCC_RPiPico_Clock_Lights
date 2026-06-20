@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>JMRI : SPROG CBUS® ; Outil de commutation de mode simple</title>
+  <meta name="author" content="Andrew Crosland">
+  <meta name="keywords" content="JMRI SPROG CBUS Simple Mode Switcher Tool">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI : CBUS Outil de commutation de mode simple</h1>
+
+      <p>Le sélecteur de mode permet de contrôler les modes de programmation disponibles pour la
+      centrale connectée. Toutes les centrales CBUS ne prennent pas en charge le sélecteur de
+      mode.<br>
+      <br></p>
+
+      <p>Ouvrir le sélecteur de mode (s'il est disponible) à partir du menu SPROG Generation 5.<br>
+      <br></p>
+      . <img src="images/ModeSwitcherMenu.png" alt="Entrée du menu du sélecteur de mode">.
+      <p>Sélectionner le mode programmateur pour la programmation en mode service sur une voie de
+      programmation.</p>
+
+      <p>Sélectionner le mode centrale pour faire circuler les trains et utiliser le mode de
+      programmation ops (sur la voie principal) .<br>
+      <br></p>
+
+      <p><img src="images/SimpleModeSwitcher.png" alt="SPROG simple mode switcher">.</p>
+
+      <p>La barre d'état de la fenêtre principale de Decoder Pro indique les programmateurs
+      actuellement disponibles.<br>
+      <br></p>
+      <img src="images/StatusBar.png" alt="Barre d'état du DP3">
+      <p>CBUS® est une marque déposée du Dr Michael Bolton</p>
+
+      <p>Traduction 2021-03-20</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div> <!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

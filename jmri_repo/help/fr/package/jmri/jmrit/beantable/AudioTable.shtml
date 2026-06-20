@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Herv&#233; Blorec  2013-10-10-->
+<head>
+  <title>JMRI: Audio Table Help</title>
+  <meta name="author" content="Matt Harris">
+  <meta name="keywords" content="JMRI help Audio Table">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>La Table Audio</h1>
+
+      <p>Vous pouvez utiliser la Table Audio pour regarder le contenu des objets audio JMRI.
+      <p>Notez que vous pouvez trier la table par chacune des colonnes, cliquez simplement sur le
+      tête de colonne.</p>
+      <a href="AudioTable.jpg"><img src="AudioTable.jpg" height="178" width="420" alt=""></a>
+      <p>Pour créer un nouvel objet audio, cliquez sur le bouton " <a href=
+      "AudioAddEdit.shtml">Ajouter ...</a>" au bas de la fenêtre.</p>
+
+      <p>Pour plus d'informations sur les objets audio, consultez la <a href=
+      "../../../../html/tools/Audio.shtml">page d'aide audio</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

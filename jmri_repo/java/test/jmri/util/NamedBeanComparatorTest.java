@@ -1,0 +1,114 @@
+package jmri.util;
+
+import org.junit.jupiter.api.*;
+
+import jmri.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class NamedBeanComparatorTest {
+
+    @Test
+    public void testOneLetterCases() {
+        NamedBeanComparator<Turnout> t = new NamedBeanComparator<>();
+
+        Turnout it1 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("IT1");
+        Turnout it10 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("IT10");
+        Turnout it2 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("IT2");
+        
+        assertEquals( 0, t.compare(it1, it1), "IT1 == IT1");
+
+        assertEquals( -1, t.compare(it1, it2), "IT1 < IT2");
+        assertEquals( +1, t.compare(it2, it1), "IT2 > IT1");
+
+        assertEquals( +1, t.compare(it10, it2), "IT10 > IT2");
+        assertEquals( -1, t.compare(it2, it10), "IT2 < IT10");
+    }
+
+    @Test
+    public void testTwoLetterCases() {
+        NamedBeanComparator<Turnout> t = new NamedBeanComparator<>();
+
+        Turnout i2t1 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("I2T1");
+        Turnout i2t10 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("I2T10");
+        Turnout i2t2 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("I2T2");
+        
+        assertEquals( 0, t.compare(i2t1, i2t1), "I2T1 == I2T1");
+
+        assertEquals( -1, t.compare(i2t1, i2t2), "I2T1 < I2T2");
+        assertEquals( +1, t.compare(i2t2, i2t1), "I2T2 > I2T1");
+
+        assertEquals( +1, t.compare(i2t10, i2t2), "I2T10 > I2T2");
+        assertEquals( -1, t.compare(i2t2, i2t10), "I2T2 < I2T10");
+    }
+
+    @Test
+    public void testThreeLetterCases() {
+        NamedBeanComparator<Turnout> t = new NamedBeanComparator<>();
+
+        Turnout i23t1 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("I23T1");
+        Turnout i23t10 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("I23T10");
+        Turnout i23t2 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("I23T2");
+        
+        assertEquals( 0, t.compare(i23t1, i23t1), "I23T1 == I23T1");
+
+        assertEquals( -1, t.compare(i23t1, i23t2), "I23T1 < I23T2");
+        assertEquals( +1, t.compare(i23t2, i23t1), "I23T2 > I23T1");
+
+        assertEquals( +1, t.compare(i23t10, i23t2), "I23T10 > I23T2");
+        assertEquals( -1, t.compare(i23t2, i23t10), "I23T2 < I23T10");
+    }
+
+    private boolean hit = false;
+    
+    @Test
+    public void testSystemSpecificCase() {
+        NamedBeanComparator<Turnout> t = new NamedBeanComparator<>();
+
+        // this just checks that the local sort is called
+        Turnout it1 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("IT1");
+        Turnout it2 = new jmri.implementation.AbstractTurnout("IT2") {
+
+            @Override
+            protected void forwardCommandChangeToLayout(int s) {
+            }
+
+            @Override
+            protected void turnoutPushbuttonLockout(boolean b) {
+            }
+
+            @Override
+            public int compareSystemNameSuffix(String suffix1, String suffix2, jmri.NamedBean n) {
+                hit = true;
+                return super.compareSystemNameSuffix(suffix1, suffix2, n);
+            }
+        };
+
+        hit = false;
+        assertEquals( -1, t.compare(it1, it2), "IT1 < IT2");
+        assertFalse(hit);
+        
+        hit = false;        
+        assertEquals( +1, t.compare(it2, it1), "IT2 < IT1");
+        assertTrue(hit);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(NamedBeanComparatorTest.class);
+
+}

@@ -1,0 +1,273 @@
+package jmri.jmrit.logixng.expressions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
+import jmri.InstanceManager;
+import jmri.Memory;
+import jmri.MemoryManager;
+import jmri.NamedBean;
+import jmri.jmrit.logixng.*;
+import jmri.jmrit.logixng.actions.DoStringAction;
+import jmri.jmrit.logixng.actions.StringActionMemory;
+import jmri.jmrit.logixng.implementation.DefaultConditionalNGScaffold;
+import jmri.util.JUnitAppender;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Test StringExpressionConstant
+ *
+ * @author Daniel Bergqvist 2018
+ */
+public class StringExpressionConstantTest extends AbstractStringExpressionTestBase {
+
+    private LogixNG logixNG;
+    private ConditionalNG conditionalNG;
+    private StringExpressionConstant expressionConstant;
+    private Memory _memoryOut;
+    private StringActionMemory actionMemory;
+
+
+    @Override
+    public ConditionalNG getConditionalNG() {
+        return conditionalNG;
+    }
+
+    @Override
+    public LogixNG getLogixNG() {
+        return logixNG;
+    }
+
+    @Override
+    public MaleSocket getConnectableChild() {
+        return null;
+    }
+
+    @Override
+    public String getExpectedPrintedTree() {
+        return String.format("Get string constant \"Something\" ::: Use default%n");
+    }
+
+    @Override
+    public String getExpectedPrintedTreeFromRoot() {
+        return String.format(
+                "LogixNG: A logixNG%n" +
+                "   ConditionalNG: A conditionalNG%n" +
+                "      ! A%n" +
+                "         Read string E and set string A ::: Use default%n" +
+                "            ?s E%n" +
+                "               Get string constant \"Something\" ::: Use default%n" +
+                "            !s A%n" +
+                "               Set memory IM2 ::: Use default%n");
+    }
+
+    @Override
+    public NamedBean createNewBean(String systemName) {
+        return new StringExpressionConstant(systemName, null);
+    }
+
+    @Override
+    public boolean addNewSocket() {
+        return false;
+    }
+
+    @Test
+    public void testCtor() {
+        assertNotNull( _base, "object exists");
+
+        StringExpressionConstant expression2;
+
+        expression2 = new StringExpressionConstant("IQSE11", null);
+        assertNotNull( expression2, "object exists");
+        assertNull( expression2.getUserName(), "Username matches");
+        assertEquals( "Get string constant \"\"", expression2.getLongDescription(Locale.ENGLISH),
+            "String matches");
+
+        expression2 = new StringExpressionConstant("IQSE11", "My constant value");
+        assertNotNull( expression2, "object exists");
+        assertEquals( "My constant value", expression2.getUserName(), "Username matches");
+        assertEquals( "Get string constant \"\"", expression2.getLongDescription(Locale.ENGLISH),
+            "String matches");
+
+        expression2 = new StringExpressionConstant("IQSE11", null);
+        expression2.setValue("A value");
+        assertNotNull( expression2, "object exists");
+        assertNull( expression2.getUserName(), "Username matches");
+        assertEquals( "Get string constant \"A value\"", expression2.getLongDescription(Locale.ENGLISH),
+            "String matches");
+
+        expression2 = new StringExpressionConstant("IQSE11", "My constant");
+        expression2.setValue("Some other value");
+        assertNotNull( expression2, "object exists");
+        assertEquals( "My constant", expression2.getUserName(), "Username matches");
+        assertEquals( "Get string constant \"Some other value\"", expression2.getLongDescription(Locale.ENGLISH),
+            "String matches");
+
+        // Call setup(). It doesn't do anything, but we call it for coverage
+        expression2.setup();
+
+        IllegalArgumentException ex = assertThrows( IllegalArgumentException.class, () -> {
+            var t = new StringExpressionConstant("IQA55:12:XY11", null);
+            fail("should have thrown, not created " + t);
+        }, "Illegal system name Expected exception thrown");
+        assertNotNull(ex);
+
+        ex = assertThrows( IllegalArgumentException.class, () -> {
+            var t = new StringExpressionConstant("IQA55:12:XY11", "A name");
+            fail("should have thrown, not created " + t);
+        }, "Illegal system name Expected exception thrown");
+        assertNotNull(ex);
+
+        // Call setup() for coverage. setup() doesn't do anything
+        expression2.setup();
+    }
+
+    @Test
+    public void testSetValue() {
+        conditionalNG.setEnabled(false);
+        StringExpressionConstant expression = (StringExpressionConstant)_base;
+        expression.setValue("");
+        assertEquals( "", expression.getValue(), "getValue() returns correct value");
+        expression.setValue("A value");
+        assertEquals( "A value", expression.getValue(), "getValue() returns correct value");
+        expression.setValue("Some other value");
+        assertEquals( "Some other value", expression.getValue(), "getValue() returns correct value");
+    }
+
+    @Test
+    public void testSetValueWithListenersRegistered() {
+        RuntimeException e = assertThrows( RuntimeException.class, () -> {
+            StringExpressionConstant expression = (StringExpressionConstant)_base;
+            expression.registerListeners();
+            expression.setValue("A value");
+        }, "Exception thrown");
+        assertNotNull(e);
+        JUnitAppender.assertErrorMessage("setValue must not be called when listeners are registered");
+    }
+
+    @Test
+    public void testEvaluate() throws SocketAlreadyConnectedException, SocketAlreadyConnectedException {
+        // Disable the conditionalNG. This will unregister the listeners
+        conditionalNG.setEnabled(false);
+        StringExpressionConstant expression = (StringExpressionConstant)_base;
+        expression.setValue("");
+        assertEquals( "", expression.evaluate(), "Evaluate matches");
+        expression.setValue("");
+        assertEquals( "", expression.evaluate(), "Evaluate matches");
+    }
+
+    @Test
+    public void testEvaluateAndAction() throws SocketAlreadyConnectedException, SocketAlreadyConnectedException {
+
+        // Set the memory
+        _memoryOut.setValue("");
+        // The string should be ""
+        assertEquals( "", _memoryOut.getValue(), "memory is \"\"");
+        // Execute the logixNG
+        logixNG.execute();
+        // The action is executed so the string should be "Something"
+        assertEquals( "Something", _memoryOut.getValue(), "memory is \"Something\"");
+
+        // Disable the conditionalNG
+        conditionalNG.setEnabled(false);
+        // Set the value of the constant.
+        expressionConstant.setValue("A value");
+        // Enable the conditionalNG
+        conditionalNG.setEnabled(true);
+        // Execute the logixNG
+        logixNG.execute();
+        // The action is executed so the string should be "A value"
+        assertEquals( "A value", _memoryOut.getValue(), "memory is \"A value\"");
+    }
+
+    @Test
+    public void testCategory() {
+        assertEquals( LogixNG_Category.ITEM, _base.getCategory(), "Category matches");
+    }
+
+    @Test
+    public void testShortDescription() {
+        assertEquals( "String constant", _base.getShortDescription(Locale.ENGLISH), "String matches");
+    }
+
+    @Test
+    public void testLongDescription() {
+        assertEquals( "Get string constant \"Something\"", _base.getLongDescription(Locale.ENGLISH), "String matches");
+    }
+
+    @Test
+    public void testChild() {
+        assertEquals( 0, _base.getChildCount(), "Num children is zero");
+        UnsupportedOperationException ex = assertThrows( UnsupportedOperationException.class, () ->
+            _base.getChild(0), "Exception is thrown");
+        assertEquals( "Not supported.", ex.getMessage(), "Error message is correct");
+    }
+
+    @BeforeEach
+    public void setUp() throws SocketAlreadyConnectedException {
+        JUnitUtil.setUp();
+        JUnitUtil.resetInstanceManager();
+        JUnitUtil.resetProfileManager();
+        JUnitUtil.initConfigureManager();
+        JUnitUtil.initInternalSensorManager();
+        JUnitUtil.initInternalTurnoutManager();
+        JUnitUtil.initMemoryManager();
+        JUnitUtil.initLogixNGManager();
+
+        expressionConstant = new StringExpressionConstant("IQSE321", null);
+        expressionConstant.setValue("Something");
+
+        logixNG = InstanceManager.getDefault(LogixNG_Manager.class).createLogixNG("A logixNG");
+        conditionalNG = new DefaultConditionalNGScaffold("IQC1", "A conditionalNG");  // NOI18N;
+        InstanceManager.getDefault(ConditionalNG_Manager.class).register(conditionalNG);
+        conditionalNG.setRunDelayed(false);
+        conditionalNG.setEnabled(true);
+
+        logixNG.addConditionalNG(conditionalNG);
+
+        DigitalActionBean actionDoString =
+                new DoStringAction(InstanceManager.getDefault(DigitalActionManager.class).getAutoSystemName(), null);
+        MaleSocket socketDoString =
+                InstanceManager.getDefault(DigitalActionManager.class).registerAction(actionDoString);
+        conditionalNG.getChild(0).connect(socketDoString);
+
+        MaleSocket socketExpression =
+                InstanceManager.getDefault(StringExpressionManager.class).registerExpression(expressionConstant);
+        socketDoString.getChild(0).connect(socketExpression);
+
+        _memoryOut = InstanceManager.getDefault(MemoryManager.class).provide("IM2");
+        _memoryOut.setValue(0.0);
+        actionMemory = new StringActionMemory("IQSA1", null);
+        actionMemory.getSelectNamedBean().setNamedBean(_memoryOut);
+        MaleSocket socketAction =
+                InstanceManager.getDefault(StringActionManager.class).registerAction(actionMemory);
+        socketDoString.getChild(1).connect(socketAction);
+
+        _base = expressionConstant;
+        _baseMaleSocket = socketExpression;
+
+        assertTrue( logixNG.setParentForAllChildren(new ArrayList<>()));
+        logixNG.activate();
+        logixNG.setEnabled(true);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        _base.dispose();
+        jmri.jmrit.logixng.util.LogixNG_Thread.stopAllLogixNGThreads();
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+
+}

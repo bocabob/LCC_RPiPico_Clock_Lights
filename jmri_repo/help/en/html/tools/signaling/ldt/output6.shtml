@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Bob Jacobsen 2008 -->
+
+  <title>JMRI: LDT Signaling for CSD/CD/ZSR Signals</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+
+  <style>
+    th {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+
+    .ctr {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <!-- Page Body -->
+
+      <h2>JMRI: LDT Signaling for CSD/CD/ZSR Signals</h2>
+
+      <h2><strong>Entry signal <img src="output6_html_6f691e17.png" width="6" height="30" alt=
+      ""></strong><strong>+</strong> <strong>advance signal <img src="output6_html_7e3459b4.png"
+      width="6" height="13" alt=""></strong></h2>
+
+      <p style="margin-bottom: 0in">decoder: DP2N, mode 0</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>slow approach</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>shunting permited</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>slow approach 40 km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>call-on signal</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Exit signal</strong> <strong><img src="output6_html_m5289f733.png" width="6"
+      height="20" alt=""></strong></h2>
+
+      <p style="margin-bottom: 0in">decoder: DP2N, mode 1</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>shunting permited</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>call-on signal</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Repeating signal <img src="output6_html_m2a349567.png" width="6" height="23" alt=
+      ""></strong>
+      </h2>
+
+      <p style="margin-bottom: 0in">decoder: DP2N, mode 2</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>repeating slow approach</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>repeating slow approach 40 km/h</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>shunting permited</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>call-on signal</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+      </table>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+  <!-- close #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

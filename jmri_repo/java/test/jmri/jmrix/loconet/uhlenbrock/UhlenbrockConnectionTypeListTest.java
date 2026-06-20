@@ -1,0 +1,32 @@
+package jmri.jmrix.loconet.uhlenbrock;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class UhlenbrockConnectionTypeListTest {
+
+    @Test
+    public void testCTor() {
+        UhlenbrockConnectionTypeList t = new UhlenbrockConnectionTypeList();
+        Assert.assertNotNull("exists",t);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(UhlenbrockConnectionTypeListTest.class);
+
+}

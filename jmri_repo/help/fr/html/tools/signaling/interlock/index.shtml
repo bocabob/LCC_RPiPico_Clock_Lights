@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Kevin Dickerson 2011 -->
+  <!-- Translated by Blorec Herv&#233; 2013-09-27 -->
+
+  <title>JMRI: Enclenchement</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+
+    <div id="mainContent">
+
+      <h1>Entrée Sortie Enclenchement</h1>
+
+      <p>Ce bref tutoriel est destiné à expliquer comment les Entrée Sortie et Enclenchement sont
+      définis et fonctionnent dans JMRI. C'est basé sur la <a href=
+      "http://www.jmri.org/community/clinics/UK2011/">normalisation logique Mât</a> qui s'est tenue
+      au Royaume-Uni et fait suite à cela.</p>
+
+      <p>Le fichier panneau pour ce tutoriel a été fait à partir de la section "Logix et Formes" du
+      tutoriel mât signal, la seule différence, est que la logique mât signal a été enlevée de tous
+      les mâts de signalisation en dehors des "Mât up externe" et "Mât platforme bas", quand
+      ceux-ci sont utilisés pour représenter des signaux dans les zones contrôlées
+      automatiquement.</p>
+
+      <p>En complément le fichier à été modifié pour utiliser les Capteurs et Aiguillages Internes
+      seulement, lui permettant ainsi d'être ouvert avec n'importe quel système configuré dans les
+      préférences.</p>
+
+      <p>Comme condition préalable à l' <a href=
+      "http://www.jmri.org/community/clinics/UK2011/">exemple</a> la Logique Mât Signal devrait
+      être suivie avant d'essayer celui-ci car il fournit la base sur la façon de construire votre
+      panneau prêt à l'emploi avec la Logique du Mât de signalisation et aussi de
+      l'Enclenchement.</p>
+
+      <p>Le plan de voie pour cela est le même que dans la logique de mât signal et pourrait être
+      considéré comme un scénario typique où les signaux Approche Bas, Platform Haut et Bay
+      seraient sous le contrôle de l'aiguilleur, tandis que la Platforme haut extérieur et vers le
+      bas serait automatiquement contrôlée..</p>
+
+      <p><img src="images/interlocklayoutoverview.png" width="830" height="278" alt="interlock overview">
+      </p>
+
+      <p>Le fichier panneau pour ce tutoriel peut être trouvé <a href=
+      "Interlock%20Demo%201.xml">ici</a></p>
+
+      <p>Les boutons NX travaille tous par paires et doiventt être sélectionnés dans le bon ordre,
+      aussi il n'est pas possible de jouer à saute-mouton sur un bouton NX pour définir un
+      itinéraire entre deux boutons non adjacents. Exemplesi vous avez les boutons A-B-C Il n'est
+      pas possible de définir un itinéraire de A - C, l'ordre de sélection devra être A - B B -
+      C</p>
+
+      <h2>Démarrer l'éditeur de réseau</h2>
+      Dans le tutoriel Logique Mât Signal chaque canton était configuré avec une couleur différente
+      pour montrer s'il était occupé ou non- occupé (<a href=
+      "http://www.jmri.org/community/clinics/UK2011/layout_editor.shtml">Construire un Réseau</a>).
+      De plus il est possible d'assigner une couleur alternative pour chaque canton. Lors de
+      l'utilisation de l'Enclenchement Total, cette couleur alternative est utilisée pour surligner
+      les itinéraires qui ont été définis, quand un canton utilise la couleur alternative il
+      prévient aussi les autres itinéraires devant utilser ce canton.
+      <p>Les eNtrée sortie (NX) utilisent des capteurs pour chaque emplacement NX , associés
+      typiquement à un signal ou un Heutoir ou une zône d'arrêt, ces capteurs agiraient de la même
+      façon qu'un bouton sur un panneau physique, le réglage de la touche active pour démarrer la
+      sélection avec la valeur courante d'un second capteur complétant l'itinéraire ou la sélection
+      de chemin. Si un capteur correspondant n'est pas trouvé dans les 10 secondes alors le capteur
+      initial sera réinitialisé à inactif.</p>
+
+      <p>Un capteur a besoin d'être configuré pour chaque emplacement NX.A titre de suggestion pour
+      aider à garder une trace des choses préfixer le nom d'utilisateur avec "NX" suivi par le
+      signal associé. Ainsi, par exemple si le capteur NX est associé au signal "Down appr", puis
+      faire l'identifiant du capteur" NX Down appr".</p>
+
+      <p>Une fois les capteurs créés, ils peuvent être associés et positionnés à leurs emplacement
+      sur l'éditeur de réseau, de la même façon que les mâts de signalisation ont été réalisédes
+      dans la partie 6 de l'exemple de la logique du mât signal mât. Faire apparaître le menu
+      contextuel (clic droit) sur la limite de canton et sélectionnez "Set Capteurs", à partir de
+      la fenêtre suivante:</p>
+
+      <p><img src="images/assignsensors.png" width="331" height="539" alt="assign sensors">
+      </p>
+
+      <p>Rappelez-vous que le canton dont le capteur est affecté déterminera le sens de la marche,
+      si le capteur est affecté à un canton incorrect, il ne sera pas détecté et les enclenchements
+      ne fonctionneront pas.<br>
+      TLe fichier panneau avec les capterus déjà affectés peut être trouvé <a href=
+      "Interlock%20Demo%202.xml">ici</a></p>
+
+      <h2>Création des Règles NX.</h2>
+      Ouvrez la fenêtre d'Entrée Sortie, qui peut être trouvée dans l'option outils de l'éditeur de
+      réseau. Cela fera apparaître une fenêtre comme celle-ci.
+      <p><img src="images/emptyentryexitwindow.png" width="790" height="244" alt="NX window empty">
+      </p>
+
+      <p>cette fenêtre vous permet de voir quelles paires NX ont été créées et l'état de chaque
+      paire. De cette fenêtre, nous pouvons obtenir que le système génère automatiquement les
+      paires ou nous pouvons les définir manuellement.</p>
+
+      <ol>
+        <li>Sélectionnez le fichier de panneau de l'éditeur de Réseau où vous souhaitez créer les
+        NX</li>
+
+        <li>Si vous allez créer la paire manuellement puis sélectionnez les points d'Entrée et de
+        Sortie depuis les listes respectives, ou les laisser tels quels.</li>
+
+        <li>Sélectionnez le type d'enclenchement que vous allez utilisert.</li>
+
+        <li style="list-style: none">
+          <ul>
+            <li><strong>Définir Aiguillage Seulement</strong> - Ceci définira seulement les
+            aiguillages à leur état correcte entre les capteurs NX .</li>
+
+            <li><strong>Définir Aiguillages et SignalMast</strong> - Ceci fera comme dessus, mais
+            génèrera aussi la logique SignalMast en même temps</li>
+
+            <li><strong>Enclenchement Complet</strong> - Ceci fera tout comme au-dessus et aussi
+            verrouille le chemin et évite un autre accident étant sélectionné</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2>Définir Aiguillage Seulement</h2>
+      Si pour commencer vous sélectionnez "Définir Aiguillage Seulement" et appuyez sur "Générer
+      automatiquement les Paires Entrée Sortie ", il finira par générer une liste de quatre paires
+      comme suit:
+      <p><img src="images/populatedentryexitwindow.png" width="790" height="315" alt="NX window">
+      </p>
+
+      <p>Les quatre chemins générés sont tous des paires valides baséessur la direction des
+      trajets. Pour le NX à régler vous devez d'abord sélectionner le capteur d'Entrée, suivi par
+      le capteur de Sortie. S'ils sont sélectionnés dans l'ordre inverse le chemin ne sera pas
+      défini.</p>
+
+      <p>Vous pouvez voir que si vous devez définir un itinéraire à partir de l'appr vers le zône
+      d'arrêt Bay, Les aiguillages ont leurs configuration automatique. Les capteurs seront
+      également clignotant alors que l'itinéraire se met en place</p>
+
+      <p>Si vous définnissez un itinéraire du "Mât Bay" vers le "up appr", Les aiguillages seront
+      encore définis automatiquement.</p>
+
+      <p><img src="images/interlockturnout.png" width="498" height="229" alt="interlock turnout">
+      </p>
+
+      <p>Avec le type enclenchement Aiguillage Seulement, comme aucune autre logique ou
+      verrouillage ne se fait, il est possible d'autoriser le verrouillage à mettre en place, peu
+      importe lequel inverse les boutons NX sélectionnés . Cela peut être fait en sélectionnant le
+      drapeau "Both Way" dans le tableau contre une entrée. Vous pouvez ensuite définir le chemin
+      en sens inverse, par exemple "NX Up Outer" à "NX Mât Bay".</p>
+
+      <p>En complément de ceci avec un "Aiguillage Seulement" défini, vous pouvez également créer
+      des paires NX qui vont dans le sens normal de déplacement, par exemple de " Mât Bay" à "Down
+      Appr".</p>
+
+      <h2>Aiguillages et SignalMast</h2>
+      Si "Définir aiguillages et SignalMasts" est sélectionné, puis "Générer automatiquement" est
+      enfoncée, les quatre mêmes verrouillages seront générés avec le type NX mis pour
+      "SignalMast".
+      <p>Cette fois, lorsque vous définissez l'itinéraire entre deux capteurs NX, il règlera les
+      aiguillages et si les SignalMasts sont placés au même endroit, il configure également la
+      logique du mât signal à la source.</p>
+
+      <p><img src="images/interlocksigmast.png" width="498" height="229" alt="interlock mast">
+      </p>
+
+      <p>La logique SignalMast, apparaîtra dans le tableau logique mât signal, cette logique n'est
+      pas enregistrée lorsque le fichier de panneau est enregistré.</p>
+
+      <p>Si vous définissez un itinéraire à partir depuis "down appr" dans la zône d'arrêt, vous
+      verrez que les aiguillages se préparent et le signal passe à l'état correct. Si vous modifiez
+      ensuite l'état de l'aiguillage ou de canton sur le chemin, vous verrez que la source
+      signalmast source changera pour l'état approprié.</p>
+
+      <h2>Enclenchement Complet</h2>
+      Si "Full Interlock" est sélectionné, puis le bouton "Générate Auto" pressé, encore une fois
+      vous finiriez avec les quatre verrouillages comme avant.
+      <h3>SignalMast</h3>
+      Quand un verrouillage intégral est configuré et il y a des mâts de signalisation placés à des
+      emplacements NX, on placera le mât de signalisation à l'emplacement de la source dans un état
+      maintenu jusqu'à ce qu'un itinéraire soit établi, ce qui libère à son tour le signal. Cela
+      fonctionne sur la base que ces signaux sont désormais sous le contrôle d'un Signaleur qui
+      doit déterminer l'itinéraire approprié avant de relâcher le signal.
+      <p><img src="images/interlockmasttable.png" width="650" height="347" alt="">
+      </p>
+
+      <p>Le verrouillage complet définira aussi l'état des cantons pour utiliser la couleur
+      altenative, et les touches sensitives NX resteront dans un état actif solide.</p>
+
+      <p><img src="images/interlockfull.png" width="498" height="229" alt="">
+      </p>
+
+      <p>Si vous essayez de définir un chemin en conflit, alors un message d'erreur sera affiché et
+      le chemin ne sera pas défini.</p>
+
+      <p>Car le second itinéraire est effacé par un train occupant les cantons,avec en plus le
+      verrouillage.</p>
+
+      <p><img src="images/interlockfull2.png" width="498" height="229" alt="">
+      </p>
+
+      <p>Si vous re-sélectionner un verrouillage actif, les capteurs NX se mettent à clignoter, et
+      vous obtenez la possibilité soit d'"Annuler" l'itinéraire, "Clear Down" ou "Sortie".</p>
+
+      <p><img src="images/interlockcancelclear.png" width="318" height="116" alt="">
+      </p>
+
+      <ul>
+        <li>Annuler désactivera ll'Itinéraire</li>
+
+        <li>Sortie sera juste le message sur l'écran et ne rien faire d'autre.</li>
+
+        <li>"Clear Down" va simuler manuellement un train circulant sur les cantons et
+        déplacer les valeurs attribuées au canton jusqu'au canton de fin.</li>
+
+        <li style="list-style: none">.</li>
+      </ul>
+
+      <h3>Sans Mâts Signal</h3>
+      Si aucun Signalmast n'est configuré entre les deux points le verrouillage fonctionne à peu
+      près de la même manière comme il le ferait avec Signalmast, c'est juste qu'il ne définit pas
+      et n'affiche pas de signaux.
+      <h2>Plus de détails.</h2>
+
+      <p>Avec toutes les méthodes Entrée/Sortie le système tentera de définir l'itinéraire le
+      "moins coûteux". Chaque canton du réseau a un "coût" attribué, c'est la somme de tous les
+      coûts de canton dans un itinéraire qui déterminent le "coût" global de l'itinéraire. Par
+      défaut, à une voie principale est attribuée une valeur de 50, tandis qu'une piste d'évitement
+      a une valeur de 200. Ces valeurs peuvent être modifiées par l'utilisateur, par la
+      modification du caqnton réseau. Si l'itinéraire avec le coût le plus bas, soit a un autre
+      point d'entrée/sortie dans le même sens, ou un canton qui est déjà signalé occupé ou réservé,
+      alors il va essayer de trouver un itinéraire alternatif s'il est disponible.</p>
+
+      <p><img src="images/editblock.png" width="368" height="579" alt="">
+      </p>
+
+      <p>Cantons Uni-directionnels - Il est possible de définir la relation entre les cantons
+      adjacents, pour éviter aux itinéraires d'être configurés d'un canton vers un autre et
+      vice-versa. Il est fixé lors de l'édition du canton du réseau, vous avez la possibilité de le
+      configurer pour les deux sens, ou seulement pour envoyer ou recevoir.</p>
+
+      <p>Pour voir comment un cantonparticulier se connecte à d'autres cantons, avec des coûts et
+      des chemins valides, cliquez droit sur un segment de voie ou cocarde d'aiguillage et
+      sélectionnez "Afficher le Routage Canton"</p>
+
+      <p><img src="images/blockrouting.png" width="542" height="460" alt="">
+      </p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div><!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

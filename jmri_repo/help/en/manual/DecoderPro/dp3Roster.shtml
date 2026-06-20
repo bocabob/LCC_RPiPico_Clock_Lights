@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>DecoderPro&reg; Main Window</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>DecoderPro&reg; Roster Menu</h1>
+
+      <h2>Roster Window</h2>
+
+      <div class="dp-right">
+        <p><a href="Main_Roster.shtml">Back</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>See <span style="font-weight: bold;"><a href="../3-4_DecoderPro3/index.shtml" target=
+      "_blank">DecoderPro</a></span> User's Guide for details.</p>
+
+      <p><img src="images/DP3Roster.png" alt="DP3" height="446" width="899"><br>
+      </p>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Main_Roster.shtml">Back</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

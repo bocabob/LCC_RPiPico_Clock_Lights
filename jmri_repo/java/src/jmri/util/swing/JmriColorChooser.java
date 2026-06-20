@@ -1,0 +1,117 @@
+package jmri.util.swing;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+
+/**
+ * Display the Java color chooser that includes a custom JMRI panel.
+ * The custom panel is provided by {@link JmriColorChooserPanel}.
+ * <p>
+ * Maintain a list of recently used colors.  This includes colors found
+ * during loading and subsequent changes.
+ * @author Dave Sand Copyright (C) 2018
+ * @since 4.13.1
+ */
+public class JmriColorChooser {
+
+    /**
+     * The colors used by the current JMRI session.
+     * The XML loading process creates the initial list and
+     * subsequent activity will add new colors.
+     */
+    private static ArrayList<Color> recentColors = new ArrayList<>();
+    private static boolean _suppressAdd = false;
+
+    /**
+     * Add a new color to the recent list.
+     * Null values and duplicates are not added.
+     * @param color The color object to be added.
+     */
+    public static void addRecentColor(Color color) {
+        if (color == null || _suppressAdd || !color.toString().contains("java.awt.Color")) {
+            // Ignore null or default system colors
+            return;
+        }
+        if (!recentColors.contains(color)) {
+            recentColors.add(color);
+        }
+    }
+
+    /**
+     * Suppress adding colors while temporarily displaying colors to
+     * wysiwyg applications of JmriColorChooser - e.g. use of RGB
+     * tab while editing colors on CPE panels.
+     * @param set if true, previewed color is not added.
+     */
+    public static void suppressAddRecentColor(boolean set) {
+        _suppressAdd = set;
+    }
+
+    /**
+     * Provide a copy of the recent color list.
+     * This is used by {@link JmriColorChooserPanel} to build
+     * the recent color list.
+     * @return the recent color list.
+     */
+    public static ArrayList<Color> getRecentColors() {
+        return new ArrayList<>(recentColors);
+    }
+
+    /**
+     * The number of tabs in the color chooser, 5 standard plus the custom JMRI tab
+     */
+    static Color color;
+    
+    /**
+     * Display the customized color selection dialog.
+     * The JMRI custom panel is added before the Java supplied panels so that
+     * it will be the default panel.
+     * @param comp The calling component.  It is not used but provided to simplify migration.
+     * @param dialogTitle The title at the top of the dialog.
+     * @param currentColor The color that will be set as the starting value for the dialog.
+     * @return the selected color for a OK response, the orignal color for a Cancel response.
+     */
+    public static Color showDialog(Component comp, String dialogTitle, Color currentColor) {
+        color = currentColor == null ? Color.WHITE : currentColor;
+        String title = dialogTitle == null ? "" : dialogTitle;
+        JColorChooser chooser = extendColorChooser(new JColorChooser(color));
+        JDialog d = JColorChooser.createDialog(null, title, true, chooser,
+            ((ActionEvent e) -> {
+                color = chooser.getColor();
+            }),
+            null);
+        d.setVisible(true);
+        return color;
+    }
+
+    /**
+     * Add or replace the JMRI custom panel at the beginning of the chooser tabs
+     * @param chooser The chooser object to be updated.
+     * @return the updated chooser object
+     */
+     public static JColorChooser extendColorChooser(JColorChooser chooser) {
+
+        int colorTabCount ;
+
+        AbstractColorChooserPanel[] currPanels = chooser.getChooserPanels();
+        colorTabCount = currPanels.length + 1 ;
+        AbstractColorChooserPanel[] newPanels = new AbstractColorChooserPanel[colorTabCount];
+        newPanels[0] = new jmri.util.swing.JmriColorChooserPanel();
+        int idx = 1;
+        for (int i = 0; i < currPanels.length; i++) {
+            if (!currPanels[i].getDisplayName().equals("JMRI")) {  // NOI18N
+                // Copy non JMRI panels
+                newPanels[idx] = currPanels[i];
+                idx++;
+            }
+        }
+        chooser.setChooserPanels(newPanels);
+        _suppressAdd = false;   // reset to default
+        return chooser;
+    }
+}

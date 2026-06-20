@@ -1,0 +1,41 @@
+package jmri.util.swing;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class ButtonSwatchColorChooserPanelTest {
+
+    protected ButtonSwatchColorChooserPanel panel = null;
+
+    @Test
+    public void testCTor() {
+        assertNotNull( panel, "exists");
+    }
+
+    @Test
+    public void testGetDisplayName(){
+        assertEquals( Bundle.getMessage("ButtonSwatchColorChooserName"),panel.getDisplayName(), "display name");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        panel = new ButtonSwatchColorChooserPanel();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(ButtonSwatchColorChooserPanelTest.class);
+
+}

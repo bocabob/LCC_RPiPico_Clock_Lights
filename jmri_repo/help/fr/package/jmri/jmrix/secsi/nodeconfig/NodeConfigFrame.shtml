@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-27-->
+<head>
+  <title>JMRI: Configure SECSI Nodes</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content=
+  "JMRI help configure grapevine node">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Configurer les Noeuds SECSI.</h1>
+
+      <p>Ceci est la page
+      d'aide: help/jmri/jmrix/secsi/nodeconfig/NodeConfigFrame</p>
+
+      <p>Les nœuds SECSI doivent être
+      configurés avant les travaux de saisie.</p>
+
+      <p>Ce qui suit est juste un espace
+      réservé ...</p>
+
+      <p>Le logiciel de nœud se décline en
+      trois variétés distinctes:</p>
+
+      <dl>
+        <dt>?</dt>
+
+        <dd>Généralement considéré comme le meilleur</dd>
+
+        <dt>???</dt>
+
+        <dd>Si vous avez un de ceux-ci, vous devriez probablement
+        mettre à jour le logiciel</dd>
+
+        <dt>Noeud d'origine</dt>
+
+        <dd>Bien que JMRI ait le code pour soutenir ces derniers,
+        il n'a pas été
+        testé. Si vous rencontrez des
+        problèmes, s'il vous plaît
+        permettez-nous maintenant d'améliorer le
+        support pour ces cartes.</dd>
+      </dl>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

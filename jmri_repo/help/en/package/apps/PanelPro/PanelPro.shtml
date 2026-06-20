@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: PanelPro Main Window</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help preferences">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <h1>JMRI: PanelPro Main Window</h1>
+
+      <p>The PanelPro main window gives you access to all the capabilities of JMRI. See <a href=
+      "../../../html/apps/PanelPro/index.shtml">PanelPro</a> for details.</p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

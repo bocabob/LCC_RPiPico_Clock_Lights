@@ -1,0 +1,45 @@
+package jmri.jmrix.dcc4pc;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class Dcc4PcBoardManagerTest {
+
+    Dcc4PcSensorManager tm = null;
+
+    @Test
+    public void testCTor() {
+        Dcc4PcTrafficController tc = new Dcc4PcTrafficController(){
+          @Override
+          public void sendDcc4PcMessage(Dcc4PcMessage m,Dcc4PcListener reply) {
+          }
+        };
+        Dcc4PcSystemConnectionMemo memo = new Dcc4PcSystemConnectionMemo(tc);
+        tm = new Dcc4PcSensorManager(tc,memo);
+        Dcc4PcBoardManager t = new Dcc4PcBoardManager(tc,tm);
+        Assert.assertNotNull("exists",t);
+        tm.dispose();
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        tm.dispose();
+        JUnitUtil.clearShutDownManager(); // put in place because AbstractMRTrafficController implementing subclass was not terminated properly
+        JUnitUtil.tearDown();
+
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(Dcc4PcBoardManagerTest.class);
+
+}

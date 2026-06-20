@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Bob Jacobsen 2008 -->
+
+  <title>JMRI: LDT Signaling for OEBB (Austrian Federal Railways) Signals</title>
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+
+  <style>
+    th {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+
+    .ctr {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <!-- Page Body -->
+
+      <h2>JMRI: LDT Signaling for OEBB (Austrian Federal Railways) Signals</h2>
+
+      <h2><strong>Home signal</strong> <strong><img src="output5_html_289c901.png" width="14"
+      height="35" alt=""> <img src="output5_html_m212244f.png" width="15" height="28" alt=
+      ""></strong></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-OEBB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>slow approach 40 or 60 km/h</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>shunting prohibition cancelled</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>slow approach 40 or 60 km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Advance signal</strong> <strong><img src="output5_html_5402c321.png" width="16"
+      height="15" alt=""></strong></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-OEBB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>awaiting proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>slow approach awaiting 60 km/h</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>awaiting train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>awaiting proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>slow approach awaiting 60 km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>awaiting train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>awaiting train stop</td>
+        </tr>
+      </table>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+  <!-- close #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

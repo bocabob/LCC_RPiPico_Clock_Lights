@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-11-1-->
+<head>
+  <title>JMRI: Monitor Grapevine Traffic</title>
+  <meta name="author" content="Bob Jacobsen" >
+  <meta name="keywords" content="JMRI help monitor grapevine traffic message packet">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Monitor Grapevine Traffic</h1>
+
+      <p>Ceci est la page d'aide
+      help/jmri/jmrix/grapevine/ serialmon/SerialMonFrame</p>
+
+      <p>Pour plus d'informations sur les diverses commandes et
+      options, s'il vous pla&icirc;t voir la <a href=
+      "../../AbstractMonFrame.shtml">page Fen&ecirc;tre
+      Moniteur de Communications</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

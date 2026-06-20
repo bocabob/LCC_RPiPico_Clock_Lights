@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-11-1-->
+<head>
+  <title>JMRI: Configure Grapevine Nodes</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help configure grapevine node">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Configurer les N&oelig;uds Grapevine</h1>
+      
+      <p>Ceci est la page d'aide
+      help/en/jmri/jmrix/grapevine/nodetable/NodeTableFrame</p>
+
+      <p>L'outil "Table N&oelig;uds" vous permet de
+      voir tous vos n&oelig;uds &agrave; la fois. Chaque ligne du
+      tableau correspond &agrave; une adresse de noeud. Les
+      colonnes sont les suivants:</p>
+
+      <dl>
+        <dt>Adresse</dt>
+
+        <dd>Le num&eacute;ro de noeud</dd>
+
+        <dt>&Atilde;&permil;tat</dt>
+
+        <dd>
+          L'&eacute;tat actuel de ce noeud.
+
+          <dl>
+            <dt>Configur&eacute;</dt>
+
+            <dd>Ce n&oelig;ud a &eacute;t&eacute;
+            configur&eacute; dans JMRI. vous pouvez dialoguer
+            avec ses Aiguillages, T&ecirc;tes de Signal,
+            Capteurs, etc</dd>
+
+            <dt>Pr&eacute;sent</dt>
+
+            <dd>Ce n&oelig;ud a &eacute;t&eacute;
+            d&eacute;tect&eacute;e sur Grapevine, mais
+            vous devez le configurer avant de pouvoir y
+            acc&eacute;der dans le programme.</dd>
+
+            <dt>(blanc)</dt>
+
+            <dd>Le noeud n'est pas configur&eacute;, et
+            n&apos;a pas &eacute;t&eacute; vu sur Grapevine.
+            </dd>
+
+            <dt>Ajouter/&Atilde;&permil;diter</dt>
+
+            <dd>La troisi&egrave;me colonne fournit un bouton
+            pour vous pourajouter un noeud manquant ou
+            modifier la configuration d&apos;un noeud existant. Si
+            vous Ajouter ou modifier un noeud, n&apos;oubliez pas
+            de sauvegarder vos pr&eacute;f&eacute;rences &agrave; nouveau!</dd>
+
+            <dt>Init</dt>
+
+            <dd>Si le noeud est configur&eacute;, il ya
+            un bouton dans la 4e colonne qui vous permet d&apos;envoyer
+            les messages d&apos;initialisation pour le noeud. Cet
+            est utile si par exemple le n&oelig;ud a
+            &eacute;t&eacute; Off et On, il doit donc
+            &ecirc;tre r&eacute;initialis&eacute;. Ceci est
+            uniquement disponible pour les noeuds
+            configur&eacute;s.</dd>
+          </dl>
+
+          <p>Au bas de la fen&ecirc;tre est un bouton
+          &quot;V&eacute;rifier&quot; et un champ &eacute;tat.
+          Cliquez sur &quot;V&eacute;rifier&quot; pour balayer le
+          Grapevine pour v&eacute;rifier son
+          &eacute;tat et localiser les noeuds. Les
+          champ d&apos;&eacute;tat sont les suivant:</p>
+
+          <dl>
+            <dt>D&eacute;marrer</dt>
+
+            <dd>Un balayage commence, mais aucune
+            r&eacute;ponse n&apos;a &eacute;t&eacute;
+            entendu de Grapevine encore.</dd>
+
+            <dt>V&eacute;rification</dt>
+
+            <dd>Balayage en cours, et le Grapevine semble
+            fonctionner.</dd>
+
+            <dt>OK</dt>
+
+            <dd>OK Analyse termin&eacute;e.</dd>
+
+            <dt>Grapevine &eacute;chou&eacute;</dt>
+
+            <dd>Analyse termin&eacute;e sans rien entendre de
+            Grapevine. Peut-&ecirc;tre le c&acirc;ble
+            n&apos;est pas compl&egrave;tement
+            connect&eacute;, ou quelques
+            &eacute;l&eacute;ments ne sont pas
+            aliment&eacute;s.</dd>
+          </dl>
+
+          <p>Il y a aussi un bouton "Changement
+          d'Adresse N&oelig;ud Carte", ce qui peut
+          &ecirc;tre utilis&eacute; pour changer
+          l'adresse d'un n&oelig;ud de Grapevine. Il ouvre une <a href=
+          "RenumberFrame.shtml">nouvelle fen&ecirc;tre</a>.</p>
+        </dd>
+      </dl>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

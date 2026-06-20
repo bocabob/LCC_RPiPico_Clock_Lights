@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec bzh56420@yahoo.fr-->
+<head>
+  <title>JMRI: Power Control</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Route Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Commande Alimentation</h1>
+
+      <p>Les boutons On/Off sur ce volet font la m&ecirc;me chose
+      que les boutons Power On/Off sur votre r&eacute;gulateur
+      &agrave; main. Il bascule la tension DCC des rails A/B sur
+      On/Off.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

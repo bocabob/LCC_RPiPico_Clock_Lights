@@ -1,0 +1,31 @@
+package jmri.util.table;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class ButtonRendererTest {
+
+    @Test
+    public void testCTor() {
+        ButtonRenderer t = new ButtonRenderer();
+        Assertions.assertNotNull( t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(ButtonRendererTest.class);
+
+}

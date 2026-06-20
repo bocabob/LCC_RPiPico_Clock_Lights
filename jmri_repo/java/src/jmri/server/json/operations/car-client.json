@@ -1,0 +1,221 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-car-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"car\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Operations id of the car being requested"
+        },
+        "road": {
+            "type": "string",
+            "description": "The car owning railroad"
+        },
+        "number": {
+            "type": "string",
+            "description": "The car number"
+        },
+        "built": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Month and year car was built in MM-YY, MM-YYYY, or YYYY format"
+        },
+        "type": {
+            "type": "string",
+            "description": "The car type"
+        },
+        "pickup msg": {
+            "type": "string",
+            "description": "Additional pickup instructions or an empty string if none"
+        },
+        "setout msg": {
+            "type": "string",
+            "description": "Additional drop instructions or an empty string if none"
+        },
+        "caboose": {
+            "type": "boolean",
+            "description": "True if the car is to be treated as a caboose; false otherwise"
+        },
+        "color": {
+            "type": "string",
+            "description": "The color of the car"
+        },
+        "comment": {
+            "type": "string",
+            "description": "Freeform comment concerning car"
+        },
+        "fred": {
+            "type": "boolean",
+            "description": "True if the car contains a FRED; false otherwise"
+        },
+        "hazardous": {
+            "type": "boolean",
+            "description": "True if the load is considered hazardous; false otherwise"
+        },
+        "kernel": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The name of the kernel this car is associated with"
+        },
+        "length": {
+            "type": "integer",
+            "description": "Current car length for available siding calculations"
+        },
+        "load": {
+            "type": "string",
+            "description": "The load in the car (may also be the localized E (Empty) or L (Load)"
+        },
+        "outOfService": {
+            "type": "boolean",
+            "description": "True if out of service; false otherwise"
+        },
+        "locationUnknown": {
+            "type": "boolean",
+            "description": "True if car is lost, false otherwise"
+        },
+        "owner": {
+            "type": "string",
+            "description": "The car owner"
+        },
+        "passenger": {
+            "type": "boolean",
+            "description": "True if the car is a passenger vehicle; false otherwise"
+        },
+        "isLocal": {
+            "type": "boolean",
+            "description": "True if the car is being moved locally; false otherwise"
+        },
+        "rfid": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "RFID tag attached to car; null if none"
+        },
+        "whereLastSeen": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The location of the last reported sighting of the tag"
+        },
+        "whenLastSeen": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The timestamp of the last reported sighting of the tag"
+        },
+        "location": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "The current location of the car"
+        },
+        "utility": {
+            "type": "boolean",
+            "description": "True if the car is shown as a utility car on manifests; false otherwise"
+        },
+        "trainId": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "null to remove car from its train"
+        },
+        "trainName": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "name of train car is assigned to, null if not assigned"
+        },
+        "trainIconName": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "icon name of train car is assigned to, null if not assigned"
+        },
+        "destination": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "the current destination of the car"
+        },
+        "final dest": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "the final destination of the car"
+        },
+        "rwe": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "The location to return the car to when empty or null"
+        },
+        "returnWhenLoaded": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "The location to return the car to when loaded or null"
+        },
+        "division": {
+            "type": "string",
+            "description": "division name for the car"
+        },
+        "block order": {
+            "type": "string",
+            "description": "blocking order for passenger car"
+        },
+        "status": {
+            "type": "string",
+            "description": "The status symbol of the car"
+        },
+        "weight": {
+            "type": "number",
+            "description": "Adjusted weight of car in tons"
+        },
+        "weightTons": {
+            "type": "string",
+            "description": "Weight of car in tons"
+        },
+        "last train": {
+            "type": "string",
+            "description": "Last train to carry car"
+        },
+        "last moved": {
+            "type": "string",
+            "description": "date the car was last moved"
+        },
+        "last location": {
+            "type": "string",
+            "description": "The car's last location"
+        }
+    },
+    "additionalProperties": false,
+    "anyOf": [
+        {
+            "required": [
+                "name"
+            ]
+        },
+        {
+            "required": [
+                "road",
+                "number"
+            ]
+        }
+    ]
+}

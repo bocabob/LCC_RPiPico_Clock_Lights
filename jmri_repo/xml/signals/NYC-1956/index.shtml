@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: NYC-1956 Signaling Definition</title>
+  <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: NYC-1956 Signaling Definition</h1>
+      This directory contains signaling definitions corresponding to the NYC-1956 rules as
+      described in the September 1956 version of the New York Central System publication "Rules of
+      the Operating Department Effective October 28, 1956", chapter on Signal Aspects Signal
+      Indications and Signal Rules.
+      <p>See the <a href="aspects.xml">aspect page</a>.</p>
+
+      <p>Signal Mast definitions:</p>
+
+      <ul>
+        <li>
+          <a href="appearance-SL-3-high.xml">Triple searchlight high signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-2-high-abs.xml">Double searchlight high absolute signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-2-high-per.xml">Double searchlight high permissive signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-2-low.xml">Double searchlight dwarf signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-1-low.xml">Single searchlight dwarf signal</a>
+        </li>
+      </ul>
+
+      <!--#include virtual="/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/main.js"></script>
+</body>
+</html>

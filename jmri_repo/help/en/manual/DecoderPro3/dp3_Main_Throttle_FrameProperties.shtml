@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>DecoderPro Throttle</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Main Menu Bar</h1>
+
+      <h2>JMRI&reg; Throttle Window - Frame Properties</h2>
+
+      <div class="dp-right">
+        <p><a href="dp3_Main_Throttle.shtml">Back</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p><strong>Frame Properties</strong>
+      </p>
+
+      <p><img src="images/Main_Throttle_Frame.png" alt="Frame Edit" width="425" height="188">
+      </p>
+
+      <p><strong>Frame Title:</strong>Type the title of your choice for the Throttle frame. This is
+      referred to below as"text".</p>
+
+      <p><strong>Frame Title Components:</strong> Select the text component desired. There are two
+      components which can be in the title bar of the throttle "Text" and "Address" The selections
+      allow either or both to be in the title (in the order they appear in the selection), or one
+      can opt for the description in the locomotive Roster Entry</p>
+
+      <blockquote>
+        <p><strong>Address</strong> --Automatically display the address of whatever locomotive is
+        selected. (default)</p>
+
+        <p><strong>Text</strong> -- Display the text that you enter in the field as the title at
+        the top of this window</p>
+
+        <p><strong>Text Address</strong> -- Display the text you entered, followed by the selected
+        address</p>
+
+        <p>Address Text -- Display the selected address, followed by the text you entered</p>
+
+        <p><strong>Roster ID</strong> -- Display the selected roster ID</p>
+
+        <blockquote>
+          <p class="ACCENT">(Note that if you enter text, it will not be visible unless one of the
+          middle three modes is selected)</p>
+        </blockquote>
+      </blockquote>
+
+      <p class="ACCENT"><strong><input type="checkbox" name="checkbox6" id="checkbox6"> Frame
+      Decorations</strong>:</p>
+
+      <p>This will remove the individual control bars for the separate panes of the throttle. This
+      is advised for Windows users, as clicking the minimize buttons causes the restore button to
+      be lost behind the rest of the panels. Recovery entails using the view menus to remove and
+      then restore the panel in question.</p>
+
+      <p>The <strong><span class="textbutton">OK</span></strong> button adds the edits.</p>
+
+      <p>The <strong><span class="textbutton">Cancel</span></strong> button aborts the operation.</p>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="dp3_Main_Throttle.shtml">Back</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

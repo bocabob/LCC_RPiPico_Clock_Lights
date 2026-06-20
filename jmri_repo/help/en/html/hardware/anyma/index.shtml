@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Hardware Support - Anyma DMX</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../SidebarUp.shtml" -->
+
+    <div id="mainContent">
+      <h1>Hardware Support: Anyma DMX</h1>
+
+      <ul class="snav">
+        <!-- TOC -->
+
+        <li>
+          <a href="#hardware">Hardware</a>
+        </li>
+
+        <li>
+          <a href="#connecting">Connecting</a>
+        </li>
+
+        <li>
+          <a href="#documentation">Documentation</a>
+        </li>
+      </ul>
+
+      <h2 id="hardware">Supported Hardware</h2>
+
+      <h3>DMX</h3>
+
+      <p>Please report your experience</p>
+
+      <h2>Limitations</h2>
+
+      <ul>
+        <li>Please report your experience</li>
+        <li>If your USB device supports a serial port interface, you may also be able to use
+        the Powerline class for interfacing to DMX</li>
+      </ul>
+
+      <h2 id="connecting">Connecting</h2>
+
+      <p>Via USB. Please report your experience</p>
+
+      <h2>JMRI Anyma Tools</h2>
+
+      <ul>
+        <li>None</li>
+      </ul>
+
+      <h2 id="documentation">Documentation</h2>
+
+      <h3>JMRI Help</h3>
+      <!--       <p>Naming of Anyma outputs is described on a <a href="Names.shtml">separate page</a>.</p> -->
+
+      <h3>Third Party info</h3>
+
+      <p>Information on the Anyma hardware can be found on the <a href=
+      "https://www.anyma.ch/research/udmx/">Anyma.ch website</a>.</p>
+
+      <p>More information on the Anyma hardware can be found on the <a href=
+      "https://wiki.openlighting.org/index.php/Anyma_uDMX">openlighting.org website</a>.</p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

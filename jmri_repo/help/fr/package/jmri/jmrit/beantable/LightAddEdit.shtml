@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013-10-11-->
+<head>
+  <title>JMRI: Adding/Editing Lights</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Light Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Ajouter/éditer Lumières</h1>
+      <a name="addLight" id="addLight"></a>
+      <h2>Ajout d'une Nouvelle Lumière</h2>
+      Pour ajouter une nouvelle lumière, suivez cette procédure:
+      <ol>
+        <li>
+          <p>Cliquez <strong>Lumières</strong> dans le sous-menu <strong>Tableaux</strong> du menu
+          <strong>Outils</strong> pour faire apparaître le Tableau <strong><a href=
+          "Lights.shtml">Lumière</a></strong> et cliquez sur le bouton <strong>Ajouter ...</strong>
+          au bas du <strong>Tableau lumière</strong> pour mettre en place la version "Ajouter" de
+          la fenêtre <strong>Ajouter/éditer Lumière</strong>.</p>
+          <img src="LightAddFrame.jpg" height="399" width="575" alt="">
+        </li>
+
+        <li>Sélectionnez un <strong>Système:</strong> si votre réseau est connectée à plus d'un
+        système ou si création d'une lumière interne. Ensuite, entrez l'<strong>Adresse Matérielle
+        :</strong> de votre nouvelle Lumière (généralement un certain nombre). Ceci est l'adresse
+        que JMRI enverra à votre système lors de la commutation de la Lumière. De cette
+        information, le programme va se faire un <strong>Nom Système</strong> dans la convention
+        JMRI, approprié pour une lumière dans le système sélectionné à l'aide de l'adresse
+        indiquée.Des Exemples de noms de système valides sont: CL1004, et LL401, en supposant que
+        vous ayez le matériel pour les bits de sorties adressées en numérique.</li>
+
+        <li>Entrez un nom utilisateur. Toute chaîne de caractères qui est différent du nom
+        utilisateur des Lumières sera acceptée, mais il est sage d'utiliser une chaîne qui décrit
+        l'utilisation prévue de la Lumière. L'entrée d'un nom utilisateur est facultative.</li>
+
+        <li>Si vous voulez entrer une commande pour votre nouvelle Lumière, cliquez sur le bouton
+        <strong>Ajouter Commande</strong>, et entrez votre choix dans la fenêtre
+        <strong>Ajouter/éditer Commande Lumière</strong> qui apparaît. Vous pouvez entrer autant de
+        Commandes d'éclairage que vous souhaitez. Plus d'informations sur les commandes lumière est
+        <a href="#lightcontrol">ci-dessous</a>.</li>
+
+        <li>Chaque Commande de Lumière est affichée dans le tableau commande Lumière. Le
+        <strong>Type de Commande</strong>est montré sur la gauche, suivi d'une
+        <strong>Description</strong> du mécanisme de commande. Ils sont suivis par un bouton
+        <strong>Modifier</strong> et un bouton <strong>Supprimer</strong> . Cliquez
+        <strong>Modifier</strong> pour ramener la fenêtre <strong>Ajouter/éditer Commande
+        Lumière</strong> permettant des changements de la spécification de commande. Cliquez
+        <strong>Supprimer</strong> pour supprimer une Commande Lumière.</li>
+
+        <li>Suit la zone des notes de la fenêtre Ajouter/éditer Lumière. C'est ici que sont les les
+        instructions et les messages d'erreur qui apparaissent lorsque vous créez ou modifiez une
+        lumière. Il faut toujours vérifier ce domaine pour voir si les choses se passent comme
+        prévues.</li>
+
+        <li>Cliquez sur le bouton <strong>Créer</strong> situé au bas de la fenêtre. Si tout va
+        bien, un message indiquant "Nouvelle Lumière ajoutée ..." sera affiché dans la zone des
+        notes. S'il y a des problèmes avec quoi que ce soit, une erreur ou message d'avertissement
+        sera affiché dans la zone des notes; vous devez alors corriger l'erreur et cliquez sur
+        <strong>Créer</strong> à nouveau.
+          <p>-OU-</p>
+
+          <p>Cliquez sur le bouton <strong>Annuler</strong> pour fermer la fenêtre sans créer de
+          lumières.</p>
+        </li>
+      </ol>
+
+      <h2>Ajout de plusieurs nouveaux Lumières en une Seule Fois</h2>
+
+      <p>Si le <strong>Système</strong> sélectionné: supporte l'ajout de multiples Lumières à la
+      fois, la fenêtre <strong>Ajouter/éditer Lumière</strong> affiche deux éléments
+      supplémentaires, comme le montre ci-dessous:</p>
+
+      <p><img src="LightAddManyFrame.png" height="399" width="622" alt="">
+      </p>
+
+      <p>L'ajout de plusieurs nouvelles lumières à la fois est facultatif. Si vous voulez seulement
+      ajouter une nouvelle Lumière, ignorer la case à cocher <strong>Ajouter une gamme
+      séquentielle</strong> et le <strong>Nombre d'entrée à Ajouter:</strong> . Si vous souhaitez
+      ajouter plusieurs nouvelles lumières avec des adresses matérielles séquentielles, cliquez sur
+      la case à cocher <strong>Ajouter une gamme séquentielle</strong> Lorsque cette case est
+      cochée, le <strong>Nombre d'entrée à Ajouter:</strong> est actif. Entrez le nombre d'entrées
+      séquentielles que vous voulez ajouter. Entrez d'autres éléments pour la première Lumière, en
+      suivant la procédure ci-dessus, et cliquez sur le bouton Créer. Si l'une des adresses
+      demandées n'est pas disponible (précédemment attribué à une Lumière ou un Aiguillage), un
+      message apparaîtra dans la zone des notes, et aucune lumière nouvelle ne sera créé. Si tout
+      est vérifié, les lumières demandée seront créées, et un message apparaîtra dans la zone des
+      notes</p>
+
+      <p>Ajouter des lumières multiples à la fois est destiné à assister les décodeurs
+      stationnaires qui nécessitent plusieurs adresses en séquence. En conséquence, les
+      restrictions applicables lors de la création de plusieurs lumières à la fois. Notez les
+      points suivants:</p>
+
+      <ul>
+        <li>Les adresses doivent être numériques - seuls les nombres sont autorisés dans l' adresse
+        matérielle.</li>
+
+        <li>Les adresses des Lumières créé doivent être consécutives.</li>
+
+        <li>Toutes les adresses demandées doivent être disponibles, c'est à dire, non affectées
+        actuellement à une Lumière ou un Aiguillage.</li>
+
+        <li>Si un nom utilisateur est entré, chacune des Lumières créra ce nom utilisateur avec
+        "+1", "+2", etc, annexé.</li>
+
+        <li>Les éléments entrés de Commande de Lumière et des éléments d'Intensité Variable seront
+        affectés à la première lumière créée, et non aux Lumières ultérieures. Ces éléments peuvent
+        être ajoutés par édition (voir ci-dessous).</li>
+      </ul>
+
+      <h2>Modification d'une Lumière existante</h2>
+      Pour modifier une lumière existante, suivez cette procédure:
+      <ol>
+        <li>édition d' une Lumière existante, cliquez sur le bouton <strong>Modifier</strong> d'une
+        Lumière dans le <a href="LightTable.shtml">Tableau Lumière</a> pour faire apparaître la
+        version "édition" de la fenêtre.<strong>Ajouter/éditer Lumière</strong> <img src=
+        "Light%C3%A9ditWindow.jpg" height="361" width="575" alt=""></li>
+
+        <li>
+          <p>Le <strong>Nom Système:</strong> de la Lumière est affiché en haut de la fenêtre et ne
+          peut pas être changé. Le <strong>Nom Utilisateur:</strong> peut être changé soit ici ou
+          dans le Tableau Lumière. La commande de la Lumière et les zones de notes sont les mêmes
+          que ci-dessus.</p>
+        </li>
+
+        <li>Après avoir modifié les informations de Lumière, cliquez sur <strong>Mise à
+        Jours</strong> pour changer la Lumière sélectionnée. S'il y a le moindre problème, une
+        erreur ou un message d'avertissement sera affiché dans la zone des notes, et la mise à jour
+        est arrêté pour vous permettre de corriger l'erreur et cliquez sur <strong>Mise à
+        Jours</strong> à nouveau. Si tout va bien, la lumière est modifiée et la fenêtre
+        <strong>Ajouter/éditer Lumière</strong> est cloturée.
+          <p>-OU-</p>
+
+          <p>Cliquez <strong>Annuler</strong> pour quitter le mode édition sans changer la Lumière
+          sélectionnée. Si la fenêtre <strong>Ajouter/éditer Lumière</strong> est rejetée (fermée)
+          alors dans le mode édition, <strong>Annuler</strong> est automatiquement sélectionné, et
+          aucune modification n'est apportée à la lumière sélectionnée.</p>
+        </li>
+      </ol>
+      <a name="lightcontrol" id="lightcontrol"></a>
+      <h2>Options de Commande Automatisé pour Lumières</h2>
+
+      <p>La fenêtre <strong>Ajouter/éditer commande Limière</strong> est utilisée pour spécifier un
+      commande de la lumière. Le fonctionnement d'une lumière peut être contrôlée par les moyens
+      suivants:</p>
+
+      <ul>
+        <li><strong>Par Capteur</strong> - La lumière sera transformé <strong>ON</strong> lorsque
+        le capteur change à actifs ou inactifs, selon le choix <strong>Sens pour ON</strong> fait
+        dans le menu contextuel, et il sera transformé <strong>OFF</strong>, lorsque le Capteur
+        renverse l'état. Spécifiez le capteur en entrant son nom (Nom système ou nom utilisateur)
+        dans le <strong>Nom du Capteur</strong>. Cette option a un certain nombre d'utilisations, y
+        compris l'établissement d'une lumière de TCO pour suivre l'Occupation des Cantons. C'est
+        utile, par exemple, pour la surveillance de la position du train dans une
+        coulisse.<img src="LightAddFrameSensor.png" height="190" width="365" alt=""></li>
+
+        <li>Par l'Horloge Rapide - La lumière sera basculée <strong>ON</strong> lorsque l'horloge
+        atteint l'heure indiquée dans <strong>Le Temps ON</strong> et sera rebasculée
+        <strong>OFF</strong> lorsque l'horloge rapide atteint le temps entré en <strong>Temps
+        Off</strong>. Les temps sont entrés dans le format"hh: mm", où "hh" sont des heures et "mm"
+        sont des minutes d'une horloge 24 heures . Une utilisation de cette option est d'activer et
+        de désactiver l'éclairage des paysages , les lumières de rue, lumières des maison, etc pour
+        simuler la période nocturne sur le réseau .<img src="images/LightAddFastClock.png" height=
+        "174" width="500" alt=""></li>
+
+        <li>Par Statut Aiguillage - La lumière sera basculée <strong>ON</strong> lorsque le
+        changements de l'aiguillage sera Droit ou Dévié, selon le choix fait dans le menu
+        contextuel pour l'<strong>état pour ON</strong> , et il sera <strong>OFF</strong> , quand
+        l'aiguillage inverse son statut. Spécifiez l'aiguillage en entrant son nom (Nom système ou
+        nom utilisateur) dans le <strong>Nom Aiguillage</strong>. Cette option peut être utilisée
+        pour définir une lumière du TCO pour suivre l'état d'un aiguillage. C'est utile, par
+        exemple, pour surveiller l'état des aiguillages cachés. <img src="LightAddFrameTurnout.png"
+        height="181" width="382" alt=""></li>
+
+        <li>
+          <p><strong>Par Temps ON</strong> - La lumière sera changé <strong>ON</strong> lorsque le
+          capteur déclencheur sera actif, et il sera basculé <strong>OFF</strong>, lorsque le temps
+          spécifié s'est écoulé. Spécifiez le capteur déclencheur en entrant son nom (Nom système
+          ou nom utilisateur) dans le <strong>Nom du Capteur de Déclenchement</strong>. Entrez le
+          temps d'allumage de la Lumière en millisecondes dans le champ <strong>ON</strong> . Cette
+          option a un certain nombre d'utilisations, elle a été initialement conçu pour enclencher
+          un découpleur électromagnétiques en réponse à un bouton poussoir , mais il peut également
+          être utilisé pour d'autres types d'animation de réseau, par exemple, pour commander la
+          sonnerie d'un passage à niveau quand un train entre dans un canton.</p>
+          <img src="LightAddFrameTimed.png" height="186" width="382" alt="">
+        </li>
+
+        <li>par Deux Capteurs - La lumière sera basculée <strong>ON</strong> lors du changements
+        des deux capteurs soit à, actifs ou inactifs selon le choix fait pour le <strong>Sens pour
+        ON</strong> dans le menu contextuel, et elle sera basculée <strong>OFF</strong>, lorsque
+        les deux capteurs sont dans l'état inverse. Spécifiez chaque capteur en entrant son nom
+        (nom système ou nom utilisateur) dans le <strong>Nom du Capteur</strong>. L'ordre d'entrée
+        n'a pas d'importance. Cette option a de multiples utilisations, telles que le commande des
+        points de passages avec des point capteurs qui détectent quand un train passe. En plaçant
+        deux détecteurs ponctuels, un à chaque extrémité d'un pont, un bruit de grondement peut
+        être joué pendant que le train traverse le pont.<img src="LightAddTwoSensor.png" height=
+        "186" width="371" alt=""></li>
+      </ul>
+      <a name="cautions" id="cautions"></a>
+      <h2>Précautions pour le commande des Lumières</h2>
+
+      <ul>
+        <li>Si vous avez besoin d'entrer un nom de capteur ou un nom d'aiguillage, vous devez
+        entrer le nom (Nom système ou nom utilisateur) d'un capteur existant ou d'un aiguillage. Le
+        capteur ou l'aiguillage doivent être soit dans le tableau Capteur ou dans le tableau
+        Aiguillage.</li>
+
+        <li>Si vous entrez un nom utilisateur pour spécifier un capteur ou un aiguillage, soyez
+        très prudent à propos du changement du nom utilisateur de votre capteur ou de votre
+        aiguillage. Un simple changement de nom utilisateur pourrait casser vos définitions de
+        commande de la lumière.</li>
+
+        <li>Si vous entrez plusieurs commandes de lumière pour la même lumière, il est possible que
+        les commandes lumière puissent entrer en conflit ou se chevaucher les uns avec les autres,
+        produisant des résultats étranges. <strong>L'utilisateur est doit s'assurer que les
+        commandes d'éclairage n'entrent pas en conflit.</strong></li>
+      </ul>
+
+      <h2><a name="varLight" id="varLight">Travailler avec des lumières à intensité variable</a>
+      </h2>
+
+      <p>Si le <strong>Système</strong> sélectionné: supporte Lumières avec une intensité variable,
+      la fenêtre <strong>Ajouter/Modifier Lumière</strong> affiche la zone <strong>Intensité
+      Variable</strong> indiquée dessous lorsque vous ajoutez une lumière:</p>
+
+      <p><img src="LightAddVariable.png" height="445" width="776" alt="">
+      </p>
+
+      <p>Les Systèmes, comme PowerLine( courant porteur CPL), supportent aussi bien les lumières à
+      intensité variable que les lumières avec une intensité fixe. Si vous ajoutez une lumière avec
+      l'intensité fixe, c'est à dire un interrupteur ON/OFF, ignorer les éléments de la
+      zone<strong>Intensité Variable</strong>. Lors de l'édition d'un simple ON/OFF lumière, les
+      éléments de la zone <strong>Intensité Variable</strong> ne sont pas pertinents et ne sont pas
+      affichés.</p>
+
+      <p>L'intensité d'une lumière est représentée en interne par la gamme de 0,0 à 1,0, avec 1,0
+      la plus brillante. Les Limites d'intensité sont entrés sous forme de pourcentages, de 0 à
+      100, dans l'intensité minimale et les champs d'intensité maximale. Parce que le matériel
+      lumière réel a seulement une résolution finie, la valeur d'intensité est mappée au plus
+      proche du réglage accepté.</p>
+
+      <p>Chaque lumière a une <strong>Intensité Cible</strong> propre qui peut être réglée
+      directement. Tenter de définir l'<strong>Intensité Cible</strong> en dehors de l'intervalle
+      <strong>Intensité Minimum à l'Intensité Maximum</strong> se traduira par l'<strong>Intensité
+      Cible</strong> fixée à la limite pertinente.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

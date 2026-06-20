@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Updated by Blorec Herv&#233;  2017-02-05-->
+  <title>JMRI Hardware Support - Maple Systems</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Matériel ris en charge: Systèmes Maple</h1>
+      <a href="http://www.maplesystems.com/images/silverseries/SilverSeries_7-16-07.jpg"><img src=
+      "http://www.maplesystems.com/images/silverseries/SilverSeries_7-16-07.jpg" align="right"
+      height="93" width="173" alt=""></a><br>
+      <a href="http://www.maplesystems.com/">Maple Systems</a> a fait plusieurs séries de <a href=
+      "http://www.maplesystems.com/products/silverseries/silverseries_ezw.htm">panneaux à écran
+      tactile</a> qui peuvent être très utile sur les chemins de fer modèle.
+      <p>Chaque panneau est vraiment un ordinateur autonome. C'est configuré et chargé en utilisant
+      un <a href="http://www.maplesystems.com/products/software/ezware.htm">programme de
+      configuration</a> fourni par Maple Systems. Cette configuration définit les affichages, les
+      étiquettes de bouton et Emplacements, etc. <a name="limitations" id="limitations"></a></p>
+
+      <h2>Limitations</h2>
+
+      <p>Ceci est encore au stade très précoce, donc les détails changent rapidement. Si vous
+      souhaitez utiliser ces dispositifs, s'il ".vous plaît contacter les développeurs JMRI.
+      <a name="connecting" id="connecting"></a></p>
+
+      <h2>Connexion</h2>
+
+      <h3>Réglages</h3>
+
+      <p>JMRI interagit avec le panneau d'entrée et par les bits de sortie (appelés "bobines",
+      comme dans les bobines de relais) dans le panneau. Le panneau de configuration peut définir
+      ceux-ci en réponse à divers événements. JMRI fournit des objets Capteur qui les rendent
+      disponibles pour déclencher des actions dans JMRI. JMRI peut définir les objets Aiguillages
+      qui peuvent les régler, auquel cas le panneau de configuration peut changer ce qui
+      apparaît.</p>
+
+      <p>Vous avez à configurerun Nœud Maple Systems dans JMRI avec le bouton "Configure Nodes" sur
+      le Volet des Préférences JMRI. Sur le volet qui s'ouvre, entrez le numéro du nœud ( ex 1 ou
+      2, etc ) dans le champ "UA" et cliquez "Add". Laissez tous les autres vides; Le support Maple
+      a été créé à partir du support JMRI C/MRI et à partir de JMRI version 2.3.7 la migration
+      n'est pas complète.</p>
+
+      <h4>Dénomination</h4>
+
+      <p>La lettre du système pour les connexions Maple est "K"</p>
+
+      <p>Vous configurez le périphérique Maple Systèmes pour utiliser l'une des vitesses supportées
+      (voir le volet JMRI préférences pour les connexions Maple), et utiliser le "Protocole simple
+      ASCII". Plus d'informations sur le protocole et la manière de configurer le périphérique
+      Maple Systems est sur la <a href="http://www.maplesystems.com/1033/10330073.PDF">feuille de
+      données PDF</a> .</p>
+
+      <p>JMRI communique avec le périphérique Maple Systems en lisant et en écrivant dans des
+      emplacements " mémoire discrète". Lieux, autrement connu comme registres "LB".</p>
+
+      <p>Les registres LB 1 à 48 sont disponibles pour JMRI comme entrée "Capteurs" 1 à 48.</p>
+
+      <p>Les registres LB 101 à 148 sont disponibles pour JMRI comme sortie "Aiguillages" 1 à
+      48.</p>
+
+      <p>Le numéro des nœuds Maple Systems (programmé dans "Paramètre 5", la "station HMI ID #")
+      peut être de 1 à 99. Il apparait comme le chiffre des milliers des noms de Capteur et
+      Aiguillages JMRI. Par exemple, KS3001 est le 1er capteur sur le nœud 3, et serait donc LB 1
+      dans ce Système d'unité Maple . KT3001 est le 1er aiguillage de ce nœud, et serait donc LB
+      101 dans cette unité.</p>
+
+      <p><strong>Il est très probable que nous allons retravailler et améliorer l'adressage
+      bientôt.</strong> <a name="tools" id="tools"></a></p>
+
+      <h2>Outils JMRI Maple Systems</h2>
+      N/A <a name="documentation" id="documentation"></a>
+      <h2>Documentation</h2>
+
+      <h3>Autre source d'info</h3>
+
+      <p><a href="http://www.maplesystems.com">site web Maple Systems</a> 
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" --></p>
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

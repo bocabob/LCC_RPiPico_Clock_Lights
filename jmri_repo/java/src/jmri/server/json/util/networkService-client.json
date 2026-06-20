@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-networkService-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"networkService\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "mDNS type of service"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name"
+    ]
+}

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Hardware Support - OpenLCB</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>Hardware Support: OpenLCB</h1>
+      <em>The support on this page is rapidly evolving; the actual code might be ahead or behind
+      the documentation on any given day.</em>
+      <ul class="snav">
+        <!-- TOC -->
+
+        <li>
+          <a href="#connecting">Connecting</a>
+        </li>
+
+        <li>
+          <a href="#tools">JMRI OpenLCB Tools</a>
+        </li>
+
+        <li>
+          <a href="#documentation">Documentation</a>
+        </li>
+      </ul>
+
+      <h2 id="connecting">Connecting</h2>
+      JMRI provides support for general JMRI <a href="../../tools/Sensors.shtml">Sensors</a> and
+      <a href="../../tools/Turnouts.shtml">Turnouts</a> in terms of OpenLCB "events".
+
+      <p>OpenLCB connection options are <a href="Connections.shtml">on a separate page</a>.</p>
+
+      <h3>Settings</h3>
+
+      <p>The default <a href="../../../html/doc/Technical/Names.shtml">system letter</a>
+      for OpenLCB
+      connections is "M". OpenLCB event and object names are introduced below, with additional
+      details and formats on a <a href="Names.shtml">separate page</a>.</p>
+
+      <p>JMRI associates OpenLCB Events with individual JMRI objects (Sensors, Turnouts, etc.) via
+      the JMRI System Names. A System Name like "<code>MS1.2.3.4.5.6.7.8;1.2.3.4.5.6.7.9</code>"
+      defines a Sensor that follows the "1.2.3.4.5.6.7.8" and "1.2.3.4.5.6.7.9" OpenLCB Events to
+      change state.</p>
+
+      <p>Another format for Event ID's is a continuous hexadecimal string, such as
+      "<code>x0102030405060709</code>".</p>
+
+      <p>You can also assign your own names to EventIDs and use those to create 
+      Turnouts, Sensors, Lights, Signal Masts and StringIOs.  See the 
+      <a href="Names.shtml">page on OpenLCB names</a>
+      for more information on this.</p>
+      
+      <p>These System Names can get very long, in which case the "User Names" become much more
+      useful.</p>
+
+      <h2 id="sensors">Sensors</h2>
+
+      <p>OpenLCB messages coming into JMRI applications can be accessed via JMRI Sensor objects.
+      The Sensor's <a href="Names.shtml">System Name</a> determines which OpenLCB Events it
+      corresponds to.<br>
+      A Sensor is defined by two Events: The one that sets it ACTIVE, and the one that sets it
+      INACTIVE.<br>
+      The Event numbers are essentially arbitrary, and are defined by the OpenLCB Nodes that produce
+      them. Because Events are not intrinsically associated with specific hardware objects, and
+      because people can use Event ID's in many ways, the specific Event ID's for a Sensor must be
+      supplied.<br>
+      You create Sensors using the <a href=
+      "../../../package/jmri/jmrit/beantable/SensorAddEdit.shtml">Add...</a> button on the <a href=
+      "../../../package/jmri/jmrit/beantable/SensorTable.shtml">Sensor Table</a>. If you supply two
+      event ID's, the first will set the Sensor ACTIVE and the second will set it INACTIVE. If you
+      provide just one, it will set the Sensor ACTIVE, and it will automatically reset itself to
+      INACTIVE shortly after. This can be used for events that indicate momentary things on the
+      layout like "it's noon".</p>
+
+      <p>As a special case, layout sensors connected via a bridge to an OpenLCB network
+      can be addressed as e.g. MSS123. Note the S in the 3rd position for "Sensor addressing". JMRI will
+      then automatically generate the correct well-known events to represent active/on
+      and inactive/off for the sensor.
+
+      <p>When "Show System-specific columns" is checked in the table, there are two additional
+      columns shown that are specific to OpenLCB Sensors:
+      <dl>
+        <dt>Authoritative</dt><dd>Normally checked, this means that the JMRI Sensor
+                                  will report its state when a query comes from another
+                                  OpenLCB node.  That will then allow that other node
+                                  to adjust its own state to be consistent.
+                                  <p>
+                                  When not checked, JMRI will report the state of the
+                                  Sensor as "unknown".  This will allow some other
+                                  user of these events to be the authoritative
+                                  source.
+                                  </dd>
+        <dt>Always listen</dt><dd>When checked, all state reports will update local Sensor state.
+                                  When unchecked, state reports will update local Sensor state
+                                  only if the local state is UNKNOWN. State change messages (Event
+                                  Reports) always change local state.
+                                  Might be helpful to uncheck this if the Sensor state flip-flops
+                                  multiple times after a query, which means that the
+                                  Sensor does not have a consistent distributed state.
+                                  <p>
+                                  Typically when Authoritative is checked,
+                                  then this is better unchecked.
+                                  <p>
+                                  If there is only one authoritative source
+                                  for state, then having this checked is good,
+                                  because it will make JMRI converge to the correct state
+                                  irrespective of how long JMRI has been running.
+                                  This is particularly important if the authoritative
+                                  producer / consumer of the event does not save its
+                                  state between reboots.
+                                  <p>
+                                  There's also the case where you have two momentary pushbuttons
+                                  for setting the Sensor (or more usually, for setting a Turnout),
+                                  and those input lines believe that
+                                  they are authoritative. This can confuse JMRI (because
+                                  typically both are invalid). In this case,
+                                  "Always Listen" needs to be unchecked.
+      </dl>
+
+      <h2 id="turnouts"">Turnouts</h2>
+
+      <p>The scheme for Turnouts is similar to Sensors above, except JMRI is producing the OpenLCB
+      events instead of receiving them, and the type letter is "T" instead of "S", e.g.
+      "<code>MT1.2.3.4.5.6.7.8;1.2.3.4.5.6.7.9</code>".</p>
+
+      <p>A Turnout is defined by two Events: The one that it produces for THROWN
+      and the one that it produces for CLOSED respectively.<br>
+
+      <p>Turnouts have Authoritative and Always Listen checkboxes that work the same as the
+      checkboxes on Sensors.
+
+      <p>As a special case, DCC turnouts connected via a bridge to an OpenLCB network
+      can be addressed as e.g. MTT123. Note the 2nd T for "Turnout addressing". JMRI will
+      then automatically generate the correct well-known events to throw/close the corresponding
+      DCC turnout.
+
+      <h2 id="lights">Lights</h2>
+
+      <p>The scheme for Lights is similar to Sensors above, except JMRI is producing the OpenLCB
+      events instead of receiving them, and the type letter is "L" instead of "S", e.g.
+      "<code>ML1.2.3.4.5.6.7.8;1.2.3.4.5.6.7.9</code>".</p>
+
+      <p>A Light is defined by these two Events: The one that it produces for ON
+      and the one that it produces for OFF respectively.<br>
+
+      <p>Lights have Authoritative and Always Listen checkboxes that work the same as the
+      checkboxes on Sensors.
+
+
+      <h2 id="signals">Signals</h2>
+
+      <p>OpenLCB connections can use many of the usual forms of SignalHeads and SignalMasts that
+      are based on Turnouts. In addition, there's an <a href=
+      "OlcbSignalMast.shtml">OpenLCB-specific form of SignalMast</a> that uses Events to change
+      from one aspect to another.</p>
+
+      <h2 id="stringios">StringIOs</h2>
+      <span class="since">since 5.11.2</span>
+      A 
+      <a href="../../tools/StringIO.shtml ">StringIO</a>
+      is a general-purpose tool for sending and receiving strings of characters to 
+      the layout hardware.  Different systems use them in different ways.
+      <p>
+      OpenLCB connections can use StringIOs to create shared variables across
+      multiple JMRI instances, and perhaps someday other OpenLCB hardware that supports 
+      string input and output.  
+      To do this, you create the same StringIO within each JMRI
+      instance, using the same Event ID.  Once you've done that, updating the 
+      string value in one instance will update the value in all of the others
+      in the different JMRI instances connected to the same OpenLCB network.
+      You can then configure
+      <a href="../../tools/logixng/LogixNG.shtml">LogixNG</a>
+      or scripts to communicate using that.
+
+      <h2 id="tools">JMRI OpenLCB Tools</h2>
+
+      
+      The <a href="../../../package/apps/gui3/lccpro/LccPro.shtml">LccPro</a>
+      application is optimized for configuring and controlling
+      an LCC network.  You can also use PanelPro to do this
+      through its LCC or OpenLCB menu.
+
+      <img src="images/OpenLCBmenu.png" width="172" height="126" class="floatRight" alt="Menu">
+      
+      <p>The  <strong>OpenLCB</strong>
+      or <strong>LCC</strong> menu contains:
+      </p>
+
+      <ul>
+        <li>Traffic Monitor<br>
+          <a href="images/OpenLCBMonitor.png"><img src="images/OpenLCBMonitor.png" alt=
+          "Monitor Pane" width="488" height="88"></a>
+        </li>
+
+        <li>You can directly operate the OpenLCB network via the <a href=
+        "../../../package/jmri/jmrix/openlcb/swing/send/OpenLcbCanSendFrame.shtml">Send Frame</a>
+        tool<br>
+          <a href="images/OpenLCBSendFrame.png"><img src="images/OpenLCBSendFrame.png" alt=
+          "Send Frame Pane" width="456" height="349"></a>
+        </li>
+
+        <li>Browse and set Configuration with the <a href=
+        "../../../package/jmri/jmrix/openlcb/swing/networktree/NetworkTreePane.shtml">Configure
+        Nodes</a> tool<br>
+          <a href="../../../package/jmri/jmrix/openlcb/swing/networktree/NodeWithID.png"><img src=
+          "../../../package/jmri/jmrix/openlcb/swing/networktree/NodeWithID.png" width="128"
+          height="149" alt="Configuration Tool pane"></a>
+        </li>
+
+        <li>Start Hub<br>
+          <a href="images/OpenLCBHubControl.png"><img src="images/OpenLCBHubControl.png" alt=
+          "Hub Control Pane" width="114" height="28"></a>
+        </li>
+
+        <li>The
+        <a href="../../../package/jmri/jmrix/openlcb/swing/eventtable/EventTablePane.shtml">Event Table</a>
+        lets you see what nodes produce and consume particular events.  It also
+        allows you to give names to events that will appear in the monitor.
+        </li>
+
+        <li>The
+        <a href="../../../package/jmri/jmrix/openlcb/swing/downloader/LoaderFrame.shtml">Firmware Update</a>
+        tool can load new firmware into compatible OpenLCB Nodes<br>
+          <a href="images/OpenLCBFWDownloader.png"><img src="images/OpenLCBFWDownloader.png" alt=
+          "HW Downloader Pane" width="145" height="171"></a>
+        </li>
+
+        <li>The
+        <a href="../../../package/jmri/jmrix/openlcb/swing/memtool/MemoryToolPane.shtml">Memory Tool</a>
+        lets you read from and directly write to a nodes memory.  This can be
+        useful for diagnostic purposes.
+        </li>
+
+        <li>The
+        <a href="../../../package/jmri/jmrix/openlcb/swing/idtool/IdToolPane.shtml">ID Tool</a>
+        helps you find a specific physical node on the layout by flashing its activity lights.
+        </li>
+
+        <li>The
+        <a href="../../../package/jmri/jmrix/openlcb/swing/stleditor/StlEditorPane.shtml">STL Editor</a>
+        is a user friendly front end for the Tower LCC+Q logic. <span class="since">since 5.7.5</span>
+        </li>
+
+      </ul>
+
+      <h2 id="documentation">Documentation</h2>
+
+      <h3>JMRI Help</h3>
+
+      <ul>
+        <li>How to <a href="Connections.shtml">Connect JMRI to an OpenLCB installation</a>
+        </li>
+
+        <li>The Help page on <a href="Details.shtml">OpenLCB Technical Details</a>
+        </li>
+
+        <li>The <a href="../can/index.shtml">main Help page</a> for JMRI CAN support, including
+        links to various general tools
+        </li>
+      </ul>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

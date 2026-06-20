@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Updated by Blorec Herv&#233; 2013-09-17-->
+  <title>JMRI: Programming DCC Specialties Products</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h2>JMRI: Programmation Poduits DCC Specialties</h2>
+      <a href="http://www.dccspecialties.com/products/hare-ng.htm"><img src=
+      "http://www.dccspecialties.com/products/img/hareng_2420-600.jpg" height="126" width="150"
+      align="right" alt=""></a> <a href=
+      "http://www.dccspecialties.com/products/wabbit_review.htm"><img src=
+      "http://www.dccspecialties.com/products/img/wabbit_1077_600.jpg" height="165" width="150"
+      align="right" alt=""></a> <a href=
+      "http://www.dccspecialties.com/products/wabbit_review.htm"><img src=
+      "http://www.dccspecialties.com/products/img/wabbit_rev_3.gif" height="85" width="150" align=
+      "right" alt=""></a> <a href="http://www.dccspecialties.com/">DCC Specialties</a> fait
+      plusieurs contrôleurs puissants pour les chemins de fer modèle. Leurs deux contrôleurs de
+      moteur switch sont appelés les <a href=
+      "http://www.dccspecialties.com/products/hare-ng.htm">Hare</a> et <a href=
+      "http://www.dccspecialties.com/products/wabbit_review.htm">Wabbit</a>. Ils font aussi un
+      détecteur de canton intelligent appelé <a href=
+      "http://www.dccspecialties.com/products/bwatcher.htm">Block Watcher</a>, et les puissants
+      contrôleurs d'Alimentation <a href=
+      "http://www.dccspecialties.com/products/powershield_x.htm">PSX</a> et<a href=
+      "http://www.dccspecialties.com/products/powershield_x.htm">PSX-AR</a> .
+      <p>Ceux-ci peuvent faire beaucoup de choses, mais ils peuventt exiger du travail pour les
+      configurer.</p>
+
+      <p>Brett Scott et Denny Whitaker ont écrit des scripts JMRI pour aider à les programmer, et
+      ont fourni un beau <a href=
+      "http://www.mgbrr.org/Tips/Lessons%20Learned%20on%20Hares-Wabbits%20v1.pdf">document</a> ,
+      (lien cassé le 17/01/2012) sur la façon de les utiliser. Le documentp couvre également
+      comment il documente leurs réseaux, et discute les avantages et inconvénients de plusieurs
+      manières de connecter le Hare et le Wabbit.</p>
+
+      <p>vous pouvez télécharger <a href="https://jmri.org/jython/dccspecialties/">leurs
+      scripts</a> depuis le site web JMRI, et il est aussi disponible dans <a href=
+      "https://jmri.org/jython">des exemples de répertoires de scripts</a> dans le <a href=
+      "https://jmri.org/download">Téléchargements JMRI</a> .</p>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+package jmri.jmrit.symbolicprog;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import jmri.util.FileUtil;
+
+import javax.swing.JLabel;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class LokProgImporterTest {
+
+    public File makeTempFile(String contents) throws IOException {
+        // create a file
+        FileUtil.createDirectory(FileUtil.getUserFilesPath() + "temp");
+        File f = new java.io.File(FileUtil.getUserFilesPath() + "temp" + File.separator + "CsvImporter.test.xml");
+        // recreate it
+        if (f.exists()) {
+            Assertions.assertTrue(f.delete());
+        }
+        try (PrintStream p = new PrintStream(new FileOutputStream(f))) {
+            p.print(contents);
+        }
+
+        return f;
+    }
+
+    @Test
+    public void testCTor() throws IOException {
+        // create a file
+        String s = "CV 1      0\n"
+                + "CV 2      1\n"
+                + "Index: CV31=5,.(CV32=10).\n";
+        File f = makeTempFile(s);
+        CvTableModel tm = new CvTableModel(new JLabel(), null);
+        LokProgImporter t = new LokProgImporter(f,tm);
+        Assert.assertNotNull("exists",t);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        jmri.util.JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        jmri.util.JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(LokProgImporterTest.class);
+
+}

@@ -1,0 +1,34 @@
+package jmri.util.swing;
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Egbert Broerse Copyright (C) 2017
+ */
+public class DrawSquaresTest {
+
+    @Test
+    public void testCall() {
+        BufferedImage bi = DrawSquares.getImage(100, 100, 25, Color.white, Color.black);
+        Assertions.assertNotNull( bi, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(DrawSquaresTest.class);
+
+}

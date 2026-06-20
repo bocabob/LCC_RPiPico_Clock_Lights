@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Me 2008 -->
+  <!-- Updated by Blorec Herv&#233; 2013-09-18-->
+  <title>JMRI: RailDriver Throttle Details</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h2>JMRI: Détails Régulateurs RailDriver</h2>
+      <img src="../../../images/bangdesk.gif" align="left" alt=""> Cette page est en construction.
+      Le support RailDriver JMRI a d'abord été disponible en <a href=
+      "https://jmri.org/releasenotes/jmri2.1.7.shtml">JMRI 2.1.7</a> . Il évolue rapidement, alors
+      revenez ici ou sur le <a href="https://groups.io/g/jmriusers">jmriusers mailing liste</a>
+      pour des changements.<br>
+      <a href="RailDriver.gif"><img align="right" width="389" height="236" src="RailDriver.gif"
+      alt="RailDriver line drawing"></a>
+      <p>Alors que nous développons le support RailDriver, il est principalement mis en oeuvre via
+      un script <a href="https://jmri.org/jython/RailDriver.py">RailDriverThrottle.py</a>. Ceci
+      permet aux utilisateurs de l'éditer facilement pour le personnaliser suivant leurs désirs
+      tandis que nous trions ce qui est généralement nécessaire.</p>
+
+      <h2>Structure</h2>
+
+      <p>Parce jinput et le RailDriver fournissent des noms pour les différents composants sur
+      Windows, Mac OS X et Linux, le script est organisé autour du numéro (index) de la composante,
+      et non pas de son nom. Les trois plates-formes fournissent les composants dans le même
+      ordre.</p>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+package jmri.jmrit.symbolicprog;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import jmri.util.JUnitUtil;
+import jmri.util.junit.annotations.NotApplicable;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ * Test LongAddrVariableValue class.
+ *
+ * TODO need a check of the MIXED state model for long address
+ * @author Bob Jacobsen Copyright 2001, 2002
+ */
+public class LongAddrVariableValueTest extends AbstractVariableValueTestBase {
+
+    // ProgDebugger p = new ProgDebugger();
+
+    // abstract members invoked by tests in parent AbstractVariableValueTestBase class
+    @Override
+    VariableValue makeVar(String label, String comment, String cvName,
+            boolean readOnly, boolean infoOnly, boolean writeOnly, boolean opsOnly,
+            String cvNum, String mask, int minVal, int maxVal,
+            HashMap<String, CvValue> v, JLabel status, String item) {
+        // make sure next CV exists
+        CvValue cvNext = new CvValue("18", p);
+        cvNext.setValue(0);
+        v.put(cvNum + 1, cvNext);
+        return new LongAddrVariableValue(label, comment, "", readOnly, infoOnly, writeOnly, opsOnly, cvNum, mask, minVal, maxVal, v, status, item, cvNext);
+    }
+
+    @Override
+    void setValue(VariableValue var, String val) {
+        ((JTextField) var.getCommonRep()).setText(val);
+        ((JTextField) var.getCommonRep()).postActionEvent();
+    }
+
+    @Override
+    void setReadOnlyValue(VariableValue var, String val) {
+        ((LongAddrVariableValue) var).setValue(Integer.parseInt(val));
+    }
+
+    @Override
+    void checkValue(VariableValue var, String comment, String val) {
+        Assert.assertEquals(comment, val, ((JTextField) var.getCommonRep()).getText());
+    }
+
+    @Override
+    void checkReadOnlyValue(VariableValue var, String comment, String val) {
+        Assert.assertEquals(comment, val, ((JLabel) var.getCommonRep()).getText());
+    }
+
+    // end of abstract members
+    // some of the premade tests don't quite make sense; override them here.
+    @Override
+    @Test
+    @NotApplicable("mask is ignored")
+    public void testVariableValueCreate() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("mask is ignored")
+    public void testVariableValueCreateLargeValue() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("mask is ignored")
+    public void testVariableValueCreateLargeMaskValue() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("mask is ignored")
+    public void testVariableValueCreateLargeMaskValue256() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("mask is ignored")
+    public void testVariableValueCreateLargeMaskValue2up16() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("mask is ignored")
+    public void testVariableValueTwinMask() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("low CV is upper part of address")
+    public void testVariableFromCV() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("due to multi-cv nature of LongAddr")
+    public void testVariableValueRead() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("due to multi-cv nature of LongAddr")
+    public void testVariableValueWrite() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("due to multi-cv nature of LongAddr")
+    public void testVariableCvWrite() {
+    }
+
+    @Override
+    @Test
+    @NotApplicable("programmer synch is different")
+    public void testWriteSynch2() {
+    }
+    // can we create long address , then manipulate the variable to change the CV?
+
+    @Test
+    public void testLongAddressCreate() {
+        HashMap<String, CvValue> v = createCvMap();
+        CvValue cv17 = new CvValue("17", p);
+        CvValue cv18 = new CvValue("18", p);
+        cv17.setValue(2);
+        cv18.setValue(3);
+        v.put("17", cv17);
+        v.put("18", cv18);
+        // create a variable pointed at CV 17&18, check name
+        LongAddrVariableValue var = new LongAddrVariableValue("label", "comment", "", false, false, false, false, "17", "VVVVVVVV", 0, 255, v, jlabel, "stdname", cv18);
+        Assert.assertSame("label", var.label());
+        // pretend you've edited the value, check its in same object
+        ((JTextField) var.getCommonRep()).setText("4797");
+        Assert.assertEquals("4797", ((JTextField) var.getCommonRep()).getText());
+        // manually notify
+        var.actionPerformed(new java.awt.event.ActionEvent(var, 0, ""));
+        // see if the CV was updated
+        Assert.assertEquals(210, cv17.getValue());
+        Assert.assertEquals(189, cv18.getValue());
+    }
+
+    // can we change both CVs and see the result in the Variable?
+    @Test
+    public void testLongAddressFromCV() {
+        HashMap<String, CvValue> v = createCvMap();
+        CvValue cv17 = new CvValue("17", p);
+        CvValue cv18 = new CvValue("18", p);
+        cv17.setValue(2);
+        cv18.setValue(3);
+        v.put("17", cv17);
+        v.put("18", cv18);
+        // create a variable pointed at CV 17 & 18
+        LongAddrVariableValue var = new LongAddrVariableValue("name", "comment", "", false, false, false, false, "17", "VVVVVVVV", 0, 255, v, jlabel, "stdname", cv18);
+        ((JTextField) var.getCommonRep()).setText("1029");
+        var.actionPerformed(new java.awt.event.ActionEvent(var, 0, ""));
+
+        // change the CV, expect to see a change in the variable value
+        cv17.setValue(210);
+        Assert.assertEquals(210, cv17.getValue());
+        cv18.setValue(189);
+        Assert.assertEquals("4797", ((JTextField) var.getCommonRep()).getText());
+        Assert.assertEquals(189, cv18.getValue());
+    }
+
+    private List<java.beans.PropertyChangeEvent> evtList = null;  // holds a list of ParameterChange events
+
+    // check a long address read operation
+    @Test
+    public void testLongAddressRead() {
+        log.debug("testLongAddressRead starts");
+        // initialize the system
+
+        HashMap<String, CvValue> v = createCvMap();
+        CvValue cv17 = new CvValue("17", p);
+        CvValue cv18 = new CvValue("18", p);
+        v.put("17", cv17);
+        v.put("18", cv18);
+
+        LongAddrVariableValue var = new LongAddrVariableValue("name", "comment", "", false, false, false, false, "17", "XXVVVVXX", 0, 255, v, jlabel, "stdname", cv18);
+        // register a listener for parameter changes
+        java.beans.PropertyChangeListener listen = (java.beans.PropertyChangeEvent e) -> {
+            evtList.add(e);
+            if (e.getPropertyName().equals("Busy") && ((Boolean) e.getNewValue()).equals(Boolean.FALSE)) {
+                log.debug("Busy false seen in test");
+            }
+        };
+        evtList = new ArrayList<>();
+        var.addPropertyChangeListener(listen);
+
+        // set to specific value
+        ((JTextField) var.getCommonRep()).setText("5");
+        var.actionPerformed(new java.awt.event.ActionEvent(var, 0, ""));
+
+        var.readAll();
+        // wait for reply (normally, done by callback; will check that later)
+        JUnitUtil.waitFor(()->{return !var.isBusy();}, "var.isBusy");
+
+        int nBusyFalse = 0;
+        for (int k = 0; k < evtList.size(); k++) {
+            java.beans.PropertyChangeEvent e = evtList.get(k);
+            if (e.getPropertyName().equals("Busy") && ((Boolean) e.getNewValue()).equals(Boolean.FALSE)) {
+                nBusyFalse++;
+            }
+        }
+        Assert.assertEquals("only one Busy -> false transition ", 1, nBusyFalse);
+
+        Assert.assertEquals("text value ", "15227", ((JTextField) var.getCommonRep()).getText());  // 15227 = (1230x3f)*256+123
+        Assert.assertEquals("Var state", AbstractValue.ValueState.READ, var.getState());
+        Assert.assertEquals("CV 17 value ", 251, cv17.getValue());  // 123 with 128 bit set
+        Assert.assertEquals("CV 18 value ", 123, cv18.getValue());
+    }
+
+    // check a long address write operation
+    @Test
+    public void testLongAddressWrite() {
+        // initialize the system
+
+        HashMap<String, CvValue> v = createCvMap();
+        CvValue cv17 = new CvValue("17", p);
+        CvValue cv18 = new CvValue("18", p);
+        v.put("17", cv17);
+        v.put("18", cv18);
+
+        LongAddrVariableValue var = new LongAddrVariableValue("name", "comment", "", false, false, false, false, "17", "XXVVVVXX", 0, 255, v, jlabel, "stdname", cv18);
+        ((JTextField) var.getCommonRep()).setText("4797");
+        var.actionPerformed(new java.awt.event.ActionEvent(var, 0, ""));
+
+        var.writeAll();
+        // wait for reply (normally, done by callback; will check that later)
+        JUnitUtil.waitFor(()->{return !var.isBusy();}, "var.isBusy");
+
+        Assert.assertEquals("CV 17 value ", 210, cv17.getValue());
+        Assert.assertEquals("CV 18 value ", 189, cv18.getValue());
+        Assert.assertEquals("4797", ((JTextField) var.getCommonRep()).getText());
+        Assert.assertEquals("Var state", AbstractValue.ValueState.STORED, var.getState());
+        Assert.assertEquals(189, p.lastWrite());
+        // how do you check separation of the two writes?  State model?
+    }
+
+    private JLabel jlabel;
+
+    @BeforeEach
+    @Override
+    public void setUp() {
+        super.setUp();
+        jlabel = new JLabel();
+    }
+
+    @AfterEach
+    @Override
+    public void tearDown() {
+        super.tearDown();
+        jlabel = null;
+    }
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LongAddrVariableValueTest.class);
+
+}

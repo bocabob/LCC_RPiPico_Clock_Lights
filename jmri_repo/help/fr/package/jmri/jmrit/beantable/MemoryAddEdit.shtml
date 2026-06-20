@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec  2013-10-11-->
+<head>
+  <title>JMRI: Adding/Editing Memories</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Memory Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Ajout/Modification de M&eacute;moires</h1>
+      <p>Pour cr&eacute;er une variable
+      m&eacute;moire, cliquez sur le bouton "Ajouter ..." sur le
+      <a href="MemoryTable.shtml">Tableau m&eacute;moire</a>. Cela
+      ouvrira une petite fen&ecirc;tre avec un espace pour y entrer
+      un nom syst&egrave;me et un nom 'utilisateur pour la nouvelle
+      m&eacute;moire, plus et bouton "Ajouter".</p>
+
+      <p>Vous devez entrer un nom syst&egrave;me unique. Les noms
+      syst&egrave;me de m&eacute;moires n'ont pas de mod&egrave;le.
+      Vous pouvez tous mettre tout ce que vous voulez. Il y a une
+      faible convention pour les commencer par "IM" pour
+      "m&eacute;moire interne", mais ce n'est pas
+      n&eacute;cessaire.</p>
+
+      <p>Le nom utilisateur est facultatif, mais si on le donne, il
+      doit &ecirc;tre unique.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Translated  by Blorec Herv&#233; le 2011-11-1-->
+  <title>JMRI: C/MRI Diagnostics</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h2>JMRI: Diagnostiques C/MRI</h2>
+      
+      <p>Quand on vous demande votre
+      num&eacute;ro de carte de sortie, cela signifie
+      l&apos;adresse. Par exemple, si vous avez deux cartes
+      d&apos;entr&eacute;e 0 et 1, puis des cartes de sortie avec
+      les adresse 2, 3 et 4, vous pouvez sp&eacute;cifier 2,
+      3 et 4 ici. Ne pensez pas qu&apos;il se
+      r&eacute;f&egrave;re &agrave; la "1er" carte de
+      sortie, etc</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

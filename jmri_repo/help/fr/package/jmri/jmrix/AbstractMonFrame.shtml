@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-14-->
+<head>
+  <title>JMRI: Monitor Window</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help monitor">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Fen&ecirc;tre Moniteur de Communication</h1>
+
+      <p>JMRI
+      offre une fen&ecirc;tre de communication pour
+      surveiller pour que vous puissiez voir ce qui se passe sur le
+      lien de communication entre le programme et le
+      mat&eacute;riel du r&eacute;seau.</p>
+
+      <p>Une fois que vous ouvrez une fen&ecirc;tre du
+      moniteur, il affichera automatiquement &agrave; l&apos;
+      &eacute;cran tout le trafic sur le lien aussi logtemps
+      que "Filtres Octets" est vide</p>
+
+      <h2>Commandes</h2>
+
+      <dl>
+        <dt>Effacer &Egrave;cran</dt>
+
+        <dd>Efface la zone de connexion au haut de
+        l&apos;&eacute;cran</dd>
+
+        <dt>Gel de l'&Egrave;cran</dt>
+
+        <dd>Arr&ecirc;te l&apos;acquisition de nouvelles
+        informations, de sorte que l&apos;information saisie cesse de
+        d&eacute;filer</dd>
+
+        <dt>Montrer donn&eacute;es brutes</dt>
+
+        <dd>Normalement, le moniteur affiche
+        l'interpr&eacute;tation de ce qu'il voit du
+        programme. Si vous voulez voir les octets bruts, cochez
+        cette case.</dd>
+
+        <dt>Montrer horodatage</dt>
+
+        <dd>Habituellement, le programme affiche simplement les
+        donn&eacute;es du lien de communication. Si vous
+        souhaitez que chaque message soit &ecirc;tre
+        pr&eacute;c&eacute;d&eacute; par l&apos;heure
+        &agrave; laquelle qu&apos;il a &eacute;t&eacute;
+        envoy&eacute; ou a &eacute;t&eacute;
+        re&ccedil;u, cochez cette case.</dd>
+
+        <dt>Ajoutez message</dt>
+
+        <dd>Si vous voulez ins&eacute;rer un message dans les
+        informations captur&eacute;es, par exemple de faire
+        une note sur ce que vous vous appr&ecirc;tez
+        &agrave; faire, vous pouvez le taper dans le champ de
+        texte &agrave; c&ocirc;t&eacute; du bouton
+        &quot;Ajouter message &quot; et puis cliquez sur ce bouton. Ceci est
+        particuli&egrave;rement utile lorsque vous vous
+        connectez &agrave; un fichier (voir ci-dessous) et que
+        vous voulez faire une note pour plus tard sur ce qui se
+        passe.</dd>
+      </dl>
+
+      <h2>Journalisation dans un fichier</h2>
+      <p>Parfois, il est utile
+      de capturer ce qui se passe. Par exemple, vous pouvez
+      rencontrer un bug (!!), et que vous voulez envoyer une copie
+      de ce qui se arrive aux gens qui tentent d'y
+      rem&eacute;dier.</p>
+
+      <p>De petites quantit&eacute;s de donn&eacute;es
+      peuvent &ecirc;tre copi&eacute;es &agrave;
+      partir de la fen&ecirc;tre journal avec vos
+      ordinateurs par la commande &quot;Copier&quot; (par exemple Ctrl-C ou
+      cmd-C), puis coll&eacute; dans un email.</p>
+
+      <p>Si vous voulez capturer davantage, vous pouvez avoir la
+      fen&ecirc;tre pour r&eacute;diger dans un
+      fichier journal sur le disque de votre ordinateur. Pour ce
+      faire:</p>
+
+      <ol>
+        <li>Cliquez sur &quot;Choisir le fichier journal&quot;. Une
+        fen&ecirc;tre de s&eacute;lection de fichier
+        va s&apos;ouvrir. Naviguez &agrave; l&apos;endroit o&ograve;
+        vous souhaitez stocker le fichier, entrez un nom pour le
+        nouveau fichier journal, puis cliquez sur &quot;Enregistrer&quot;.
+        Notez que si vous choisissez un fichier qui existe
+        d&eacute;j&agrave; , il sera &eacute;cras&eacute;.</li>
+
+        <li>Lorsque vous &ecirc;tes pr&ecirc;t
+        &agrave; capturer les donn&eacute;es que vous
+        souhaitez, cliquez sur &quot;D&eacute;marrer
+        l&apos;enregistrement&quot; sur la fen&ecirc;tre du
+        moniteur.</li>
+
+        <li>Lorsque vous avez termin&eacute;, cliquez sur
+        &quot;Arr&ecirc;ter l&apos;enregistrement&quot; pour stocker les
+        donn&eacute;es et fermez le fichier.</li>
+      </ol>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

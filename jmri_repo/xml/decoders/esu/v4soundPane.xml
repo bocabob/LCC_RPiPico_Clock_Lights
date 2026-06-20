@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) JMRI 2019 All rights reserved -->
+
+<pane xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/decoder-4-15-2.xsd">
+    <name>Sound</name>
+    <name xml:lang="ca">So</name>
+    <name xml:lang="cs">Zvuk</name>
+    <name xml:lang="da">Lyd</name>
+    <name xml:lang="de">Sound</name>
+    <name xml:lang="fr">Sons</name>
+    <name xml:lang="it">Suoni</name>
+    <name xml:lang="nl">Geluid</name>
+    <column>
+        <separator/>
+        <label>
+            <text>Steam Chuffs</text>
+            <text xml:lang="de">Dampfstöße</text>
+        </label>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Steam Chuffs Step 1" layout="above" label=""/>
+            <display item="Sound Steam Chuffs Step 1" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Steam Chuffs Decrease Rate" layout="above" label=""/>
+            <display item="Sound Steam Chuffs Decrease Rate" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Steam Chuffs Min Distance" layout="above" label=""/>
+            <display item="Sound Steam Chuffs Min Distance" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Steam Chuffs Secondary Trigger" layout="above" label=""/>
+            <display item="Sound Steam Chuffs Secondary Trigger" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+        <display item="ESU V5 Divide Trigger Impulses" format="checkbox"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <separator/>
+        <label>
+            <text>Volume</text>
+            <text xml:lang="de">Lautstärke</text>
+        </label>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Volume Master" layout="above" label=""/>
+            <display item="Sound Volume Master" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Volume Faded" layout="above" label=""/>
+            <display item="Sound Volume Faded" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Fade Time" layout="above" label=""/>
+            <display item="Sound Fade Time" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <separator/>
+        <label>
+            <text>Automatic Brake Sound</text>
+            <text xml:lang="de">Automatischer Bremssound</text>
+        </label>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Brake On" layout="above" label=""/>
+            <display item="Sound Brake On" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="Sound Brake Off" layout="above" label=""/>
+            <display item="Sound Brake Off" format="hslider" layout="above"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+        <separator/>
+        <label>
+            <text>Starting Delay</text>
+            <text xml:lang="de">Verzögerter Start</text>
+            <text xml:lang="ca">Inici del retard</text>
+        </label>
+        <label>
+            <text> </text>
+        </label>
+        <display item="ESU V4 Starting Delay" format="checkbox"/>
+        <label>
+            <text> </text>
+        </label>
+        <row>
+            <display item="ESU V4 Starting Delay Time" layout="above" label=""/>
+            <display item="ESU V4 Starting Delay Time" layout="above" format="hslider"/>
+        </row>
+        <label>
+            <text> </text>
+        </label>
+    </column>
+    <group exclude="ESU LokSound 5,Essential Sound Unit,ESU LokPilot 5">
+        <column>
+            <separator/>
+            <label>
+                <text>Sound Selection</text>
+                <text xml:lang="de">Sound Auswahl</text>
+            </label>
+            <label>
+                <text> </text>
+            </label>
+            <row>
+                <display item="Sound Option 2"/>
+            </row>
+            <label>
+                <text> </text>
+            </label>
+            <row>
+                <display item="Sound Select 1" layout="above"/>
+                <display item="Sound Select 2" layout="above"/>
+                <display item="Sound Select 3" layout="above"/>
+                <display item="Sound Select 4" layout="above"/>
+            </row>
+            <label>
+                <text> </text>
+            </label>
+            <separator/>
+            <label>
+                <text>Random Sounds</text>
+                <text xml:lang="de">Zufalls-Sounds</text>
+            </label>
+            <label>
+                <text> </text>
+            </label>
+            <row>
+                <display item="Sound Random Min" layout="above" label=""/>
+                <!--display item="Sound Random Min" format="hslider" layout="above" label="Min time between sounds"/-->
+                <display item="Sound Random Min" format="hslider" layout="above"/>
+            </row>
+            <row>
+                <display item="Sound Random Max" layout="above" label=""/>
+                <!--display item="Sound Random Max" format="hslider" layout="above" label="Max time between sounds"/-->
+                <display item="Sound Random Max" format="hslider" layout="above"/>
+            </row>
+            <label>
+                <text> </text>
+            </label>
+            <separator/>
+            <label>
+                <text>Heavy Load and Coast Modes</text>
+                <text xml:lang="de">Lastregelung und Coasting</text>
+                <text xml:lang="ca">Càrrega alta i pendent fort</text>
+            </label>
+            <label>
+                <text> </text>
+            </label>
+            <row>
+                <column>
+                    <label>
+                        <text>Requires decoder firmware version 4.15.9240 or later</text>
+                        <text xml:lang="de">Mind. v4.15.9240 oder später</text>
+                        <text xml:lang="ca">Es necessita firmware 4.15.9240 o superior</text>
+                    </label>
+                    <label>
+                        <text>(a "Read full sheet" may be required to view this)</text>
+                        <text xml:lang="de">&lt;html&gt;
+                            Ein "Diese Seite auslesen" kann&lt;br&gt;
+                            notwendig sein um die Werte anzuzeigen.
+                                  &lt;/html&gt;
+                        </text>
+                        <text xml:lang="ca">Es necessita llegir la pestanya sencera per veure-ho</text>
+                        <!--text xml:lang="de">Ein "Diese Seite vollständig lesen" kann notwendig sein um die Werte anzuzeigen</text-->
+                    </label>
+                    <column>
+                        <row>
+                            <label>
+                                <text>Your version is</text>
+                                <text xml:lang="de">Ihr Decoder hat</text>
+                                <text xml:lang="ca">La teva versió</text>
+                            </label>
+                            <display item="Firmware Major Version" label=""/>
+                            <display item="Firmware Minor Version" label=""/>
+                            <display item="Firmware Build Number" label=""/>
+                        </row>
+                    </column>
+                </column>
+            </row>
+            <label>
+                <text> </text>
+            </label>
+            <grid gridx="0" gridy="NEXT" ipady="10">
+                <griditem>
+                    <display item="Heavy Load" layout="above" label=""/>
+                    <display item="Heavy Load" format="hslider" layout="above"/>
+                </griditem>
+                <griditem>
+                    <display item="Heavy Load Option 1" format="checkbox"/>
+                </griditem>
+                <griditem>
+                    <display item="Coast Mode" layout="above" label=""/>
+                    <display item="Coast Mode" format="hslider" layout="above"/>
+                </griditem>
+                <griditem>
+                    <display item="Coast Mode Option 1" format="checkbox"/>
+                </griditem>
+            </grid>
+        </column>
+    </group>
+    <group include="ESU LokSound 5,Essential Sound Unit">
+        <column>
+            <separator/>
+            <label>
+                <text>SoundCV Configuration</text>
+            </label>
+            <label>
+                <text> </text>
+            </label>
+            <grid gridx="0" gridy="NEXT" ipady="10" anchor="LINE_END">
+                <griditem>
+                    <display item="SoundCV1"/>
+                    <display item="SoundCV1" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV2"/>
+                    <display item="SoundCV2" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV3"/>
+                    <display item="SoundCV3" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV4"/>
+                    <display item="SoundCV4" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV5"/>
+                    <display item="SoundCV5" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV6"/>
+                    <display item="SoundCV6" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV7"/>
+                    <display item="SoundCV7" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV8"/>
+                    <display item="SoundCV8" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV9"/>
+                    <display item="SoundCV9" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV10"/>
+                    <display item="SoundCV10" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV11"/>
+                    <display item="SoundCV11" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV12"/>
+                    <display item="SoundCV12" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV13"/>
+                    <display item="SoundCV13" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV14"/>
+                    <display item="SoundCV14" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV15"/>
+                    <display item="SoundCV15" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="SoundCV16"/>
+                    <display item="SoundCV16" format="hslider" label=""/>
+                </griditem>
+            </grid>
+            <label>
+                <text> </text>
+            </label>
+            <separator/>
+            <label>
+                <text>ESU Tone Control</text>
+            </label>
+            <label>
+                <text> </text>
+            </label>
+            <group>
+                <qualifier>
+                    <variableref>Firmware Full Version</variableref>
+                    <relation>lt</relation>
+                    <!-- 5.9.159 -> 0x509009f -> 84476063 -->
+                    <value>84476063</value>
+                </qualifier>
+                <label>
+                    <text>Requires decoder firmware version 5.9.159 or greater.</text>
+                </label>
+                <label>
+                    <text>You may need to re-read the info pane for DecoderPro to correctly see your firmware version.</text>
+                </label>
+                <label>
+                    <text> </text>
+                </label>
+            </group>
+            <grid gridx="0" gridy="NEXT" ipady="10" anchor="LINE_END">
+                <griditem>
+                    <display item="Bass setting"/>
+                    <display item="Bass setting" format="hslider" label=""/>
+                </griditem>
+                <griditem>
+                    <display item="Treble setting"/>
+                    <display item="Treble setting" format="hslider" label=""/>
+                </griditem>
+            </grid>
+        </column>
+    </group>
+</pane>

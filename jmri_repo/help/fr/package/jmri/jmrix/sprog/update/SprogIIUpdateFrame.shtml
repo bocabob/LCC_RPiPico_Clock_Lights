@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright 2008 -->
+  <!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-14-->
+  <title>JMRI: SPROG II Update Tool</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h2>JMRI: Outil de Mise &agrave; Jour SPROG II</h2>
+
+      <p>L'Outil de Mise &agrave; Jour SPROG II vous permets
+      de charger un nouveau logiciel dans SPROG II.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

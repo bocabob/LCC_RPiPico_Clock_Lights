@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+  <title>JMRI: Select PR3 Mode</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h2>JMRI: S&eacute;lectionnez le mode PR3</h2>Une
+      <a href=
+      "../../../../../../html/hardware/loconet/PR3.shtml">PR3
+      Digitrax</a> peut agir soit en tant que programmateur
+      autonome, ou comme une interface &agrave; un LocoNet, mais
+      il ne peut pas faire les deux en m&ecirc;me temps.
+      Normalement, vous choisissez le mode PR3 dans le cadre
+      <a href=
+      "../../../../../../html/hardware/loconet/PR3.shtml">fixant
+      les pr&eacute;f&eacute;rences JMRI</a> .
+
+      <p>Dans certains cas, vous pourriez vouloir changer
+      rapidement le mode pendant le d&eacute;bogage. Cet
+      outil offre deux boutons pour vous permettent de changer le
+      mode de la PR3 imm&eacute;diatement. <em>Remarque que
+      cela peut entra&icirc;ner un comportement inhabituel (et
+      g&eacute;n&eacute;ralement mauvais) du
+      programme!</em> Il est g&eacute;n&eacute;ralement
+      pr&eacute;f&eacute;rable de basculer le mode en
+      changeant les pr&eacute;f&eacute;rences JMRI et
+      en red&eacute;marrant le programme.</p>
+
+      <p>Pour plus d'informations sur la PR3, s'il vous
+      pla&icirc;t voir ses <a href=
+      "../../../../../../html/hardware/loconet/PR3.shtml">page de
+      r&eacute;f&eacute;rence JMRI</a>.</p>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

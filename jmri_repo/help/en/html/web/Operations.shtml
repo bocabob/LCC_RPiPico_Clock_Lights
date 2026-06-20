@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright 2015 -->
+
+  <title>JMRI: Operations web functions</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>JMRI: Operations web functions</h1>
+
+      <p>JMRI OperationsPro&trade; provides many features to support operating sessions. You can learn
+      more about <a href="../apps/OperationsPro/index.shtml">JMRI OperationsPro here</a>.</p>
+
+      <p>With JMRI running on your network and the <a href="index.shtml#Start">Web Server</a> active,
+      the current functionality can be accessed by visiting the <a href=
+      "http://localhost:12080/operations">http://localhost:12080/operations</a> URL.</p>
+      
+      <p>You can view a list of available <b>Trains</b> under <b>Operations</b>, <b>Trains</b>. For each train, there are two options, 
+      <b>Manifest</b> and <b>Conductor</b>. These provide a browser-friendly experience very similar to their respective 
+      windows in JMRI: (<a href="../../package/jmri/jmrit/operations/Operations.shtml#Trains">Trains</a>,
+       <a href="../../package/jmri/jmrit/operations/Operations.shtml#PrintingManifests">Manifest</a>, 
+       <a href="../../package/jmri/jmrit/operations/Operations.shtml#TrainConductor">Conductor</a>)
+       <h3>Screenshots:</h3>
+       <h4>Example Trains page:</h4><img src="images/WebServerOperationsTrainsExample.jpg">
+       <h4>Example Manifest page:</h4><img src="images/WebServerOperationsTrainsManifestExample.jpg">
+       <h4>Example Conductor page:</h4><img src="images/WebServerOperationsTrainsConductorExample.jpg">
+
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

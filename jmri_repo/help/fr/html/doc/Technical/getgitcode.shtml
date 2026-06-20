@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Translated by Herv&#233; BLOREC<bzh56420@yahoo.fr> on 2016-08-24 -->
+  <title>JMRI: Getting the Code</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI technical code Git download">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI: Obtention du Code</h1>
+
+      <h2>Contexte</h2>
+
+      <p>"<a href="https://git-scm.com">Git</a>" est un puissant système libre gérant du code comme
+      s'il a à travailler dessus par un groupe distribué. Comme <a href="getsvncode.shtml">SVN</a>
+      avant lui, et <a href="getcvscode.shtml">CVS</a> avant lui, il permet à un groupe comme JMRI
+      de coopérer efficacement. Nous gardons le code JMRI, fichiers aides, exemple de scripts,
+      fichiers XML, etc, dans un répertoire Git hébergé sur <a href=
+      "https://github.com/JMRI">GitHub.com</a>. Le <a href="WebSite.shtml">site web JMRI</a> est
+      dans un répertoire similaire. <a name="view" id="view"></a></p>
+
+      <h2>Affichage du Code en Ligne</h2>
+
+      <p>Vous pouvez <a href="https://github.com/JMRI/JMRI">parcourir le code JMRI directement</a>
+      sur ce site. Par exemple, si vous souhaitez regarder cette page, <a href=
+      "https://github.com/JMRI/JMRI/blob/master/help/en/html/doc/Technical/getgitcode.shtml">cliquez
+      sur ce lien</a> pour afficher ses code source HTML.</p>
+      <a name="propose" id="propose"></a>
+      <h3>Proposition de Changements en Ligne</h3>
+      <a href="images/GitHubPencil.png"><img src="images/GitHubPencil.png" align="right" height=
+      "50" width="142" alt=""></a>
+      <p>Si vous voulez suggérer un changement dans un fichier, par exemple une page web comme
+      celle ci, premièrement obtenez un <a href="https://github.com/join">compte GitHub</a> libre
+      et connectez-vous.</p>
+
+      <p>Puis allez au fichier que vous voulez modifier et cliquez sur l'icône crayon en haut à
+      droite de la page.</p>
+
+      <p><a href="images/GitHubProposeFileChange.png"><img src="images/GitHubProposeFileChange.png"
+      align="right" height="135" width="221" alt=""></a> Après une seconde ou deux, ceci vous donne
+      une page où vous pouvez modifier les contenus du fichier avec vos suggestions de changements.
+      Pas de panique, vous ne modifiez pas actuellement le code original de JMRI, juste votre copie
+      personnel du code.</p>
+
+      <p>Puis remplissez le formulaire du bas avec une ligne d'objet utile, et une description de
+      pourquoi c'est une bonne modification, et cliquez le bouton "Propose file change". Ceci sauve
+      vos modifications dans votre copie personnel sur le serveur Git.<br>
+      Ensuite, cliquez sur le bouton "Pull request" au sommet droit du panneau de code. Ceci envoie
+      votre changement aux personnes qui sont agréées pour maintenir le code central JMRI, qui
+      examineront et (généralement) l'inclurons dans la version suivante de JMRI (<a href=
+      "gitdeveloper.shtml#pull">plus de détails</a>).</p>
+      <a name="get" id="get"></a>
+      <h2>Obtenir Votre Propre Copie</h2>
+
+      <p>Notre source de code est distribuée en utilisant <a href="https://git-scm.com">Git</a>. (
+      Nous gardons aussi le <a href="WebSite.shtml">site web</a> dans Git, si vous aimez travailler
+      avec la source pour ce répertoire. ) Si vous voulez travailler avec le code JMRI, le <a href=
+      "WebSite.shtml">site web</a> entier, ou une autre partie de JMRI, passer quelques minutes à
+      obtenir la configuration Git vaut bien la peine. Nous sommes désolés, mais nous ne pouvons
+      pas soutenir d'autres méthodes (envoi des fichiers individuels, etc.), car ils sont tout
+      simplement trop source d'erreurs. &lt;/ p&gt;</p>
+
+      <p>Bien qu'il y ait beaucoup de façons d'utiliser Git, les sections suivantes vous montre les
+      plus communes:</p>
+
+      <ul>
+        <li><a href="#desktop">Utilisation de l'application GitHub Desktop</a> (Mac ou Windows
+        seulement)</li>
+
+        <li><a href="#cmd">Utilisation de la ligne de commande</a>
+        </li>
+
+        <li><a href="#ide">Utilisation d'un Environnement de Développement Intégré (IDE)</a>
+        </li>
+      </ul>
+
+      <p>Si vous voulez développer des changements dans le code, voir la page "<a href=
+      "gitdeveloper.shtml">Développement avec le Code JMRI</a>."</p>
+
+      <p>Vérifiez aussi la <a href="GitFAQ.shtml">page JMRI Git FAQ</a>.</p>
+      <a name="desktop" id="desktop"></a>
+      <h3>Utilisation de l'application GitHub Desktop</h3>
+
+      <p>L'application <a href="https://desktop.github.com">GitHub Desktop</a> est un outil très
+      pratique pour travailler avec les répertoires Git. Malheureusement, il n'est disponible que
+      pour Mac et Windows. Pour Linux, utilisez SVP une des autres méthodes.</p>
+
+      <ul>
+        <li>Il y a un lien de téléchargement sur la <a href="https://desktop.github.com">page web
+        de l'application GitHub Desktop</a>. Obtenez le téléchargement et installez le en utilisant
+        les instructions.</li>
+
+        <li>Ouvrez l'application GitHub Desktop.</li>
+
+        <li>Dans votre navigateur internet, allez au site GitHub sur le "<a href=
+        "https://github.com/JMRI/JMRI">répertoire JMRI</a>" (cliquer sur le lien devrait vous y
+        conduire).</li>
+
+        <li>cliquez sur le bouton "Clone in Desktop" en haut à droite.<br>
+        <a href="images/GitHubCloneDeskop.png"><img src="images/GitHubCloneDeskop.png" alt=
+        "Clone to desktop button in GitHub web" height="315" width="409"></a></li>
+
+        <li>L'application GitHub Desktop montre un dialogue où vous pouvez sélectionnez
+        l'emplacement du téléchargement. Changez celui-ci si vous voulez:<br>
+        <a href="images/GhDtCloneDialog.png"><img src="images/GhDtCloneDialog.png" alt=
+        "Clone dialog in GitHub Desktop Mac" height="279" width="267"></a><br>
+        et Cliquez "Clone".</li>
+
+        <li>Le téléchargement démarre. Cela peut prendre quelques minutes.</li>
+
+        <li>Pour plus de détails, voir notre page <a href="GitFAQ.shtml">Aide Git FAQ</a>.</li>
+      </ul>
+
+      <p>Une fois que le téléchargement est terminé, il y a des éléments de menu sous le menu
+      "Repository" de l'application pour accéder au code directement:<br>
+      <a href="images/GitDtRepoSettingsMenu.png"><img src="images/GitDtRepoSettingsMenu.png" alt=
+      "Repository menu in GitHub Desktop" height="175" width="275"></a></p>
+
+      <p>Vous pouvez aussi naviguer directement là en utilisant votre fichier système.<br>
+      À l'intérieur vous trouverez des répertoires appelés <code>xml</code>, <code>resources</code>,
+      <code>jython</code>, <code>help</code>, <code>lib</code>, <code>java</code> et autres.</p>
+
+      <p>Dans le répertoire <code>java</code>, vous trouverez un répertoire <code>src</code> qui contient
+      le code source pour JMRI lui-même, et un répertoire <code>tests</code> qui contient diverses
+      routines de test.</p>
+
+      <p>Vous pouvez regarder le code avec votre éditeur de texte favori.<br>
+      pour compiler et exécuter le code, vous devez besoin de l'un des outils de compilation
+      décrits dans la barre à gauche: <a href="Ant.shtml">Ant</a>, <a href=
+      "Eclipse.shtml">Eclipse</a>, <a href="NetBeans.shtml">NetBeans</a>, <a href=
+      "IntelliJ.shtml">IntelliJ</a>, etc, ( Ant peut être le plus facile à installer et utiliser,
+      et il est le premier exemple de la documentation ).</p>
+      <a name="cmd" id="cmd"></a>
+      <h3>Utilisation de la ligne de commande</h3>
+
+      <p>Premièrement, vérifiez ou Git est installé sur votre ordinateur. Depuis une ligne de
+      commande, faire<br>
+      <code>git --version</code> (notez les deux tirets).<br>
+      Si la réponse est une version plus grande que 2, ex 2.3.8, vous êtes prêt. Si non, il y a les
+      <a href="GitFAQ.shtml#install">instructions pour l'installation de Git</a> dans la <a href=
+      "GitFAQ.shtml">FAQ Git</a>. Installez Git, et revenez ici.</p>
+
+      <p>Pour obtenir une copie locale du code, Vous dites à Git de le "cloner depuis notre
+      répertoire. La commande pour le faire est:</p>
+
+      <pre><code>
+        $ git clone https://github.com/JMRI/JMRI.git
+        </code></pre>Ceci créera un nouveau répertoire "JMRI" et y téléchargera le code.
+      <p>Si vous avez déjà obtenu une copie du code sur votre ordinateur et voulez le mettre à
+      jour, démarrez dans le répertoire du code JMRI et <code>$ git pull
+      https://github.com/JMRI/JMRI.git</code></p>
+
+      <p>Après que la vérification est terminée, allez au nouveau répertoire JMRI qui a été créé. À
+      l'intérieur, vous trouverez: des répertoires appelés <code>xml</code>, <code>resources</code>,
+      <code>jython</code>, <code>help</code>, <code>lib</code>, <code>java</code> et autres.</p>
+
+      <p>Dans le répertoire <code>java</code>, vous trouverez un répertoire <code>src</code> qui contient
+      le code source pour JMRI lui-même, et un répertoire <code>tests</code> qui contient diverses
+      routines de test.</p>
+
+      <p>Vous pouvez regarder le code avec votre éditeur des texte favori.</p>
+
+      <p>Pour compiler et exécuter le code, vous devez besoin de l'un des outils de compilation
+      décrits dans la barre à gauche: <a href="Ant.shtml">Ant</a>, <a href=
+      "Eclipse.shtml">Eclipse</a>, <a href="NetBeans.shtml">NetBeans</a>, <a href=
+      "IntelliJ.shtml">IntelliJ</a>, etc, ( Ant peut être le plus facile à installer et utiliser,
+      et il est le premier exemple de la documentation ).</p>
+      <a name="ide" id="ide"></a>
+      <h3>Utilisation d'un Environnement de Développement Intégré (IDE)</h3>
+
+      <p>La plupart des IDEs ont un support Git fournit avec. Pour ceux qui peuvent construire JMRI
+      nous avons des instructions spécifiques:</p>
+
+      <ul>
+        <li><a href="Ant.shtml">Ant</a>
+        </li>
+
+        <li><a href="Eclipse.shtml">Eclipse</a>
+        </li>
+
+        <li><a href="NetBeans.shtml">NetBeans</a>
+        </li>
+
+        <li><a href="IntelliJ.shtml">IntelliJ</a>
+        </li>
+      </ul>
+
+      <h2>Accès Aux Anciennes Versions</h2>
+
+      <p>La meilleure méthode pour retrouver la source pour les version 4.1.2 et avant est par le
+      <a href="getsvncode.shtml">Répertoire SVN</a> SVP Voir ces instructions pour plus de
+      détails</p>
+
+      <p>La meilleure méthode pour retrouver la source pour les version 4.1.2 et avant est par le
+      <a href="getcvscode.shtml">Répertoire CVS</a> SVP Voir ces instructions pour plus de détails.</p>
+      
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

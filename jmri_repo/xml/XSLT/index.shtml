@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="author" content="Bob Jacobsen, JMRI">
+   <title>JMRI Decoder Information</title>
+   <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+  <div id="mBody">
+     <div id="mainContent" class="no-sidebar">
+     <a href="https://www.jmri.org/index.shtml"><img src="https://www.jmri.org/images/logo-jmri.gif" class="floatRight" width="160" height="135"
+                                alt=""></a>
+
+        <h1>JMRI Decoder Information</h1>
+
+        <p>The JMRI DecoderPro information on decoders has been made available
+        in several forms on the following web pages:</p>
+            <ul>
+            <li>
+            <a href="pages/DecoderId.html">Decoder identification CV values</a>
+            used by DecoderPro to identify the manufacturer and
+            type of an unknown decoder.</li>
+            <li>
+            <a href="pages/decoderIndex.html">Index to individual decoder pages</a>,
+            listed by manufacturer.  This provides a one-page summary of the characteristics
+            and CV contents of the decoders.</li>
+            <li>Selection guides listing
+            <a href="pages/SelectionGuide.html#size">decoder size</a>, and by
+            <a href="pages/SelectionGuide.html#electrical">decoder electrical characteristics</a>.</li>
+            </ul>
+
+        <p>We also provide files in
+        "<a href="https://en.wikipedia.org/wiki/Comma-separated_values">comma-separated values</a>" format via a
+        <a href="CSVindex.shtml">separate index page</a>.</p>
+        <p>
+        Windows and Java .properties files containing some of the information are
+        <a href="properties">available in a separate directory</a>.</p>
+        <p>
+        All of these files are created automatically from the JMRI decoder files using XSLT.
+        The toolkit to do this is available from the JMRI distribution, or our
+        <a href="https://github.com/JMRI/JMRI/tree/master/xml/XSLT/">GitHub repository</a>.</p>
+
+        <p>These pages are updated as people contribute decoder information to JMRI.</p>
+
+  <hr class="hide">
+  <!--#include virtual="/Footer.shtml" -->
+
+   </div><!-- closes #mainContent-->
+</div><!-- closes #mBody-->
+</body>
+</html>

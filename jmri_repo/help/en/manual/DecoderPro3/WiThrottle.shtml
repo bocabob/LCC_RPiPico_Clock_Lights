@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Comprehensive Programmer - Advanced Features Pane</title>
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <a id="Top"></a>
+      <h1>DecoderPro&reg;</h1>
+
+      <h2>WiThrottle</h2>
+
+      <div class="dp-right">
+        <p><a href="dp3_Main_Throttle_menubar.shtml#Wi">Back</a>
+        </p>
+
+        <p><a href="index.shtml">Back to Index</a>
+        </p>
+      </div>
+
+      <p>This window controls the connection between WiFi throttles, e. g. an iPhone, iPod Touch,
+      or Android Phone and JMRI <a href="Start_Preferences.shtml">Preference</a> in the Wi/Throttle
+      Pane.</p>
+
+      <blockquote>
+        <blockquote>
+          <blockquote>
+            <blockquote>
+              <p><img src="images/ThrottleWi.png" alt="WiThrottle" height="271" width="331">
+              </p>
+            </blockquote>
+          </blockquote>
+
+          <p style="font-weight: bold;">Menu Bar</p>
+
+          <p><img src="images/ThrottleWi_menu.png" alt="menu" height="167" width="217">
+          </p>
+
+          <ul>
+            <li>
+              <span style="font-weight: bold;">WiThrottle</span>
+              <ul style="font-weight: bold;">
+                <li>Stop Server</li>
+              </ul>
+
+              <blockquote>
+                <p>Stops the server for the WiThrottle</p>
+              </blockquote>
+
+              <ul style="font-weight: bold;">
+                <li>Filter Controls</li>
+              </ul>
+
+              <blockquote>
+                <p><img src="images/ThrottleWi_ControlsFilter.png" alt="filter" height="209" width=
+                "669">
+                </p>
+
+                <p>Set up Turnouts and Routes that can be controlled by DecoderPro for control by
+                WiThrottle.</p>
+              </blockquote>
+
+              <ul>
+                <li><span style="font-weight: bold;">Preferences</span>...</li>
+              </ul>
+            </li>
+
+            <li style="list-style: none">
+              <blockquote>
+                <p>Opens the WiThrottle Preferences Pane in <a style="font-weight: bold;" href=
+                "Start_Preferences.shtml">preferences.</a></p>
+              </blockquote>
+            </li>
+
+            <li style="font-weight: bold;">Window</li>
+
+            <li style="font-weight: bold;">Help</li>
+          </ul>
+        </blockquote>
+      </blockquote>
+
+      <div class="dp-right">
+        <p><a href="Comp_LightFX.shtml"></a><a href="dp3_Main_Throttle_menubar.shtml#Wi">Back</a>
+        </p>
+
+        <p><a href="index.shtml">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

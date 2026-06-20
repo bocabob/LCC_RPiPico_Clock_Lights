@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-12-->
+<head>
+  <title>JMRI: Code Button Help</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help OS Indicator">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Bouton cod&eacute;</h1>
+      <p class="important">Ce n'est pas encore
+        compl&egrave;tement mis en oeuvre</p>
+
+      <p>Un bouton de code sur un panneau USS CTC commence
+      l'activit&eacute; pour une section.</p>
+
+      <p>Entr&eacute;es et sorties pour cet outil:</p>
+
+      <dl>
+        <dt>Bouton</dt>
+
+        <dd>Capteur qui devient ACTIF lorsque le bouton est
+        press&eacute;.</dd>
+
+        <dt>Lampe</dt>
+
+        <dd>Aiguillage qui est mis D&Eacute;VI&Eacute; tandis que
+        le code est en cours.</dd>
+      </dl>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

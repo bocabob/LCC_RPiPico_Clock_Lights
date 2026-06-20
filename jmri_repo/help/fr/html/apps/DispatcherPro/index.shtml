@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; le 2013-9-01-->
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: DispatcherPro Fen\u00eatre Principale</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help preferences">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI: DispatcherPro Fen\u00eatre Principale</h1>
+      <img src="../../../../../resources/logo.gif" align="right" height="100" width="100" alt="">
+      La fenêtre principale DispatcherPro vous donne accès à toutes les possibilités de JMRI.
+      <p>Aide sur les menus spécifiques:</p>
+
+      <ul>
+        <li>Edition - ( <a href="../TabbedPreferences.shtml">Préférences</a> )</li>
+      </ul>
+
+      <p>Aide sur les menus spécifiques:</p>
+
+      <ul>
+        <li>Edition - ( <a href="../TabbedPreferences.shtml">Préférences</a> )</li>
+
+        <li><a href="../../jmri/jmrit/ToolsMenu.shtml">Outils</a>
+        </li>
+
+        <li><a href="../../../html/apps/DecoderPro/Roster.shtml#menu">Inventaire</a>
+        </li>
+      </ul>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- close #mainContent -->
+  </div>
+  <!-- close #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

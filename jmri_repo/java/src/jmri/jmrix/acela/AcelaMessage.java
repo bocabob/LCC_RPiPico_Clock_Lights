@@ -1,0 +1,119 @@
+package jmri.jmrix.acela;
+
+import jmri.util.StringUtil;
+
+/**
+ * Contains the data payload of an Acela packet.
+ *
+ * @author Bob Jacobsen Copyright (C) 2001,2003
+ * @author Bob Coleman Copyright (C) 2007, 2008 Based on CMRI serial example,
+ * modified to establish Acela support.
+ */
+public class AcelaMessage extends jmri.jmrix.AbstractMRMessage {
+    // is this logically an abstract class?
+
+    static final int POLL_TIMEOUT = 250;
+
+    public AcelaMessage() {
+        super();
+    }
+
+    // create a new one
+    public AcelaMessage(int i) {
+        super(i);
+    }
+
+    // copy one
+    public AcelaMessage(AcelaMessage m) {
+        super(m);
+    }
+
+    /**
+     * This ctor interprets the String as the exact sequence to send,
+     * byte-for-byte.
+     *
+     * @param m string form of message.
+     */
+    public AcelaMessage(String m) {
+        super(m);
+    }
+
+    /**
+     * This ctor interprets the byte array as a sequence of characters to send.
+     * @deprecated 5.13.5, unused, requires further development.
+     * @param a Array of bytes to send
+     */
+    @Deprecated( since="5.13.5", forRemoval=true)
+    public AcelaMessage(byte[] a) {
+        // super(String.valueOf(a)); // Spotbug toString on array
+        // requires further development to produce correct values for hardware type.
+        super(StringUtil.hexStringFromBytes(a).replaceAll("\\s", ""));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < getNumDataElements(); i++) {
+            if (i != 0) {
+                s.append(" ");
+            }
+            s.append(StringUtil.twoHexFromInt(getElement(i)));
+        }
+        return s.toString();
+    }
+
+    // static methods to return a formatted message
+    // used within AcelaTrafficController to initialize Acela system
+    public static AcelaMessage getAcelaVersionMsg() {
+        AcelaMessage m = new AcelaMessage(1);
+        m.setBinary(true);
+        m.setElement(0, 0x19);
+        return m;
+    }
+
+    public static AcelaMessage getAcelaResetMsg() {
+        // create an Acela message and add initialization bytes
+        AcelaMessage m = new AcelaMessage(1);
+        m.setBinary(true);
+        m.setElement(0, 0x15);  //  Acela command to reset Acela network
+        return m;
+    }
+
+    public static AcelaMessage getAcelaOnlineMsg() {
+        // create an Acela message and add initialization bytes
+        AcelaMessage m = new AcelaMessage(1);
+        m.setBinary(true);
+        m.setElement(0, 0x16);  //  Acela command to put Acela network ONLINE
+        return m;
+    }
+
+    public static AcelaMessage getAcelaPollNodesMsg() {
+        // create an Acela message and add initialization bytes
+        AcelaMessage m = new AcelaMessage(1);
+        m.setBinary(true);
+        m.setElement(0, 0x18);  // Acela command to poll Acela network nodes
+        return m;
+    }
+
+    public static AcelaMessage getAcelaPollSensorsMsg() {
+        // create an Acela message and add initialization bytes
+        AcelaMessage m = new AcelaMessage(1);
+        m.setBinary(true);
+        m.setElement(0, 0x14);  // Acela command to poll all sensors
+        return m;
+    }
+
+    public static AcelaMessage getAcelaConfigSensorMsg() {
+        // create an Acela message and add initialization bytes
+        AcelaMessage m = new AcelaMessage(4);
+        m.setBinary(true);
+        m.setElement(0, 0x10);  // Acela command to configure one sensor
+        m.setElement(1, 0x00);  // Address
+        m.setElement(2, 0x00);  // Address
+        m.setElement(3, 0x25);  // ending bits[2,1] == 10 means IR
+        // ending bit[0] == 1 means invert output
+        // bits [15,3] == sensitivity so 0010 0 is low
+        return m;
+    }
+
+}

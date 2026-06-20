@@ -1,0 +1,31 @@
+package jmri.jmrit.decoderdefn;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class InstallDecoderURLActionTest {
+
+    @Test
+    public void testCTor() {
+        InstallDecoderURLAction t = new InstallDecoderURLAction("Test");
+        Assertions.assertNotNull(t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(InstallDecoderURLActionTest.class);
+
+}

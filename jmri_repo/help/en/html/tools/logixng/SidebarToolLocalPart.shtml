@@ -1,0 +1,52 @@
+<!-- SidebarToolLocalPart.shtml -->
+<!-- This is the local part sidebar definition for html/tools/logixng pages -->
+
+        <dt class="dtheader"><a href="/help/en/html/tools/logixng/LogixNG.shtml">LogixNG</a></dt>
+        <dd>The Next Generation of Layout Automation
+          <ul>
+            <li>
+              <ul>
+                <li><a href="/help/en/html/tools/logixng/reference/index.shtml">LogixNG Reference</a>
+                <li><a href="/help/en/html/tools/logixng/ErrorHandling.shtml">Error Handling</a>
+              </ul>
+            </li>
+            <li><em style="padding-left: 1em;">Building LogixNGs:</em>
+              <ul>
+                <li><a href="/help/en/package/jmri/jmrit/beantable/LogixNGTable.shtml">LogixNG Table</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/LogixNGTableEditor.shtml">LogixNG Table Editor</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/ConditionalNGEditor.shtml">ConditionalNG  Editor</a>
+              </ul>
+            </li>
+            <li><em style="padding-left: 1em;">Building Modules:</em>
+              <ul>
+                <li><a href="/help/en/package/jmri/jmrit/beantable/LogixNGModuleTable.shtml">LogixNG Module Table</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/ModuleEditor.shtml">Module  Editor</a>
+              </ul>
+            </li>
+            <li><em style="padding-left: 1em;">Building LogixNG Tables:</em>
+              <ul>
+                <li><a href="/help/en/package/jmri/jmrit/beantable/LogixNGTableTable.shtml">LogixNG Tables Table</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/LogixNGTableTableEditor.shtml">Tables Editor</a>
+              </ul>
+            </li>
+            <li><em style="padding-left: 1em;">LogixNG Global Variables:<span class="since">since 4.99.7</span></em>
+              <ul>
+                <li><a href="/help/en/package/jmri/jmrit/beantable/LogixNGGlobalVariables.shtml">Global Variables Table</a>
+              </ul>
+            </li>
+            <li><em style="padding-left: 1em;">Tools:</em>
+              <ul>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/LogixNGInitializationTable.shtml">Initialization Table</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/LogixImport.shtml">Import Logix</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/LogixNGBrowser.shtml">LogixNG Browser</a>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/ConditionalNGDebugger.shtml">LogixNG Debugger</a><span class="since">since 5.1.5</span>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/InlineLogixNG.shtml">Inline LogixNG</a><span class="since">since 5.1.6</span>
+                <li><a href="/help/en/package/jmri/jmrit/logixng/LogixNGWhereUsed.shtml">LogixNG Where Used</a><span class="since">since 5.5.5</span>
+                <li><a href="/help/en/html/tools/logixng/ExportLogixNG.shtml">Export LogixNG</a><span class="since">since 5.9.3</span>
+                <li><a href="/help/en/html/tools/logixng/ErrorHandlingModule.shtml">Error Handling Module</a><span class="since">since 5.13.2</span>
+              </ul>
+            </li>
+          </ul>
+        </dd>
+
+<!-- /SidebarToolLocalPart.shtml -->

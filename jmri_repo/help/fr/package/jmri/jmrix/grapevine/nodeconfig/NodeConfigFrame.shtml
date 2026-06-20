@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-11-1-->
+<head>
+  <title>JMRI: Configurer N&oelig;uds Grapevine</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content=
+  "JMRI help configure grapevine node">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Configurer les n&oelig;uds Grapevine</h1>
+
+      <p>Les n&oelig;ud Grapevine doivent &ecirc;tre
+      configur&eacute;s avant les travaux de saisie.</p>
+
+      <p>Le logiciel se d&eacute;cline en trois versions
+      distinctes:</p>
+
+      <dl>
+        <dt>2002 noeud, version 6 ou
+        ult&eacute;rieure</dt>
+
+        <dd>G&eacute;n&eacute;ralement
+        consid&eacute;r&eacute; comme la meilleure</dd>
+
+        <dt>2002 n&oelig;ud, version pr&eacute;cedent la
+        version 6</dt>
+
+        <dd>Si vous avez un de celles-ci, vous devriez probablement
+        mettre &agrave; jour le logiciel</dd>
+
+        <dt>2000 (original) noeud</dt>
+
+        <dd>Bien que JMRI a le code pour soutenir ces derniers, ils
+        n'ont pas &eacute;t&eacute;
+        test&eacute;s. Si vous rencontrez des
+        probl&egrave;mes, s'il vous pla&icirc;t
+        laissez-nous d&eacute;sormais am&eacute;liorer
+        le soutien pour ces cartes.</dd>
+      </dl>Bien qu'a l'heure actuelle il n'y ait pas de
+      propri&eacute;t&eacute;s
+      suppl&eacute;mentaires, nous nous attendons &agrave;
+      &eacute;ventuellement ajouter plus d&apos;informations ici
+      d&egrave;s nous apprendront du nouveau au sujet des
+      capacit&eacute;s des n&oelig;uds Grapevine.
+
+      <h1>Configure Grapevine Nodes</h1>
+      <p>Ceci est e page d'aide
+      help/jmri/jmrix/grapevine/nodeconfig/NodeConfigFrame</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+package jmri.jmrit.jython;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class JynstrumentPopupMenuTest {
+
+    @Test
+    public void testCTor() {
+        Jynstrument j = new Jynstrument(){
+           @Override
+           public String getExpectedContextClassName(){
+              return "Test Jynstrument";
+           }
+
+           @Override
+           public void init(){
+           }
+
+           @Override
+           protected void quit(){
+           }
+        };
+        JynstrumentPopupMenu t = new JynstrumentPopupMenu(j);
+        Assertions.assertNotNull(t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(JynstrumentPopupMenuTest.class);
+
+}

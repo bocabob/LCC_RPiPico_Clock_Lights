@@ -1,0 +1,15 @@
+<!-- SidebarInstall.shtml -->
+<!-- Sidebar Part to list installation and setup files -->
+
+<dt><a href="/help/en/html/setup/index.shtml">JMRI Setup and Installation</a></dt>
+		<dd> JMRI environments...
+		    <ul>
+            <li><a href="https://jmri.org/install/WindowsNew.shtml">Windows</a>
+            <li><a href="https://jmri.org/install/MacOSX.shtml">macOS</a>
+            <li><a href="https://jmri.org/install/Linux.shtml">Linux (multiple vers)</a>
+            <li><a href="https://jmri.org/install/Raspberry_Pi.shtml">Raspberry Pi OS on Raspberry Pi</a>
+            <li><i><a href="https://jmri.org/install/Debug.shtml">Debugging an installation</a></i>
+		    </ul>
+		</dd>
+
+<!-- /SidebarInstall.shtml -->

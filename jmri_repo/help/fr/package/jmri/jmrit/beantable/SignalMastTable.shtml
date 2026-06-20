@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013-10-12-->
+<head>
+  <title>JMRI: Le Tableau Mât Signal</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Signal Mast Table">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Le Tableau Mât Signal</h1>
+      <a href="SignalMastTable.png"><img src="SignalMastTable.png" height="173" width="376" align=
+      "right" alt=""></a>
+      <p>Pour plus d'informations sur les Mâts de Signaux et les aspect de la signalisation, voir
+      la <a href="../../../../html/tools/signaling/AspectSignaling.shtml">page
+      introduction</a>.</p>
+
+      <p>Pour définir un nouveau mât de signal, cliquez sur le bouton" <a href=
+      "SignalMastAddEdit.shtml">Ajouter ..."</a> . Il vous sera demandé toutes les informations de
+      configuration nécessaires.</p>
+
+      <p>Utilisez l'option Stocker dans le menu Fichier pour enregistrer les informations de
+      signalisation sur le disque. Ces informations sont enregistrées avec la configuration dans un
+      fichier XML, avec l'installation du panneau de commande et des chosess similaires. Pour
+      stocker vos panneaux dans le même fichier (recommandé), sélectionnez <strong>Fichier&gt;
+      Stocker &gt; Stocker Configuration et les panneaux dans Fichier ...</strong> ou sélectionnez
+      <strong>Panneaux...</strong> dans la fenêtre principale JMRI.</p>
+
+      <p>Pour plus d'informations sur la création et l'affichage des panneaux, y compris la manière
+      de montrer les signaux sur vos panneaux, s'il vous plaît voir les <a href=
+      "../../../../html/apps/PanelPro/Panels.shtml">pages Panneaux</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

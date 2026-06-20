@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Translated by Herv&#233; Blorec 2013-10-08 -->
+  <title>JMRI: Panel Servlet</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+      <h1>JMRI: Panneau Servlet</h1>
+
+      <p>Les Servlets Panel JMRI offrent un acc&egrave;s Web
+      &agrave; des informations sur les panneaux JMRI "ouvert". Ce
+      servlet r&eacute;pond &agrave; des mod&egrave;les d'URL
+      suivants:</p>
+
+      <ul>
+        <li>/panel/Panel/&lt;panel name&gt;</li>
+
+        <li>/panel/ControlPanel/&lt;panel name&gt;</li>
+
+        <li>/panel/Layout/&lt;panel name&gt;</li>
+      </ul>Panneau, ControlPanel et R&eacute;seau se
+      r&eacute;f&egrave;rent &agrave; l'&eacute;diteur JMRI
+      utilis&eacute; pour cr&eacute;er chaque type de panneau.
+
+      <p>Le servlet renvoie un flux xml avec divers
+      &eacute;l&eacute;ments n&eacute;cessaires pour recr&eacute;er
+      ce panneau particulier externe.</p>
+
+      <p>Actuellement, il s'agit d'une application web
+      c&ocirc;t&eacute; client appel&eacute; "/panel" qui utilise
+      ces d&eacute;finitions "dessiner" des panneaux dans un
+      navigateur, ce qui permet des clics sur les
+      &eacute;l&eacute;ments actifs et mettre &agrave; jour des
+      modifications apport&eacute;es par cette application et
+      ailleurs dans JMRI.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

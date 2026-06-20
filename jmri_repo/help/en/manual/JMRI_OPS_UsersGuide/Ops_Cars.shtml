@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI OperationsPro - Cars window</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>OperationsPro: Cars window</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_Locations.shtml">Previous</a> | <a href="Ops_Engines.shtml">Next</a></p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>This window is opened from the main PanelPro/DecoderPro&reg; <strong>Tools</strong> menu, or
+      from its Operations menu; and alternatively from <strong>Location</strong> pane
+      <strong>Tools</strong> menu, <strong>Show Cars</strong> and various windows'
+      <strong>Operations</strong> menus.</p>
+
+      <p>The Cars window allows you to view and edit your Car Roster or add a Car by entering a
+      Car's Number, Road, Type and Length. The program will automatically calculate the Car's
+      weight based on length and the scale you are modeling. Optionally the Car's Color, Build
+      date, Load and Owner can be added. You may want to switch a group of Cars as a unit, then you
+      may create a "Kernel". You can assign any number of Cars to a Kernel but the type of the
+      first Car assigned will be used by the program to determine if the Kernel is allowed at a
+      Location. The entire length of the Kernel is used to determine if the Cars in the Kernel will
+      fit at a Location.<br>
+      Note that the program also includes space for each Car's couplers when calculating the length
+      of a Kernel.</p>
+
+      <p>The complete Cars Roster is displayed:</p>
+
+      <p><img src="images/Ops_location_showCars.png" alt="show cars" height="486" width="900">
+      </p>
+
+      <h4>To the right of each Car entry</h4>
+
+      <p><span class="textbutton">Set</span> button opens the <strong><a href=
+      "Ops_Locations_setCars.shtml">Set Car Location</a></strong> window.</p>
+
+      <p><span class="textbutton">Edit</span> button opens the <a href=
+      "Ops_AddCars.shtml"><strong>Edit Car</strong></a> window, similar to the <strong>Add
+      Car</strong> window.</p>
+
+      <h4>Bottom of the panel</h4>
+
+      <p>A series of radio buttons that allow you to select the sort order. Also the total number
+      of Cars is displayed.</p>
+
+      <p><span class="textbutton">Add</span> button opens the <strong><a href=
+      "Ops_AddCars.shtml">Add Car</a></strong> window and allows you to add a new Car to your
+      Roster.</p>
+
+      <p><span class="textbutton">Save</span> button saves the Car Roster to disk.</p>
+
+      <p><span class="textbutton">Find</span> <input name="textfield" id=
+      "textfield" size="10" type="text"> Used to find a Car by its Road Number. The wild card "*"
+      (without quotes) may be used when entering a car number.</p>
+
+      <p>For example, if you want to find all the Cars with a Number ending in ...345 , enter *345
+      and each time you press on <span class="textbutton">Find</span> , the
+      next Car with the ...345 ending will be displayed.</p>
+      <!-- New in version 3.10 -->
+
+      <div style="margin:40px; padding:10px; background-color:#eee;">New in v3.6: More compact
+      Roster sorting
+      <p>Instead of 14 identical Radio buttons, a more compact grouping of sort buttons fills the
+      bottom of the pane. Clicking one of the buttons inside a grey rectangle hides the other items
+      in the group and sorts the Roster. Selecting "Color" would hide the "Load" column and vice
+      versa.</p>
+      <img src="images/Ops_Cars413.png" alt="Cars Roster pane v3.8 with new Sort buttons" height=
+      "211" width="878"></div>
+      <!-- End of New -->
+
+      <h3><a href="Ops_Cars_Menu.shtml">Cars panel menu bar</a>
+      </h3>
+
+      <div class="ops-right">
+        <p><a href="Ops_Locations.shtml">Previous</a> | <a href="Ops_Engines.shtml">Next</a></p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

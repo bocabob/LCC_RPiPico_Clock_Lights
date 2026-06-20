@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright ($Author: jacobsen $) 2009 -->
+  <!-- Copyright ($Author: bronson $) 2012 -->
+
+  <title>JMRI: NS 2008 Signaling Definition</title>
+  <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: NS 2008 Signaling Definition</h1>
+      This directory contains former Conrail signaling definitions corresponding to the NS
+      Corporation Signal Rules - 251, 261, 271, Effective May 2008.
+      <p>See the <a href="aspects.xml">aspect page</a>.</p>
+
+      <p>Signal Mast definitions:</p>
+
+      <ul>
+        <li>
+          <a href="appearance-CLS-3-3-3-hi.xml">Triple over triple over triple lamp colorlight high
+          signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-CLS-3-3-hi.xml">Triple over triple lamp colorlight high signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-CLS-3-3-lo.xml">Triple color over triple color dwarf signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-CLS-3-hi.xml">Triple lamp colorlight high signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-CLS-3-hi-p.xml">Triple lamp colorlight permissive high signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-CLS-3-lo.xml">Triple lamp colorlight dwarf signal</a>
+        </li>
+      </ul>
+
+      <!--#include virtual="/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/main.js"></script>
+</body>
+</html>

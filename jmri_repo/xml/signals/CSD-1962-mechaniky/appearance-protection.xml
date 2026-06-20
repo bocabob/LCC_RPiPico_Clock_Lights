@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/xml/XSLT/appearancetable.xsl" type="text/xsl"?>
+
+<appearancetable
+    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation = "http://jmri.org/xml/schema/appearancetable.xsd"
+>
+
+  <copyright xmlns="http://docbook.org/ns/docbook">
+    <year>2009</year><year>2010</year><holder>JMRI</holder>
+  </copyright>
+  
+  <authorgroup xmlns="http://docbook.org/ns/docbook">
+    <author>
+        <personname><firstname>Petr</firstname><surname>Šídlo</surname></personname>
+        <email>sidlo64@hotmail.com</email>
+    </author>    
+  </authorgroup>
+    
+  <revhistory xmlns="http://docbook.org/ns/docbook">
+    <revision>
+        <revnumber>1</revnumber>
+        <date>2016-12-28</date>
+        <authorinitials>PŠ</authorinitials>
+        <revremark>Initial version</revremark>
+    </revision>    
+    <revision>
+        <revnumber>2</revnumber>
+        <date>2020-07-15</date>
+        <authorinitials>PŠ</authorinitials>
+        <revremark>Image types</revremark>
+    </revision>    
+    <revision>
+        <revnumber>3</revnumber>
+        <date>2024-02-22</date>
+        <authorinitials>PŠ</authorinitials>
+        <revremark>Small icons</revremark>
+    </revision>    
+  </revhistory>
+
+  <aspecttable>CSD-1962-mechaniky</aspecttable>
+  <name>Uzávěry koleje</name>
+  <description>Uzávěry koleje.</description>
+
+  <appearances>
+
+    <appearance>
+      <aspectname>Stůj, kolej uzavřena</aspectname>
+      <imagelink type="prototype">../../../resources/icons/largeschematics/aspects/CSD-1962/426_sku_u.gif</imagelink>
+      <imagelink type="prototype-night">../../../resources/icons/largeschematics/aspects/CSD-1962/426_sku_u_n.gif</imagelink>
+      <imagelink type="uzávěry">../../../resources/icons/largeschematics/aspects/CSD-1962/426_sku_u.gif</imagelink>
+      <imagelink type="malé">../../../resources/icons/smallschematics/aspects/CSD/small/x26_uk_u.gif</imagelink>
+    </appearance>
+
+    <appearance>
+      <aspectname>Uzavření koleje zrušeno</aspectname>
+      <imagelink type="prototype">../../../resources/icons/largeschematics/aspects/CSD-1962/425_ukz_u.gif</imagelink>
+      <imagelink type="prototype-night">../../../resources/icons/largeschematics/aspects/CSD-1962/425_ukz_u_n.gif</imagelink>
+      <imagelink type="uzávěry">../../../resources/icons/largeschematics/aspects/CSD-1962/425_ukz_u.gif</imagelink>
+      <imagelink type="malé">../../../resources/icons/smallschematics/aspects/CSD/small/x25_ukz_u.gif</imagelink>
+    </appearance>
+
+  </appearances>
+    
+  <aspectMappings>
+    <aspectMapping>
+      <advancedAspect>Volno</advancedAspect>
+      <ourAspect>Uzavření koleje zrušeno</ourAspect>
+    </aspectMapping>
+    <aspectMapping>
+      <advancedAspect>Stůj</advancedAspect>
+      <ourAspect>Stůj, kolej uzavřena</ourAspect>
+    </aspectMapping>
+  </aspectMappings>
+  
+</appearancetable>  

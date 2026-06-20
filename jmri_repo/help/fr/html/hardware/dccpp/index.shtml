@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Hardware Support - DCC++ (d&eacute;pr&eacute;ci&eacute;)</title>
+  <meta name="author" content="Mark Underwood">
+  <meta name="keywords" content="DCC++ DCC-EX d&eacute;pr&eacute;ci&eacute; java model railroad JMRI">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Prise en Charge Mat&eacute;riel&nbsp;: DCC++ (d&eacute;pr&eacute;ci&eacute;)</h1>
+
+      <p class="important"><strong><em>Le projet original DCC++ n'est plus maintenu.</em></strong>
+      <br />Pour la documentation actuelle sur l'utilisation de DCC-EX avec JMRI, voir la page
+      <a href="../dcc-ex/index.shtml">EX-CommandStation (DCC-EX)</a>.</p>
+
+      <p>DCC++ &eacute;tait une Centrale DCC Open Source bas&eacute;e sur Arduino. Il a &eacute;t&eacute; remplac&eacute; par
+      l'EX-CommandStation de l'&eacute;quipe DCC-EX, qui continue de fonctionner avec JMRI et
+      fonctionne sur le mat&eacute;riel DCC++ existant.</p>
+
+      <p>JMRI continue de prendre en charge les anciennes Centrales DCC++ via la m&ecirc;me connexion
+      DCC-EX utilis&eacute;e pour les EX-CommandStations. Depuis les Pr&eacute;f&eacute;rences JMRI, s&eacute;lectionnez
+      <strong>DCC-EX</strong> comme Fabricant du Syst&egrave;me.</p>
+
+      <h2>R&eacute;f&eacute;rences historiques</h2>
+
+      <p>Le projet original DCC++ bas&eacute; sur Arduino est document&eacute; dans ces fils de discussion
+      TrainBoard&nbsp;:</p>
+
+      <ul>
+        <li><a href="https://www.trainboard.com/highball/index.php?threads/dcc-update-project-2020.130071/">Fil du projet DCC++</a></li>
+        <li><a href="https://www.trainboard.com/highball/index.php?threads/dcc-2020-update-project-documentation.130401/">Fil de documentation DCC++</a></li>
+        <li><a href="https://www.trainboard.com/highball/index.php?forums/dcc.177/">Cat&eacute;gorie de forum DCC++</a></li>
+      </ul>
+
+      <p>L'organisation GitHub originale DCC++&nbsp;:
+      <a href="https://github.com/DccPlusPlus">github.com/DccPlusPlus</a></p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

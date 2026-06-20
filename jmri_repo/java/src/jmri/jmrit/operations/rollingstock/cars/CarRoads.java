@@ -1,0 +1,111 @@
+package jmri.jmrit.operations.rollingstock.cars;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jdom2.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jmri.InstanceManager;
+import jmri.InstanceManagerAutoDefault;
+import jmri.jmrit.operations.rollingstock.RollingStockAttribute;
+
+/**
+ * Represents the road names that cars can have.
+ *
+ * @author Daniel Boudreau Copyright (C) 2008, 2014
+ */
+public class CarRoads extends RollingStockAttribute implements InstanceManagerAutoDefault {
+
+    private static final String ROADS = Bundle.getMessage("carRoadNames");
+    public static final String CARROADS_CHANGED_PROPERTY = "CarRoads Length"; // NOI18N
+    public static final String CARROADS_NAME_CHANGED_PROPERTY = "CarRoads Name"; // NOI18N
+
+    public CarRoads() {
+    }
+
+    @Override
+    protected String getDefaultNames() {
+        return ROADS;
+    }
+
+    @Override
+    public void addName(String road) {
+        super.addName(road);
+        setDirtyAndFirePropertyChange(CARROADS_CHANGED_PROPERTY, null, road);
+    }
+
+    @Override
+    public void deleteName(String road) {
+        super.deleteName(road);
+        setDirtyAndFirePropertyChange(CARROADS_CHANGED_PROPERTY, road, null);
+    }
+
+    public void replaceName(String oldName, String newName) {
+        super.addName(newName);
+        setDirtyAndFirePropertyChange(CARROADS_NAME_CHANGED_PROPERTY, oldName, newName);
+        super.deleteName(oldName);
+        if (newName == null) {
+            setDirtyAndFirePropertyChange(CARROADS_CHANGED_PROPERTY, list.size() + 1, list.size());
+        }
+    }
+
+    /**
+     * Get the maximum character length of a road name when printing on a
+     * manifest or switch list. Characters after the hyphen are ignored.
+     *
+     * @return the maximum character length of a car road name
+     */
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings( value="SLF4J_FORMAT_SHOULD_BE_CONST",
+            justification="I18N of Info Message")
+    @Override
+    public int getMaxNameLength() {
+        if (maxNameSubStringLength == 0) {
+            super.getMaxNameSubStringLength();
+            log.info(Bundle.getMessage("InfoMaxRoad", maxName, maxNameSubStringLength));
+        }
+        return maxNameSubStringLength;
+    }
+    
+    /**
+     * Gets a sorted list of road names for a given car type
+     *
+     * @param type car type
+     * @return list of road names
+     */
+    public List<String> getNames(String type) {
+        List<String> names = new ArrayList<>();  
+        List<Car> cars = InstanceManager.getDefault(CarManager.class).getByTypeList(type);
+        for (Car car : cars) {
+            if (!names.contains(car.getRoadName())) {
+                names.add(car.getRoadName());
+            }
+        }
+        java.util.Collections.sort(names);
+        return names;
+    }
+
+    /**
+     * Create an XML element to represent this Entry. This member has to remain
+     * synchronized with the detailed DTD in operations-cars.dtd.
+     *
+     * @param root The common Element for operations-cars.dtd.
+     *
+     */
+    public void store(Element root) {
+        store(root, Xml.ROADS, Xml.ROAD);
+    }
+
+    public void load(Element root) {
+        load(root, Xml.ROADS, Xml.ROAD, Xml.ROAD_NAMES);
+    }
+
+    protected void setDirtyAndFirePropertyChange(String p, Object old, Object n) {
+        // Set dirty
+        InstanceManager.getDefault(CarManagerXml.class).setDirty(true);
+        super.firePropertyChange(p, old, n);
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(CarRoads.class);
+}

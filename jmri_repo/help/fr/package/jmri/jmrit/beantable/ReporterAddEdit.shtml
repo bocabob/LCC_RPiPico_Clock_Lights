@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013-10-11-->
+<head>
+  <title>JMRI: Adding/Editing Reporters</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Reporter Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Ajout/Modification de Rapports</h1>
+
+      <p>Ceci est la page d'aide
+      help/fr/package/jmri/jmrit/beantable/ReporterAddEdit.shtml</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233;  2013-09-14-->
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.17), see www.w3.org">
+  <title>JMRI Hardware Guide: Connecting Multiple Computers to
+  LocoNet via JMRI LocoNet Server</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content=
+  "Digitrax Chief DCS Command Station LocoNet Server LocoBuffer java model railroad JMRI install windows">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+      <h1>JMRI Guide Mat&eacute;riel: Connexion de Plusieurs
+      Ordinateurs &aacute;  Travers le Serveur LocoNet
+      JMRI</h1>Cette page d&eacute;crit comment utiliser les
+      capacit&eacute;s JMRI du Client/Serveur
+      int&eacute;gr&eacute; de LocoNet&reg; pour
+      connecter plusieurs ordinateurs &aacute;  un seul
+      r&eacute;seau &eacute;quip&eacute; LocoNet.
+
+      <p>En bref, un ordinateur est physiquement
+      connect&eacute; &aacute;  LocoNet&reg;, et agit comme
+      un "serveur" pour les autres. Un ou plusieurs ordinateurs
+      "clients" peuvent alors se connecter via les protocoles
+      standard TCP/IP sur le serveur.</p>
+
+      <h2>Configuration Client/Serveur LocoNet JMRI</h2>Un
+      ordinateur ex&eacute;cutant JMRI agit comme le serveur,
+      qui est directement reli&eacute; &aacute;  LocoNet, les
+      autres ordinateurs ex&eacute;cutant JMRI se connectent
+      &aacute;  l'ordinateur serveur en tant que clients.
+
+      <ul>
+        <li>Configurer la connexion LocoNet comme pour toute autre
+        utilisation. S&eacute;lectionnez le protocole qui
+        correspond &aacute;  votre mat&eacute;riel (par
+        exemple LocoBuffer-II, etc), le port de communication, et
+        d'autres options. Il est
+        pr&eacute;f&eacute;rable de s'assurer que cela
+        fonctionne bien avant de proc&eacute;der.</li>
+
+        <li>Vous pouvez alors d&eacute;marrer manuellement le
+        serveur en s&eacute;lectionnant
+        "D&eacute;marrer Serveur LocoNet" &aacute;  partir du
+        menu LocoNet. Cela permettra aux autres ordinateurs de se
+        connecter au r&eacute;seau jusqu'&aacute;  ce que
+        vous arr&aacute;&ordf;tiez le programme, la prochaine fois
+        que vous le lancez, vous aurez &aacute;  le faire &aacute;
+        nouveau.</li>
+
+        <li>Vous pouvez &eacute;galement avoir le serveur qui
+        d&eacute;marre automatiquement &aacute;  chaque fois
+        que vous d&eacute;marrez le programme en
+
+          <ul>
+            <li>Ouvrant les pr&eacute;f&eacute;rences
+            dans le menu Edition</li>
+
+            <li>Cochant la case "Afficher les
+            Pr&eacute;f&eacute;rences
+            Avanc&eacute;es"</li>
+
+            <li>Sous la rubrique &Acirc;&laquo;action au
+            d&eacute;marrage", cliquez sur "Ajouter
+            action"</li>
+
+            <li>Une liste des possibilit&eacute;s sera
+            montr&eacute;e. Recherchez et
+            s&eacute;lectionnez "D&eacute;marrer le
+            serveur LocoNet".</li>
+
+            <li>Enregistrant les
+            pr&eacute;f&eacute;rences</li>
+          </ul>ran
+
+          <p>Le programme de l'ordinateur client peut alors
+          &aacute;&ordf;tre configur&eacute; pour se
+          connecter au r&eacute;seau ferr&eacute; via
+          le serveur LocoNet par:</p>
+
+          <ul>
+            <li>Assurez-vous que l'ordinateur serveur qui
+            ex&eacute;cute le serveur LocoNet</li>
+
+            <li>Ouvrez le programme sur l'ordinateur client</li>
+
+            <li>Ouvrez les pr&eacute;f&eacute;rences
+            dans le menu Edition</li>
+
+            <li>Pour la connexion r&eacute;seau,
+            s&eacute;lectionnez "Serveur LocoNet"</li>
+
+            <li>Dans la bo&icirc;te "serveur
+            hostname" qui appara&icirc;t, tapez le nom
+            d'Internet ou l'adresse de l'ordinateur qui
+            ex&eacute;cute le serveur LocoNet. Une adresse
+            Internet est quelque chose comme 127.0.1.12; un nom est
+            quelque chose comme jmri.org</li>
+
+            <li>Enregistrer les
+            pr&eacute;f&eacute;rences et
+            red&eacute;marrer le programme.</li>
+          </ul>
+
+          <h2>Notes:</h2>
+
+          <ul>
+            <li>Il est fortement recommand&eacute; que vous
+            connectiez l'ordinateur ma&icirc;tre &aacute;
+            LocoNet avec un LocoBuffer ou LocoBuffer-II. Bien qu'un
+            MS-100 fera essentiellement le travail pour cette
+            application, la correction r&eacute;sultant des
+            erreurs occasionnelles de la LocoNet peuvent
+            entra&icirc;ner des retards notables dans
+            l'actualisation des ordinateurs distants.</li>
+
+            <li>Si les ordinateurs sont tous proches de LocoNet,
+            par exemple agissant comme un panneaux de
+            contr&ocirc;le local , vous n'avez pas vraiment
+            besoin Server LocoNet pour ce faire. Vous pouvez,
+            autrement relier chacun des ordinateurs &aacute;  la
+            LocoNet via leurs propres LocoBuffer ou LocoBuffer-II
+            (ou MS-100, m&egrave;me si ce n'est pas
+            recommand&eacute;) et ils participent
+            individuellement dans les communications LocoNet. Cela
+            ne cause pas de charge suppl&eacute;mentaire de
+            communication. Il co&ucirc;te un peu plus pour
+            les cartes suppl&eacute;mentaires, et ne vous
+            permettent pas de mettre un ordinateur distant &aacute;partir du r&eacute;seau.</li>
+          </ul>
+
+          <p>LocoNet&reg; est une marque
+          d&eacute;pos&eacute;e de <a href=
+          "http://www.digitrax.com">Digitrax, Inc.</a></p>
+        </li>
+      </ul>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

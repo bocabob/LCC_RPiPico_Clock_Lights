@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>CDI Element Mapping Generator - User Guide</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="CDI%20Element%20Mapping%20Generator%20-%20User%20Guide_files/user-guide-styles.css">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">CDI Element Mapping Generator - User Guide</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cdi-element-mapping-generator" id="toc-cdi-element-mapping-generator">CDI Element Mapping Generator</a>
+<ul>
+<li><a href="#user-guide" id="toc-user-guide">User Guide</a></li>
+<li><a href="#table-of-contents" id="toc-table-of-contents">Table of
+Contents</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#getting-started" id="toc-getting-started">Getting
+Started</a></li>
+<li><a href="#loading-your-cdi-xml-file" id="toc-loading-your-cdi-xml-file">Loading Your CDI XML File</a></li>
+<li><a href="#understanding-the-interface" id="toc-understanding-the-interface">Understanding the
+Interface</a></li>
+<li><a href="#interpreting-the-results" id="toc-interpreting-the-results">Interpreting the Results</a></li>
+<li><a href="#downloading-generated-files" id="toc-downloading-generated-files">Downloading Generated
+Files</a></li>
+<li><a href="#common-tasks" id="toc-common-tasks">Common Tasks</a></li>
+<li><a href="#troubleshooting" id="toc-troubleshooting">Troubleshooting</a></li>
+<li><a href="#tips-and-best-practices" id="toc-tips-and-best-practices">Tips and Best Practices</a></li>
+<li><a href="#frequently-asked-questions" id="toc-frequently-asked-questions">Frequently Asked Questions</a></li>
+<li><a href="#quick-reference" id="toc-quick-reference">Quick
+Reference</a></li>
+<li><a href="#appendix-example-workflow" id="toc-appendix-example-workflow">Appendix: Example Workflow</a></li>
+<li><a href="#document-information" id="toc-document-information">Document Information</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cdi-element-mapping-generator">CDI Element Mapping
+Generator</h1>
+<h2 id="user-guide">User Guide</h2>
+<p><strong>Version 3.1</strong><br>
+<strong>January 2026</strong></p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#loading-your-cdi-xml-file">Loading Your CDI XML
+File</a></li>
+<li><a href="#understanding-the-interface">Understanding the
+Interface</a></li>
+<li><a href="#interpreting-the-results">Interpreting the
+Results</a></li>
+<li><a href="#downloading-generated-files">Downloading Generated
+Files</a></li>
+<li><a href="#common-tasks">Common Tasks</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#tips-and-best-practices">Tips and Best Practices</a></li>
+<li><a href="#frequently-asked-questions">Frequently Asked
+Questions</a></li>
+</ol>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<h3 id="what-is-the-cdi-element-mapping-generator">What is the CDI
+Element Mapping Generator?</h3>
+<p>The CDI Element Mapping Generator is a web-based tool that processes
+OpenLCB Configuration Description Information (CDI) XML files and
+automatically generates:</p>
+<ul>
+<li>Memory address mappings for configuration elements</li>
+<li>C header files with address definitions</li>
+<li>Reset-to-defaults implementation code</li>
+<li>CSV exports for documentation</li>
+<li>Visual tree and table representations</li>
+</ul>
+<h3 id="who-should-use-this-tool">Who Should Use This Tool?</h3>
+<ul>
+<li><strong>Firmware Developers</strong> creating OpenLCB nodes</li>
+<li><strong>Hardware Engineers</strong> designing configuration
+layouts</li>
+<li><strong>System Integrators</strong> validating multi-segment
+configurations</li>
+<li><strong>Configuration Tool Developers</strong> needing memory
+maps</li>
+</ul>
+<h3 id="what-youll-need">What You’ll Need</h3>
+<ul>
+<li>A web browser (Chrome, Firefox, Safari, or Edge)</li>
+<li>Your CDI XML file (or use the included example)</li>
+<li>5 minutes to learn the interface</li>
+</ul>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="accessing-the-tool">Accessing the Tool</h3>
+<p><strong>Option 1: Web Server (Recommended)</strong></p>
+<ol type="1">
+<li>Open your web browser</li>
+<li>Navigate to: <code>http://www.mustangpeak.net</code> (or your server
+URL)</li>
+<li>The application loads immediately - no installation required</li>
+</ol>
+<p><strong>Option 2: Local File</strong></p>
+<ol type="1">
+<li>Download the three files:
+<ul>
+<li><code>index.html</code></li>
+<li><code>cdi-generator.css</code></li>
+<li><code>cdi-generator.js</code></li>
+</ul></li>
+<li>Keep them in the same folder</li>
+<li>Double-click <code>index.html</code> to open in your browser</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> If opening locally, some browsers may block
+external CSS/JS files. If the page looks unstyled, use the web server
+option or the standalone version
+(<code>index_standalone.html</code>).</p>
+</blockquote>
+<h3 id="interface-overview">Interface Overview</h3>
+<p>When you first open the tool, you’ll see:</p>
+<ol type="1">
+<li><strong>Blue Header</strong> - Application title and
+description</li>
+<li><strong>File Picker Section</strong> - Drag-and-drop zone and
+buttons</li>
+<li><strong>Results Area</strong> - Initially hidden, appears after
+loading a file</li>
+</ol>
+<hr>
+<h2 id="loading-your-cdi-xml-file">Loading Your CDI XML File</h2>
+<h3 id="method-1-drag-and-drop-easiest">Method 1: Drag and Drop
+(Easiest)</h3>
+<ol type="1">
+<li>Locate your CDI XML file in your file explorer</li>
+<li>Click and drag the file onto the <strong>drop zone</strong> (dashed
+border area)</li>
+<li>Release the mouse button</li>
+<li>The file loads automatically</li>
+</ol>
+<p><strong>Visual cue:</strong> The drop zone highlights when you drag a
+file over it.</p>
+<h3 id="method-2-file-picker-button">Method 2: File Picker Button</h3>
+<ol type="1">
+<li>Click the <strong>“Select File”</strong> button</li>
+<li>Browse to your CDI XML file location</li>
+<li>Select the file</li>
+<li>Click <strong>“Open”</strong></li>
+<li>The file loads automatically</li>
+</ol>
+<h3 id="method-3-load-example-xml">Method 3: Load Example XML</h3>
+<ol type="1">
+<li>Click the <strong>“Load Example XML”</strong> button</li>
+<li>A pre-configured example file loads instantly</li>
+<li>Great for learning how the tool works</li>
+</ol>
+<h3 id="validation-option">Validation Option</h3>
+<p>Before loading, you can optionally enable XML validation:</p>
+<ol type="1">
+<li>Check the box <strong>“☑ Enable XML Validation On
+Load”</strong></li>
+<li>Load your file using any method above</li>
+<li>If errors exist, they’ll be shown with line numbers and context</li>
+</ol>
+<p><strong>When to use validation:</strong> - First time processing a
+new CDI file - After making manual edits to XML - Troubleshooting
+configuration issues - Ensuring OpenLCB CDI 1.4 compliance</p>
+<p><strong>When to skip validation:</strong> - Processing known-good
+files - Quick iterations during development - Files already validated by
+other tools</p>
+<hr>
+<h2 id="understanding-the-interface">Understanding the Interface</h2>
+<h3 id="overview-section">Overview Section</h3>
+<p>After loading a file, the Overview section displays key metrics:</p>
+<p><strong>Metrics Shown:</strong></p>
+<pre><code>Segments: 2
+Total Elements: 45
+Total Configuration Bytes: 256</code></pre>
+<p><strong>What these mean:</strong> - <strong>Segments:</strong> Number
+of separate memory segments in your configuration - <strong>Total
+Elements:</strong> Count of all control elements (int, string, eventid,
+etc.) - <strong>Total Configuration Bytes:</strong> Total memory
+required for all configuration data</p>
+<h3 id="segment-details-collapsible">Segment Details (Collapsible)</h3>
+<p>Click <strong>“▼ Segment Details”</strong> to expand/collapse this
+section.</p>
+<p><strong>For each segment, you’ll see:</strong> - <strong>Segment
+Name:</strong> Descriptive name from <code>&lt;n&gt;</code> tag -
+<strong>Space:</strong> Address space number (typically 253 for
+configuration memory) - <strong>Origin:</strong> Starting address in
+hexadecimal - <strong>Elements:</strong> Number of elements in this
+segment - <strong>Total Bytes:</strong> Memory used by this segment</p>
+<p><strong>Example:</strong></p>
+<pre><code>Segment: Node Information
+Space: 253, Origin: 0x0000 (0)
+Elements: 12
+Total Bytes: 125</code></pre>
+<h3 id="overlapping-memory-regions-conditional">Overlapping Memory
+Regions (Conditional)</h3>
+<p><strong>This section only appears if memory overlaps are
+detected.</strong></p>
+<p><strong>What it looks like:</strong> - Red/pink highlighted header:
+<strong>⚠ Overlapping Memory Regions Detected</strong> - Click to
+expand/collapse - Table showing all overlapping element pairs</p>
+<p><strong>Why overlaps occur:</strong> - Multiple segments with same
+space and origin - Incorrect offset calculations - Manual address
+assignments that conflict - Copy-paste errors in XML</p>
+<p><strong>What to do:</strong> 1. Review the overlap table 2. Note
+which elements conflict 3. Fix your CDI XML: - Adjust segment origins -
+Fix offset values - Correct replication counts 4. Reload the corrected
+file</p>
+<blockquote>
+<p><strong>Important:</strong> Overlapping memory can cause
+configuration corruption at runtime. Always fix these before
+deployment!</p>
+</blockquote>
+<h3 id="memory-map-table-collapsible">Memory Map Table
+(Collapsible)</h3>
+<p>Click <strong>“▶ Memory Map Table”</strong> to expand (collapsed by
+default).</p>
+<p><strong>Columns (left to right):</strong></p>
+<ol type="1">
+<li><strong>Unique Identifier</strong>
+<ul>
+<li>C preprocessor macro name</li>
+<li>Example: <code>NODE_INFO_NODE_NAME</code></li>
+<li>Indented to show group nesting</li>
+</ul></li>
+<li><strong>Space</strong>
+<ul>
+<li>Address space value</li>
+<li>Usually 253 for configuration memory</li>
+</ul></li>
+<li><strong>Memory Address (Hex)</strong>
+<ul>
+<li>Hexadecimal address</li>
+<li>Example: <code>0x0000</code></li>
+</ul></li>
+<li><strong>Memory Address (Dec)</strong>
+<ul>
+<li>Decimal address</li>
+<li>Example: <code>0</code></li>
+</ul></li>
+<li><strong>Initial Value</strong>
+<ul>
+<li>Default value from <code>&lt;default&gt;</code> tag</li>
+<li>Shows <code>[not defined]</code> if absent</li>
+</ul></li>
+<li><strong>Element Type</strong>
+<ul>
+<li>XML tag name</li>
+<li>Examples: <code>int</code>, <code>string</code>,
+<code>eventid</code>, <code>float</code></li>
+</ul></li>
+<li><strong>Breadcrumb Path</strong>
+<ul>
+<li>Full hierarchical path</li>
+<li>Example: <code>Node Info &gt; Settings &gt; Temperature</code></li>
+</ul></li>
+</ol>
+<p><strong>Features:</strong></p>
+<p><strong>Search Box:</strong> - Type to filter the table in real-time
+- Searches all columns - Case-insensitive - Example: Type “temp” to find
+all temperature-related elements</p>
+<p><strong>Export CSV:</strong> - Click <strong>“Export as CSV”</strong>
+button - Downloads the entire table - Opens in Excel, Google Sheets,
+etc. - Filename includes timestamp</p>
+<p><strong>Color Coding:</strong> - Different segments shown in
+different background colors - 8 rotating colors for visual separation -
+Makes it easy to see segment boundaries</p>
+<h3 id="memory-map-tree-view-collapsible">Memory Map Tree View
+(Collapsible)</h3>
+<p>Click <strong>“▶ Memory Map Tree View”</strong> to expand (collapsed
+by default).</p>
+<p><strong>What it shows:</strong> - Hierarchical structure of your
+configuration - Segments as top-level nodes - Groups as intermediate
+nodes (expandable) - Elements as leaf nodes</p>
+<p><strong>Display Modes:</strong></p>
+<p><strong>Single-Line Mode (Default):</strong></p>
+<pre><code>▼ Node Information (Segment)
+  ▼ Settings (Group)
+    └─ TEMP_SENSOR: Temperature - Size = 2 - Addr: 0x0000 (0) - Default: 25
+    └─ NODE_NAME: Name - Size = 63 - Addr: 0x0002 (2) - Default: "My Node"</code></pre>
+<p><strong>Multi-Line Mode:</strong> Check <strong>☑ Show
+Details</strong> to enable:</p>
+<pre><code>▼ Node Information (Segment)
+  ▼ Settings (Group)
+    └─ TEMP_SENSOR
+       Breadcrumb: Node Information &gt; Settings &gt; Temperature Sensor
+       Name: Temperature Sensor
+       Element Type: int
+       Size: 2 bytes
+       Memory Address: 0x0000 (0)
+       Default value: 25
+       Min value: -40
+       Max value: 125</code></pre>
+<p><strong>Navigation:</strong> - Click <strong>▶</strong> or
+<strong>▼</strong> to expand/collapse nodes - Groups can be
+expanded/collapsed independently - State is preserved when toggling
+detail mode</p>
+<hr>
+<h2 id="interpreting-the-results">Interpreting the Results</h2>
+<h3 id="reading-memory-addresses">Reading Memory Addresses</h3>
+<p><strong>Hexadecimal (0x prefix):</strong> - Base-16 numbering system
+- Used in most embedded systems - Example: <code>0x0000</code>,
+<code>0x00FF</code>, <code>0x0100</code></p>
+<p><strong>Decimal (no prefix):</strong> - Base-10 numbering system -
+Easier for humans to read - Example: <code>0</code>, <code>255</code>,
+<code>256</code></p>
+<p><strong>Both are shown</strong> so you can use whichever is more
+convenient.</p>
+<h3 id="understanding-unique-identifiers">Understanding Unique
+Identifiers</h3>
+<p><strong>Format:</strong> <code>SEGMENT_GROUP_ELEMENT</code></p>
+<p><strong>Example:</strong>
+<code>NODE_INFO_SETTINGS_TEMP_SENSOR</code></p>
+<p><strong>Breakdown:</strong> - <code>NODE_INFO</code> - Segment name -
+<code>SETTINGS</code> - Group name - <code>TEMP_SENSOR</code> - Element
+name</p>
+<p><strong>These become C macros:</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NODE_INFO_SETTINGS_TEMP_SENSOR_ADDR </span><span class="bn">0x0000</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NODE_INFO_SETTINGS_TEMP_SENSOR_SIZE </span><span class="dv">2</span></span></code></pre></div>
+<h3 id="interpreting-initial-values">Interpreting Initial Values</h3>
+<p><strong>Different element types show different formats:</strong></p>
+<p><strong>Integer (<code>&lt;int&gt;</code>):</strong></p>
+<pre><code>Default: 42
+Default: [not defined]</code></pre>
+<p><strong>String (<code>&lt;string&gt;</code>):</strong></p>
+<pre><code>Default: "Device Name"
+Default: [not defined]</code></pre>
+<p><strong>EventID (<code>&lt;eventid&gt;</code>):</strong></p>
+<pre><code>Default: 01.02.03.04.05.06.07.08
+Default: 00.00.00.00.00.00.00.00</code></pre>
+<p>Note: EventIDs use dot notation (8 bytes separated by dots)</p>
+<p><strong>Float (<code>&lt;float&gt;</code>):</strong></p>
+<pre><code>Default: 3.14
+Default: [not defined]</code></pre>
+<h3 id="checking-for-issues">Checking for Issues</h3>
+<p><strong>Green Flags (Good):</strong> - ✅ No overlapping memory
+section - ✅ All segments have different origins (if same space) - ✅
+All elements have unique identifiers - ✅ Total bytes is reasonable for
+your hardware</p>
+<p><strong>Red Flags (Problems):</strong> - ⚠️ Overlapping Memory
+Regions section appears - ⚠️ Huge total byte count (indicates
+replication error) - ⚠️ Elements at unexpected addresses - ⚠️ Missing
+default values where expected</p>
+<hr>
+<h2 id="downloading-generated-files">Downloading Generated Files</h2>
+<h3 id="available-downloads">Available Downloads</h3>
+<p>After processing your XML, four download buttons appear:</p>
+<ol type="1">
+<li><strong>Download config_mem_map.h</strong></li>
+<li><strong>Download config_mem_reset.h</strong></li>
+<li><strong>Download config_mem_reset.c</strong></li>
+<li><strong>Download Memory Map CSV</strong></li>
+</ol>
+<h3 id="config_mem_map.h">config_mem_map.h</h3>
+<p><strong>Purpose:</strong> C header file with memory address
+definitions</p>
+<p><strong>Contents:</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Auto-generated Configuration Memory Map */</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* Generated: 2026-01-16T12:00:00.000Z */</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef CONFIG_MEM_MAP_H</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CONFIG_MEM_MAP_H</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* Node Information &gt; Settings &gt; Temperature Sensor */</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NODE_INFO_SETTINGS_TEMP_SENSOR_ADDR </span><span class="bn">0x0000</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NODE_INFO_SETTINGS_TEMP_SENSOR_SIZE </span><span class="dv">2</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">/* Node Information &gt; Settings &gt; Node Name */</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NODE_INFO_SETTINGS_NODE_NAME_ADDR </span><span class="bn">0x0002</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#define NODE_INFO_SETTINGS_NODE_NAME_SIZE </span><span class="dv">63</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif </span><span class="co">// CONFIG_MEM_MAP_H</span></span></code></pre></div>
+<p><strong>How to use:</strong> 1. Download the file 2. Add to your C
+project 3. <code>#include "config_mem_map.h"</code> in your code 4. Use
+the macros:
+<code>c    uint16_t temp;    OpenLcb_read_config(NODE_INFO_SETTINGS_TEMP_SENSOR_ADDR,                         NODE_INFO_SETTINGS_TEMP_SENSOR_SIZE,                         &amp;temp);</code></p>
+<h3 id="config_mem_reset.h-.c">config_mem_reset.h &amp; .c</h3>
+<p><strong>Purpose:</strong> Factory reset implementation</p>
+<p><strong>config_mem_reset.h contents:</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Auto-generated Configuration Memory Reset */</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef CONFIG_MEM_RESET_H</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CONFIG_MEM_RESET_H</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifdef __cplusplus</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="op">{</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="dt">void</span> ConfigMemReset_set_to_defaults<span class="op">(</span>openlcb_node_t <span class="op">*</span>openlcb_node<span class="op">);</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifdef __cplusplus</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif </span><span class="co">// CONFIG_MEM_RESET_H</span></span></code></pre></div>
+<p><strong>config_mem_reset.c contents:</strong> - Implementation of
+<code>ConfigMemReset_set_to_defaults()</code> - Writes all default
+values to configuration memory - Handles type conversions (int, string,
+eventid, float) - Uses big-endian byte ordering</p>
+<p><strong>How to use:</strong> 1. Download both .h and .c files 2. Add
+to your C project 3. Call when user requests factory reset: ```c
+#include “config_mem_reset.h”</p>
+<p>// In your reset handler:
+ConfigMemReset_set_to_defaults(openlcb_node); ```</p>
+<h3 id="memory-map-csv">Memory Map CSV</h3>
+<p><strong>Purpose:</strong> Spreadsheet-compatible documentation</p>
+<p><strong>Contents:</strong> All table columns in CSV format</p>
+<p><strong>How to use:</strong> 1. Download the file 2. Open in: -
+Microsoft Excel - Google Sheets - LibreOffice Calc - Any spreadsheet
+application 3. Use for: - Documentation - Sharing with team - Importing
+to other tools - Creating reports</p>
+<p><strong>Filename format:</strong>
+<code>memory_map_YYYY-MM-DD_HH-MM-SS.csv</code></p>
+<hr>
+<h2 id="common-tasks">Common Tasks</h2>
+<h3 id="task-1-verify-your-cdi-xml">Task 1: Verify Your CDI XML</h3>
+<p><strong>Goal:</strong> Check if your XML is valid and addresses are
+correct</p>
+<p><strong>Steps:</strong> 1. Check <strong>☑ Enable XML Validation On
+Load</strong> 2. Load your XML file 3. Review any validation errors 4.
+Check Overview metrics (reasonable byte count?) 5. Look for overlapping
+memory warnings 6. Scan the Memory Map Table for unexpected
+addresses</p>
+<p><strong>Common issues to check:</strong> - Size attributes (int:
+1,2,4,8; float: 2,4,8; string: any) - Replication counts (did you mean 3
+or 300?) - Offset values (are gaps intentional?) - Segment origins (do
+they overlap?)</p>
+<h3 id="task-2-generate-code-for-your-firmware">Task 2: Generate Code
+for Your Firmware</h3>
+<p><strong>Goal:</strong> Get C files for your embedded project</p>
+<p><strong>Steps:</strong> 1. Load your CDI XML file 2. Review results
+(fix any overlaps) 3. Click <strong>“Download config_mem_map.h”</strong>
+4. Click <strong>“Download config_mem_reset.h”</strong> 5. Click
+<strong>“Download config_mem_reset.c”</strong> 6. Add all three files to
+your C project 7. Include the headers where needed</p>
+<h3 id="task-3-document-your-configuration">Task 3: Document Your
+Configuration</h3>
+<p><strong>Goal:</strong> Create documentation for your team</p>
+<p><strong>Steps:</strong> 1. Load your CDI XML file 2. Click
+<strong>“Download Memory Map CSV”</strong> 3. Open in Excel or Google
+Sheets 4. Add to your documentation: - Copy-paste table into Word/Google
+Docs - Create charts showing memory usage - Share with hardware team -
+Archive with release notes</p>
+<h3 id="task-4-debug-memory-layout-issues">Task 4: Debug Memory Layout
+Issues</h3>
+<p><strong>Goal:</strong> Find why addresses aren’t where expected</p>
+<p><strong>Steps:</strong> 1. Load your XML file 2. Expand
+<strong>Memory Map Tree View</strong> 3. Check <strong>☑ Show
+Details</strong> 4. Navigate to the problematic element 5. Review its
+full information: - Breadcrumb path (is it nested where you think?) -
+Memory address (actual location) - Size (is this correct?) - Default
+value (matches XML?)</p>
+<p><strong>Common causes:</strong> - Element inside unexpected group -
+Replication expanding more than expected - Offset value adding extra
+space - Size attribute incorrect</p>
+<h3 id="task-5-compare-two-configurations">Task 5: Compare Two
+Configurations</h3>
+<p><strong>Goal:</strong> See differences between versions</p>
+<p><strong>Steps:</strong> 1. Load first XML file 2. Click
+<strong>“Download Memory Map CSV”</strong> 3. Save as
+<code>version1.csv</code> 4. Reload the page (or hard refresh) 5. Load
+second XML file 6. Click <strong>“Download Memory Map CSV”</strong> 7.
+Save as <code>version2.csv</code> 8. Open both in spreadsheet software
+9. Use spreadsheet compare features or:
+<code>bash    diff version1.csv version2.csv</code></p>
+<h3 id="task-6-find-a-specific-element">Task 6: Find a Specific
+Element</h3>
+<p><strong>Goal:</strong> Locate an element in a large configuration</p>
+<p><strong>Steps:</strong> 1. Expand <strong>Memory Map Table</strong>
+2. Click in the <strong>Search</strong> box 3. Type part of the element
+name 4. Table filters in real-time 5. Clear search to see all elements
+again</p>
+<p><strong>Search tips:</strong> - Searches all columns -
+Case-insensitive - Partial matches work - Try: element name, type,
+address, value</p>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="problem-page-loads-but-no-styling">Problem: Page Loads But No
+Styling</h3>
+<p><strong>Symptoms:</strong> - White header instead of blue -
+Full-width layout - No colored borders - Plain text only</p>
+<p><strong>Cause:</strong> CSS file not loading</p>
+<p><strong>Solutions:</strong> 1. <strong>Check file names:</strong>
+Must be <code>cdi-generator.css</code> (not <code>styles.css</code>) 2.
+<strong>Disable ad blocker</strong> for this site 3. <strong>Hard
+refresh:</strong> Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac) 4.
+<strong>Use standalone version:</strong>
+<code>index_standalone.html</code></p>
+<h3 id="problem-xml-validation-shows-errors">Problem: XML Validation
+Shows Errors</h3>
+<p><strong>Symptoms:</strong> - Red error messages after loading - Line
+numbers and XML context shown</p>
+<p><strong>Cause:</strong> XML doesn’t conform to OpenLCB CDI 1.4
+schema</p>
+<p><strong>Solutions:</strong> 1. Read the error message carefully 2.
+Note the line number 3. Open your XML in a text editor 4. Go to that
+line 5. Fix the issue: - Missing required elements - Invalid size
+attribute - Duplicate child elements - Incorrect attribute names</p>
+<p><strong>Common fixes:</strong> - Add
+<code>&lt;identification&gt;</code> section if missing - Fix
+<code>size</code> attribute (int: 1,2,4,8 only) - Remove duplicate
+<code>&lt;default&gt;</code> tags - Check <code>space</code> and
+<code>origin</code> are numbers</p>
+<h3 id="problem-overlapping-memory-detected">Problem: Overlapping Memory
+Detected</h3>
+<p><strong>Symptoms:</strong> - Red warning section appears - Table
+shows conflicting elements</p>
+<p><strong>Cause:</strong> Two or more elements occupy the same
+address</p>
+<p><strong>Solutions:</strong></p>
+<p><strong>For multiple segments:</strong> 1. Check segment
+<code>origin</code> attributes 2. Ensure they don’t overlap (if same
+<code>space</code>) 3. Example fix: ```xml
+<!-- Before (BAD - both at 0) -->
+<segment space="253" origin="0">…</segment>
+<segment space="253">…</segment> <!-- defaults to 0 --></p>
+<p><!-- After (GOOD - sequential) -->
+<segment space="253" origin="0">…</segment>
+<segment space="253" origin="125">…</segment> ```</p>
+<p><strong>For offset issues:</strong> 1. Check <code>offset</code>
+attributes on elements 2. Remember: offset is ADDITIVE (adds to running
+address) 3. Example fix: ```xml <!-- Before (BAD - offset too small) -->
+<int size="100"> <int size="1" offset="50"> <!-- Overlaps! --></int></int></p>
+<p><!-- After (GOOD - offset creates gap) --> <int size="100">
+<int size="1" offset="101"> <!-- Starts after previous --> ```</int></int></p>
+<h3 id="problem-unexpected-memory-addresses">Problem: Unexpected Memory
+Addresses</h3>
+<p><strong>Symptoms:</strong> - Elements not at expected locations -
+Large gaps in addresses - Addresses seem random</p>
+<p><strong>Causes &amp; Solutions:</strong></p>
+<p><strong>Cause 1: Replication</strong> - Check
+<code>replication</code> attribute on groups - Formula:
+<code>total_size = instances × single_instance_size</code> - Example:
+<code>replication="10"</code> with 20 bytes = 200 total bytes</p>
+<p><strong>Cause 2: Offsets</strong> - Check <code>offset</code>
+attributes - Offset ADDS to current address - Creates gaps in memory -
+Example: <code>offset="100"</code> adds 100 to current address</p>
+<p><strong>Cause 3: Group Nesting</strong> - Elements inside groups get
+placed sequentially - Check tree view to see actual nesting - Might be
+in different group than expected</p>
+<p><strong>Solution:</strong> Use Memory Map Tree View with “Show
+Details” to trace exactly why each address was assigned.</p>
+<h3 id="problem-downloads-not-working">Problem: Downloads Not
+Working</h3>
+<p><strong>Symptoms:</strong> - Click download buttons, nothing happens
+- Files download with wrong content</p>
+<p><strong>Solutions:</strong> 1. <strong>Check browser
+settings:</strong> - Allow downloads from this site - Check downloads
+folder 2. <strong>Try different browser:</strong> - Chrome, Firefox,
+Edge all supported 3. <strong>Disable download blocking
+extensions</strong> 4. <strong>Check disk space</strong> (unlikely but
+possible)</p>
+<h3 id="problem-tree-view-not-showing-groups">Problem: Tree View Not
+Showing Groups</h3>
+<p><strong>Symptoms:</strong> - Tree view flat instead of hierarchical -
+Groups missing - Only elements shown</p>
+<p><strong>Cause:</strong> (Should not happen in v3.1, but if it
+does…)</p>
+<p><strong>Solutions:</strong> 1. Hard refresh: Ctrl+Shift+R 2. Check
+you’re using latest version (v3.1) 3. Verify
+<code>cdi-generator.js</code> loaded correctly 4. Check browser console
+(F12) for errors</p>
+<hr>
+<h2 id="tips-and-best-practices">Tips and Best Practices</h2>
+<h3 id="xml-file-organization">XML File Organization</h3>
+<p><strong>Good practices:</strong> - Use meaningful
+<code>&lt;n&gt;</code> tags for all elements - Add
+<code>&lt;description&gt;</code> tags for documentation - Group related
+elements together - Use replication for repeated structures - Comment
+complex sections</p>
+<p><strong>Example of well-organized XML:</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">segment</span><span class="ot"> origin=</span><span class="st">"0"</span><span class="ot"> space=</span><span class="st">"253"</span>&gt;</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">n</span>&gt;Node Configuration&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">description</span>&gt;Main node settings&lt;/<span class="kw">description</span>&gt;</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">group</span>&gt;</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">n</span>&gt;Identification&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">description</span>&gt;User-provided node information&lt;/<span class="kw">description</span>&gt;</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">string</span><span class="ot"> size=</span><span class="st">"63"</span>&gt;</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">n</span>&gt;Node Name&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">description</span>&gt;Friendly name for this node&lt;/<span class="kw">description</span>&gt;</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">default</span>&gt;My OpenLCB Node&lt;/<span class="kw">default</span>&gt;</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">string</span>&gt;</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">string</span><span class="ot"> size=</span><span class="st">"64"</span>&gt;</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">n</span>&gt;Node Description&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">description</span>&gt;Detailed description of node function&lt;/<span class="kw">description</span>&gt;</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">string</span>&gt;</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">group</span>&gt;</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">segment</span>&gt;</span></code></pre></div>
+<h3 id="memory-layout-planning">Memory Layout Planning</h3>
+<p><strong>Before creating your CDI:</strong> 1. Calculate total memory
+needed 2. Plan segment boundaries 3. Decide which elements go in which
+space 4. Leave room for future expansion 5. Document your layout
+decisions</p>
+<p><strong>Memory allocation tips:</strong> - Round segment sizes to
+nice numbers (128, 256, 512 bytes) - Leave gaps between segments for
+growth - Use different spaces for different purposes - Start
+frequently-accessed data at lower addresses</p>
+<h3 id="validation-workflow">Validation Workflow</h3>
+<p><strong>Recommended process:</strong> 1. Create/edit CDI XML in text
+editor 2. Enable validation in generator 3. Load and fix any errors 4.
+Disable validation for repeated loads 5. Re-enable when making
+changes</p>
+<p><strong>When to validate:</strong> - ✅ First load of new XML - ✅
+After manual edits - ✅ Before committing to version control - ✅ Before
+generating production code - ❌ Rapid iteration (slows you down) - ❌
+Known-good files (unnecessary)</p>
+<h3 id="version-control">Version Control</h3>
+<p><strong>Tracking changes:</strong> 1. Keep XML in version control
+(git, svn, etc.) 2. Export CSV with each version 3. Store generated .h
+files with firmware 4. Document changes in commit messages</p>
+<p><strong>Good commit message:</strong></p>
+<pre><code>Update CDI: Add temperature sensor configuration
+
+- Added temp sensor group with min/max ranges
+- Increased segment size from 128 to 256 bytes
+- Updated reset defaults for new sensors
+- Generated files: config_mem_map.h v2.1</code></pre>
+<h3 id="testing-your-configuration">Testing Your Configuration</h3>
+<p><strong>Before deploying to hardware:</strong> 1. ✅ Load XML in
+generator 2. ✅ Check for overlaps 3. ✅ Verify total bytes fit in
+available memory 4. ✅ Review all default values 5. ✅ Download and
+compile generated .h/.c files 6. ✅ Test factory reset function 7. ✅
+Verify addresses match hardware memory map</p>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="general-questions">General Questions</h3>
+<p><strong>Q: Do I need to install anything?</strong><br>
+A: No! It’s a web application that runs entirely in your browser. Just
+open the URL or HTML file.</p>
+<p><strong>Q: Does it work offline?</strong><br>
+A: Yes, if you download the three files (index.html, cdi-generator.css,
+cdi-generator.js) and open them locally.</p>
+<p><strong>Q: Is my data sent to a server?</strong><br>
+A: No! All processing happens in your browser. Your XML files never
+leave your computer.</p>
+<p><strong>Q: What browsers are supported?</strong><br>
+A: Chrome, Firefox, Safari, and Edge. Any modern browser works.</p>
+<p><strong>Q: Can I use this commercially?</strong><br>
+A: Check the license terms. The generated .h/.c files are yours to
+use.</p>
+<h3 id="technical-questions">Technical Questions</h3>
+<p><strong>Q: What CDI specification version is
+supported?</strong><br>
+A: OpenLCB CDI 1.4</p>
+<p><strong>Q: What element types are supported?</strong><br>
+A: All standard types: <code>&lt;int&gt;</code>,
+<code>&lt;string&gt;</code>, <code>&lt;eventid&gt;</code>,
+<code>&lt;float&gt;</code>, <code>&lt;action&gt;</code>,
+<code>&lt;blob&gt;</code>, <code>&lt;group&gt;</code></p>
+<p><strong>Q: How does group replication work?</strong><br>
+A: Set <code>replication="N"</code> on a <code>&lt;group&gt;</code>
+element. The generator creates N copies with sequential addresses and
+<code>_REP_0</code>, <code>_REP_1</code>, etc. suffixes.</p>
+<p><strong>Q: Can I have multiple segments?</strong><br>
+A: Yes! Add multiple <code>&lt;segment&gt;</code> elements. They can
+share the same <code>space</code> value if you set different
+<code>origin</code> addresses.</p>
+<p><strong>Q: What if I don’t specify an
+<code>origin</code>?</strong><br>
+A: It defaults to 0. Be careful - multiple segments without
+<code>origin</code> will overlap!</p>
+<p><strong>Q: How is the <code>offset</code> attribute
+handled?</strong><br>
+A: Offset is ADDITIVE. It adds to the current running address, creating
+a gap before that element.</p>
+<p><strong>Q: What’s the maximum configuration size?</strong><br>
+A: No hard limit in the tool. Your hardware memory is the
+constraint.</p>
+<p><strong>Q: Can I edit the generated .h files?</strong><br>
+A: Not recommended. They’re auto-generated. Edit your XML and regenerate
+instead.</p>
+<h3 id="file-and-export-questions">File and Export Questions</h3>
+<p><strong>Q: What do I do with the .h and .c files?</strong><br>
+A: Add them to your C/C++ firmware project. Include the .h files and
+compile the .c file with your code.</p>
+<p><strong>Q: Why are there three separate files?</strong><br>
+A: Follows standard C practice: config_mem_map.h (addresses),
+config_mem_reset.h (interface), config_mem_reset.c (implementation).</p>
+<p><strong>Q: Can I export to other formats?</strong><br>
+A: CSV export is available. Open in Excel/Sheets and save to other
+formats (XLSX, ODS, etc.).</p>
+<p><strong>Q: How do I import CSV to documentation?</strong><br>
+A: Open CSV in Excel/Sheets, then copy-paste into Word/Google Docs, or
+use import functions.</p>
+<h3 id="error-and-troubleshooting-questions">Error and Troubleshooting
+Questions</h3>
+<p><strong>Q: Why doesn’t my XML validate?</strong><br>
+A: Common issues: wrong <code>size</code> values (int must be 1,2,4,8),
+missing <code>&lt;identification&gt;</code>, duplicate tags. Check error
+message for specific line.</p>
+<p><strong>Q: Why do I see overlapping memory?</strong><br>
+A: Multiple segments at same address, incorrect <code>offset</code>
+values, or missing <code>origin</code> attributes. Check the overlap
+table for specifics.</p>
+<p><strong>Q: Why are addresses wrong?</strong><br>
+A: Check: group nesting (tree view), replication count, offset
+attributes. Use “Show Details” in tree view to trace.</p>
+<p><strong>Q: Page looks broken (no styling)?</strong><br>
+A: CSS not loading. Try: disable ad blocker, use
+<code>index_standalone.html</code>, or check file names are correct
+(<code>cdi-generator.css</code>).</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="keyboard-shortcuts">Keyboard Shortcuts</h3>
+<ul>
+<li><strong>F12</strong> - Open browser developer tools (for
+debugging)</li>
+<li><strong>Ctrl+R</strong> / <strong>Cmd+R</strong> - Reload page</li>
+<li><strong>Ctrl+Shift+R</strong> / <strong>Cmd+Shift+R</strong> - Hard
+refresh (clear cache)</li>
+<li><strong>Ctrl+F</strong> / <strong>Cmd+F</strong> - Find on page</li>
+</ul>
+<h3 id="file-naming">File Naming</h3>
+<p><strong>Required names:</strong> - <code>index.html</code> - Main
+HTML file - <code>cdi-generator.css</code> - Stylesheet (NOT
+<code>styles.css</code>) - <code>cdi-generator.js</code> - JavaScript
+(NOT <code>script.js</code>)</p>
+<blockquote>
+<p><strong>Important:</strong> Using generic names like
+<code>styles.css</code> or <code>script.js</code> may cause ad blockers
+to block them!</p>
+</blockquote>
+<h3 id="common-xml-patterns">Common XML Patterns</h3>
+<p><strong>Basic Segment:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">segment</span><span class="ot"> space=</span><span class="st">"253"</span><span class="ot"> origin=</span><span class="st">"0"</span>&gt;</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">n</span>&gt;My Segment&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">int</span><span class="ot"> size=</span><span class="st">"1"</span>&gt;</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">n</span>&gt;My Element&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">default</span>&gt;0&lt;/<span class="kw">default</span>&gt;</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">int</span>&gt;</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">segment</span>&gt;</span></code></pre></div>
+<p><strong>Group with Replication:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">group</span><span class="ot"> replication=</span><span class="st">"4"</span>&gt;</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">n</span>&gt;Channel Settings&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">int</span><span class="ot"> size=</span><span class="st">"1"</span>&gt;&lt;<span class="kw">n</span>&gt;Channel Number&lt;/<span class="kw">n</span>&gt;&lt;/<span class="kw">int</span>&gt;</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">eventid</span>&gt;&lt;<span class="kw">n</span>&gt;Channel Event&lt;/<span class="kw">n</span>&gt;&lt;/<span class="kw">eventid</span>&gt;</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">group</span>&gt;</span></code></pre></div>
+<p><strong>Element with Offset:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">int</span><span class="ot"> size=</span><span class="st">"4"</span>/&gt;</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">int</span><span class="ot"> size=</span><span class="st">"1"</span><span class="ot"> offset=</span><span class="st">"10"</span>/&gt;  <span class="co">&lt;!-- 10 bytes after previous element --&gt;</span></span></code></pre></div>
+<h3 id="getting-help">Getting Help</h3>
+<p><strong>Resources:</strong> - Main Specification: Technical details
+and algorithms - Algorithm Definitions: How processing works - Visual
+Layout Definition: UI component specs - This User Guide: How to use the
+tool</p>
+<p><strong>For Issues:</strong> 1. Check this Troubleshooting section 2.
+Check browser console (F12) for errors 3. Try the standalone version 4.
+Verify file names are correct 5. Test with example XML</p>
+<hr>
+<h2 id="appendix-example-workflow">Appendix: Example Workflow</h2>
+<h3 id="complete-example-creating-a-new-node-configuration">Complete
+Example: Creating a New Node Configuration</h3>
+<p><strong>Step 1: Plan Your Configuration</strong></p>
+<pre><code>Node needs:
+- Name (63 chars)
+- Description (64 chars)
+- 4 input channels
+- 4 output channels
+- Each channel: event ID + enabled flag</code></pre>
+<p><strong>Step 2: Create CDI XML</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="fu">?&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">cdi</span>&gt;</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">identification</span>&gt;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">manufacturer</span>&gt;My Company&lt;/<span class="kw">manufacturer</span>&gt;</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">model</span>&gt;IO Node v1&lt;/<span class="kw">model</span>&gt;</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">hardwareVersion</span>&gt;1.0&lt;/<span class="kw">hardwareVersion</span>&gt;</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">softwareVersion</span>&gt;1.0&lt;/<span class="kw">softwareVersion</span>&gt;</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">identification</span>&gt;</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">segment</span><span class="ot"> space=</span><span class="st">"253"</span><span class="ot"> origin=</span><span class="st">"0"</span>&gt;</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">n</span>&gt;Node Info&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">string</span><span class="ot"> size=</span><span class="st">"63"</span>&gt;&lt;<span class="kw">n</span>&gt;Node Name&lt;/<span class="kw">n</span>&gt;&lt;/<span class="kw">string</span>&gt;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">string</span><span class="ot"> size=</span><span class="st">"64"</span>&gt;&lt;<span class="kw">n</span>&gt;Node Description&lt;/<span class="kw">n</span>&gt;&lt;/<span class="kw">string</span>&gt;</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">group</span><span class="ot"> replication=</span><span class="st">"4"</span>&gt;</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">n</span>&gt;Input Channel&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">eventid</span>&gt;&lt;<span class="kw">n</span>&gt;Input Event&lt;/<span class="kw">n</span>&gt;&lt;/<span class="kw">eventid</span>&gt;</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">int</span><span class="ot"> size=</span><span class="st">"1"</span>&gt;&lt;<span class="kw">n</span>&gt;Enabled&lt;/<span class="kw">n</span>&gt;&lt;<span class="kw">default</span>&gt;1&lt;/<span class="kw">default</span>&gt;&lt;/<span class="kw">int</span>&gt;</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">group</span>&gt;</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">group</span><span class="ot"> replication=</span><span class="st">"4"</span>&gt;</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">n</span>&gt;Output Channel&lt;/<span class="kw">n</span>&gt;</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">eventid</span>&gt;&lt;<span class="kw">n</span>&gt;Output Event&lt;/<span class="kw">n</span>&gt;&lt;/<span class="kw">eventid</span>&gt;</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">int</span><span class="ot"> size=</span><span class="st">"1"</span>&gt;&lt;<span class="kw">n</span>&gt;Enabled&lt;/<span class="kw">n</span>&gt;&lt;<span class="kw">default</span>&gt;1&lt;/<span class="kw">default</span>&gt;&lt;/<span class="kw">int</span>&gt;</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">group</span>&gt;</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">segment</span>&gt;</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">cdi</span>&gt;</span></code></pre></div>
+<p><strong>Step 3: Validate</strong> 1. Save XML as
+<code>my_node_config.xml</code> 2. Open CDI Generator 3. Check “Enable
+XML Validation” 4. Load the XML file 5. Fix any errors</p>
+<p><strong>Step 4: Review Results</strong> 1. Check Overview: -
+Segments: 1 - Total Elements: 10 (2 strings + 4×2 channel elements) -
+Total Bytes: 199 (63+64+4×9+4×9) 2. Check for overlaps: None (good!) 3.
+Review table: Addresses sequential (good!)</p>
+<p><strong>Step 5: Download Files</strong> 1. Click “Download
+config_mem_map.h” 2. Click “Download config_mem_reset.h” 3. Click
+“Download config_mem_reset.c” 4. Click “Download Memory Map CSV”</p>
+<p><strong>Step 6: Integrate with Firmware</strong> 1. Add .h and .c
+files to project 2. Include headers in main.c 3. Use macros: ```c
+#include “config_mem_map.h”</p>
+<p>// Read node name char name[NODE_INFO_NODE_NAME_SIZE + 1];
+OpenLcb_read_config(NODE_INFO_NODE_NAME_ADDR, NODE_INFO_NODE_NAME_SIZE,
+name); ```</p>
+<p><strong>Step 7: Test</strong> 1. Compile firmware 2. Flash to
+hardware 3. Call <code>ConfigMemReset_set_to_defaults()</code> on first
+boot 4. Verify configuration works</p>
+<p><strong>Done!</strong> Your node is configured and ready.</p>
+<hr>
+<h2 id="document-information">Document Information</h2>
+<p><strong>Version:</strong> 3.1<br>
+<strong>Last Updated:</strong> January 2026<br>
+<strong>Application Version:</strong> CDI Element Mapping Generator
+v3.1<br>
+<strong>OpenLCB Specification:</strong> CDI 1.4</p>
+<p>For technical specifications and implementation details, see: -
+01_Main_Specification.md - 02_Algorithm_Definitions.md -
+03_Visual_Layout_Definition.md</p>
+<hr>
+<p><strong>End of User Guide</strong></p>
+
+
+</body></html>

@@ -1,0 +1,121 @@
+package jmri.jmrit.roster;
+
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import jmri.beans.BeanUtil;
+import jmri.jmrit.roster.rostergroup.RosterGroupSelector;
+import jmri.util.davidflanagan.HardcopyWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Action to print a summary of the Roster contents.
+ * <p>
+ * This uses the older style printing, for compatibility with Java 1.1.8 in
+ * Macintosh MRJ
+ *
+ * @author Bob Jacobsen Copyright (C) 2003
+ * @author Dennis Miller Copyright (C) 2005
+ */
+public class PrintRosterAction extends jmri.util.swing.JmriAbstractAction {
+
+    public PrintRosterAction(String s, jmri.util.swing.WindowInterface wi) {
+        super(s, wi);
+        isPreview = true;
+    }
+
+    public PrintRosterAction(String s, javax.swing.Icon i, jmri.util.swing.WindowInterface wi) {
+        super(s, i, wi);
+        isPreview = true;
+    }
+
+    public PrintRosterAction(String actionName, Frame frame, boolean preview) {
+        super(actionName);
+        mFrame = frame;
+        isPreview = preview;
+    }
+
+    public void setPreview(boolean preview) {
+        isPreview = preview;
+    }
+
+    /**
+     * Frame hosting the printing
+     */
+    Frame mFrame = new Frame();
+
+    /**
+     * Variable to set whether this is to be printed or previewed
+     */
+    boolean isPreview;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // obtain a HardcopyWriter to do this
+        Roster r = Roster.getDefault();
+        String title = Bundle.getMessage("TitleDecoderProRoster");
+        String rosterGroup = r.getDefaultRosterGroup();
+        // rosterGroup may legitimately be null
+        // but getProperty returns null if the property cannot be found, so
+        // we test that the property exists before attempting to get its value
+        if (BeanUtil.hasProperty(wi, RosterGroupSelector.SELECTED_ROSTER_GROUP)) {
+            rosterGroup = (String) BeanUtil.getProperty(wi, RosterGroupSelector.SELECTED_ROSTER_GROUP);
+        }
+        if (rosterGroup == null) {
+            title = title + " " + Bundle.getMessage("ALLENTRIES");
+        } else {
+            title = title +
+                    " " +
+                    Bundle.getMessage("TitleGroup") +
+                    " " +
+                    Bundle.getMessage("TitleEntries", rosterGroup);
+        }
+        HardcopyWriter writer;
+        try {
+            writer = new HardcopyWriter(mFrame, title, null, null, 10, 
+                .5 * 72, .5 * 72, .5 * 72, .5 * 72, isPreview, null, null, null, null, null);
+        } catch (HardcopyWriter.PrintCanceledException ex) {
+            log.debug("Print cancelled");
+            return;
+        }
+
+        // Write out the decoder pro logo
+        writer.writeDecoderProIcon();
+
+        // Loop through the Roster, printing as needed
+        List<RosterEntry> l = r.matchingList(null, null, null, null, null, null, null); // take all
+        log.debug("Roster list size: {}", l.size());
+        for (RosterEntry re : l) {
+            if (rosterGroup != null) {
+                if (re.getAttribute(Roster.getRosterGroupProperty(rosterGroup)) != null &&
+                        re.getAttribute(Roster.getRosterGroupProperty(rosterGroup)).equals("yes")) {
+                    re.printEntry(writer);
+                }
+            } else {
+                re.printEntry(writer);
+            }
+        }
+
+        // and force completion of the printing
+        writer.close();
+    }
+
+    // never invoked, because we overrode actionPerformed above
+    @Override
+    public jmri.util.swing.JmriPanel makePanel() {
+        throw new IllegalArgumentException("Should not be invoked");
+    }
+
+    @Override
+    public void setParameter(String parameter, String value) {
+        parameter = parameter.toLowerCase();
+        value = value.toLowerCase();
+        if (parameter.equals("ispreview")) {
+            isPreview = value.equals("true");
+        }
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(PrintRosterAction.class);
+
+}

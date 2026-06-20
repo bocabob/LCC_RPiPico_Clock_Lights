@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>DecoderPro&reg; Comprehensive Programmer</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-ctr {
+      text-align: center;
+    }
+    .dp-right {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Comprehensive Programmer</h1>
+
+      <h2>Function Labels Pane</h2>
+
+      <div class="dp-right">
+        <p><a href="Comp_FMap.shtml">Previous |</a> <a href="Comp_LightFX.shtml">Next</a></p>
+
+        <p><a href="index.shtml">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>This pane is more than a scratch pad to keep track of what happens when function buttons
+      are pushed. It also interacts with the JMRI throttle.</p>
+
+      <p>When you use the roster pull-down on the JMRI throttle to select a loco from your roster,
+      the function buttons will be marked with the descriptions you have entered for those
+      functions in this pane.</p>
+
+      <p>You may also set the text in the Function Labels from the button properties of an active
+      JMRI throttle when you save them to the Roster. Subsequent uses of the throttle will use the
+      new labels.</p>
+
+      <p><img src="images/Function_Labels.png" alt="function labels" width="922" height="627">
+      </p>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Comp_LightFX.shtml"></a><a href="Comp_FMap.shtml">Previous |</a> <a href=
+        "Comp_LightFX.shtml">Next</a></p>
+
+        <p><a href="index.shtml">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

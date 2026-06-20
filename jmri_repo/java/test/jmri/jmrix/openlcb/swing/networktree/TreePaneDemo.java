@@ -1,0 +1,188 @@
+package jmri.jmrix.openlcb.swing.networktree;
+
+import java.awt.GraphicsEnvironment;
+
+import javax.swing.JFrame;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import jmri.util.junit.annotations.DisabledIfHeadless;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+import org.junit.Assume;
+import org.openlcb.AbstractConnection;
+import org.openlcb.Connection;
+import org.openlcb.EventID;
+import org.openlcb.EventState;
+import org.openlcb.Message;
+import org.openlcb.MimicNodeStore;
+import org.openlcb.NodeID;
+import org.openlcb.ProducerIdentifiedMessage;
+import org.openlcb.ProtocolIdentificationReplyMessage;
+import org.openlcb.SimpleNodeIdentInfoReplyMessage;
+import org.openlcb.swing.networktree.NodeTreeRep;
+import org.openlcb.swing.networktree.TreePane;
+
+/**
+ * Simulate nine nodes interacting on a single gather/scatter "link", and feed
+ * them to monitor.
+ * <ul>
+ * <li>Nodes 1,2,3 send Event A to 8,9
+ * <li>Node 4 sends Event B to node 7
+ * <li>Node 5 sends Event C to node 6
+ * </ul>
+ * <p>
+ * NOTE: This file actually Demonstrates the openLCB TreePane class.
+ * <p>
+ *
+ * @author Bob Jacobsen Copyright 2009
+ */
+public class TreePaneDemo {
+
+    final NodeID nid1 = new NodeID(new byte[]{0, 0, 0, 0, 0, 1});
+    final NodeID nid2 = new NodeID(new byte[]{0, 0, 0, 0, 0, 2});
+
+    final EventID eventA = new EventID(new byte[]{1, 0, 0, 0, 0, 0, 1, 0});
+
+    final Message pipmsg = new ProtocolIdentificationReplyMessage(nid2, nid2, 0xF01800000000L);
+
+    JFrame frame;
+    TreePane pane;
+    final Connection connection = new AbstractConnection() {
+        @Override
+        public void put(Message msg, Connection sender) {
+        }
+    };
+
+    MimicNodeStore store;
+
+    @BeforeAll
+    public static void checkSeparate() {
+       // this test is run separately because it leaves a lot of threads behind
+        org.junit.Assume.assumeFalse("Ignoring intermittent test", Boolean.getBoolean("jmri.skipTestsRequiringSeparateRunning"));
+    }
+
+    @BeforeEach
+    public void setUp() {
+        jmri.util.JUnitUtil.setUp();
+        store = new MimicNodeStore(connection, nid1);
+        Message msg = new ProducerIdentifiedMessage(nid1, eventA, EventState.Unknown);
+        store.put(msg, null);
+
+        // build the TreePane, but don't put it in a frame (yet).
+        pane = new TreePane();
+        pane.initComponents(store, null, null,
+                new NodeTreeRep.SelectionKeyLoader() {
+            @Override
+            public NodeTreeRep.SelectionKey cdiKey(String name, NodeID node) {
+                return new NodeTreeRep.SelectionKey(name, node) {
+                    @Override
+                    public void select(DefaultMutableTreeNode rep) {
+                        System.out.println("Making special fuss over: " + rep + " for " + name + " on " + node);
+                    }
+                };
+            }
+        });
+
+        Assume.assumeFalse(GraphicsEnvironment.isHeadless());
+        // Test is really popping a window before doing all else
+        frame = new JFrame();
+        frame.setTitle("TreePane Test");
+        frame.add(pane);
+        frame.pack();
+        frame.setMinimumSize(new java.awt.Dimension(200, 200));
+        frame.setVisible(true);
+
+    }
+
+    @AfterEach
+    public void tearDown() {
+        pane.release();
+        pane = null;
+        if (!GraphicsEnvironment.isHeadless()) {
+            frame.setVisible(false);
+            frame.dispose();
+            new org.netbeans.jemmy.QueueTool().waitEmpty();  //pause for frame to close
+        }
+        jmri.util.JUnitUtil.tearDown();
+        store = null;
+    }
+
+    @Test
+    public void testCTor() {
+        // constructor in setUp
+        Assert.assertNotNull(pane);
+    }
+
+    @Test
+    @DisabledIfHeadless
+    public void testPriorMessage() {
+        frame.setTitle("Prior Message");
+    }
+
+    @Test
+    @DisabledIfHeadless
+    public void testAfterMessage() {
+        frame.setTitle("After Message");
+        Message msg = new ProducerIdentifiedMessage(nid2, eventA, EventState.Unknown);
+        store.put(msg, null);
+    }
+
+    @Test
+    @DisabledIfHeadless
+    public void testWithProtocolID() {
+        frame.setTitle("2nd has protocol id");
+        Message msg;
+        msg = new ProducerIdentifiedMessage(nid2, eventA, EventState.Unknown);
+        store.put(msg, null);
+        store.put(pipmsg, null);
+    }
+
+    @Test
+    @DisabledIfHeadless
+    public void testWith1stSNII() {
+        frame.setTitle("3rd has PIP && 1st SNII");
+        Message msg;
+        msg = new ProducerIdentifiedMessage(nid2, eventA, EventState.Unknown);
+        store.put(msg, null);
+        store.put(pipmsg, null);
+
+        msg = new SimpleNodeIdentInfoReplyMessage(nid2, nid2,
+                new byte[]{0x01, 0x31, 0x32, 0x33, 0x41, 0x42, (byte) 0xC2, (byte) 0xA2, 0x44, 0x00}
+        );
+        store.put(msg, null);
+    }
+
+    @Test
+    @DisabledIfHeadless
+    public void testWithSelect() {
+        frame.setTitle("listener test");
+
+        pane.addTreeSelectionListener(e -> {
+            JTree tree = (JTree) e.getSource();
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+
+            if (node == null) {
+                return;
+            }
+            System.out.print("Test prints selected treenode " + node);
+            if (node.getUserObject() instanceof NodeTreeRep.SelectionKey) {
+                System.out.println(" and invokes");
+                ((NodeTreeRep.SelectionKey) node.getUserObject()).select(node);
+            } else {
+                System.out.println();
+            }
+        });
+        Message msg;
+        msg = new ProducerIdentifiedMessage(nid2, eventA, EventState.Unknown);
+        store.put(msg, null);
+        store.put(pipmsg, null);
+
+        msg = new SimpleNodeIdentInfoReplyMessage(nid2, nid2,
+                new byte[]{0x01, 0x31, 0x32, 0x33, 0x41, 0x42, (byte) 0xC2, (byte) 0xA2, 0x44, 0x00}
+        );
+        store.put(msg, null);
+    }
+
+}

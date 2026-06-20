@@ -1,0 +1,247 @@
+package jmri.jmrit.symbolicprog;
+
+import java.util.Set;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
+import javax.annotation.Nonnull;
+import jmri.implementation.FileLocationsPreferences;
+import jmri.jmrit.symbolicprog.tabbedframe.PaneProgFrame;
+import jmri.profile.Profile;
+import jmri.profile.ProfileUtils;
+import jmri.spi.PreferencesManager;
+import jmri.util.prefs.AbstractPreferencesManager;
+import jmri.util.prefs.InitializationException;
+import org.openide.util.lookup.ServiceProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ *
+ * @author Randall Wood (C) 2015
+ * @author Bob Jacobsen (C) 2026
+ */
+@ServiceProvider(service = PreferencesManager.class)
+public class ProgrammerConfigManager extends AbstractPreferencesManager {
+
+    public static final String DEFAULT_FILE = "defaultFile";
+    public static final String SHOW_EMPTY_PANES = "showEmptyPanes";
+    public static final String DONT_DETACH_PANES = "dontDetachPanes";
+    public static final String SHOW_CV_NUMBERS = "showCvNumbers";
+    public static final String CAN_CACHE_DEFAULT = "canCacheDefault";
+    public static final String DO_CONFIRM_READ = "doConfirmRead";
+    public static final String DISABLE_PROGRAMMING_TRACK = "disableProgrammingTrack";
+    public static final String DISABLE_PROGRAMMING_ON_MAIN = "disableProgrammingOnMain";
+    private String defaultFile = null;
+    private boolean showEmptyPanes = true;
+    private boolean dontDetachPanes = false;
+    private boolean showCvNumbers = false;
+    private boolean canCacheDefault = false;
+    private boolean doConfirmRead = false;
+    private boolean disableProgrammingTrack = false;
+    private boolean disableProgrammingOnMain = false;
+
+    @Override
+    public void initialize(Profile profile) throws InitializationException {
+        if (!this.isInitialized(profile)) {
+            Preferences preferences = ProfileUtils.getPreferences(profile, this.getClass(), true);
+            if (preferences.get(DEFAULT_FILE, this.getDefaultFile()) != null) {
+                this.setDefaultFile(preferences.get(DEFAULT_FILE, this.getDefaultFile()));
+                ProgDefault.setDefaultProgFile(this.getDefaultFile());
+            }
+
+            this.setShowEmptyPanes(preferences.getBoolean(SHOW_EMPTY_PANES, this.isShowEmptyPanes()));
+            PaneProgFrame.setShowEmptyPanes(this.isShowEmptyPanes());
+
+            this.setDontDetachPanes(preferences.getBoolean(DONT_DETACH_PANES, this.isDontDetachPanes()));
+            PaneProgFrame.setDontDetachPanes(this.isDontDetachPanes());
+
+            this.setShowCvNumbers(preferences.getBoolean(SHOW_CV_NUMBERS, this.isShowCvNumbers()));
+            PaneProgFrame.setShowCvNumbers(this.isShowCvNumbers());
+
+            this.setCanCacheDefault(preferences.getBoolean(CAN_CACHE_DEFAULT, this.isCanCacheDefault()));
+            PaneProgFrame.setCanCacheDefault(this.isCanCacheDefault());
+
+            this.setDoConfirmRead(preferences.getBoolean(DO_CONFIRM_READ, this.isDoConfirmRead()));
+            PaneProgFrame.setDoConfirmRead(this.isDoConfirmRead());
+
+            this.setDisableProgrammingTrack(preferences.getBoolean(DISABLE_PROGRAMMING_TRACK, this.isDisableProgrammingTrack()));
+            PaneProgFrame.setDisableProgrammingTrack(this.isDisableProgrammingTrack());
+
+            this.setDisableProgrammingOnMain(preferences.getBoolean(DISABLE_PROGRAMMING_ON_MAIN, this.isDisableProgrammingOnMain()));
+            PaneProgFrame.setDisableProgrammingOnMain(this.isDisableProgrammingOnMain());
+
+            this.setInitialized(profile, true);
+        }
+    }
+
+    @Override
+    @Nonnull
+    public Set<Class<? extends PreferencesManager>> getRequires() {
+        Set<Class<? extends PreferencesManager>> requires = super.getRequires();
+        requires.add(FileLocationsPreferences.class);
+        return requires;
+    }
+
+    @Override
+    @Nonnull
+    public Set<Class<?>> getProvides() {
+        Set<Class<?>> provides = super.getProvides();
+        provides.stream().forEach((provide) -> {
+            log.debug("ProgammerConfigManager provides {}", provide);
+        });
+        return provides;
+    }
+
+    @Override
+    public void savePreferences(Profile profile) {
+        Preferences preferences = ProfileUtils.getPreferences(profile, this.getClass(), true);
+        if (this.defaultFile != null) {
+            preferences.put(DEFAULT_FILE, this.defaultFile);
+        } else {
+            preferences.remove(DEFAULT_FILE);
+        }
+        preferences.putBoolean(SHOW_EMPTY_PANES, this.showEmptyPanes);
+        preferences.putBoolean(DONT_DETACH_PANES, this.dontDetachPanes);
+        preferences.putBoolean(SHOW_CV_NUMBERS, this.showCvNumbers);
+        preferences.putBoolean(CAN_CACHE_DEFAULT, this.canCacheDefault);
+        preferences.putBoolean(DO_CONFIRM_READ, this.doConfirmRead);
+        preferences.putBoolean(DISABLE_PROGRAMMING_TRACK, this.disableProgrammingTrack);
+        preferences.putBoolean(DISABLE_PROGRAMMING_ON_MAIN, this.disableProgrammingOnMain);
+        try {
+            preferences.sync();
+        } catch (BackingStoreException ex) {
+            log.error("Unable to save preferences.", ex);
+        }
+    }
+
+    /**
+     * @return the defaultFile
+     */
+    public String getDefaultFile() {
+        return defaultFile;
+    }
+
+    /**
+     * @param defaultFile the defaultFile to set
+     */
+    public void setDefaultFile(String defaultFile) {
+        java.lang.String oldDefaultFile = this.defaultFile;
+        this.defaultFile = defaultFile;
+        firePropertyChange(DEFAULT_FILE, oldDefaultFile, defaultFile);
+    }
+
+    /**
+     * @return the showEmptyPanes
+     */
+    public boolean isShowEmptyPanes() {
+        return showEmptyPanes;
+    }
+
+    /**
+     * @param showEmptyPanes the showEmptyPanes to set
+     */
+    public void setShowEmptyPanes(boolean showEmptyPanes) {
+        boolean oldShowEmptyPanes = this.showEmptyPanes;
+        this.showEmptyPanes = showEmptyPanes;
+        firePropertyChange(SHOW_EMPTY_PANES, oldShowEmptyPanes, showEmptyPanes);
+    }
+
+    /**
+     * @return the dontDetachPanes
+     */
+    public boolean isDontDetachPanes() {
+        return dontDetachPanes;
+    }
+
+    /**
+     * @param dontDetachPanes the dontDetachPanes to set
+     */
+    public void setDontDetachPanes(boolean dontDetachPanes) {
+        boolean oldDontDetachPanes = this.dontDetachPanes;
+        this.dontDetachPanes = dontDetachPanes;
+        firePropertyChange(DONT_DETACH_PANES, oldDontDetachPanes, dontDetachPanes);
+    }
+
+    /**
+     * @return the showCvNumbers
+     */
+    public boolean isShowCvNumbers() {
+        return showCvNumbers;
+    }
+
+    /**
+     * @param showCvNumbers the showCvNumbers to set
+     */
+    public void setShowCvNumbers(boolean showCvNumbers) {
+        boolean oldShowCvNumbers = this.showCvNumbers;
+        this.showCvNumbers = showCvNumbers;
+        firePropertyChange(SHOW_CV_NUMBERS, oldShowCvNumbers, showCvNumbers);
+    }
+
+    /**
+     * @return the canCacheDefault
+     */
+    public boolean isCanCacheDefault() {
+        return canCacheDefault;
+    }
+
+    /**
+     * @param canCacheDefault new value
+     */
+    public void setCanCacheDefault(boolean canCacheDefault) {
+        boolean oldCanCacheDefault = this.canCacheDefault;
+        this.canCacheDefault = canCacheDefault;
+        firePropertyChange(CAN_CACHE_DEFAULT, oldCanCacheDefault, canCacheDefault);
+    }
+
+    /**
+     * @return the doConfirmRead
+     */
+    public boolean isDoConfirmRead() {
+        return doConfirmRead;
+    }
+
+    /**
+     * @return the disableProgrammingTrack
+     */
+    public boolean isDisableProgrammingTrack() {
+        return disableProgrammingTrack;
+    }
+
+    /**
+     * @return the disableProgrammingOnMain
+     */
+    public boolean isDisableProgrammingOnMain() {
+        return disableProgrammingOnMain;
+    }
+
+    /**
+     * @param doConfirmRead new value
+     */
+    public void setDoConfirmRead(boolean doConfirmRead) {
+        boolean oldDoConfirmRead = this.doConfirmRead;
+        this.doConfirmRead = doConfirmRead;
+        firePropertyChange(DO_CONFIRM_READ, oldDoConfirmRead, doConfirmRead);
+    }
+
+    /**
+     * @param disableProgrammingTrack new value
+     */
+    public void setDisableProgrammingTrack(boolean disableProgrammingTrack) {
+        boolean oldDisableProgrammingTrack = this.disableProgrammingTrack;
+        this.disableProgrammingTrack = disableProgrammingTrack;
+        firePropertyChange(DISABLE_PROGRAMMING_TRACK, oldDisableProgrammingTrack, disableProgrammingTrack);
+    }
+
+    /**
+     * @param disableProgrammingOnMain new value
+     */
+    public void setDisableProgrammingOnMain(boolean disableProgrammingOnMain) {
+        boolean oldDisableProgrammingOnMain = this.disableProgrammingOnMain;
+        this.disableProgrammingOnMain = disableProgrammingOnMain;
+        firePropertyChange(DISABLE_PROGRAMMING_ON_MAIN, oldDisableProgrammingOnMain, disableProgrammingOnMain);
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(ProgrammerConfigManager.class);
+
+}

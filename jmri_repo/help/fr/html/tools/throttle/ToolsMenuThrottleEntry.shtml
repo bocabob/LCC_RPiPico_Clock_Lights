@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233;  2017-01-10-->
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Tools Throttle Menu</title>
+  <meta name="keywords" content="JMRI decoderpro dcc nmra throttle throttlepro">
+  <meta name="description" content="Throttle documentation for JMRI project">
+  <meta name="author" content="Lionel Jeanson">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Menu Outils Régulateur</h1>
+
+      <img src="images/Toolsmenuentry.png" alt="Menu Régulateur">
+
+      <h2>Nouveau Régulateur:</h2>
+      Créer une <a href="BasicThrottleWindow.shtml">nouvelle fenêtre Régulateur</a> avec un
+      régulateur disponible et vide à l'intérieur.
+      <h2>Sauver Configuration Régulateur:</h2>
+      Enregistrer les régulateurs actuels,l'agencement des fenêtres, aussi bien les régulateurs
+      internes, et les propriétés de la fenêtre de la liste des régulateurs.<br>
+
+      <h2>Charger Configuration Régulateur:</h2>
+      Charger une configuration de fenêtres de régulateurs, tel que défini ci-dessus.<br>
+      Seront également chargées des configurations des régulateurs des versions précédentes de
+      JMRI. (&lt;2.7.9)
+      <h2>Enregistrer en tant que Configuration par défaut:</h2>
+      Enregistrer la disposition du régulateur actuel comme &lt;dossier Préférences
+      JMRI&gt;/throttleJMRI_ThrottlePreference.xml
+      <h2>Charger la Configuration par défaut du régulateur:</h2>
+      Charge &lt;Le dossier Préférences JMRI &lt;/throttleJMRI_ThrottlePreference.xml si il
+      existe.<br>
+
+      <h3>Fusionner des fenêtre Régulateurs</h3>
+
+      <p>Les fichiers de configuration Régulateur peuvent consister en une fenêtre de régulateur
+      unique (pour commander une seule locomotive ou une adresse de couplage), ou elle peut
+      contenir des multiples panneau de régulateur. Dans tous les cas, lors de l'ouverture d'un
+      fichier de configuration de régulateur, JMRI vérifie pour voir si des panneaux existants de
+      Régulateurs actifs sont déjà ouverts. Si aucune n'est trouvée, le fichier est ouvert, comme
+      une ouverture de configuration simple (expliqué ci-dessus).</p>
+
+      <p style="text-align: center; font-size: xx-small;">
+      </p>
+
+      <p>Cependant, quand une ou plusieurs panneau de Régulateur sont déjà ouverts à l'écran, le
+      programme va ouvrir une boîte de dialogue suivante:</p>
+
+      <p style="text-align: center; font-size: xx-small;"><img src="images/jmri035.jpg" title=
+      "Merge Dialog Box" border="0" height="125" width="354" alt=""><br>
+      Figure 4-5: Merge Dialog Box</p>
+      avec 3 boutons
+      <ul>
+        <li><strong>Fusionner</strong> — quitte les panneaux régulateur actifs actuellement ouverts
+        en place et ouvre le régulateur(s) contenu dans le dossier de configuration choisi.</li>
+
+        <li><strong>Remplacer</strong> — ferme le bas du panneau actif du régulateur ouvert (s) et
+        ouvre le panneau de régulateur (s) définit dans le fichier de configuration choisi.</li>
+
+        <li><strong>Annuler</strong> —annule la demande d'"Ouverture" et ferme cette fenêtre de
+        dialogue .</li>
+      </ul>
+
+      <p style="font-style: italic;" class="important">Remarque: Ne confondez pas l'action qui se
+      produit ici avec toute tentative d'écraser vos fichiers sauvegardés de configuration de
+      régulateur. Les actions ci-dessus n'ont aucun effet sur la configuratrion des fichiers
+      sauvegardés de régulateur eux-mêmes. La seule action "fusionner" et "remplacer" qui se
+      produit est tout simplement sur votre écran.</p>
+
+      <h2>Préférences Régulateurs:</h2>
+      Ouvrez le <a href="ThrottlesPreferencesPane.shtml">Volet Préférences régulateurs.</a>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div> <!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

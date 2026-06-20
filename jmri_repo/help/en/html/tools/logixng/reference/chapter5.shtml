@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>LogixNG Reference - Chapter 5</title>
+  <meta name="author" content="Daniel Bergqvist">
+  <meta name="author" content="Dave Sand">
+  <meta name="keywords" content="jmri LogixNG reference action items">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+  <style type="text/css">
+    .sub-links {margin-left: 2em; border: 1px solid #000; list-style-type: none;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <h1>LogixNG Reference - Chapter 5</h1>
+
+      <h2>Action Descriptions</h2>
+
+      <p>The action descriptions are grouped by the socket type and category.</p>
+
+      <p class="noted"><span class="since">since 5.1.3</span><strong>For</strong>, <strong>For each
+      </strong>, <strong>If Then Else</strong>, <strong>Sequence</strong>, and <strong>Table: For
+      each</strong> have been moved from the <strong><em>Common</em></strong> category to the
+      <strong><em>Flow Control</em></strong> category.  <strong>Call Module</strong> has been moved
+      from the <strong><em>Other</em></strong> category to the <strong><em>Flow Control</em></strong>
+      category.</p>
+
+      <ul>
+        <li>Digital action
+          <ul>
+            <li>
+              <a href="#digital_action_item">Item</a>
+            </li>
+
+            <li>
+              <a href="#digital_action_common">Common</a>
+            </li>
+
+            <li>
+              <a href="#digital_action_flow_control">Flow Control <span class="since">since 5.1.3</span></a>
+            </li>
+
+            <li>
+              <a href="#digital_action_display">Display</a>
+            </li>
+
+            <li>
+              <a href="#digital_action_mqtt">MQTT <span class="since">since 4.99.7</span></a>
+            </li>
+
+            <li>
+              <a href="#digital_action_loconet">LocoNet</a>
+            </li>
+
+            <li>
+              <a href="#digital_action_mergcbus">Merg Cbus <span class="since">since 5.11.7</span></a>
+            </li>
+
+            <li>
+              <a href="#digital_action_opspro">OperationsPro <span class="since">since 5.13.2</span></a>
+            </li>
+
+            <li>
+              <a href="#digital_action_other">Other</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>Digital boolean action
+          <ul>
+            <li>
+              <a href="#digital_boolean_action_common">Common</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>Analog action
+          <ul>
+            <li>
+              <a href="#analog_action_item">Item</a>
+            </li>
+
+            <li>
+              <a href="#analog_action_common">Common</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>String action
+          <ul>
+            <li>
+              <a href="#string_action_item">Item</a>
+            </li>
+
+            <li>
+              <a href="#string_action_common">Common</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>Action dialogs</h2>
+
+      <p>When the category and type has been selected, the detail action dialog will be displayed.
+      The content of the dialog will vary depending on the category and type. The typical digital
+      action item dialog is described below.</p>
+
+      <p>The dialog for adding and editing digital action items consists of an upper part that
+      contains the item and the actions for that item. The lower part is common to all actions.</p>
+
+      <p>For some actions, for example Signal head, you need to first select the item and then you
+      can select the action to do on that item. For example, for Signal head, you first select the
+      signal head to act on and then you can select the appearance to set for that signal head.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/typical_action.png"><img src="images/chapter5/typical_action.png"
+        alt="Chapter 5 typical action"></a>
+      </div>
+
+      <p>The <strong>Edit</strong> screen is the same except for the title, the Create button and
+      the current content will be in the fields.</p>
+
+      <p>The left section is normally used to select the item, such as a turnout or a sensor. The
+      right section is the action to be performed. The default mode will be to use the
+      <strong>Direct</strong> tabs.</p>
+
+      <p>See <a href="chapter7.shtml">Reference</a>, <a href="chapter8.shtml">Local Variable</a>
+      and <a href="chapter9.shtml">Formula</a> for details about the other tabs.</p>
+
+      <p>The lower section contains a standard set of items</p>
+
+      <dl>
+        <dt>Error Handling</dt>
+
+        <dd>
+          If <strong>Use default</strong> is selected, the value in <a href=
+          "../LogixNG.shtml#preferences">Preferences</a> will be used. For other options see
+          <a href="../ErrorHandling.shtml">error handling</a>.
+        </dd>
+
+        <dt>Catch "Abort execution"</dt>
+
+        <dd>If the error handling (see previous) for any child node is set to <strong>Abort
+        execution</strong>, a parent node should have this option checked. This lets the parent
+        node handle the error.</dd>
+
+        <dt>Edit comment</dt>
+
+        <dd>Each action can have a comment. The comment dialog has a multiline text area. Click
+        <strong>OK</strong> to save the comment.</dd>
+
+        <dt>Formula functions</dt>
+
+        <dd>
+          These are explained in the <a href="chapter9.shtml">Formula</a> chapter.
+        </dd>
+
+        <dt>Cancel</dt>
+
+        <dd>Close the dialog without applying any changes.</dd>
+
+        <dt>Create/OK</dt>
+
+        <dd>Save the new action or the changes to an existing action.</dd>
+
+      </dl>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_item">Digital action :: Item</h2>
+
+      <ul class="sub-links">
+        <li><a href="#audio_action">Audio</a></li>
+        <li><a href="#item_block">Block</a></li>
+        <li><a href="#item_clock">Clock</a></li>
+        <li><a href="#item_clock_rate">Clock Rate</a></li>
+        <li><a href="#item_dispatcher">Dispatcher</a></li>
+        <li><a href="#item_ed_logix">Enable/Disable Logix</a></li>
+        <li><a href="#item_ed_logixng">Enable/Disable LogixNG</a></li>
+        <li><a href="#EntryExitActions">Entry/Exit</a></li>
+        <li><a href="#item_light">Light</a></li>
+        <li><a href="#item_light_intensity">Light intensity</a></li>
+        <li><a href="#item_local_variable">Local variable</a></li>
+        <li><a href="#item_memory">Memory</a></li>
+        <li><a href="#item_oblock">OBlock</a></li>
+        <li><a href="#item_power">Power</a></li>
+        <li><a href="#item_pom">Program On Main</a></li>
+        <li><a href="#item_reporter">Reporter</a></li>
+        <li><a href="#requestUpdateAll">Request update of all sensors</a></li>
+        <li><a href="#item_req_sensor">Request update of sensor</a></li>
+        <li><a href="#item_req_turnout">Request update of turnout</a></li>
+        <li><a href="#item_route">Route</a></li>
+        <li><a href="#script">Script</a></li>
+        <li><a href="#item_sensor">Sensor</a></li>
+        <li><a href="#item_set_reporter">Set reporter</a></li>
+        <li><a href="#item_signal_head">Signal head</a></li>
+        <li><a href="#item_signal_mast">Signal mast</a></li>
+        <li><a href="#item_sound">Sound</a></li>
+        <li><a href="#item_table">Table</a></li>
+        <li><a href="#item_throttle">Throttle</a></li>
+        <li><a href="#item_throttle_function">Throttle function</a></li>
+        <li><a href="#item_turnout">Turnout</a></li>
+        <li><a href="#item_turnout_lock">Turnout, lock</a></li>
+        <li><a href="#WarrantAction">Warrant</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="audio_action">Audio</h4>
+
+      <p>Control an Audio source.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/audio_action.png"><img src=
+        "images/chapter5/audio_action.png" alt="Chapter 5 audio action"></a>
+      </div>
+
+      <p>Select an audio source from the list and the action to be performed.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_block">Block</h4>
+
+      <ul>
+        <li><strong>Block Sensor Active:</strong> Set the sensor that provides occupancy to
+        active.</li>
+
+        <li><strong>Block Sensor Inactive:</strong> Set the sensor that provides occupancy to
+        inactive.</li>
+
+        <li><strong>Alternate Color On:</strong> Enable alternate color for the related layout
+        block.</li>
+
+        <li><strong>Alternate Color Off:</strong> Disable alternate color for the related layout
+        block.</li>
+
+        <li><strong>Empty (null):</strong> Set the block value to the null value.</li>
+
+        <li><strong>Value:</strong> Set the block value to a string or via a reference such as from
+        a memory variable.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_clock">Clock<span class="since">updated 4.99.7</span></h4>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/clock_action.png"><img src="images/chapter5/clock_action.png"
+        alt="Chapter 5 clock action"></a>
+      </div>
+
+      <ul>
+        <li><strong>Set Fast Clock:</strong> Sets the time on the fast clock to the entered time.
+        The time can be entered as hh:mm where hh is hours and mm is minutes on a 24-hour clock or
+        as the number of minutes since midnight, such as 720 for noon. This action sets the fast
+        clock to the specified time regardless of whether the fast clock is running or stopped.</li>
+
+        <li><strong>Start Fast Clock:</strong> Starts the JMRI fast clock running. If the fast
+        clock is already running, this action has no effect.</li>
+
+        <li><strong>Stop Fast Clock:</strong> Pauses the JMRI fast clock. If the fast clock is not
+        running, this action has no effect.</li>
+      </ul>
+
+      <p>In addition to setting the time using a constant value, the other LogixNG modes can be
+      used.   For example, the new time can be in a memory variable which will be used to set the
+      fast clock time.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/clock_memory.png"><img src="images/chapter5/clock_memory.png"
+        alt="Chapter 5 clock memory source"></a>
+      </div>
+
+      <p>The Memory <strong><em>listen</em></strong> option can used to automatically update the
+      fast clock time when the memory variable changes.  This eliminates the need to have a separate
+      expression to invoke the <strong>Set Fast Clock</strong> action.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_clock_rate">Clock Rate<span class="since">since 4.99.7</span></h4>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/clock_rate_action.png"><img src="images/chapter5/clock_rate_action.png"
+        alt="Chapter 5 clock rate action"></a>
+      </div>
+
+      <ul>
+        <li><strong>Set Clock Rate:</strong> Sets the rate for the fast clock to the entered value.
+        For example, a value of 4 will set the fast clock rate to 4:1, which is 15 real minutes for
+        a fast clock hour.</li>
+
+        <li><strong>Increase Clock Rate:</strong> Increase the fast clock speed by the entered
+        value.</li>
+
+        <li><strong>Decrease Clock Rate:</strong> Decrease the fast clock speed by the entered
+        value.</li>
+      </ul>
+
+      <p>The rate values can be whole numbers or decimals, such as .5.  The rate values can also
+      be supplied from the other LogixNG modes, such as a memory variable.</p>
+
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_dispatcher">Dispatcher</h4>
+
+      <p>A Dispatcher train only exists from the time it is created until it is terminated.
+      LogixNG uses the Dispatcher TrainInfo file to refer to a potential Dispatcher train.
+      See the <em>Saving and Retrieving Active Train Information</em> section at
+      <a href="https://www.jmri.org/help/en/package/jmri/jmrit/dispatcher/NewTrain.shtml">
+      Activate New Train</a>.  If the related train does not exist when the LogixNG action occurs,
+      the action will be ignored.  There will be no notification.</p>
+
+      <ul>
+        <li><strong>Load train from train info file:</strong> Create a new Dispatcher train using
+        the selected train info file.</li>
+        <li><strong>Terminate train:</strong> Terminate a Dispatcher train that was previously
+        started using LogixNG.</li>
+        <li><strong>Set train priority:</strong> Change the priority of a train.  The default is
+        5.  The allowed range is 0 to 100.</li>
+        <li><strong>Set Reset when Done:</strong> Enable or disable the <em>Reset when Done</em>
+        option.</li>
+        <li><strong>Set Terminate when Done</strong> Enable or disable the <em>Terminate when Done</em>
+        option.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_ed_logix">Enable/Disable Logix</h4>
+
+      <ul>
+        <li><strong>Enable:</strong> Enables the specified logix. Specify the logix to enable by
+        selecting its name.</li>
+
+        <li><strong>Disable:</strong> Disables the specified logix. Specify the logix to disable by
+        selecting its name.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_ed_logixng">Enable/Disable LogixNG<span class="since">since 5.7.5</span></h4>
+
+      <p>A LogixNG has to be both <strong>enabled</strong> and <strong>activated</strong> before it
+      will execute.</p>
+
+      <p><strong>Enable/Disable</strong> are intended to be persistent changes.
+      <strong>Activate/Deactivate</strong> are temporary changes.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/action_item_enable_disable_logixng.png"><img class="image-border"
+        src="images/chapter5/action_item_enable_disable_logixng.png"
+        alt="Chapter 5 enable disable logixng"></a>
+      </div>
+
+      <ul>
+        <li><strong>Enable:</strong> Enable the selected LogixNG. The setting will be retained when
+        a tables and panels store occurs.</li>
+
+        <li><strong>Disable:</strong> Disable the selected LogixNG. The setting will be retained when a
+        tables and panels store occurs.</li>
+
+        <li><strong>Activate:</strong> Activate the selected LogixNG. The change only persists during
+        the PanelPro session.</li>
+
+        <li><strong>Deactivate:</strong> Deactivate the selected LogixNG. The change only persists
+        during the PanelPro session.</li>
+
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+
+      <h4 id="EntryExitActions">Entry/Exit</h4>
+
+      <p>Manage an Entry/Exit pair.  The last three items are implemented in JMRI 5.5.7.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/entryexit_action.png"><img src=
+        "images/chapter5/entryexit_action.png" alt="Chapter 5 entryexit action"></a>
+      </div>
+
+      <dl>
+        <dt>Set NX Pair Enabled</dt>
+        <dd>Enable the selected Entry/Exit pair.</dd>
+
+        <dt>Set NX Pair Disabled</dt>
+        <dd>Disable the selected Entry/Exit pair.</dd>
+
+        <dt>Set Set NX Pair Segment Active / Inactive</dt>
+        <dd>Request that the route segment for the selected Entry/Exit Pair be activated if not
+        active or deactivated if active.  This toggles the active state.</dd>
+
+        <dt>Set NX Pair Inactive</dt>
+        <dd>Deactivate the Entry/Exit route for the selected Entry/Exit pair if it is currently
+        active.  The <strong>Cancel/Clear Down</strong> dialog will be displayed if a default action
+        has not been defined in the Entry/Exit options.</dd>
+
+        <dt>Set NX Pair Active</dt>
+        <dd>Activate the Entry/Exit route for the selected Entry/Exit pair if the route is not
+        currently active.  Depending on the types of conflicts, the activation may silently fail or
+        display a <strong>Route Not Clear</strong> dialog.</dd>
+
+        <dt>Set NX Pair Reversed</dt>
+        <dd>Activate the Entry/Exit route for the selected Entry/Exit pair in the reverse direction
+        if the route is not currently active.  Depending on the types of conflicts, the activation
+        may silently fail or display a <strong>Route Not Clear</strong> dialog.  This option is only
+        enabled for selected Entry/Exit pairs that have the <strong>Both Way</strong> option enabled.</dd>
+      </dl>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_light">Light</h4>
+
+      <ul>
+        <li><strong>Off:</strong> Set the selected light off.</li>
+
+        <li><strong>On:</strong> Set the selected light on.</li>
+
+        <li><strong>Toggle:</strong> Toggle the selected light.</li>
+
+        <li><strong>Set Intensity:</strong> Sets the intensity of a specified variable intensity
+        light to the entered intensity value. Specify the light to set by selecting its name.
+        Specify the intensity by entering the percent intensity as an integer in the range 0 to
+        100. If the specified light is not a variable light, or if the intensity value entered is
+        not an integer in the required range, an error message is displayed.</li>
+
+        <li><strong>Set Transition Time:</strong> Sets the transition time of a specified variable
+        intensity light to the entered time. Specify the light to set by selecting its name.
+        Specify the transition time by entering the number of fast clock minutes needed to move
+        from 0% intensity to 100% intensity. If the specified light is not a variable light, or if
+        a positive integer is not entered for the number of fast clock minutes, an error message
+        results.</li>
+
+        <li><strong>Unknown:</strong> Set the selected light state to unknown.</li>
+
+        <li><strong>Inconsistent:</strong> Set the selected light state to inconsistent.</li>
+
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_light_intensity">Light intensity</h4>
+
+      <p>The Light intensity action is an alternate method to set the Variable Light Intensity
+      value. The standard method sets the value directly from the action using any of the standard
+      input methods.</p>
+
+      <p>This action creates a child analog expression called <strong>Intensity</strong>. Analog
+      expressions are normally used to create a dynamic values, such as random numbers. Using the
+      <code>sin()</code> function along with the <a href="chapter6.shtml#MidnightMinutes">Minutes
+      since midnight</a> analog expression, it is possible to change light intensity based on the
+      time of the day using the fast clock or the system clock.</p>
+
+      <p>Here is an example using the sin() function.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/intensity_example.png"><img class="image-border" src=
+        "images/chapter5/intensity_example.png" alt="Chapter 5 intensity example"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_local_variable">Local variable</h4>
+
+      <p>Local variables are described in <a href="chapter8.shtml">Chapter 8 - Local
+      Variables</a>.</p>
+
+      <p>Instead of specific actions, local variables use <strong>tabs</strong> to select the
+      action.</p>
+
+      <ul>
+        <li><strong>Null:</strong> Select the <strong>Null</strong> tab to set the selected local
+        variable to the null value.</li>
+
+        <li><strong>Constant:</strong> Select the <strong>Constant</strong> tab, select the value <strong>Type</strong>
+        and enter a value for the selected local variable.
+          <ul>
+            <li>String</li>
+            <li>Integer</li>
+            <li>Floating number</li>
+            <li>Boolean (True/False)</li>
+          </ul>
+        </li>
+
+        <li><strong>Memory:</strong> Select the <strong>Memory</strong> tab and select the memory
+        which will provide the value for the selected local variable.</li>
+
+        <li><strong>Block:</strong> Select the <strong>Block</strong> tab and select the block
+        which will provide the value for the selected local variable.</li>
+
+        <li><strong>Reporter:</strong> Select the <strong>Reporter</strong> tab and select the
+        reporter which will provide the <em>current report</em> for the selected local variable.</li>
+
+        <li><strong>Variable:</strong> Select the <strong>Variable</strong> tab and enter the local
+        variable name which will provide the value for the selected local variable.</li>
+
+        <li><strong>Reference:</strong> Select the <strong>Reference</strong> tab and enter the
+        reference value which will provide the value for the selected local variable.</li>
+
+        <li><strong>Table:</strong> See <a href="chapter11.shtml#tableCellSelection">Simplified
+        Table Cell Reference</a>.  The rest of chapter 11 has all of the details on tables.</li>
+
+        <li><strong>Formula:</strong> Select the <strong>Formula</strong> tab and set the selected
+        local variable to the result of a formula calculation.</li>
+      </ul>
+
+      <p>Note: The Memory, Block and Reporter tabs have an option to listen to changes to their
+      value.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_memory">Memory</h4>
+
+      <p>Instead of specific actions, memory uses <strong>tabs</strong> to select the action.</p>
+
+      <ul>
+        <li><strong>Null:</strong> Select the <strong>Null</strong> tab to set the selected memory
+        to the null value.</li>
+
+        <li><strong>Constant:</strong> Select the <strong>Constant</strong> tab and enter a string
+        value for the selected memory.</li>
+
+        <li><strong>Memory:</strong> Select the <strong>Memory</strong> tab and select the memory
+        which will provide the value for the selected memory.</li>
+
+        <li><strong>Table:</strong> See <a href="chapter11.shtml#tableCellSelection">Simplified
+        Table Cell Reference</a>.  The rest of chapter 11 has all of the details on tables.</li>
+
+        <li><strong>Variable:</strong> Select the <strong>Variable</strong> tab and enter the local
+        variable name which will provide the value for the selected memory.</li>
+
+        <li><strong>Formula:</strong> Select the <strong>Formula</strong> tab and set the selected
+        memory to the result of a formula calculation.</li>
+
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_oblock">OBlock</h4>
+
+      <ul>
+        <li><strong>Deallocate Block:</strong> Deallocates an Occupancy block. Specify the OBlock
+        by selecting its name.</li>
+
+        <li><strong>Set Block Value:</strong> Set a value for the selected block.</li>
+
+        <li><strong>Set Block Error:</strong> Set the selected block status to "block error".</li>
+
+        <li><strong>Clear Block Error:</strong> Remove the "block error" status for the selected
+        block</li>
+
+        <li><strong>Set Block OutOfService:</strong> Sets the status of an Occupancy block to
+        Out-Of-Service. Specify the OBlock by selecting its name.</li>
+
+        <li><strong>Clear Block OutOfService:</strong> Sets the status of an Occupancy Block to the
+        current normal status. Specify the OBlock by selecting its name.</li>
+
+        <li><strong>Get Allocating Warrant:</strong> Copy the name of the Warrant that has this
+        OBlock allocated to a memory variable.</li>
+
+        <li><strong>Get Block Value (trainName):</strong> Copy the current value of this OBlock to a
+        memory variable.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_power">Power</h4>
+
+      <ul>
+        <li><strong>Off:</strong> Turn track power off.</li>
+
+        <li><strong>On:</strong> Turn track power on.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_pom">Program On Main<span class="since">since 5.7.3</span></h4>
+
+      <p>The Program on Main action provides the ability to change CV settings.  This is similar to
+      the <strong>Single CV Programmer</strong>.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/prog_on_main.png"><img class="image-border" src=
+        "images/chapter5/prog_on_main.png" alt="Chapter 5 program on main"></a>
+      </div>
+
+      <p>Depending on the command station, selecting a Long address for address less than 128 might
+      be ignored or create an error.</p>
+
+      <p>The roster is not used or updated.</p>
+
+      <p>A local variable can be assigned which will contain the results of the operation.  The local
+      variable is only updated if there are actions in the <strong>Execute</strong> action.  If the
+      value is not zero, there was an error.
+
+      </p>
+
+      <pre style="border: 2px solid #778899; margin: 1em; padding: 0.1em;">
+LogixNG: IQ:AUTO:0001
+    ConditionalNG: IQC:AUTO:0001
+        ! A
+            Many
+               ::: Local variable "result", init to None ""
+                ! A1
+                    Program CV 29 to 32 for address Autodetect 1234 using programming mode OPSBYTEMODE
+                        ! Execute
+                            Many
+                                ! A1
+                                    Log data: Only text: pom returned
+                                ! A2
+                                    Log local variables
+      </pre>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_reporter">Reporter</h4>
+
+      <p>The Reporter action is used to copy the report content to a memory variable or a LogixNG
+      local variable.  There are three kinds of information.</p>
+
+      <ul>
+        <li><strong>Current Report:</strong> The current value unless the hardware says there is
+        nothing to report.  In that case the value will be null.</li>
+
+        <li><strong>Last Report:</strong> Normally the current report and last report are the same.
+        If the current report is null, this will be most recent valid report.  If no report has ever
+        been received, this will be null.</li>
+
+        <li><strong>State:</strong> A number that represents the last report.</li>
+      </ul>
+
+      <p>Note:  The meaning of the reports and the state number are defined by originating
+      hardware.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="requestUpdateAll">Request update of all sensors<span class="since">since 5.1.6</span></h4>
+
+      <p>Request the current status of sensors.  The request can be limited to specific connections
+      or all connections.  The action depends on whether the connection supports sensor state
+      requests.</p>
+
+      <p>As of JMRI 5.7.5, supported connection types include :</p>
+      <ul>
+      <li>BiDiB</li>
+      <li>CBUS</li>
+      <li>C/MRI</li>
+      <li>IPOCS</li>
+      <li>Lenz XpressNet</li>
+      <li>LocoNet</li>
+      <li>OpenLCB</li>
+      <li>Roco Z21 CAN</li>
+      <li>XBee</li>
+      </ul>
+
+      <p>For connections that send individual Sensor status requests,
+      the delay between individual requests uses the connection Output Interval
+      within Additional Connection Settings.</p>
+
+      <p>Some hardware types, eg. Acela and NCE,
+      are constantly polled so this action may have little consequence.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/request_sensor_update.png">
+        <img src="images/chapter5/request_sensor_update.png" alt="Chapter 5 request sensor update"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_req_sensor">Request update of sensor<span class="since">since 5.7.4</span></h4>
+
+      <p>Request the current status of a specific sensor.  The action depends on whether the
+      connection supports sensor state requests.</p>
+
+      <p>As of JMRI 5.7.5, supported connection types include :</p>
+      <ul>
+      <li>BiDiB</li>
+      <li>CBUS</li>
+      <li>C/MRI</li>
+      <li>IPOCS</li>
+      <li>Lenz XpressNet</li>
+      <li>OpenLCB</li>
+      <li>Roco Z21 CAN</li>
+      <li>XBee</li>
+      </ul>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/request_sensor_state.png">
+        <img src="images/chapter5/request_sensor_state.png" alt="Chapter 5 request sensor state"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_req_turnout">Request update of turnout<span class="since">since 5.13.6</span></h4>
+
+      <p>Request the current status of a specific turnout.  The action depends on whether the
+      connection supports turnout state requests.</p>
+
+      <p>Depending on the accessory decoder a LocoNet request might work if the turnout feedback is
+      set to MONITORING or INDIRECT.</p>
+
+      <p>As of JMRI 5.7.5, supported connection types include :</p>
+      <ul>
+      <li>BiDiB</li>
+      <li>CBUS</li>
+      <li>C/MRI</li>
+      <li>IPOCS</li>
+      <li>Lenz XpressNet</li>
+      <li>OpenLCB</li>
+      <li>Roco Z21 CAN</li>
+      <li>XBee</li>
+      </ul>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/request_turnout_state.png">
+        <img src="images/chapter5/request_turnout_state.png" alt="Chapter 5 request turnout state"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_route">Route</h4>
+
+      <ul>
+        <li><strong>Trigger route:</strong> Triggers the specified route. Specify the route by
+        selecting its name.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="script">Script</h4>
+
+      <ul>
+        <li><strong>Run script:</strong> Starts the specified script. Specify the script to start
+        by entering its name in the field provided or use the "..." file selector.</li>
+
+        <li><strong>Single line command:</strong> Enter the command in the Script field.</li>
+
+        <li><strong>Type of script:</strong> Supported script types are <strong>Jython Files</strong>
+        and <strong>ECMAScript Files</strong>.</li>
+      </ul>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/digital_action_script.png">
+        <img src="images/chapter5/digital_action_script.png" alt="Chapter 5 digital action script"></a>
+      </div>
+
+      <p>For details on accessing LogixNG objects from a script see <a href="chapter13.shtml">
+      Chapter 13 - Jython Scripting Support</a>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_sensor">Sensor</h4>
+
+      <p>The delayed options are handled by <a href="#ExecuteDelayed">Execute Delayed</a>.</p>
+
+      <ul>
+        <li><strong>Inactive:</strong> Set the selected sensor to inactive.</li>
+
+        <li><strong>Active:</strong> Set the selected sensor to active.</li>
+
+        <li><strong>Toggle:</strong> Toggle the state of the selected sensor.</li>
+
+        <li><strong>Unknown:</strong> Set the selected sensor state to unknown.</li>
+
+        <li><strong>Inconsistent:</strong> Set the selected sensor state to inconsistent.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_set_reporter">Set reporter<span class="since">since 5.7.5</span></h4>
+
+      <p>Set a value for the selected Reporter.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/action_item_set_reporter.png">
+        <img src="images/chapter5/action_item_set_reporter.png"
+        alt="Chapter 5 set reporter"></a>
+      </div>
+
+      <p>The <strong>Set reporter as an IdTag</strong> option is used to  provide the report as an
+      IdTag if it's not an IdTag already.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_signal_head">Signal head</h4>
+
+      <ul>
+        <li><strong>appearance:</strong> Sets the specified signal head to the selected appearance.
+        Specify the signal head to set by selecting its name. Select the appearance Appearance
+        list.</li>
+
+        <li><strong>lit:</strong> Sets the specified signal head to lit. Specify the signal head by
+        selecting its name.</li>
+
+        <li><strong>not lit:</strong> Sets the specified signal head to not lit. Specify the signal
+        head by selecting its name.</li>
+
+        <li><strong>held:</strong> Sets the specified signal head to hold. Specify the signal head
+        to hold by selecting its name.</li>
+
+        <li><strong>not held:</strong> Clears the hold on the specified signal head. Specify the
+        signal head by selecting its name.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_signal_mast">Signal mast</h4>
+
+      <ul>
+        <li><strong>aspect:</strong> Sets the specified signal mast to the selected aspect. Specify
+        the signal mast to set by selecting its name. Select the aspect from the Aspect list.</li>
+
+        <li><strong>lit:</strong> Sets the specified signal mast to not lit. Specify the signal
+        mast by selecting its name.</li>
+
+        <li><strong>not lit:</strong> Sets the specified signal mast to not lit. Specify the signal
+        mast by selecting its name.</li>
+
+        <li><strong>held:</strong> Sets the specified signal mast to held. Specify the signal mast
+        to hold by selecting its name.</li>
+
+        <li><strong>not held:</strong> Clears the hold on the specified signal mast. Specify the
+        signal mast by selecting its name.</li>
+
+        <li><strong>permissive sml disabled:</strong> Disable permissive SML for the selected
+        signal mast.</li>
+
+        <li><strong>permissive sml not disabled:</strong> Enable permissive SML for the selected
+        signal mast.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_sound">Sound</h4>
+
+      <p>Plays the specified sound file. Specify the sound file to play by entering its name in the
+      field provided. Click the file selection button to bring up a file selection dialog to aid in
+      finding the file. Navigate to your sound file, then click your sound file's name in the
+      dialog and the name will be copied to the field.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_table">Table<span class="since">since 5.7.4</span></h4>
+
+      <p>Replace the content of the specified table cell.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/table_action.png">
+        <img src="images/chapter5/table_action.png" alt="Chapter 5 table action"></a>
+      </div>
+
+      <p class="noted">Note: Since tables are created from CSV files during PanelPro startup, the content
+      changes are temporary.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_throttle">Throttle</h4>
+
+      <p>The Throttle action controls a throttle.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/throttle_dialog.png"><img src="images/chapter5/throttle_dialog.png"
+        alt="Chapter 5 throttle dialog"></a>
+      </div>
+
+      <p>The LogixNG throttle can use either the default throttle connection or an alternate throttle
+      connection.  The default connection is defined in <strong>Preferences &rArr; Defaults</strong>.
+      If there is more than one connection, other connections <strong><em>might</em></strong>
+      support a throttle.</p>
+
+      <p><span class="since">since 5.9.5</span>When enabled, the <strong>Stop loco when switching loco</strong>
+      option stops the loco before switching to another loco.  This is the default and was the
+      previous behavior. <em><strong>Warning:</strong> When the option is disabled and and a loco
+      change occurs, the previous loco will continue running until some other process tells it to stop.</em></p>
+
+      <p><span class="since">since 5.15.4</span>When enabled, the <strong>Wait for throttle</strong>
+      option acquires a throttle, performs the action and then releases the throttle.  This can also
+      be used to a release a throttle that had been previously acquired.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/throttle_action.png"><img src="images/chapter5/throttle_action.png"
+        alt="Chapter 5 throttle action"></a>
+      </div>
+
+      <dl>
+        <dt>Address &mdash; Analog Expression</dt>
+        <dd>Value between 1 and 9999.</dd>
+
+        <dt>Speed &mdash; Analog Expression</dt>
+        <dd>Value between 0.0 and 1.0.</dd>
+
+        <dt>Direction &mdash; Digital Expression</dt>
+        <dd>True for forward.</dd>
+
+        <dt>Function &mdash; Analog Expression</dt>
+        <dd>Value between 0 and 28.</dd>
+
+        <dt>FunctionOnOff &mdash; Digital Expression</dt>
+        <dd>True for function on</dd>
+      </dl>
+
+      <p>The analog expressions can be an analog memory expression or an analog constant
+      expression. In the future, AnalogIO will also be available.</p>
+
+      <p>The digital expressions are either <strong>Always true</strong> or <strong>Always false
+      </strong>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_throttle_function">Throttle function<span class="since">since 5.5.6</span></h4>
+
+
+      <p>The <strong>Throttle function</strong> action is similar to the <strong>Throttle</strong>
+       action, except that it only sets a throttle function <strong>On</strong> or <strong>Off</strong>.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/throttle_function.png"><img src="images/chapter5/throttle_function.png"
+        alt="Chapter 5 throttle function"></a>
+      </div>
+
+      <p>The <strong>Connection</strong> drop down can be used to specify the connection to be used.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_turnout">Turnout</h4>
+
+      <p>The delayed options are handled by <a href="#ExecuteDelayed">Execute Delayed</a>.</p>
+
+      <ul>
+        <li><strong>Closed:</strong> Set the selected turnout closed.</li>
+
+        <li><strong>Thrown:</strong> Set the selected turnout thrown.</li>
+
+        <li><strong>Toggle:</strong> Toggle the state of the selected turnout.</li>
+
+        <li><strong>Unknown:</strong> Set the selected turnout state to unknown.</li>
+
+        <li><strong>Inconsistent:</strong> Set the selected turnout state to inconsistent.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="item_turnout_lock">Turnout, lock</h4>
+
+      <p>Locks or unlocks a turnout. Select the name for the turnout, and choose the operation from
+      the popup menu. Note: To control the type of turnout lock go to the Turnout Table and select
+      the Lock Mode.</p>
+
+      <ul>
+        <li><strong>Lock:</strong> Lock the selected turnout.</li>
+
+        <li><strong>Unlock:</strong> Unlock the selected turnout.</li>
+
+        <li><strong>Toggle:</strong> Toggle the lock state for the selected turnout.</li>
+      </ul>
+
+      <p>Note: Turnout locking refers to preventing external turnout position changes.  It does not
+      affect JMRI turnout actions.  For details, see
+      <a href="../../../../package/jmri/jmrit/beantable/TurnoutTable.shtml#Turnout_lock_feature">
+      Turnout Table Locking</a>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="WarrantAction">Warrant</h4>
+
+      <ul>
+        <li><strong>Allocate Warrant Route:</strong> Allocates (reserves) the OBlocks comprising
+        the route of the warrant for use by the warrant. Specify the warrant by selecting its
+        name.</li>
+
+        <li><strong>Deallocate Warrant:</strong> Deallocates the OBlocks comprising the route of
+        the warrant so they may be allocated to other warrants. Specify the warrant by selecting
+        its name.</li>
+
+        <li><strong>Set Route Turnouts:</strong> Sets all the turnouts comprising the route of the
+        warrant. Specify the warrant by selecting its name.</li>
+
+        <li><strong>Auto Run Train:</strong> Starts playback of the recorded script for the train
+        specified in the warrant. Specify the warrant by selecting its name.</li>
+
+        <li><strong>Manually Run Train:</strong> Serves a "clearance" to an operator that a humanly
+        run train has running rights for the extent of the warrant's route. Specify the warrant by
+        selecting its name.</li>
+
+        <li>
+          <strong>Control Auto Train:</strong> Issues the specified command to an auto run train.
+          Specify the warrant of the train by selecting its name. The commands are:
+          <ul>
+            <li>Halt</li>
+
+            <li>Resume</li>
+
+            <li>Abort</li>
+
+            <li>Stop</li>
+
+            <li>EStop</li>
+
+            <li>MoveToNext</li>
+
+            <li>SpeedUp</li>
+          </ul>
+        </li>
+
+        <li><strong>Set Train ID:</strong> Set the train ID from the roster or the DCC address.
+        When a DCC address is used, also specify Long or Short. Example: 1234(L) or 10(S).</li>
+
+        <li><strong>Set Train Name:</strong> Set the train Name for the selected Warrant.</li>
+
+        <li><strong>Current Location:</strong> Copy the current OBlock name for the selected warrant
+        to a memory variable.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_common">Digital action :: Common</h2>
+
+      <ul class="sub-links">
+        <li><a href="#digital_formula">Digital Formula</a></li>
+        <li><a href="#ExecuteDelayed">Execute delayed</a></li>
+        <li><a href="#many_action">Many</a></li>
+        <li><a href="#analog_values">Read analog and set analog</a></li>
+        <li><a href="#string_values">Read string and set string</a></li>
+        <li><a href="#timeraction">Timer</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="digital_formula">Digital Formula<span class="since">since 4.25.8</span></h4>
+
+      <p>The <strong>Digital Formula</strong> action provides the ability to create formulas that
+      are not directly related to other items, such as sensors, which use the Formula tab.</p>
+
+      <p>The formula action is in particular useful when working with local variables. You can for
+      example increase a local variable by the formula <code>index++</code> or make some
+      calculations, like <code>turnout = name.substring(2)</code> which removes the first two
+      characters from the string.</p>
+
+      <p>The dialog for creating a Digital Formula consists of a single text field.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/digital_formula_dialog.png"><img src=
+        "images/chapter5/digital_formula_dialog.png" alt="Chapter 5 digital formula dialog"></a>
+      </div>
+
+      <p>See <a href="chapter9.shtml">Chapter 9 - Formula</a> for details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4  id="ExecuteDelayed">Execute delayed</h4>
+
+      <p>Delay the execution of the following <strong><em>action</em></strong> for a specified amount
+      of time.  The <strong><em>action</em></strong> can be a single action similar to the Logix
+      <strong>Delayed Set ...</strong>, but this can be any item, such as signals.  The
+      <strong><em>action</em></strong> can be a series of actions by using the <strong>Many</strong>
+      action.  It can be a complex action by using an <strong>If-Then-Else</strong> action.</p>
+
+      <p class="noted">Note:  When using If-Then-Else, the <strong>Always execute</strong> option is
+      required.  Any expressions that refer to JMRI table items, such as sensors, turnouts, signals, etc.,
+      need to use the <strong>No Listen</strong> option.</p>
+
+      <p>When the timer starts, a copy of the current local variables is attached to the
+      <strong><em>action</em></strong> that will be run when the timer delay is done.  This makes it
+      possible to pass data to the future <strong><em>action</em></strong>.</p>
+
+      <dl>
+        <dt>Delay duration</dt>
+        <dd>
+          <p>The time delay units are milliseconds, seconds, minutes and hours.</p>
+        </dd>
+
+        <dt>Reset timer if already started</dt>
+        <dd>
+          <p>The default mode is that once a timer starts, subsequent requests will be ignored. If
+          this option is enabled and a timer is already running, it will be canceled and started
+          again.  The local variables will be based on the current values at the time of the reset.</p>
+        </dd>
+
+        <dt>Use individual timers</dt>
+        <dd>
+          <p>This option makes it possible to pass different local variable values to a series of
+          timers.  The actions will be the same but the data can be different.  Note:  This option
+          disables the reset option.</p>
+        </dd>
+      </dl>
+
+      <p>There is no <strong>Cancel timer</strong> capability.  If there might be a need to prevent
+      the action from running, an If-Then-Else as the first step of the action can be used to check
+      some item, such as a sensor, to see if the action should proceed.</p>
+
+      <p>See <a href="#timeout">Timeout</a> for a conditional delayed execution.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute_delay.png"><img src="images/chapter5/execute_delay.png"
+        alt="Chapter 5 execute_delay"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="many_action">Many</h4>
+
+      <p>The Many action executes many child actions.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="analog_values">Read analog and set analog</h4>
+
+      <p>Read an analog child expression and execute an analog child action.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="string_values">Read string and set string</h4>
+
+      <p>Read a string child expression and execute a string child action.  This is used to copy
+      string values from a Memory, a StringIO or as a constant.  The destination will be a Memory
+      or a StringIO.  There are special expressions and actions.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/read_set_string.png"><img src="images/chapter5/read_set_string.png"
+        class="image-border" alt="Chapter 5 read set string"></a>
+      </div>
+
+      <p>Expressions</p>
+      <ul>
+        <li><a href="chapter6.shtml#mem_expression">Memory</a></li>
+        <li><a href="chapter6.shtml#con_expression">Constant</a></li>
+        <li><a href="chapter6.shtml#sio_expression">StringIO</a></li>
+      </ul>
+
+      <p>Actions</p>
+      <ul>
+        <li><a href="#mem_action">Memory</a></li>
+        <li><a href="#sio_action">StringIO</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="timeraction">Timer</h4>
+
+      <p><strong>Timer</strong> has a number of actions, each executed after a period of time. The
+      time to wait can be 0, which means the related action is executed immediately.</p>
+
+      <p>Options:</p>
+      <dl style="margin-left: 2em;">
+        <dt>Start timer immediately on load</dt>
+        <dd>When selected, the timer steps will start when the LogixNG has been loaded.  If this
+        option is not selected, a <strong>Start</strong> expression will be used to start the timer
+        steps when the expression becomes true.</dd>
+
+        <dt>Run timer continuously</dt>
+        <dd>If not selected, the timer will run one time and then stop.  When selected, the timer
+        steps will repeat.  A <strong>Stop</strong> expression can be used to stop the timer
+        steps when the expression becomes true.  The Stop expression can use the same object, such
+        as a sensor that starts the timer when active and then stops the timer when the sensor is
+        inactive.</dd>
+
+        <dt>Start/Stop by Start expression</dt>
+        <dd>When selected, the timer will start when the <strong>Start</strong> expression becomes
+        true and will stop when the <strong>Start</strong> expression becomes false.  The <strong>
+        Stop</strong> expression is ignored.</dd>
+
+        <dt>Combo Box</dt>
+        <dd>Select the time unit.</dd>
+
+        <dt>Delay by local variables</dt>
+        <dd>Instead of using fixed delay times, it is possible to assign delay times to local
+        variables.  The timer step number will be appended to the prefix value, such as delay1,
+        delay2, etc.</dd>
+      </dl>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/timer_dialog.png"><img src="images/chapter5/timer_dialog.png" alt=
+        "Chapter 5 timer dialog"></a>
+      </div>
+
+      <p>If all times to wait are zero, the timer will automatically stop after executing all the
+      actions once, even if it is set to run continuously. This is a safety feature to avoid
+      locking up JMRI.</p>
+
+      <p>To add a socket for the Timer action, edit the Timer and click the <strong>Add
+      timer</strong> button and a new socket will be added to the end. To remove a socket for the
+      Timer action, edit the Timer and click the <strong>Remove timer</strong> button and the last
+      socket will be removed. The socket can only be removed if there is no action connected to
+      it.</p>
+
+      <p>This example shows using the Timer to implement a traffic light. Note: This example shows
+      renaming the A1, A2, etc. sockets to meaningful names.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/timer_example.png"><img class="image-border"
+        src="images/chapter5/timer_example.png" alt="Chapter 5 timer example"></a>
+      </div>
+
+      <p>Another example is using a Timer to blink a light. Create a Timer with a single socket and
+      a Light action that toggles the light on/off. If you want different times for on and off,
+      create a Timer with two sockets where the first socket turns the light on and the second
+      socket turns the light off.</p>
+
+      <p>The <strong>Timer</strong> action can be used in LogixNG Modules.  Due to the nature of
+      repetitive timer events, there are some restrictions.</p>
+
+      <ul>
+        <li>The calling LogixNG and the Module run all of their actions with each Timer step.
+        Avoid including any other logic in the calling LogixNG or the Module.</li>
+
+        <li>The trigger event for the LogixNG can be either a if-then-else with the expression
+        set for <strong>Always execute</strong> or a <strong>Listen on beans</strong> item.</li>
+
+        <li><strong>Start/Stop by Start expression</strong> is selected.</li>
+
+        <li>The <strong>Start</strong> expression for the Timer should be the <strong>Always true</strong> expression.</li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_flow_control">Digital action :: Flow Control
+      <span class="since">since 5.1.3</span></h2>
+
+      <ul class="sub-links">
+        <li><a href="#flow_break">Break</a></li>
+        <li><a href="#flow_call_module">Call module</a></li>
+        <li><a href="#flow_continue">Continue</a></li>
+        <li><a href="#flow_error">Error</a></li>
+        <li><a href="#flow_exit">Exit</a></li>
+        <li><a href="#flow_for">For</a></li>
+        <li><a href="#foreach">For each</a></li>
+        <li><a href="#foreachdelay">For each with delay</a></li>
+        <li><a href="#if-then-else">If Then Else</a></li>
+        <li><a href="#flow_return">Return</a></li>
+        <li><a href="#flow_run_once">Run once</a></li>
+        <li><a href="#sequence_id">Sequence</a></li>
+        <li><a href="#flow_table_for_each">Table: For each</a></li>
+        <li><a href="#flow_validation_error">Validation Error</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_break">Break</h4>
+
+      <p>Breaks the execution of a <strong>For</strong>, <strong>For each</strong> or
+      <strong>Table: For each</strong> action.</p>
+
+      <p>If Break happens in a Module and there is no loop in the Module itself, it breaks the loop
+      in the calling ConditionalNG or Module.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_call_module">Call module</h4>
+
+      <p>See <a href="chapter10.shtml#DigitalActionModule">Chapter 10 - Modules</a> for
+      details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_continue">Continue</h4>
+
+      <p>Continues the execution of a <strong>For</strong>, <strong>For each</strong> or
+      <strong>Table: For each</strong> action.</p>
+
+      <p>The current execution is aborted and the next loop is executed.</p>
+
+      <p>If Continue happens in a Module and there is no loop in the Module itself, it continues the
+      loop in the calling ConditionalNG or Module.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_error">Error</h4>
+
+      <p>Triggers an error and displays the standard error dialog.</p>
+
+      <p><span class="since">since 5.15.1</span>The error message has been changed from a simple
+      text box to multiple input options including formulas.  This makes it possible to create
+      better messages.  <em>Note:  The storage format has changed. Any existing occurrences of
+      <strong>Error</strong> actions will prevent loading the xml data file with previous versions
+      of JMRI.</em>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/error_action_dialog.png"><img class="image-border"
+         src="images/chapter5/error_action_dialog.png" alt="Chapter 5 error action dialog"></a>
+      </div>
+
+      <p>This might be useful if a particular condition should never occur in the ConditionalNG or
+      Module. In this case, the Error action can be used to alert the user.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_exit">Exit</h4>
+
+      <p>Exits the execution of the ConditionalNG. If the Exit action is in a Module, the Module and
+      the ConditionalNG will be exited.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_for">For</h4>
+
+      <p>For is a for-loop. It has four children.</p>
+
+      <ul>
+        <li><strong>Init</strong> - this action is executed only one time. It's used to initialize
+        the loop, for example setting a Memory to a particular value.</li>
+
+        <li><strong>While</strong> - this expression decides if the loop should run one lap more.
+        The loop will continue to run until this condition will be <strong>false</strong>.</li>
+
+        <li><strong>AfterEach</strong> - this action is executed at the end of the loop. It can for
+        example be used to increment a counter in a Memory.</li>
+
+        <li><strong>Do</strong> - this action is executed in each loop. It does the main work.</li>
+      </ul>
+
+      <p>When For is executed, the Init action is run once. After that, the While expression is
+      evaluated. If the While returns <strong>true</strong>, the Do action is executed and at last
+      the AfterEach action is executed. Then the process is repeated, except that the Init action
+      is only executed once.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="foreach">For each<span class="since">since 5.1.3</span></h4>
+
+      <p><strong>For each</strong> takes a Collection, a Map or a Manager as parameter and loops
+      thru all the items.  For maps, each item is a Map.Entry. Use <code>getKey()</code> and
+      <code>getValue()</code> to get the key and the value of each item in the map.  If the
+      parameter is a manager, the method <code>getNamedBeanSet()</code> is called to get all the
+      named beans in the manager.</p>
+
+      <p>Each item is placed in a specified local variable.  The action is then invoked for
+      each item.</p>
+
+      <p>The following example sets all of the sensors to Inactive.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/for_each_sample.png"><img class="image-border"
+         src="images/chapter5/for_each_sample.png" alt="Chapter 5 for each"></a>
+       </div>
+
+      <p>For another example, see <a href="#lob_lv">Listen on beans - Local variable</a>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+
+      <h4 id="foreachdelay">For each with delay<span class="since">since 5.13.6</span></h4>
+
+      <p><strong>For each with delay</strong> combines <a href="#foreach">For each</a> with
+      <a href="#ExecuteDelayed">Execute delayed</a>.  Compared to <em>For each</em>, the difference
+      is that the action to be executed for each item will be delayed.  A good example is setting
+      turnouts to a known state without overloading the command station or the DCC connection.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/for_each_delay.png">
+        <img src="images/chapter5/for_each_delay.png" alt="Chapter 5 for each with delay"></a>
+      </div>
+
+      <p>While the timer options work the same as <em>Execute delayed</em>, there are some potential
+      issues if either option is selected.</p>
+
+      <dl>
+        <dt>Reset timer if already started</dt>
+        <dd>Only some items will be processed if the action is run again before the previous task
+        has finished.</dd>
+
+        <dt>Use individual timers</dt>
+        <dd>There is a possibility that a lot of items will be processed at the same time.</dd>
+      </dl>
+
+      <p>For best results do not use the timer options.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="if-then-else">If Then Else</h4>
+
+      <p>Reads a digital child expression and if the answer is <strong>true</strong> it executes
+      the <strong>then</strong> child action, else it executes the <strong>else</strong> child
+      action.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/digital_action_ifthenelse.png"><img src=
+         "images/chapter5/digital_action_ifthenelse.png" alt="Chapter 5 if then else dialog"></a>
+      </div>
+
+      <p>There are two settings that control the if-then-else processing.</p>
+
+      <p><u>When is the If-Then-Else executed</u></p>
+
+      <dl>
+        <dt>Execute on change</dt>
+        <dd> Executes the Then or the Else action only when the If expression has changed from True
+        to False, or from False to True.  Note that the expression is assumed to be changed whenever
+        the LogixNG is first enabled (including when the xml data file is loaded with "enabled"
+        checked). In the simple example  below, Light IL2 will be set "on" when the LogixNG is first
+        enabled (Sensor IS1 status is "unknown").  When the sensor is changed to "inactive" the
+        lights will not change.  When the sensor is then changed to "active," the Light IL1 will
+        also go "on".</dd>
+
+        <dt>Always execute</dt>
+        <dd>Executes the Then or the Else action every time the <strong>If Then Else</strong> action
+        is executed, regardless of whether the expression has changed value.</dd>
+      </dl>
+
+      <p class="noted">The default execution setting can be change using
+      <strong>Preferences &rArr; LogixNG</strong>.</p>
+
+      <p><u>How is the If expression evaluated</u><span class="since">since 5.1.6</span></p>
+
+      <dl>
+        <dt>Evaluate all expressions</dt>
+        <dd>All of the expression elements are evaluated to determine the true/false state of the
+        <strong>If</strong>.</dd>
+
+        <dt>Evaluate needed expressions</dt>
+        <dd>Evaluate each expression element until true/false is determined.  An <strong>And</strong>
+        series ends when an element is false. An <strong>Or</strong> series ends when an element is
+        true.</dd>
+      </dl>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/if_then_else.jpg"><img class="image-border"
+         src="images/chapter5/if_then_else.jpg" alt="Chapter 5 if then else"></a>
+      </div>
+
+      <h5>Else_If<span class="since">since 5.1.3</span></h5>
+
+      <p>The <strong><em>Else_If</em></strong> option provides a compact method to collapse a
+      repetitive nested <strong><em>If-Then-Else</em></strong> tree.</p>
+
+      <p>To create a new Else_If expression/action pair, right click on the <strong>Else</strong>
+      row and select <strong>Insert new socket before</strong>.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/else_if_insert.png"><img class="image-border" src=
+         "images/chapter5/else_if_insert.png" alt="Chapter 5 else if insert"></a>
+      </div>
+
+      <p>A new expression/action pair will be added before the Else.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/else_if_items.png"><img class="image-border"
+         src="images/chapter5/else_if_items.png" alt="Chapter 5 else if items"></a>
+      </div>
+
+      <p>Here is simple example of using LogixNG to create signal logic.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/else_if_example.png"><img src=
+         "images/chapter5/else_if_example.png" alt="Chapter 5 else if example"></a>
+      </div>
+
+      <p>The example first checks the turnout block.  If that is ok, it then checks the route
+      to each possible destination signal based on the turnout state.  If nothing works, it sets
+      the signal to display <strong>Stop</strong>.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/else_if_sample.png"><img src=
+         "images/chapter5/else_if_sample.png" alt="Chapter 5 else if sample"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_return">Return</h4>
+
+      <p>Returns from the Module or the ConditionalNG.</p>
+
+      <p>If Return is in a ConditionalNG, it's the same as Exit. But if it's in a Module, it only
+      exits the Module, not the ConditionalNG.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_run_once">Run once<span class="since">since 5.3.1</span></h4>
+
+      <p>Run the assigned action only one time during a JMRI session.</p>
+
+      <p>The assigned action will be the <strong>Many</strong> action if there is more than one
+      action to be performed.  This provides an alternate method compared to <strong>Trigger once
+      </strong> for startup initialization.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="sequence_id">Sequence</h4>
+
+      <p>The Sequence action executes a series of action/expression pairs. For each pair, the
+      action will be performed and then the expression will wait until it becomes true. When it is
+      true, the next action/expression pair will be started.  The <a href="chapter6#timer_id">Timer</a>
+      expression can be used to do a time based step instead of an event based step.</p>
+
+      <p>When a Sequence is created, it has one A/E pair.  To add more pairs, right click the last
+      <strong>Expression</strong> entry and select <strong>Insert new socket after</strong>. To
+      insert a new A/E pair, right click an <strong>Action</strong> item and select <strong>Insert
+      new socket before</strong> or right click an <strong>Expression</strong> item and select
+      <strong>Insert new socket after</strong>.</p>
+
+      <p>If an <strong>Action</strong> is used with a socket <strong>after</strong> or an
+      <strong>Expression</strong> is used with a socket <strong>before</strong>, the new pair will be
+      between the old pair A and E.  Now the sequence is <strong>old A &rArr; new E &rArr; new A &rArr; old E</strong>.
+      The socket names don't actually have any meaning.  It is the sequence in the editor display
+      which creates the actual A/E pairs.</p>
+
+      <p>To delete a pair, right click on the <strong>Action</strong> and select <strong>Remove socket</strong>.
+      The A/E pair has to be empty before it can be removed.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/action_sequence_options.png"><img src=
+        "images/chapter5/action_sequence_options.png" alt="Chapter 5 sequence options"></a>
+      </div>
+
+      <p>Options:</p>
+
+      <ul>
+        <li><strong>Start sequence immediately on load</strong> &mdash; Run the sequence when the
+        data file loading is done.</li>
+
+        <li><strong>Run sequence continuously</strong> &mdash; The sequence will repeat forever or
+        until stopped.  If this option is not selected, the sequence will run one time and the
+        sequence can be started again later.</li>
+      </ul>
+
+      <p>When a sequence action is added, it has connections for <strong>Start</strong>, <strong>
+      Stop</strong> and <strong>Reset</strong> expressions.
+
+      <ul>
+        <li><strong>Start:</strong> When the <strong>Start</strong> expression is true, the sequence
+        will start with the first action/expression pair or resume if a stop occurred during the
+        sequence.</li>
+
+        <li><strong>Stop:</strong> When the <strong>Stop</strong> expression is true, the sequence
+        will stop running.</li>
+
+        <li><strong>Reset:</strong> When the <strong>Reset</strong> expression is true, the sequence
+        will be interrupted if running, and return to the first action/expresson pair.</li>
+      </ul>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/action_sequence.png"><img class="image-border"
+        src="images/chapter5/action_sequence.png" alt="Chapter 5 sequence action"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_table_for_each">Table: For each</h4>
+
+      <p>See <a href="chapter11.shtml#TableActions">Chapter 11 - Table Actions</a> for details on
+      table actions.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="flow_validation_error">Validation Error<span class="since">since 5.15.1</span></h4>
+
+      <p>This is similar to the Error action but it uses a standard dialog instead of the error dialog.</p>
+
+      <p>Enter the text to be displayed using one of the input types. The <strong>format()</strong>
+      function can be used to insert content such as local variable values into the text string.</p>
+
+      <p>This is a sample dialog.</p>
+
+      <div style="margin-left: 2em;">
+         <a href="images/chapter5/validation_error_dialog.png"><img class="image-border"
+         src="images/chapter5/validation_error_dialog.png" alt="Chapter 5 validation error dialog"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_display">Digital action :: Display</h2>
+
+      <ul class="sub-links">
+        <li><a href="#layout_audio_icon">Audio icon on web panel</a></li>
+        <li><a href="#display_by_class_on_panel">Icon/Label by class on panel</a></li>
+        <li><a href="#display_icon_on_panel">Icon/Label on panel</a></li>
+        <li><a href="#display_turnout_on_panel">Turnout on LayoutPanel</a></li>
+        <li><a href="#layaout_window_management">Window management</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="layout_audio_icon">Audio icon on web panel<span class="since">since 5.5.6</span></h4>
+
+      <p>The Audio Icons on JMRI panels can be used to play sounds on devices displaying JMRI panels
+      using a web browser.  The <strong>Audio icon on web panel</strong> action can be used to start
+      and stop the audio source assigned to the audio icon.  For example, LogixNG can play notification
+      sounds on a dispatcher panel.</p>
+
+      <p>Note: The sound will not be played on the computer running JMRI. If desired, use the
+      <strong>Audio</strong> action to play the sound locally.</p>
+
+      <p>Before creating the action, assign an id to the Audio Icon using <strong>Edit Id</strong>
+      from the icon context menu.</p>
+
+      <p>Select the panel, the id for the Audio Icon and whether to <strong>Play</strong> or
+      <strong>Stop</strong> the sound.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_audio_icon.png"><img src=
+        "images/chapter5/layout_audio_icon.png" alt="Chapter 5 layout audio icon"></a>
+      </div>
+
+      <p>If the Audio Icon is to be used only by the action, the icon can be hidden.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="display_by_class_on_panel">Icon/Label by class on panel<span class="since">since 5.5.4</span></h4>
+
+      <p>Disable/Enable/Hide/Show all of the icons or labels on a specific panel that been assigned
+      a class name.</p>
+
+      <p>Icons and labels don't have names.  To identify the icon or label, the <strong>Edit Classes...
+      </strong> menu item in the right click context menu is used to assign a class name.  A class
+      name cannot have a comma.  Multiple classes separated by commas can be assigned.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_icon_label_classes.png"><img src=
+        "images/chapter5/layout_icon_label_classes.png" alt="Chapter 5 layout icon/label classes"></a>
+      </div>
+
+      <p>Select the panel and one of the classes.  Select the desired action.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_icon_label_class.png"><img src=
+        "images/chapter5/layout_icon_label_class.png" alt="Chapter 5 layout icon/label class action"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="display_icon_on_panel">Icon/Label on panel</h4>
+
+      <p>Disable/Enable/Hide/Show an icon or label on a specific panel.</p>
+
+      <p>Icons and labels don't have names.  To identify the icon or label, the <strong>Edit Id...
+      </strong> menu item in the right click context menu is used to assign a name.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_icon_label_id.png"><img src=
+        "images/chapter5/layout_icon_label_id.png" alt="Chapter 5 layout icon/label id"></a>
+      </div>
+
+      <p>Select the panel and one of the ids.  Select the desired action.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_icon_label.png"><img src=
+        "images/chapter5/layout_icon_label.png" alt="Chapter 5 layout icon/label action"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="display_turnout_on_panel">Turnout on LayoutPanel<span class="since">since 5.3.1</span></h4>
+
+      <p>Disable/Enable a turnout item on a specific Layout Editor panel.  A separate action is
+      needed since the turnout image on a Layout Editor panel is not an icon.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_turnout.png"><img src=
+        "images/chapter5/layout_turnout.png" alt="Chapter 5 layout turnout action"></a>
+      </div>
+
+      <p>The action applies to a single turnout item.  To change all of the turnouts, use a
+      <strong>For each</strong> action.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/layout_turnout_foreach.png"><img class="image-border" src=
+        "images/chapter5/layout_turnout_foreach.png" alt="Chapter 5 layout turnout for each"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="layaout_window_management">Window management<span class="since">since 5.7.6</span></h4>
+
+      <p>JMRI uses a lot of windows.  Each panel is a window, various tools have windows, tables
+      can be shown in windows, etc.  The <strong>Window management</strong> action provides
+      three tools to help manage the windows.</p>
+
+      <dl>
+        <dt>Show/Hide</dt>
+        <dd>The <strong>visibility</strong> of the window is changed.  The window size and location
+        are not affected.</dd>
+
+        <dt>Maximize/Normalize/Minimize</dt>
+        <dd>Minimize and normalize use the OS process to move the window to and from the task bar or
+        dock.  Normalize returns the window to the same location and size.  Maximize fits the
+        window to the screen size.  Normalize will return the window to the orignal location and
+        size.  <strong><em>There is one exception</em></strong>. If the window location or size has
+        changed while maximized, that becomes the new location and size and normalize will not
+        revert to the previous location and size.</dd>
+
+        <dt>To front/back</dt>
+        <dd><strong>Bring to front</strong> makes the window the top window. <strong>Bring to
+        back</strong> makes the window the bottom window.
+
+      </dl>
+
+      <p>The <strong>Ignore Window not found</strong> option is used to prevent errors when
+      optional windows are not currently open.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/window_management.png"><img src=
+        "images/chapter5/window_management.png" alt="Chapter 5 window management action"></a>
+      </div>
+
+      <p>A simple implementation of this can done using the LogixNG icon with an inline LogixNG.
+      See <a href="../../../../package/jmri/jmrit/logixng/InlineLogixNG.shtml">
+      Inline LogixNG and LogixNG icon</a>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4>Window to front<span class="since">since 5.7.4</span></h4>
+
+      <p>The <strong>Window to front</strong> action has been replaced by the
+      <strong>Window management</strong> action.  Existing actions will be automatically converted.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_mqtt">Digital action :: MQTT <span class="since">since 4.99.7</span></h2>
+
+      <ul class="sub-links">
+        <li><a href="#mqtt_publish">Publish</a></li>
+        <li><a href="#mqtt_subscribe">Subscribe</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="mqtt_publish">Publish</h4>
+
+      <p>This action publishes a message. Both the topic and the message can be entered directly in
+      the action or indirectly using a local variable or a memory.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/mqtt_publish.png"><img src=
+        "images/chapter5/mqtt_publish.png" alt="Chapter 5 digital action mqtt publish"></a>
+      </div>
+
+      <p><span class="since">since 5.9.1</span><strong>Retain</strong> is used to tell the MQTT
+      broker if it should also send the message to new subscribers or if it should only send
+      the message to current subscribers.</p>
+
+      <div style="margin-left: 2em;">
+        <dl>
+          <dt>Default</dt>
+          <dd>Use the connection setting.</dd>
+
+          <dt>Yes</dt>
+          <dd>Tell the broker to send the message to the current subscribers and also send the
+          message to new subscribers when they subscribe.</dd>
+
+          <dt>No</dt>
+          <dd>Tell the broker to only send the message to the current subscribers. New subscribers
+          will not see the message.</dd>
+        </dl>
+      </div>
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="mqtt_subscribe">Subscribe</h4>
+
+      <p>This action subscribes to a topic. When someone publishes a message, this action triggers
+      the execution of the ConditionalNG. It can also optionally put the topic and the message into
+      local variables. The topic can use wildcard, like loco/# where # is the wildcard.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/mqtt_subscribe.png"><img src=
+        "images/chapter5/mqtt_subscribe.png" alt="Chapter 5 digital action mqtt subscribe"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_loconet">Digital action :: LocoNet</h2>
+
+      <ul class="sub-links">
+        <li><a href="#loconet_clear_slots">Clear loconet slots</a></li>
+        <li><a href="#loconet_zero_slots">Set speed to zero for all loco slots</a></li>
+        <li><a href="#loconet_update_slots">Update loconet slots</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="loconet_clear_slots">Clear loconet slots</h4>
+
+      <p>This action clears the slot status in the command station if you are using LocoNet.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="loconet_zero_slots">Set speed to zero for all loco slots<span class="since">since 5.1.6</span></h4>
+
+      <p>Sets the speed of the Digitrax command station slots to zero.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="loconet_update_slots">Update loconet slots</h4>
+
+      <p>This action forces an update of the LocoNet slot status in JMRI.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_mergcbus">Digital action :: Merg Cbus <span class="since">since 5.11.7</span></h2>
+
+      <ul class="sub-links">
+        <li><a href="#merg_send_event">Send MERG CBUS event</a></li>
+      </ul>
+
+      <h4 id="merg_send_event">Send MERG CBUS event</h4>
+
+      <p>This action sends a MERG event to a node.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/merg_cbus_action.png">
+        <img src="images/chapter5/merg_cbus_action.png"
+        alt="Chapter 5 merg cbus action"></a>
+      </div>
+
+      <p>The Event types are <strong>Off</strong>, <strong>On</strong> and <strong>Request</strong>.</p>
+
+      <p>The Connection defaults to the first MERG connection.  If there is more than one, other
+      connections can be selected.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_opspro">Digital action :: OperationsPro <span class="since">since 5.13.2</span></h2>
+
+      <ul class="sub-links">
+        <li><a href="#opspro_run_automation">Run automation</a></li>
+      </ul>
+
+      <h4 id="opspro_run_automation">Run automation</h4>
+
+      <p>This action is used to run an OperationsPro Automation.  These are defined using the
+      <strong>Automation</strong> tool in <strong>Trains &rArr; Tools &rArr; Automation</strong>.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/opspro-run-automation.png">
+        <img src="images/chapter5/opspro-run-automation.png"
+        alt="Chapter 5 ops run automation"></a>
+      </div>
+
+      <p>Select an <strong>Automation</strong> from the list.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_action_other">Digital action :: Other</h2>
+
+      <ul class="sub-links">
+        <li><a href="#common_beans_from_table">Create beans from table</a></li>
+        <li><a href="#common_decode_json">Decode JSON</a></li>
+        <li><a href="#execute-action">Execute action</a></li>
+        <li><a href="#execute-program">Execute program</a></li>
+        <li><a href="#common_find_table_row_column">Find table row or column</a></li>
+        <li><a href="#common_listen_on_beans">Listen on beans</a></li>
+        <li><a href="#lob_lv">Listen on beans - Local variable</a></li>
+        <li><a href="#common_listen_on_beans_table">Listen on beans - Table</a></li>
+        <li><a href="#ActionLogData">Log data</a></li>
+        <li><a href="#common_log_local_variables">Log local variables</a></li>
+        <li><a href="#common_logix_action">Logix</a></li>
+        <li><a href="#showDialog">Show dialog</a></li>
+        <li><a href="#common_shut_down_task">Shut down task</a></li>
+        <li><a href="#common_shutdown">Shutdown</a></li>
+        <li><a href="#simfeedback">Simulate turnout feedback</a></li>
+        <li><a href="#timeout">Timeout</a></li>
+        <li><a href="#common_web_browser">Web browser</a></li>
+        <li><a href="#common_web_request">Web request</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_beans_from_table">Create beans from table<span class="since">since 5.1.6</span></h4>
+
+      <p>See <a href="chapter11.shtml#TableActions">Chapter 11 - Table Actions</a> for details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_decode_json">Decode JSON<span class="since">since 5.7.4</span></h4>
+
+      <p>A JSON string in the first variable is decoded as a JsonNode tree and placed in the second
+      variable.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/decode_json.png">
+        <img src="images/chapter5/decode_json.png"
+        alt="Chapter 5 decode json"></a>
+      </div>
+
+      <p>The decoding process translates the JSON string into a nested set of LogixNG
+      <strong>Maps</strong> and <strong>Arrays</strong>.  Use a LogixNG formula to access a particular
+      node.</p>
+
+      <p>Here is a sample JSON structure.</p>
+
+<pre style="border: 2px solid #778899; margin: 1em; padding: 0.1em;">
+{"menu": {
+  "id": "file",
+  "value": "File",
+  "popup": {
+    "menuitem": [
+      {"value": "New", "onclick": "CreateNewDoc()"},
+      {"value": "Open", "onclick": "OpenDoc()"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}
+</pre>
+
+      <p>Here is a LogixNG that gets the second menuitem value and prints it to the JMRI system
+      console.  In this example, <strong>node value = Open</strong> is printed </p>
+
+<pre style="border: 2px solid #778899; margin: 1em; padding: 0.1em;">
+       1:  LogixNG: test read
+       2:      ConditionalNG: IQC:AUTO:0002
+       3:          ! A
+       4:              Many
+       5:                 ::: Local variable "node", init to String ""
+       6:                  ! A1
+       7:                      Set variable node to the result of formula "str(jsondecoded{"menu"}{"popup"}{"menuitem"}[1]{"value"})"
+       8:                  ! A2
+       9:                      Log data: String.format: node value = %s
+</pre>
+
+      <p><strong>jsondecoded</strong> is the global variable that has the result of the Decode JSON
+      action.  The items in the JSON tree are delimited by braces.  The JSON list rows are referenced
+      by row number in brackets.  Note:  The first row is zero.  In this example, all of the node
+      values are strings, so the formula is enclosed with a str() command.  Node values can also be
+      other data types such as integer and float.  LogixNG has int() and float() commands to handle
+      those data types.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="execute-action">Execute action<span class="since">since 5.7.8</span></h4>
+
+      <p><strong>Execute action</strong> is used to execute a different part of the current
+      ConditionalNG.  This can be useful if you need to execute a part of the ConditionalNG at
+      several different places, for example if you have several <strong>Listen On Beans - Local
+      variable</strong> in the same ConditionalNG.  This is similar to calling a sub-routine.</p>
+
+      <p>The first step is to assign a <strong>user name</strong> to the action to be executed.
+      Right click on the action and select <strong>Change user name</strong>.  Enter the user
+      name and click on OK.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute-action-name.png">
+        <img src="images/chapter5/execute-action-name.png"
+        alt="Chapter 5 execute action name"
+        style="border: 1px solid black; margin: 1em; padding: 0.1em;"></a>
+      </div>
+
+      <p>When the <strong>Execute action</strong> is added, a dialog is displayed.  Select the user
+      name from the combo box and click on OK.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute-action.png">
+        <img src="images/chapter5/execute-action.png"
+        alt="Chapter 5 execute action"></a>
+      </div>
+
+      <p>This example calls a <strong>sub</strong> action to display the current local variables.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute-action-sample.png">
+        <img src="images/chapter5/execute-action-sample.png"
+        alt="Chapter 5 execute action sample"></a>
+      </div>
+
+      <p>Normally a ConditionalNG will execute all of the actions in the top level <strong>Many</strong>.
+      In this example, that would result in a second execution of the <strong>sub</strong> action.
+      The <strong>Return</strong> action is used to finish the ConditionalNG execution sequence.</p>
+
+      <p>Note:  This example was used to verify that the local variable list varies depending on
+      when the <strong>sub</strong> action was called.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="execute-program">Execute program<span class="since">since 5.13.6</span></h4>
+
+      <p><strong>Execute program</strong> is used to execute a program/script outside of JMRI.  The
+      program has no access to the JMRI run-time environment.  The
+      <a href="chapter6.shtml#fileasflag">File as flag</a> expression can be used to notify JMRI of
+      the program state.  Program output is not captured.  This includes print and echo statements.
+      Using <em>redirect</em> does not work. To retain output, it must be written to a file.</p>
+
+      <p>The dialog has 3 tabs. The <strong>Program</strong> tab has the name of the program and if
+      necessary, the path to the program.  This will vary depending on the operating system. In the
+      image it is a script in the <em>scripts</em> directory within the <em>user files location</em>
+      using the macOS/Linux command line format.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute_program.png">
+        <img src="images/chapter5/execute_program.png"
+        alt="Chapter 5 execute program action"></a>
+      </div>
+
+      <p>The <strong>Parameters</strong> tab is used to define the command line parameters. Each
+      parameter is a separate row.  If a parameter has arguments, those are also separate.  For
+      example, <code>cut -d : -f 1,7 /etc/passwd</code>, requires 5 entries.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute_program_parameters.png">
+        <img src="images/chapter5/execute_program_parameters.png"
+        alt="Chapter 5 execute program parameters"></a>
+      </div>
+
+      <p>The <strong>Working directory</strong> tab sets the <em>working directory</em> before
+      starting the program.  This is used for <em>relative path</em> execution and file references.
+      The  default working directory is the profile's <strong><em>User Files Location</em></strong>.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/execute_program_directory.png">
+        <img src="images/chapter5/execute_program_directory.png"
+        alt="Chapter 5 execute program directory"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_find_table_row_column">Find table row or column<span class="since">since 5.1.6</span></h4>
+
+      <p>See <a href="chapter11.shtml#TableActions">Chapter 11 - Table Actions</a> for details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_listen_on_beans">Listen on beans</h4>
+
+      <p>See <a href="chapter7.shtml#ListenOnBeans">Chapter 7 - Listen on beans</a> for
+      details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="lob_lv">Listen on beans - Local variable<span class="since">since 5.1.3</span></h4>
+
+      <p>Add a listener to the bean referenced by a local variable.  The local variable can have
+      either the system name, the user name or the bean itself.  The <strong>Execute</strong> socket
+      provides the logic that will be executed when an event occurs.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/listen_bean_local_variable.png">
+        <img src="images/chapter5/listen_bean_local_variable.png"
+        alt="Chapter 5 listen bean local variable"></a>
+      </div>
+
+      <p>The bean <strong>Type</strong> and the listen local variable name are required.  The other
+      local variables are optional.</p>
+
+      <ul>
+        <li>Bean &mdash; The affected object.</li>
+        <li>Event &mdash; The property name.</li>
+        <li>Value &mdash; The new value.</li>
+      </ul>
+
+      <p>This action is especially useful together with the action <a href="#foreach">For each</a>.
+      This sample listens for sensor state changes and prints a message on the system console.</p>
+
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/listen_bean_lv_sample.png">
+        <img class="image-border" src="images/chapter5/listen_bean_lv_sample.png"
+        alt="Chapter 5 listen bean local variable sample"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_listen_on_beans_table">Listen on beans - Table</h4>
+
+      <p>See <a href="chapter11.shtml#TableActions">Chapter 11 - Table Actions</a> for details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="ActionLogData">Log data</h4>
+
+      <p>While developing a ConditionalNG, it can be helpful to see field content, make note of the
+      location within the tree, etc. Adding the <strong>Log data</strong> type in the
+      <strong>Other</strong> category will display a dialog to configure the <strong>Log
+      data</strong>
+      options.</p>
+
+      <p>Another approach for displaying data is to use the <a href="#showDialog">Show dialog
+      action.</a></p>
+
+      <p>Select either or both Log options</p>
+
+      <ul>
+        <li><strong>Log to the log:</strong> Help &rArr; System Console.</li>
+
+        <li><strong>Log to the Script Output:</strong> Scripting &rArr; Script Output.</li>
+      </ul>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/action_log_data.png"><img src=
+        "images/chapter5/action_log_data.png" alt="Chapter 5 action log data"></a>
+      </div>
+
+      <p>There are three format types.</p>
+
+      <ul>
+        <li><strong>Only text:</strong> The text typed into the Format box will be displayed on the
+        log. The data in the table is ignored.</li>
+
+        <li><strong>Comma separated list:</strong> The values for the items in the table will be
+        displayed separated by commas. The content in the format field is ignored.</li>
+
+        <li>
+          <strong>String.format:</strong> Use the format string to format the data in the table.
+          See the java method <a href=
+          "https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html#syntax">String.format()</a>
+          for the syntax of the format string. Note: The format is similar <code>sprintf</code>.
+        </li>
+      </ul>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/log_data_format.png"><img src=
+        "images/chapter5/log_data_format.png" alt="Chapter 5 log data format"></a>
+      </div>
+
+      <p>The table lists the data sources for the comma separated and and string format
+      options.</p>
+
+      <p>Click on the <strong>Add</strong> button to add an entry to the table. Select the source
+      type and add the name or a reference in the Data field.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/log_data_sources.png"><img src=
+        "images/chapter5/log_data_sources.png" alt="Chapter 5 log data sources"></a>
+      </div>
+
+      <p>This example uses the string.format option to combine text with the contents of two memory
+      variables.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/log_data_sample.png"><img src=
+        "images/chapter5/log_data_sample.png" alt="Chapter 5 log data sample"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_log_local_variables">Log local variables</h4>
+
+      <p>See <a href="chapter8.shtml#LogLocalVariables">Chapter 8 - Debugging local variables</a>
+      for details.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_logix_action">Logix</h4>
+
+      <p>LogixNG has an action called <strong>Logix</strong> that emulates how JMRI Logix works. The
+      action Logix has one expression and a <a href="#boolean_logix_action">Logix Action</a>.  The
+      digital boolean <strong>Many</strong> action can be used to support multiple
+      <strong>Logix Actions</strong> as shown in the example.  A Logix Action responds to
+      <strong>True</strong>, <strong>False</strong>, or <strong>Either</strong> Logix evaluation
+      states.  The action Logix was added mainly to support import of JMRI Logix to LogixNG.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/other_logix_action.png"><img class="image-border" src=
+        "images/chapter5/other_logix_action.png" alt=
+        "Chapter 5 other logix action"></a>
+      </div>
+
+      <p>The Logix action supports <strong>On Change</strong> and <strong>When Triggered</strong>.</p>
+
+      <p>An example Logix within LogixNG.  This is a tweaked import from Logix.  The <strong>Log data</strong> actions
+      were added and the individual <strong>True</strong> LogixNG actions were combined within a
+      standard Many.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/logix_example.png"><img class="image-border" src=
+        "images/chapter5/logix_example.png" alt=
+        "Chapter 5 logix example"></a>
+      </div>
+
+      <p>This example uses <strong>When Triggered</strong>.  This means that one or more actions
+      will be executed when either IS101 or IS102 changes.  The <strong>On Change</strong> option
+      only executes the actions when the evaluation of the expression <strong>changes</strong>
+      between true and false.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="showDialog">Show dialog<span class="since">since 4.25.8</span></h4>
+
+      <p>The <strong>Show dialog</strong> action displays a window that can be used to provide
+      notification of an event that has occurred or needs to be handled.  It can also be used to
+      request whether an action should be performed by the LogixNG.</p>
+
+      <p>Normally, warnings and such can be handled by displaying a message in the system console.
+      The dialog is useful when an immediate notification is needed.</p>
+
+      <p>The <strong>Show dialog</strong> definition is similar to the <a href="#ActionLogData">
+      Log data</a> definition.  See Log data for details on formating and including variables.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_dialog.png"><img src=
+        "images/chapter5/show_dialog_dialog.png" alt="Chapter 5 show dialog dialog"></a  >
+      </div>
+
+      <p>Additional Features:</p>
+
+      <dl>
+        <dt>Buttons</dt>
+        <dd>One or more buttons can be included in the dialog.  At least one button must be selected.</dd>
+
+        <dt>Modal</dt>
+        <dd>A dialog can be <strong>modal</strong> or non-modal.  Modal means that the dialog window
+        remains above any other window and the user cannot do anything in any other JMRI window
+        until it is closed.</dd>
+
+        <dt>Multiline</dt>
+        <dd>The multiline option enables the ability to have multiple lines displayed by the dialog.
+        To get a new line, use the HTML <strong>&lt;br&gt;</strong> tag.</dd>
+
+        <dt>Selected button</dt>
+        <dd>If a predefined local variable is supplied, the selected button number is copied to the
+        local variable.  The button numbers are shown next to the button text in the button
+        selection section.</dd>
+
+        <dt>Input string<span class="since">since 4.99.1</span></dt>
+        <dd>If a predefined local variable is supplied, a text input field is included. The current
+        value of the variable will be displayed in the text input field.  When the dialog is closed
+        using one of the buttons, the value in the input field will be copied to the local
+        variable.</dd>
+      </dl>
+
+      <p class="noted">Note:  When the dialog is displayed, the rest of the conditional continues
+      to run.  In the first example, the A3 action will execute while the dialog is displayed.</p>
+
+      <p>After the dialog action has been created, two new rows are added.  These are both optional
+      and can be left empty.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_validate_execute.png"><img class="image-border"
+        src="images/chapter5/show_dialog_validate_execute.png" alt="Chapter 5 show dialog validate execute"></a>
+      </div>
+
+      <dl>
+        <dt>Validate</dt>
+        <dd>The <strong>Validate</strong> expression can be used to check for valid input when using
+        an input local variable.  If the expression is false, the dialog will remain open until the
+        expression is true.  The close button on the window can be used to bypass validation and
+        execution.  If the expression is true or no expression was defined, the Execute action will
+        run.</dd>
+
+        <dt>Execute</dt>
+        <dd>The <strong>Execute</strong> action is run when the validation expression is true or if
+        one was not defined.  A common use is handling a multiple button dialog that has the
+        selected button local variable.</dd>
+      </dl>
+
+      <h5>Sample dialog with button checking</h5>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_yes_no.png"><img src=
+        "images/chapter5/show_dialog_yes_no.png" alt="Chapter 5 show dialog yes no"></a>
+      </div>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_button_process.png"><img src=
+        "images/chapter5/show_dialog_button_process.png" alt="Chapter 5 show dialog button process"></a>
+      </div>
+
+      <h5>Sample multiline dialog with string.format</h5>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_multiline.png"><img src=
+        "images/chapter5/show_dialog_multiline.png" alt="Chapter 5 show dialog multiline"></a>
+      </div>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_ml_sample.png"><img src=
+        "images/chapter5/show_dialog_ml_sample.png" alt="Chapter 5 show dialog multiline sample"></a>
+      </div>
+
+      <h5>Sample input dialog with validation using a digital formula</h5>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_input_sample.png"><img src=
+        "images/chapter5/show_dialog_input_sample.png" alt="Chapter 5 show dialog input sample"></a>
+      </div>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/show_dialog_input_code.png"><img src=
+        "images/chapter5/show_dialog_input_code.png" alt="Chapter 5 show dialog iniput code"></a>
+      </div>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_shut_down_task">Shut down task<span class="since">since 5.1.6</span></h4>
+
+      <p>Create a task that will run before JMRI shutdown occurs.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/chapter5/digital_action_shutdown_task.png"><img class="image-border" src=
+        "images/chapter5/digital_action_shutdown_task.png" alt="Chapter 5 shutdown task"></a>
+      </div>
+
+      <p>If the Expression is empty or returns true, the Action will be executed before JMRI shutdown
+      continues.  If the Expression returns false, the JMRI shutdown process is stopped.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_shutdown">Shutdown</h4>
+
+      <p>The <strong>Shutdown</strong> action can either shutdown or restart the computer, or
+      shutdown or restart JMRI.  The default action is <strong>Shut down JMRI</strong>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="simfeedback">Simulate turnout feedback<span class="since">since 5.1.3</span></h4>
+
+      <p>The <strong>Simulate turnout feedback</strong> action is used to make turnouts behave as
+      expected when using a simulated layout connection.  The feedback delay is 3 seconds.</p>
+
+      <p>The following feedback modes are supported.  The available modes depend on the layout
+      connection type.</p>
+
+      <ul>
+        <li>EXACT</li>
+        <li>INDIRECT</li>
+        <li>MONITORING</li>
+        <li>ONESENSOR</li>
+        <li>TWOSENSOR</li>
+        <li>LNALTERNATE</li>
+      </ul>
+
+      <p>The <a href="chapter6.shtml#connectname">Connection name</a> expression can be used to
+      create a LogixNG that automatically enables turnout feedback when using a simulated layout
+      connection.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="timeout">Timeout<span class="since">since 4.25.8</span></h4>
+
+      <p>The <strong>Timeout</strong> action is used to execute an action if an expression is not
+      true within the specified time interval.</p>
+
+      <p>When the expression (E) becomes false and a timer is not running, a timer is started.  If the
+      expression becomes true while the timer is running, the timer is stopped.  If the timer
+      delay finishes while the expression is still false, the action (A) will be executed.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/timeout_example.png"><img src=
+        "images/chapter5/timeout_example.png" alt="timeout example"></a>
+      </div>
+
+      <p>In this example, sensor <strong>S-Timer</strong> controls the <strong>Timeout</strong>
+      process.  When S-Timer becomes active, the timer runs for 10 seconds.  If the sensor does not
+      change to inactive in 10 seconds, the <strong>S-LED</strong> sensor will be set active.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_web_browser">Web browser</h4>
+
+      <p>The <strong>Web Browser</strong> action opens a web page in the default web browser.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/digital_action_web_browser.png"><img src=
+        "images/chapter5/digital_action_web_browser.png" alt="web browser"></a>
+      </div>
+
+      <p>The URL is supplied using a string expression.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="common_web_request">Web request<span class="since">since 5.3.5</span></h4>
+
+      <p>The <strong>Web Request</strong> action sends a <strong>GET</strong> or <strong>POST</strong>
+      request to a web server.  When the request has completed, the <strong>Execute</strong> action
+      is performed.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/web_request_execute.png"><img src=
+        "images/chapter5/web_request_execute.png" alt="web request execute"></a>
+      </div>
+
+      <p>The request information is defined using the <strong>Web Request</strong> dialog. The
+      dialog settings will depend on the web server application requirements.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/digital_action_web_request.png"><img src=
+        "images/chapter5/digital_action_web_request.png" alt="web request dialog"></a>
+      </div>
+
+      <p class="noted">Note: The <strong>LogixNG_WebRequest_Test.php</strong> portion of the URL is a sample
+      application.</p>
+
+      <h5>Top Level Tabs</h5>
+
+      <dl>
+        <dt>URL</dt>
+
+        <dd>
+          <p>The URL contains the address of the web server.
+
+          For <strong>GET</strong> requests, parameters can be added to the URL using the
+          <strong><em>?name=value&amp;name2=value2</em></strong> format.  Parameters in the Parameter
+          section are also added to the GET request URL.</p>
+
+          <p>For <strong>POST</strong> requests, the parameters are defined in the <strong>
+          Parameters</strong> section.</p>
+        </dd>
+
+        <dt>Charset</dt>
+        <dd>
+          <p>Specify the character set to used for the application.</p>
+
+          <div style="margin-left: 2em;">
+          <a href="images/chapter5/web_request_charset.png"><img src=
+          "images/chapter5/web_request_charset.png" alt="web request character set"></a>
+          </div>
+        </dd>
+
+        <dt>Request method</dt>
+        <dd>
+          <p>Specify the request method to used for the application.</p>
+          <div style="margin-left: 2em;">
+          <a href="images/chapter5/web_request_method.png"><img src=
+          "images/chapter5/web_request_method.png" alt="web request method"></a>
+          </div>
+        </dd>
+
+        <dt>User agent</dt>
+        <dd>
+          <p>Specify the user agent to be used for the request.  The default is <strong><em>Mozilla/5.0
+          </em></strong>.</p>
+        </dd>
+      </dl>
+
+      <h5>Local Variables</h5>
+
+      <dl>
+        <dt>Local variable for response code</dt>
+        <dd>
+          <p>The value of the local variable will be the numeric response code from the server.  For
+          successful requests, the value will be 200.</p>
+        </dd>
+
+        <dt>Local variable for reply content</dt>
+        <dd>
+          <p>The value of the local variable will be the content returned from the server.  Sometimes
+          the content will have error messages detected by the server or the application.</p>
+        </dd>
+
+        <dt>Local variable for cookies</dt>
+        <dd>
+          <p>The value of the local variable will have a copy of the current cookie.  If the cookie
+          needs to be shared by different ConditionalNGs, use a global variable.
+        </dd>
+      </dl>
+
+      <h5>Examples</h5>
+
+      <p>There are two example files included in the JMRI distribution. They are located at
+      <a href="https://www.jmri.org/help/en/html/tools/logixng/reference/WebRequestExample/">help/en/html/tools/logixng/reference/WebRequestExample</a></p>
+
+      <dl>
+        <dt>WebRequest.xml</dt>
+        <dd>
+          <p>This is a layout config xml file that has sample table entries.</p>
+        </dd>
+
+        <dt>LogixNG_WebRequest_Test.php</dt>
+        <dd>
+          <p>This is a <strong>PHP</strong> program that acts as a web based application.  This needs
+          to be installed in a web server that has been configured to run PHP programs. The source code
+          can be downloaded from <a href="https://github.com/JMRI/JMRI/blob/master/help/en/html/tools/logixng/reference/WebRequestExample/LogixNG_WebRequest_Test.php">GitHub</a>.</p>
+        </dd>
+      </dl>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="digital_boolean_action_common">Digital boolean action :: Common</h2>
+
+      <ul class="sub-links">
+        <li><a href="#boolean_logix_action">Logix Action</a></li>
+        <li><a href="#boolean_many">Many</a></li>
+      </ul>
+
+      <p>To make import from Logix to LogixNG easier, LogixNG has a special action, <a href="#common_logix_action">Logix</a>, that
+      works similar to a Conditional in Logix. The LogixNG Logix action has a digital expression
+      socket and a digital boolean action socket. The usual setup in LogixNG is a Logix action with
+      a Many child with a number of <strong>Logix Action</strong> children.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="boolean_logix_action">Logix Action</h4>
+
+      <p>When a Logix expression is evaluated, a <strong>Logix Action</strong> is invoked to
+      perform the LogixNG actions if its state matches the result of the expression evaluation.</p>
+
+      <div style="margin-left: 2em;">
+        <a href="images/chapter5/logix_action.png"><img class="image-border" src=
+        "images/chapter5/logix_action.png" alt=
+        "Chapter 5 logix action"></a>
+      </div>
+
+      <p>See the example at <a href="#common_logix_action">Logix</a>.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="boolean_many">Many</h4>
+
+      <p>The Many action is used together with the Logix action to let the Logix action have more
+      than one action child.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+
+      <h2 id="analog_action_item">Analog action :: Item</h2>
+
+      <ul class="sub-links">
+        <li><a href="#analog_light_intensity">Light intensity</a></li>
+        <li><a href="#analog_memory">Memory</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="analog_light_intensity">Light intensity</h4>
+
+      <p>Sets the intensity of the selected variable light to an analog value.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="analog_memory">Memory</h4>
+
+      <p>Sets a memory to an analog value.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2  id="analog_action_common">Analog action :: Common</h2>
+
+      <ul class="sub-links">
+        <li><a href="#analog_many">Many</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="analog_many">Many</h4>
+
+      <p>Sets the value of many analog actions.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2 id="string_action_item">String action :: Item</h2>
+
+      <ul class="sub-links">
+        <li><a href="#mem_action">Memory</a></li>
+        <li><a href="#sio_action">StringIO</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="mem_action">Memory</h4>
+
+      <p>Sets a memory to a string value.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="sio_action">StringIO</h4>
+
+      <p>The <strong>StringIO</strong> action sets the string value of a StringIO.  StringIOs are
+      defined in the <a href="../../StringIO.shtml">StringIO</a> table.  LCThrottles is a default
+      StringIO for LocoNet.  This is used to send a message to the LocoNet throttles.</p>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h2  id="string_action_common">String action :: Common</h2>
+
+      <ul class="sub-links">
+        <li><a href="#string_many">Many</a></li>
+      </ul>
+
+      <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+
+      <h4 id="string_many">Many</h4>
+
+      <p>Sets the value of many string actions.</p>
+
+      <hr>
+
+      <p><a href="chapter6.shtml">Chapter 6 - Expression Descriptions</a>
+      </p>
+
+      <p><a href="index.shtml">Return to the Reference TOC</a>
+      </p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

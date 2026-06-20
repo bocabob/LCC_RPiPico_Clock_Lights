@@ -1,0 +1,70 @@
+package apps.gui3.paned;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+@DisabledIfSystemProperty(named = "java.awt.headless", matches = "true")
+public class PanelProFrameTest {
+
+    private jmri.jmrix.loconet.LocoNetSystemConnectionMemo memo = null;
+    private jmri.jmrix.loconet.LocoNetSystemConnectionMemo memo2 = null;
+
+    @Test
+    public void testCTor() {
+        PanelProFrame t = new PanelProFrame("test");
+        Assertions.assertNotNull( t, "exists");
+        JUnitUtil.dispose(t);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetProfileManager();
+        
+        // The class under test uses two LocoNet connections it pulls from the InstanceManager.
+        memo = new jmri.jmrix.loconet.LocoNetSystemConnectionMemo();
+        jmri.jmrix.loconet.LocoNetInterfaceScaffold lnis = new jmri.jmrix.loconet.LocoNetInterfaceScaffold(memo);
+        memo.setLnTrafficController(lnis);
+        memo.configureCommandStation(jmri.jmrix.loconet.LnCommandStationType.COMMAND_STATION_DCS100,false,false,false, false, false);
+        memo.configureManagers();
+        jmri.InstanceManager.store(memo, jmri.jmrix.loconet.LocoNetSystemConnectionMemo.class);
+
+        memo2 = new jmri.jmrix.loconet.LocoNetSystemConnectionMemo();
+        jmri.jmrix.loconet.LocoNetInterfaceScaffold lnis2 = new jmri.jmrix.loconet.LocoNetInterfaceScaffold(memo2);
+        memo2.setLnTrafficController(lnis2);
+        memo2.configureCommandStation(jmri.jmrix.loconet.LnCommandStationType.COMMAND_STATION_DCS100, false, false, false, false, false);
+        memo2.configureManagers();
+        jmri.InstanceManager.store(memo2, jmri.jmrix.loconet.LocoNetSystemConnectionMemo.class);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if ( memo != null ) {
+            memo.dispose();
+            JUnitUtil.waitThreadTerminated(
+                memo.getUserName()+ jmri.jmrix.loconet.LocoNetThrottledTransmitter.SERVICE_THREAD_NAME);
+            JUnitUtil.waitThreadTerminated(
+                memo.getUserName()+ jmri.jmrix.loconet.LnPowerManager.TRACK_STATUS_UPDATE_THREAD_NAME);
+            memo = null;
+        }
+        if ( memo2 != null ) {
+            memo2.dispose();
+            JUnitUtil.waitThreadTerminated(
+                memo2.getUserName()+ jmri.jmrix.loconet.LocoNetThrottledTransmitter.SERVICE_THREAD_NAME);
+            JUnitUtil.waitThreadTerminated(
+                memo2.getUserName()+ jmri.jmrix.loconet.LnPowerManager.TRACK_STATUS_UPDATE_THREAD_NAME);
+            memo2 = null;
+        }
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(PanelProFrameTest.class);
+
+}

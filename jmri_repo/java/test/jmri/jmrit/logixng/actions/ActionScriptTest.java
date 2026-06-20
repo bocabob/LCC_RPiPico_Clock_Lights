@@ -1,0 +1,458 @@
+package jmri.jmrit.logixng.actions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
+import java.util.ArrayList;
+
+import jmri.InstanceManager;
+import jmri.*;
+import jmri.jmrit.logixng.*;
+import jmri.jmrit.logixng.expressions.ExpressionSensor;
+import jmri.jmrit.logixng.expressions.True;
+import jmri.jmrit.logixng.implementation.DefaultConditionalNGScaffold;
+import jmri.script.ScriptEngineSelector;
+import jmri.script.ScriptEngineSelector.Engine;
+import jmri.util.JUnitUtil;
+import jmri.util.JUnitAppender;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Test ActionSimpleScript
+ *
+ * @author Daniel Bergqvist 2021
+ */
+public class ActionScriptTest extends AbstractDigitalActionTestBase {
+
+    private static final String SCRIPT_TEXT = "lights.provideLight(\"IL1\").commandedState = ON";
+    private static final String ECMA_SCRIPT = "var DigitalIO = Java.type(\"jmri.DigitalIO\"); lights.provideLight(\"IL1\").setState(DigitalIO.ON);";
+
+
+    private LogixNG logixNG;
+    private ConditionalNG conditionalNG;
+    private IfThenElse ifThenElse;
+    private ActionScript actionScript;
+    private Sensor sensor;
+
+
+    @Override
+    public ConditionalNG getConditionalNG() {
+        return conditionalNG;
+    }
+
+    @Override
+    public LogixNG getLogixNG() {
+        return logixNG;
+    }
+
+    @Override
+    public MaleSocket getConnectableChild() {
+        AnalogActionBean childAction = new AnalogActionMemory("IQAA999", null);
+        MaleSocket maleSocketChild =
+                InstanceManager.getDefault(AnalogActionManager.class).registerAction(childAction);
+        return maleSocketChild;
+    }
+
+    @Override
+    public String getExpectedPrintedTree() {
+        return String.format(
+                "Execute script: Single line command. Script lights.provideLight(\"IL1\").commandedState = ON ::: Use default%n");
+    }
+
+    @Override
+    public String getExpectedPrintedTreeFromRoot() {
+        return String.format(
+                "LogixNG: A logixNG%n" +
+                "   ConditionalNG: A conditionalNG%n" +
+                "      ! A%n" +
+                "         If Then Else. Always execute ::: Use default%n" +
+                "            ? If%n" +
+                "               Sensor IS1 is Active ::: Use default%n" +
+                "            ! Then%n" +
+                "               Execute script: Single line command. Script lights.provideLight(\"IL1\").commandedState = ON ::: Use default%n" +
+                "            ! Else%n" +
+                "               Socket not connected%n");
+    }
+
+    @Override
+    public NamedBean createNewBean(String systemName) {
+        return new ActionScript(systemName, null);
+    }
+
+    @Override
+    public boolean addNewSocket() {
+        return false;
+    }
+
+    @Test
+    public void testCtor() {
+        ActionScript action2;
+
+        action2 = new ActionScript("IQDA321", null);
+        action2.setScript(SCRIPT_TEXT);
+        assertNotNull( action2, "object exists");
+        assertNull( action2.getUserName(), "Username matches");
+        assertEquals( "Execute script: Single line command. Script lights.provideLight(\"IL1\").commandedState = ON",
+            action2.getLongDescription(), "String matches");
+
+        action2 = new ActionScript("IQDA321", "My action");
+        action2.setScript(SCRIPT_TEXT);
+        assertNotNull( action2, "object exists");
+        assertEquals( "My action", action2.getUserName(), "Username matches");
+        assertEquals( "Execute script: Single line command. Script lights.provideLight(\"IL1\").commandedState = ON",
+            action2.getLongDescription(), "String matches");
+
+        IllegalArgumentException ex = assertThrows( IllegalArgumentException.class,
+            () -> {
+                ActionScript aScript = new ActionScript("IQA55:12:XY11", null);
+                fail("action script created: " + aScript.toString() );
+            }, "Illegal system name Expected exception thrown");
+        assertNotNull(ex);
+
+        ex = assertThrows( IllegalArgumentException.class,
+            () -> {
+                ActionScript aScript = new ActionScript("IQA55:12:XY11", "A name");
+                fail("action script created: " + aScript.toString() );
+            }, "Illegal system name Expected exception thrown");
+        assertNotNull(ex);
+    }
+
+    @Test
+    public void testGetChild() {
+        // Disable the conditionalNG. This will unregister the listeners
+        conditionalNG.setEnabled(false);
+
+        // Test without script
+        actionScript.setScript(null);
+        assertEquals( 0, actionScript.getChildCount(), "getChildCount() returns 0");
+
+        UnsupportedOperationException ex = assertThrows( UnsupportedOperationException.class,
+            () -> actionScript.getChild(0),
+            "Exception is thrown");
+        assertEquals( "Not supported.", ex.getMessage(), "Error message is correct");
+
+        // Test with script
+        actionScript.setScript(SCRIPT_TEXT);
+        assertEquals( 0, actionScript.getChildCount(), "getChildCount() returns 0");
+    }
+
+    @Test
+    public void testDescription() {
+        assertEquals("Script", actionScript.getShortDescription());
+        assertEquals("Execute script: Single line command. Script lights.provideLight(\"IL1\").commandedState = ON",
+            actionScript.getLongDescription());
+    }
+
+    @Test
+    public void testAction_SingleJythonCommand() throws JmriException {
+        // Test action
+        Light light = InstanceManager.getDefault(LightManager.class).provide("IL1");
+        light.setCommandedState(Light.OFF);
+
+        // The action is not yet executed so the light should be off
+        assertTrue( light.getState() == Light.OFF, "light is off");
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Set the sensor to execute the conditionalNG
+        sensor.setState(Sensor.ACTIVE);
+        // The action should now be executed so the light should be on
+        assertTrue( light.getState() == Light.ON, "light is on");
+
+
+        // Test action when triggered because the script is listening on the sensor IS2
+        Sensor sensor2 = InstanceManager.getDefault(SensorManager.class).provide("IS2");
+        sensor2.setCommandedState(Sensor.INACTIVE);
+        light.setCommandedState(Light.OFF);
+
+        logixNG.unregisterListeners();
+
+        // Disconnect the expressionSensor and replace it with a True expression
+        // since we always want the result "true" for this test.
+        ifThenElse.getChild(0).disconnect();
+        True expressionTrue = new True("IQDE322", null);
+        MaleSocket maleSocketTrue =
+                InstanceManager.getDefault(DigitalExpressionManager.class).registerExpression(expressionTrue);
+        ifThenElse.getChild(0).connect(maleSocketTrue);
+
+//        actionScript.setScript(_scriptText);
+
+        // The action is not yet executed so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Activate the sensor. This should not execute the conditional.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // The conditionalNG is not yet enabled so it shouldn't be executed.
+        // So the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Inactivate the sensor. This should not execute the conditional.
+        sensor2.setCommandedState(Sensor.INACTIVE);
+        // The action is not yet executed so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Activate the sensor. This should execute the conditional.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // The action should now be executed so the atomic boolean should be true
+        assertEquals( Light.ON, light.getState(), "light is on");
+
+        // Unregister listeners
+        actionScript.unregisterListeners();
+        light.setState(Light.OFF);
+        // Turn the light off.
+        light.setCommandedState(Light.OFF);
+        // Activate the sensor. This not should execute the conditional since listerners are not registered.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // Listerners are not registered so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+
+        // Test execute() without script. This shouldn't do anything but we
+        // do it for coverage.
+        actionScript.setScript("");
+        actionScript.execute();
+    }
+
+    @Test
+    @SuppressWarnings("null") // engine false positive, should be fixed in JUnit6
+    public void testAction_SingleEcmaCommand() throws JmriException {
+        actionScript.getScriptEngineSelector().setSelectedEngine(ScriptEngineSelector.ECMA_SCRIPT);
+
+        // Java 17 doesn't have ECMA_SCRIPT
+        JUnitAppender.suppressWarnMessage("Cannot select engine for the language ECMAScript");
+        Engine engine = actionScript.getScriptEngineSelector().getSelectedEngine();
+        assumeTrue( engine != null, "Engine not null");
+        assertNotNull(engine);
+        assumeTrue(engine.getLanguageName().equals(ScriptEngineSelector.ECMA_SCRIPT),
+            () -> "Engine Language Name was \"" + engine.getLanguageName() + "\" not \"" + ScriptEngineSelector.ECMA_SCRIPT+"\"");
+
+        actionScript.setScript(ECMA_SCRIPT);
+
+        // Test action
+        Light light = InstanceManager.getDefault(LightManager.class).provide("IL1");
+        light.setCommandedState(Light.OFF);
+
+        // The action is not yet executed so the light should be off
+        assertTrue( light.getState() == Light.OFF, "light is off");
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Set the sensor to execute the conditionalNG
+        sensor.setState(Sensor.ACTIVE);
+        // The action should now be executed so the light should be on
+        assertTrue( light.getState() == Light.ON, "light is on");
+
+
+        // Test action when triggered because the script is listening on the sensor IS2
+        Sensor sensor2 = InstanceManager.getDefault(SensorManager.class).provide("IS2");
+        sensor2.setCommandedState(Sensor.INACTIVE);
+        light.setCommandedState(Light.OFF);
+
+        logixNG.unregisterListeners();
+
+        // Disconnect the expressionSensor and replace it with a True expression
+        // since we always want the result "true" for this test.
+        ifThenElse.getChild(0).disconnect();
+        True expressionTrue = new True("IQDE322", null);
+        MaleSocket maleSocketTrue =
+                InstanceManager.getDefault(DigitalExpressionManager.class).registerExpression(expressionTrue);
+        ifThenElse.getChild(0).connect(maleSocketTrue);
+
+//        actionScript.setScript(_scriptText);
+
+        // The action is not yet executed so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Activate the sensor. This should not execute the conditional.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // The conditionalNG is not yet enabled so it shouldn't be executed.
+        // So the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Inactivate the sensor. This should not execute the conditional.
+        sensor2.setCommandedState(Sensor.INACTIVE);
+        // The action is not yet executed so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Activate the sensor. This should execute the conditional.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // The action should now be executed so the atomic boolean should be true
+        assertEquals( Light.ON, light.getState(), "light is on");
+
+        // Unregister listeners
+        actionScript.unregisterListeners();
+        light.setState(Light.OFF);
+        // Turn the light off.
+        light.setCommandedState(Light.OFF);
+        // Activate the sensor. This not should execute the conditional since listerners are not registered.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // Listerners are not registered so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+
+        // Test execute() without script. This shouldn't do anything but we
+        // do it for coverage.
+        actionScript.setScript("");
+        actionScript.execute();
+    }
+
+    @Test
+    public void testAction_RunScript() throws JmriException {
+
+        actionScript.setOperationType(ActionScript.OperationType.RunScript);
+        actionScript.setScript("java/test/jmri/jmrit/logixng/actions/ActionScriptTest.py");
+
+        // Test action
+        Light light = InstanceManager.getDefault(LightManager.class).provide("IL9");
+        light.setCommandedState(Light.OFF);
+
+        // The action is not yet executed so the light should be off
+        assertTrue( light.getState() == Light.OFF, "light is off");
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Set the sensor to execute the conditionalNG
+        sensor.setState(Sensor.ACTIVE);
+        // The action should now be executed so the light should be on
+        assertTrue( light.getState() == Light.ON, "light is on");
+
+
+        // Test action when triggered because the script is listening on the sensor IS2
+        Sensor sensor2 = InstanceManager.getDefault(SensorManager.class).provide("IS2");
+        sensor2.setCommandedState(Sensor.INACTIVE);
+        light.setCommandedState(Light.OFF);
+
+        logixNG.unregisterListeners();
+
+        // Disconnect the expressionSensor and replace it with a True expression
+        // since we always want the result "true" for this test.
+        ifThenElse.getChild(0).disconnect();
+        True expressionTrue = new True("IQDE322", null);
+        MaleSocket maleSocketTrue =
+                InstanceManager.getDefault(DigitalExpressionManager.class).registerExpression(expressionTrue);
+        ifThenElse.getChild(0).connect(maleSocketTrue);
+
+        // The action is not yet executed so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Activate the sensor. This should not execute the conditional.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // The conditionalNG is not yet enabled so it shouldn't be executed.
+        // So the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Inactivate the sensor. This should not execute the conditional.
+        sensor2.setCommandedState(Sensor.INACTIVE);
+        // The action is not yet executed so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Activate the sensor. This should execute the conditional.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // The action should now be executed so the atomic boolean should be true
+        assertEquals( Light.ON, light.getState(), "light is on");
+
+        // Unregister listeners
+        actionScript.unregisterListeners();
+        light.setState(Light.OFF);
+        // Turn the light off.
+        light.setCommandedState(Light.OFF);
+        // Activate the sensor. This not should execute the conditional since listerners are not registered.
+        sensor2.setCommandedState(Sensor.ACTIVE);
+        // Listerners are not registered so the atomic boolean should be false
+        assertEquals( Light.OFF, light.getState(), "light is off");
+
+        // Test execute() without script. This shouldn't do anything but we
+        // do it for coverage.
+        actionScript.setScript("");
+        actionScript.execute();
+        JUnitAppender.assertWarnMessage("cannot execute script \"\"");
+    }
+
+    @Test
+    public void testAction_GetAndSetLocalVariables() throws JmriException {
+
+        ((MaleSocket)ifThenElse.getParent()).addLocalVariable("in", SymbolTable.InitialValueType.Integer, "10");
+        var globalVariable = InstanceManager.getDefault(GlobalVariableManager.class).createGlobalVariable("out");
+
+        actionScript.setScript("symbolTable.setValue(\"out\",symbolTable.getValue(\"in\")*15)");
+
+        // Enable the conditionalNG and all its children.
+        conditionalNG.setEnabled(true);
+        // Set the sensor to execute the conditionalNG
+        sensor.setState(Sensor.ACTIVE);
+
+        // The action should now be executed so the global variable should have the correct value
+        assertEquals( 150,
+                ((java.math.BigInteger)globalVariable.getValue()).longValue(),
+                "global variable has the correct value");
+    }
+
+    @Test
+    public void testSetScript() {
+        // Disable the conditionalNG. This will unregister the listeners
+        conditionalNG.setEnabled(false);
+
+        // Test setScript() when listeners are registered
+        actionScript.setScript(SCRIPT_TEXT);
+        assertNotNull( actionScript.getScript(), "Script is not null");
+
+        // Test bad script
+        actionScript.setScript("This is a bad script");
+        assertEquals("This is a bad script", actionScript.getScript());
+    }
+
+    @BeforeEach
+    public void setUp() throws SocketAlreadyConnectedException {
+        JUnitUtil.setUp();
+        JUnitUtil.resetInstanceManager();
+        JUnitUtil.resetProfileManager();
+        JUnitUtil.initConfigureManager();
+        JUnitUtil.initInternalSensorManager();
+        JUnitUtil.initInternalLightManager();
+        JUnitUtil.initLogixNGManager();
+
+        _category = LogixNG_Category.ITEM;
+        _isExternal = true;
+
+        logixNG = InstanceManager.getDefault(LogixNG_Manager.class).createLogixNG("A logixNG");
+        conditionalNG = new DefaultConditionalNGScaffold("IQC1", "A conditionalNG");  // NOI18N;
+        InstanceManager.getDefault(ConditionalNG_Manager.class).register(conditionalNG);
+        logixNG.addConditionalNG(conditionalNG);
+        conditionalNG.setRunDelayed(false);
+        conditionalNG.setEnabled(true);
+
+        ifThenElse = new IfThenElse("IQDA321", null);
+        ifThenElse.setExecuteType(IfThenElse.ExecuteType.AlwaysExecute);
+        MaleSocket maleSocket =
+                InstanceManager.getDefault(DigitalActionManager.class).registerAction(ifThenElse);
+        conditionalNG.getChild(0).connect(maleSocket);
+
+        sensor = InstanceManager.getDefault(SensorManager.class).provide("IS1");
+
+        ExpressionSensor expressionSensor = new ExpressionSensor("IQDE321", null);
+        expressionSensor.getSelectNamedBean().setNamedBean(sensor);
+        MaleSocket maleSocket2 =
+                InstanceManager.getDefault(DigitalExpressionManager.class).registerExpression(expressionSensor);
+        ifThenElse.getChild(0).connect(maleSocket2);
+
+        actionScript = new ActionScript(InstanceManager.getDefault(DigitalActionManager.class).getAutoSystemName(), null);
+        actionScript.setScript(SCRIPT_TEXT);
+        MaleSocket socketActionSimpleScript = InstanceManager.getDefault(DigitalActionManager.class).registerAction(actionScript);
+        ifThenElse.getChild(1).connect(socketActionSimpleScript);
+
+        _base = actionScript;
+        _baseMaleSocket = socketActionSimpleScript;
+
+        assertTrue( logixNG.setParentForAllChildren(new ArrayList<>()));
+        logixNG.activate();
+        logixNG.setEnabled(true);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        jmri.jmrit.logixng.util.LogixNG_Thread.stopAllLogixNGThreads();
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+
+}

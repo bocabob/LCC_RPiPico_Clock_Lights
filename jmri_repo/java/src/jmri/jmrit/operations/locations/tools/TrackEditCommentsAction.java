@@ -1,0 +1,31 @@
+package jmri.jmrit.operations.locations.tools;
+
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+
+import jmri.jmrit.operations.locations.gui.TrackEditFrame;
+
+/**
+ * Action to launch edit of track comments.
+ *
+ * @author Daniel Boudreau Copyright (C) 2013
+ */
+public class TrackEditCommentsAction extends AbstractAction {
+
+    private TrackEditFrame _tef;
+    private TrackEditCommentsFrame _tecf;
+
+    public TrackEditCommentsAction(TrackEditFrame tef) {
+        super(Bundle.getMessage("MenuItemComments"));
+        _tef = tef;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (_tecf != null) {
+            _tecf.dispose();
+        }
+        _tecf = new TrackEditCommentsFrame(_tef._track);
+    }
+}

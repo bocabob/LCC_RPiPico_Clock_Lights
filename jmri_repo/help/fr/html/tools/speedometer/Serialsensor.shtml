@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Updated by Blorec Herv&#233; 2013-10-01-->
+
+  <title>JMRI: Using the serial port for block sensors</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h2>Utiliser le port série pour les capteurs de canton</h2>
+
+      <p>Jim Scorse a fourni un schéma pour le raccordement d'un détecteur de canton NCE au port
+      série.</p>
+      <img src="images/speed0.jpg" width="400" height="300" alt="">
+
+      <h3>DB9 et DB25 connexions</h3>
+
+<pre>
+       DB9 pin      DB25 pin
+       -------      --------
+
+DCD      1             8
+RxD      2             3
+TxD      3             2
+DTR      4            20
+ground   5             7
+DSR      6             6
+RTS      7             4
+CTS      8             5
+RI       9            22
+</pre>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

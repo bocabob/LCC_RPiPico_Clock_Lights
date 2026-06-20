@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Setup</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">JMRI&reg;: Setup</h1>
+
+      <h2>General Installation</h2>
+
+      <ul class="snav">
+        <!-- TOC -->
+
+        <li>
+          <a href="#install">Installation</a>
+        </li>
+
+        <li>
+          <a href="#startprog">Starting JMRI</a>
+        </li>
+
+        <li>
+          <a href="#setprefs">Setting Preferences</a>
+        </li>
+
+        <li>
+          <a href="#debug">Fixing Problems</a>
+        </li>
+      </ul>
+
+      <h3 id="install">Installation</h3>
+
+      <p>Full instructions for installing JMRI on different platforms can be found here:</p>
+
+      <ul>
+        <li>
+          <a href="https://www.jmri.org/install/WindowsNew.shtml">Windows</a>
+        </li>
+
+        <li>
+          <a href="https://www.jmri.org/install/MacOSX.shtml">macOS</a>
+        </li>
+
+        <li>
+          <a href="https://www.jmri.org/install/Linux.shtml">Linux</a>
+          <ul>
+            <li>
+              <a href="https://www.jmri.org/install/Raspbian.shtml">Raspberry Pi</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>JMRI&reg; requires that <a href="https://www.jmri.org/java/index.shtml"><em>Java</em></a> be installed:</p>
+
+      <ul>
+        <li>Version 2.12 can run on any computer system that will run Java 1.5 through Java 8 (also
+        known as Java 1.8).</li>
+
+        <li>Version 2.14.1 requires Java 1.5 (or Java 1.6 to support for drag & drop) through Java
+        8.</li>
+
+        <li>Version 3.10.1 requires Java 1.7 through Java 8.</li>
+
+        <li>Version 4.2 thru 4.25.5 requires Java 8 (except release 311) or Java 11 (recommended).</li>
+
+        <li>Version 4.25.6 thru 4.26 requires Java 8 or Java 11 (recommended).</li>
+
+        <li>Version 4.99.x thru 5.8 requires Java 11.</li>
+
+        <li>Versions 5.9.1 onwards, requires Java 11 or Java 17 (recommended).  
+        See <a href="https://www.jmri.org/java/index.shtml">our Java instructions</a>
+        page on getting Java.</li>
+
+      </ul>
+
+      <p>As of production release JMRI 5.0, JMRI is fully supported when running on Java release 11 as 
+      noted above. Some problems have been encountered while using a Java version beyond Java 11 and 
+      support is offered only on a "best effort" basis. Some issues may only be addressable by using a 
+      supported version.</p>
+
+      <p>As of test release JMRI 5.9.1, JMRI is fully supported when running on Java release 17 as noted 
+      above. Some problems have been encountered while using a Java version beyond Java 17 and support 
+      is offered only on a "best effort" basis. Some issues may only be addressable by using a supported 
+      version.</p>
+
+      <h2 id="startprog">Starting the program</h2>
+
+      <p>Once you have downloaded the JMRI&reg; software and installed it, simply open the program in
+      the usual manner for your operating system. Windows will show an icon on desktop (with
+      default install options selected).</p>
+
+      <p><img src="images/JMRIDesktopIcons42.png" alt="windows desktop icons" height="138" width=
+      "231">
+      </p>
+
+      <p>Double click the icon for the program to open.</p>
+
+      <p>If the DecoderPro&reg; icon was selected, the DecoderPro&reg; Roster will be displayed.</p>
+
+      <p>If PanelPro was selected, a startup dialog will be displayed.</p>
+
+      <p><img src="images/StartDialog.png" alt="Start dialog"></p>
+
+      <p>The startup dialog has two options which can be used to defer processing of the Logix and
+      LogixNG tools.  These tools are used automate JMRI processes but they can also interfere with
+      normal processing which can require debugging.</p>
+
+      <ul>
+        <li>The <strong>F8</strong> key is used to disable the Logix and LogixNG items when the
+        layout data xml file is loaded.  This only applies to file loading that occurs due to a
+        startup action.  See <a href="../tools/Logix.shtml#LogixLogicLoop">Logix</a> or
+        <a href="../tools/logixng/LogixNG.shtml#disable">LogixNG</a> for details.</li>
+        <li>The <strong>F9</strong> key is used to prevent processing of LogixNG items.  See
+        <a href="../tools/logixng/LogixNG.shtml#disable">LogixNG</a> for details.</li>
+      </ul>
+
+      <p>If this is the first time you run the program after you installed the software, the
+      Preferences screen will come up automatically to allow you to set up the system for your
+      particular configuration. Also if you change your system configuration, OR if you have your
+      laptop away from the railroad, but you want to play with JMRI there is a simulator mode you
+      may want to try.<br>
+      [To be continued]</p>
+
+      <h2 id="setprefs">Setting your Preferences</h2>
+
+      <ul>
+        <li>The <a href="../../package/apps/TabbedPreferences.shtml">Preferences Pane</a>
+        </li>
+
+        <li>
+          <a href="profiles.shtml">Configuration Profiles</a>
+        </li>
+
+        <li>
+          <a href="Files.shtml">Configuration Files &amp; Locations</a>
+        </li>
+      </ul>
+
+      <h2 id="debug">Fixing Problems</h2>
+
+      <ul>
+        <li>
+          <a href="https://www.jmri.org/install/Debug.shtml">Debugging an installation</a>
+        </li>
+
+        <li>
+          <a href="../apps/Debug.shtml">Debugging and System Logging</a> after installation
+        </li>
+
+        <li>
+          <a href="../apps/Errors.shtml">Error Codes</a>
+        </li>
+
+        <li>
+          <a href="https://www.jmri.org/install/WindowsNew.shtml#installtest">InstallTest</a> (Windows
+          only)
+        </li>
+
+        <li>
+          <a href="FAQ.shtml">Frequently Asked Questions</a>
+        </li>
+      </ul>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

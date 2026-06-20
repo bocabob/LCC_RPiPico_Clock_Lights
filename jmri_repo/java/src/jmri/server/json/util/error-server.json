@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-error-server-message",
+    "type": "object",
+    "description": "Data portion of message from JMRI to client for type \"error\"",
+    "properties": {
+        "code": {
+            "type": "integer",
+            "description": "Error code"
+        },
+        "message": {
+            "type": "string",
+            "description": "Error message for display"
+        },
+        "force-delete": {
+            "type": "string",
+            "description": "A token set if a delete request fails due to conflict that, if passed in a second delete request, overrides the conflict"
+        },
+        "conflict": {
+            "type": "array",
+            "description": "An array of conflicting objects that require a force-delete",
+            "items": {
+                "type": "object"
+            }
+        }
+    },
+    "additionalProperties": true,
+    "oneOf": [
+        {
+            "required": [
+                "code",
+                "message"
+            ]
+        },
+        {
+            "required": [
+                "code",
+                "message",
+                "force-delete",
+                "conflict"
+            ]
+        }
+    ]
+}

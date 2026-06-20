@@ -1,0 +1,40 @@
+package jmri.jmrit.display.palette;
+
+import jmri.jmrit.display.DisplayFrame;
+import jmri.jmrit.picker.PickListModel;
+import jmri.util.JUnitUtil;
+import jmri.util.junit.annotations.DisabledIfHeadless;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class IndicatorTOItemPanelTest {
+
+    @Test
+    @DisabledIfHeadless
+    public void testCTor() {
+        PickListModel<jmri.Turnout> tableModel = PickListModel.turnoutPickModelInstance();
+        DisplayFrame df = new DisplayFrame("Indicator TO Item Panel Test");
+        IndicatorTOItemPanel t = new IndicatorTOItemPanel(df,"IT01","",tableModel);
+        Assertions.assertNotNull(t,"exists");
+        JUnitUtil.dispose(df);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetProfileManager();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(IndicatorTOItemPanelTest.class);
+
+}

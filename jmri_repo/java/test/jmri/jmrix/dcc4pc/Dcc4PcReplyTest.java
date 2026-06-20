@@ -1,0 +1,29 @@
+package jmri.jmrix.dcc4pc;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class Dcc4PcReplyTest extends jmri.jmrix.AbstractMessageTestBase {
+
+    @BeforeEach
+    @Override
+    public void setUp() {
+        JUnitUtil.setUp();
+        m = new Dcc4PcReply();
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        m = null;
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(Dcc4PcReplyTest.class);
+
+}

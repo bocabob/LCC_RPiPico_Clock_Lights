@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Hardware Support - DCC++ (deprecated)</title>
+  <meta name="author" content="Mark Underwood">
+  <meta name="keywords" content="DCC++ DCC-EX deprecated java model railroad JMRI">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Hardware Support: DCC++ (deprecated)</h1>
+
+      <p class="important"><strong><em>The original DCC++ project is no longer maintained.</em></strong>
+      <br />For current documentation on using DCC-EX with JMRI, see the
+      <a href="../dcc-ex/index.shtml">EX-CommandStation (DCC-EX)</a> page.</p>
+
+      <p>DCC++ was an Open Source Arduino-based Do-it-Yourself DCC Command Station. It has been
+      replaced by the EX-CommandStation by the DCC-EX team, which continues to function with JMRI
+      and runs on the existing DCC++ hardware.</p>
+
+      <p>JMRI continues to support older DCC++ Base Stations via the same DCC-EX connection used
+      for EX-CommandStations. From the JMRI Preferences, select <strong>DCC-EX</strong> as the
+      System Manufacturer.</p>
+
+      <h2>Historical references</h2>
+
+      <p>The original Arduino-based DCC++ project is documented in these TrainBoard threads:</p>
+
+      <ul>
+        <li><a href="https://www.trainboard.com/highball/index.php?threads/dcc-update-project-2020.130071/">DCC++ project thread</a></li>
+        <li><a href="https://www.trainboard.com/highball/index.php?threads/dcc-2020-update-project-documentation.130401/">DCC++ documentation thread</a></li>
+        <li><a href="https://www.trainboard.com/highball/index.php?forums/dcc.177/">DCC++ forum category</a></li>
+      </ul>
+
+      <p>The original DCC++ GitHub organization:
+      <a href="https://github.com/DccPlusPlus">github.com/DccPlusPlus</a></p>
+
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

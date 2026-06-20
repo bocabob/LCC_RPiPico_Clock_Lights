@@ -1,0 +1,30 @@
+package jmri.jmrix.ecos;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class EcosReplyTest extends jmri.jmrix.AbstractMessageTestBase {
+
+
+    @BeforeEach
+    @Override
+    public void setUp() {
+        JUnitUtil.setUp();
+        m = new EcosReply();
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        m = null;
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(EcosReplyTest.class);
+
+}

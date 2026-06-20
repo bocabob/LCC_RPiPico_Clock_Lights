@@ -1,0 +1,30 @@
+package apps.gui3.dp3;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class PaneProgDp3ActionTest {
+
+    @Test
+    public void testCTor() {
+        PaneProgDp3Action t = new PaneProgDp3Action();
+        Assertions.assertNotNull(t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(PaneProgDp3ActionTest.class);
+}

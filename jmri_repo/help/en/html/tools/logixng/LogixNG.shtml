@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: LogixNG Documentation</title>
+  <meta name="author" content="David Duchamp">
+  <meta name="author" content="Daniel Bergqvist">
+  <meta name="author" content="Dave Sand">
+  <meta name="keywords" content="java model railroad JMRI LogixNG">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>JMRI: LogixNG:  The Next Generation of Layout Automation</h1>
+
+      <h2>Introduction to LogixNG</h2>
+
+      <p>LogixNG (Logix "Next Generation") is a modular layout automation tool developed for JMRI in
+      2018 - 2021.  It is similar to, but a complete rethinking of, <a href="../Logix.shtml">Logix</a>.  It
+      is designed to be easily testable, highly maintainable and readily expandable.  Key concepts
+      of LogixNG are:</p>
+
+      <dl>
+        <dt>Actions and Expressions</dt>
+
+        <dd>
+          <p>The main building blocks in LogixNG are <em>actions</em> and <em>expressions</em>. An
+          action does something, for example throwing a turnout, setting a signal, or running a
+          script. An expression asks a question, for example if turnout LT2 is closed, if sensor
+          IS255 is active, or does an expression script return true or false.</p>
+
+          <p>The actions and expressions are organized as trees; each tree is a <strong>ConditionalNG
+          </strong>.  A LogixNG is comprised of one or more ConditionalNGs. Although Logix does not
+          have the "tree" concept, there is a similarity: In LogixNG, a <em>ConditionalNG</em>
+          serves the same purpose as a <em>Conditional</em> in Logix.  An <em>expression</em> in
+          LogixNG is similar to a <em>conditional variable</em> in Logix, and an <em>action</em> in
+          LogixNG is similar to a <em>conditional action</em> in Logix.</p>
+
+          <p>In LogixNG, an action or expression may have other actions and/or expressions as
+          children, which allows the user to build a complex structure with simple building blocks.
+          </p>
+
+          <p>For example, one common root of the tree is the <strong>If Then Else</strong> action.
+          It has one child expression and two child actions. It evaluates the expression and if the
+          expression is <strong>true</strong>, the <strong><em>then</em></strong> child action is
+          executed. If the expression is <strong>false</strong>, the <strong><em>else</em></strong>
+          child action is executed.
+          </p>
+        </dd>
+
+
+        <dt>Modules</dt>
+
+        <dd><p>The LogixNG <strong>Module</strong> is essentially a ConditionalNG, but there are
+        different types with specific capabilities. This makes it possible to combine common
+        expressions and actions. Modules can accept parameters and return results. When combined
+        with <strong>references</strong> and <strong>tables</strong>, modules make it possible to
+        create templates/subroutines/etc., that can be called from ConditionalNGs with the
+        appropriate variables.</p></dd>
+
+        <dd><p><span class="since">since 5.9.2</span>Normally, LogixNG Modules are called from a
+        LogixNG or another module.  It is also possible to call a module from another JMRI class
+        or a Jython script.  The module must be a <strong>Digital Action Module</strong>.  For an
+        example Jython script see <a href="reference/chapter13#call_module_script">Call Module
+        Script</a>.</p></dd>
+
+        <dt>Tables</dt>
+
+        <dd><p>LogixNG adds the <strong>LogixNG Tables</strong> concept to JMRI. A LogixNG Table is
+        similar to <a href="../Memories.shtml">Memory</a> but has one or two dimensions. Each row and
+        each column in the table may be given a name, which means that a single cell in the table
+        can be referred to with the row name and the column name. Tables are in particular intended
+        to be used together with references, to make it easy to setup complex configurations. A
+        table can be created in spreadsheet software like Microsoft Excel or LibreOffice Calc and
+        then exported as a CSV file and imported to JMRI.</p></dd>
+
+        <dt>References</dt>
+
+        <dd><p>Like the Logix indirect memory reference using @memoryname, LogixNG has references. A
+        reference is an indirect pointer to an item on the layout. For example, if the memory IM1
+        has the value "IT1", the reference {IM1} points to the turnout IT1. This means that if an
+        action has the command "set turnout {IM1} to thrown", it means that LogixNG reads the memory
+        IM1, which in this example has the value IT1, and then sets the turnout IT1 to thrown.</p></dd>
+
+        <dt>Error Handling</dt>
+
+        <dd><p>LogixNG provides error handling and debugging tools to help you in creating
+        sophisticated layout automation logic.  This includes the ability to stop or abort
+        individual LogixNGs, log errors, and "throw" an exception for further analysis.  See
+        <a href="ErrorHandling.shtml">Error Handling</a></p></dd>
+
+        <dt>Threads</dt>
+
+        <dd>LogixNG runs in its own Java thread.  This reduces conflicts between LogixNG processes
+        and the rest of the JMRI.  Two threads are always present.  The first
+        is for normal LogixNG actions and the second is used for the LogixNG debugger.  When the
+        debugger is used in single step mode, the thread is stopped.  By running the ConditionalNG
+        in the debugger thread, other LogixNG processing is not affected.  For additional information
+        on using threads, see
+        <a href="../../../package/jmri/jmrit/logixng/LogixNGTableEditor.shtml#EditThreads">
+        ConditionalNG Threads</a>.</dd>
+
+        </dl>
+
+
+      <h2>LogixNG Components</h2>
+
+      <p>The LogixNG tool has three main components. They are accessed via the main PanelPro
+      <strong>Tools &rArr; Tables &rArr; LogixNG</strong> menu path like other JMRI table items. The three
+      LogixNG tables and related content will be <strong><em>loaded</em></strong> and
+      <strong><em>stored</em></strong> along with all of the other tables and panels.
+      <em><strong>Note:</strong> The only content not stored are the CSV files used for
+      tables.</em></p>
+
+      <p>The links in the following section, along with the links in the sidebar, are the task
+      specific help pages that are also referenced using JMRI <strong>Help &rArr; Window
+      Help</strong>.</p>
+
+      <h3>LogixNGs and ConditionalNGs</h3>
+
+      <p>The <strong>LogixNGs</strong> menu item displays a list of LogixNGs. When a LogixNG item
+      is selected, the ConditionalNG list is displayed. Clicking on the Edit button will open the
+      ConditionalNG editor. This window contains a tree of the items that have been added to the
+      conditional. The primary items are the expressions which act like if statements and actions
+      to be performed. For details, see the following pages:</p>
+
+      <ul>
+        <li>
+          <a href="../../../package/jmri/jmrit/beantable/LogixNGTable.shtml">LogixNG Table</a>
+        </li>
+
+        <li>
+          <a href="../../../package/jmri/jmrit/logixng/LogixNGTableEditor.shtml">LogixNG Editor</a>
+        </li>
+
+        <li>
+          <a href="../../../package/jmri/jmrit/logixng/ConditionalNGEditor.shtml">ConditionalNG
+          Editor</a>
+        </li>
+      </ul>
+
+      <h3>Modules</h3>
+
+      <p>The <strong>LogixNG Modules</strong> menu item displays a list of modules. A module is
+      similar to a ConditionalNG in that it also uses the tree based editor. The major difference
+      is that information can be passed to a module and it can return results. For details, see the
+      following pages:</p>
+
+      <ul>
+        <li>
+          <a href="../../../package/jmri/jmrit/beantable/LogixNGModuleTable.shtml">Module Table</a>
+        </li>
+
+        <li>
+          <a href="../../../package/jmri/jmrit/logixng/ModuleEditor.shtml">Module Editor</a>
+        </li>
+      </ul>
+
+      <h3>Tables</h3>
+
+      <p>The <strong>LogixNG Tables</strong> menu item displays a list of tables. The table feature
+      was described in the introduction. For details, see the following pages:</p>
+
+      <ul>
+        <li>
+          <a href="../../../package/jmri/jmrit/beantable/LogixNGTableTable.shtml">Tables Table</a>
+        </li>
+
+        <li>
+          <a href="../../../package/jmri/jmrit/logixng/LogixNGTableTableEditor.shtml">Table
+          Editor</a>
+        </li>
+      </ul>
+      <a id="preferences"></a>
+      <h2>LogixNG Preferences</h2>
+
+      <p>LogixNG has settings the can be set in JMRI <strong>Preferences &rArr; LogixNG</strong>.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/Preferences.png"><img src="images/Preferences.png" alt=
+        "LogixNG Preferences"></a>
+      </div>
+
+      <dl>
+        <dt>Start LogixNGs on load</dt>
+
+        <dd>
+          <p>If checked, the <strong>enabled</strong> LogixNG definitions will be active after the
+          completion of the PanelPro xml data file loading. If not checked, the LogixNGs will be
+          inactive until <strong>Tools &rArr; LogixNG &rArr; Start LogixNG</strong> is selected.
+          The default setting is checked.</p>
+        </dd>
+
+        <dt>Install Debugger</dt>
+
+        <dd>
+          <p>LogixNG has a built in debugger. This option needs to be enabled during start up for the
+          debugger to work. See <a href="../../../package/jmri/jmrit/logixng/ConditionalNGDebugger.shtml">
+          LogixNG Debugger</a> for information about the debugger.</p>
+        </dd>
+
+        <dt>Log all before</dt>
+
+        <dd>
+          <p>The debugger is extended to display the LogixNG statement that is about to be executed.
+          The statement is displayed on the JMRI system console.
+          See <a href="../../../package/jmri/jmrit/logixng/ConditionalNGDebugger.shtml#logging">
+          LogixNG Debugger</a> for information about debugger logging.</p>
+        </dd>
+
+        <dt>Log all after</dt>
+
+        <dd>
+          <p>The debugger is extended to display the LogixNG statement after it has been executed.
+          For expressions, the true/false result is included. The statement is displayed on the JMRI
+          system console.
+          See <a href="../../../package/jmri/jmrit/logixng/ConditionalNGDebugger.shtml#logging">
+          LogixNG Debugger</a> for information about debugger logging.</p>
+        </dd>
+
+        <dt>Show system names and user names</dt>
+
+        <dd>
+          <p>The LogixNG expressions and actions have names. These names are used internally by
+          LogixNG. In certain developer situations, making the names visible can be helpful. The
+          default is unchecked.</p>
+        </dd>
+
+        <dt>Highlight row in ConditionalNG editor</dt>
+
+        <dd>
+          <p>When this option is enabled, the currently selected row will be highlighted.  This can
+          provide visual feedback, such as when the popup menu is open.</p>
+
+          <p><span class="since">since 5.1.5</span>The arrow keys can be used to move between rows
+          and shortcut keys are available to perform menu items without opening the context menu.</p>
+
+          <ul>
+            <li>Ctrl + N: Create new</li>
+            <li>Ctrl + E: Edit</li>
+            <li>Ctrl + R: Remove</li>
+            <li>Ctrl + X: Cut</li>
+            <li>Ctrl + C: Copy</li>
+            <li>Ctrl + V: Paste</li>
+            <li>Shift + Ctrl + V: Paste copy</li>
+            <li>Shift + Ctrl + R: Remove socket</li>
+            <li>Ctrl + D: Disable</li>
+            <li>Shift + Ctrl + D: Enable</li>
+          </ul>
+
+          <p>For macOS, use Cmd instead of Ctrl.</p>
+        </dd>
+
+        <dt>Use strict typing of global variables / Use strict typing of local variables
+        <span class="since">since 5.7.4</span></dt>
+
+        <dd>
+          <p>Strict variable typing can be selected for global and/or local variables.  The default
+          is that strict variable typing is not enabled for either.</p>
+
+          <p>When strict typing is enabled, variables that are are assigned the <strong>Boolean</strong>,
+          <strong>String</strong>, <strong>Integer</strong> or <strong>Floating number</strong> type
+          cannot be set to a value of another type. LogixNG will try to convert the new value to the
+          desired type, for example a local variable of type floating number will be assigned the
+          value 12.0 if it's assigned 12 and it will be assigned the value 32.5 if it's assigned the
+          string "32.5".</p>
+
+          <p>Local and global variables that are assigned any of the other variable types are not affected.</p>
+        </dd>
+
+        <dt>Show system names in exceptions<span class="since">since 5.1.6</span></dt>
+
+        <dd>
+          <p>When this option is enabled, the system name of the LogixNG item will be included in the
+          exception dialog.  This will help with finding the LogixNG and ConditionalNG that created
+          the error.  A related change to the LogixNG browser is the option to include the system
+          name on the browser report.</p>
+        </dd>
+
+        <dt>Error Handling Options</dt>
+
+        <dd>
+          <p>LogixNG has robust error handling. The combo box selection provides the default setting.
+          Individual expressions and actions can override the default setting. For details, see
+          <a href="ErrorHandling.shtml">Error Handling</a></p>
+        </dd>
+
+        <dt>If Then Else &mdash; Default execution<span class="since">since 5.7.4</span></dt>
+
+        <dd>
+          When the <strong>If Then Else</strong> action is added, the execution mode is set to
+          <strong>Execute on change</strong>. The default can be changed to <strong>Always execute</strong>.
+        </dd>
+      </dl>
+
+      <h2 id="tools">LogixNG Tools</h2>
+
+      <p>LogixNG has six system level tools at <strong>Tools &rArr; LogixNG</strong>.</p>
+
+      <p><strong>Start LogixNG</strong> and <strong>Stop LogixNG</strong> are used to control the
+      processing of LogixNG ConditionalNG definitions. When LogixNG is <strong>active</strong> ,
+      then the <strong>enabled</strong> LogixNGs will run its ConditionalNGs.
+      <strong>Note:</strong> The execution of currently running ConditionalNGs doesn't stop
+      immediately when "Stop LogixNG" is selected. The ConditionalNGs will continue to run until
+      they are finished, but they will not be restarted after "Stop LogixNG" is selected.</p>
+
+      <p>The LogixNGs included in the <a href=
+      "../../../package/jmri/jmrit/logixng/LogixNGInitializationTable.shtml">LogixNG initialization
+      table</a> are run before the rest of the LogixNGs. This is the similar to the Logix
+      RTXINITIALIZER.</p>
+
+      <p>Logix definitions can be be imported into LogixNG using <a href=
+      "../../../package/jmri/jmrit/logixng/LogixImport.shtml">Import Logix</a>.</p>
+
+      <p>The <strong>Inline LogixNG</strong> tool displays the LogixNG definitions that have been
+      attached to panel items.  For details, see
+      <a href="../../../package/jmri/jmrit/logixng/InlineLogixNG.shtml">Inline LogixNG</a>.</p>
+
+      <p>The <strong>Where Used</strong> tool displays the LogixNG definitions that have references
+      to JMRI table items.  For details, see
+      <a href="../../../package/jmri/jmrit/logixng/LogixNGWhereUsed.shtml">LogixNG Where used</a>.</p>
+
+      <p>The <strong>Export LogixNG</strong> tool is used to export LogixNG items while changing the
+      the system name.  This makes it possible to import LogixNG definitions. For details, see
+      <a href="ExportLogixNG.shtml">Export LogixNG</a>.  Note: This not in the tools menu.</p>
+
+      <h2>Documentation</h2>
+
+      <p>This document is an introduction and overview of LogixNG. The sidebar contains links to
+      the task specific help files used by JMRI. The detailed documentation is in the <a href=
+      "reference/index.shtml">reference</a>.</p>
+
+      <p>The reference has two sections. The <strong>Standard Features</strong> section covers the
+      LogixNG components that are similar to Logix. The <strong>Advance Features</strong> section
+      covers new features that did not exist in Logix or were incomplete.</p>
+
+      <h2 id="disable">Disabling LogixNG during PanelPro start up</h2>
+
+      <p>In addition to the preference settings and the LogixNG tools, it is possible to disable
+      LogixNG during PanelPro startup.  This can be necessary if there is a bad logic that locks up
+      PanelPro immediately after file loading.</p>
+
+      <p>When the PanelPro startup splash dialog is displayed, press <strong>F8</strong> or
+      <strong>F9</strong>.</p>
+
+      <div style="margin-left: 2em">
+        <a href="../../setup/images/StartDialog.png"><img src="../../setup/images/StartDialog.png" alt=
+        "PanelPro startup dialog"></a>
+      </div>
+
+      <p>If <strong>F8</strong> is selected <strong><em>and</em></strong> a layout data xml file is
+      being loaded using a start up action, the LogixNG table entries will be disabled. The F8 key
+      has no impact when a file is loaded using <strong>File &rArr; Load table content and panels...
+      </strong>.  In this case, use <strong>Tools &rArr; LogixNG &rArr; Stop LogixNG</strong>
+      before loading the file.</p>
+
+      <p>If <strong>F9</strong> is selected, LogixNG will not start after layout data file loading
+      is done, whether as a start up action or manually.  The LogixNG table entries will be
+      enabled/disabled based on their state in the xml file.  When the problem has been resolved then
+      <strong>Tools &rArr; LogixNG &rArr; Start LogixNG</strong> can be used to activate LogixNG
+      processing.</p>
+
+      <h2>Sample</h2>
+
+      <p>This is a sample layout with LogixNG controlling the turnouts. The turnout sensors toggle
+      the turnout state when clicked, unless the lock sensors are active</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/sample_panel.png"><img src="images/sample_panel.png" alt=
+        "LogixNG sample panel"></a>
+      </div>
+
+      <p>The logic uses a table to identify the turnouts, the toggle sensors and the lock
+      sensors.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/sample_table.png"><img src="images/sample_table.png" alt=
+        "LogixNG sample table"></a>
+      </div>
+
+      <p>Each turnout has a ConditionalNG that is triggered when the toggle sensor changes state.
+      If the sensor goes Active, a module is called to check the lock state and toggle the turnout.
+      A variable is passed to the module that has the row number.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/sample_logixng.png"><img src="images/sample_logixng.png" alt=
+        "LogixNG sample logixng"></a>
+      </div>
+
+      <p>The module checks the lock sensor based on the row number and if ok, toggles the turnout
+      state.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/sample_module.png"><img src="images/sample_module.png" alt=
+        "LogixNG sample module"></a>
+      </div>
+
+      <p>An initialization LogixNG is used to set the initial sensor and turnout states. This
+      LogixNG is also triggered by the Reset sensor.</p>
+
+      <div style="margin-left: 2em">
+        <a href="images/sample_initialization.png"><img src="images/sample_initialization.png" alt=
+        "LogixNG sample initialization"></a>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

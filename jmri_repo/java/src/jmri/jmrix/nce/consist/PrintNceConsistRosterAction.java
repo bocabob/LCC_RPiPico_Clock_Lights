@@ -1,0 +1,70 @@
+package jmri.jmrix.nce.consist;
+
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.AbstractAction;
+import jmri.InstanceManager;
+import jmri.util.davidflanagan.HardcopyWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Action to print a summary of the Roster contents
+ * <p>
+ * This uses the older style printing, for compatibility with Java 1.1.8 in
+ * Macintosh MRJ
+ *
+ * @author Bob Jacobsen Copyright (C) 2003
+ * @author Dennis Miller Copyright (C) 2005
+ * @author Daniel Boudreau Copyright (C) 2008
+ */
+public class PrintNceConsistRosterAction extends AbstractAction {
+
+    public PrintNceConsistRosterAction(String actionName, Frame frame, boolean preview) {
+        super(actionName);
+        mFrame = frame;
+        isPreview = preview;
+    }
+
+    /**
+     * Frame hosting the printing
+     */
+    Frame mFrame;
+    /**
+     * Variable to set whether this is to be printed or previewed
+     */
+    boolean isPreview;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        // obtain a HardcopyWriter to do this
+        HardcopyWriter writer = null;
+        try {
+            writer = new HardcopyWriter(mFrame, Bundle.getMessage("NcePrintRosterTitle"), null, null, 10,
+                    .5 * 72, .5 * 72, .5 * 72, .5 * 72, isPreview, null, null, null, null, null);
+        } catch (HardcopyWriter.PrintCanceledException ex) {
+            log.debug("Print cancelled");
+            return;
+        }
+
+        // add the icon
+        writer.writeDecoderProIcon(true);
+
+        // Loop through the Roster, printing as needed
+        NceConsistRoster r = InstanceManager.getDefault(NceConsistRoster.class);
+        List<NceConsistRosterEntry> list = r.matchingList(null, null, null, null, null, null, null, null, null, null); // take all
+
+        log.debug("Roster list size: {}", list.size());
+        for (NceConsistRosterEntry entry : list) {
+            entry.printEntry(writer);
+        }
+
+        // and force completion of the printing
+        writer.close();
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(PrintNceConsistRosterAction.class);
+
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI OperationsPro - Edit Locomotive Attributes</title>
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>OperationsPro: Edit Locomotive Attributes</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_EditEngines.shtml">Back to Edit Locomotive</a>
+        </p>
+
+        <p><a href="Ops_AddEngine.shtml">Back to Add Locomotive</a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>To the right of each of the Locomotive attributes (<strong>Road</strong>, <strong>Model,
+      Type</strong>, <strong>Length</strong>, <strong>Horsepower</strong>,
+      <strong>Consist</strong>, <strong>Owner</strong>) click on <span class="textbutton">Edit</span>
+      to allow you to edit the list of attributes available to use in a Locomotive definition.
+      Use this to <span class="textbutton">Add</span> , <span class="textbutton">Delete</span> or 
+      <span class="textbutton">Replace</span> the available attributes for a Locomotive.</p>
+
+      <p><img src="images/Ops_EditEngineRoad.png" alt="Edit Engine Road" height="162" width="251">
+      </p>
+
+      <p><span class="textbutton">Add</span> To add a new Locomotive attribute, 
+      enter the desired text in the text box and press <span class="textbutton">Add</span> .
+      When you first enter a new Locomotive attribute it will show up at the start of the 
+      list. Later when your restart the program it will be sorted in the correct order.</p>
+
+      <p><span class="textbutton">Delete</span> To delete a Locomotive
+      attribute, select the attribute you want to delete in the menu box and press 
+      <span class="textbutton">Delete</span> .</p>
+
+      <p><span class="textbutton">Replace</span> If you need to change a
+      specific Locomotive attribute (Road, Model, Type, etc) in your entire Locomotive Roster, you
+      can use the <span class="textbutton">Replace</span> button found at the
+      bottom right of the Edit Locomotive Attribute panel.</p>
+
+      <p><img src="images/Ops_Replace.png" alt="Replace" height="119" width="269">
+      </p>
+
+      <p>For example, if you wish to change the Locomotive Road name attribute "UP" to "UPS" for
+      all of your Cars. Press <span class="textbutton">Replace</span>
+      for any of your Cars in the Cars panel, and the <strong>Replace All?</strong> dialog will
+      display with a <span class="textbutton">Yes</span> or
+      <span class="textbutton">No</span> option. Enter the new Road
+      "UPS" in the text box, select "UP" in the menu box, and press
+      <span class="textbutton">Replace</span> . All Cars with "UP" as their road will now have
+      "UPS" as their Road name.</p>
+
+      <hr>
+
+      <div class="ops-right">
+        <p><a href="Ops_EditEngines.shtml">Back to Edit Locomotives</a>
+        </p>
+
+        <p><a href="Ops_AddEngine.shtml">Back to Add Locomotives</a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

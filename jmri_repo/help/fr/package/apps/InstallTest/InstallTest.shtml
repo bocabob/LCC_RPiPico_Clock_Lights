@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; 2013-10-09-->
+<head>
+  <title>JMRI: InstallTest Main Window</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help preferences">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Fen&ecirc;tre Principale InstallTest</h1>
+      La fen&ecirc;tre principale InstallTest est destin&eacute;e
+      &agrave; montrer si vous avez Java et JMRI correctement
+      install&eacute;. Vous ne devriez pas l'utiliser pour une
+      activit&eacute; normale.
+
+      <p>Si vous avez obtenu cette page en ex&eacute;cutant et en
+      s&eacute;lectionnant Aide InstallTest, votre installation
+      JMRI est fondamentalement OK. Vous pouvez passer &agrave; la
+      configuration et l'&eacute;xecution de DecoderPro, PanelPro,
+      etc</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

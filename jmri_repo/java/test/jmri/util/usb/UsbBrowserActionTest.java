@@ -1,0 +1,31 @@
+package jmri.util.usb;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class UsbBrowserActionTest {
+
+    @Test
+    public void testCTor() {
+        UsbBrowserAction t = new UsbBrowserAction();
+        Assertions.assertNotNull( t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(UsbBrowserActionTest.class);
+
+}

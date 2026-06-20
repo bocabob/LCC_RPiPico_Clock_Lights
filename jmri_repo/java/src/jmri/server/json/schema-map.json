@@ -1,0 +1,10 @@
+[
+    {
+        "publicURL": "https://json-schema.org/draft/2020-12/schema",
+        "localURL": "resource:/jmri/server/json/schema/json-schema.draft2020-12.json"
+    },
+    {
+        "publicURL": "https://json-schema.org/draft/2020-12/schema#",
+        "localURL": "resource:/jmri/server/json/schema/json-schema.draft2020-12.json"
+    }
+]

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Bob Jacobsen 2008 -->
+
+  <title>JMRI: DecoderPro - Roster File Details</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>JMRI: DecoderPro User Guide</h1>
+
+      <h2>Roster File Details</h2>
+
+      <p>The Roster information presented in the selection box, and used for automatic selection of
+      a Locomotive, is stored in a number of individual files. You can find their location by
+      choosing "File Locations" from the main JMRI Help menu. Click the "Open Roster Location" button to
+      open the directory in Finder/Explorer. More information is available on the <a href=
+      "Files.shtml#location">"Configuration Files" Help page</a>. You should only use the Roster
+      menu to manipulate the Roster file, to ensure that it stays self-consistent.</p>
+
+      <p>To move the entire Roster to another computer, choose "Export Complete Roster" from the
+      File menu, select a location to save the file, move that file to the other computer, then
+      choose "Import Complete Roster" from the menu to import it there.</p>
+
+      <p>To do this manually at the file level, there will be a file called "roster.xml", and a
+      directory called "roster". You need to move the "roster.xml" file, the "roster" directory,
+      and all its contents. Read more about the <a href="../../setup/Files.shtml">JMRI
+      Configuration Files</a>.</p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- close #mainContent -->
+  </div>
+  <!-- closes #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

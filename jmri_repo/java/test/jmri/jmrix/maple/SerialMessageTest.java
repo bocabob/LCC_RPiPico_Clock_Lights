@@ -1,0 +1,68 @@
+package jmri.jmrix.maple;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ * JUnit tests for the SerialMessage class.
+ *
+ * @author Bob Jacobsen Copyright 2003, 2008
+ */
+public class SerialMessageTest extends jmri.jmrix.AbstractMessageTestBase {
+
+    private SerialMessage msg = null;
+
+    @BeforeEach
+    @Override
+    public void setUp() {
+        JUnitUtil.setUp();
+        msg = new SerialMessage(1);
+        m = msg;
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        msg = null;
+        m = null;
+        JUnitUtil.tearDown();
+    }
+
+    @Test
+    public void testToBinaryString() {
+        msg = new SerialMessage(4);
+        msg.setOpCode(0x81);
+        msg.setElement(1, 0x02);
+        msg.setElement(2, 0xA2);
+        msg.setElement(3, 0x00);
+        msg.setBinary(true);
+        assertEquals( "81 02 A2 00", msg.toString(), "string compare ");
+    }
+
+    @Test
+    public void testBytesToString() {
+        msg = new SerialMessage(4);
+        msg.setOpCode(0x81);
+        msg.setElement(1, (byte) 0x02);
+        msg.setElement(2, (byte) 0xA2);
+        msg.setElement(3, (byte) 0x00);
+        msg.setBinary(true);
+        assertEquals( "81 02 A2 00", msg.toString(), "string compare ");
+    }
+
+    @Test
+    public void testToASCIIString() {
+        msg = new SerialMessage(5);
+        msg.setOpCode(0x54);
+        msg.setElement(1, 0x20);
+        msg.setElement(2, 0x32);
+        msg.setElement(3, 0x84);
+        msg.setElement(4, 0x05);
+        msg.setBinary(false);
+        assertEquals( "54 20 32 84 05", msg.toString(), "string compare ");
+    }
+
+}

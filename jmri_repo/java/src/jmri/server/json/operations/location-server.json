@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-location-server-message",
+    "type": "object",
+    "description": "Data portion of message from JMRI to client for type \"location\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Operations id for location"
+        },
+        "userName": {
+            "type": "string",
+            "description": "Operations name for location"
+        },
+        "carType": {
+            "type": "array",
+            "description": "The types of rolling stock accepted at location",
+            "items": {
+                "type": "string"
+            }
+        },
+        "length": {
+            "type": "integer",
+            "description": "Current location length for available siding calculations"
+        },
+        "comment": {
+            "type": "string",
+            "description": "Freeform comment concerning location"
+        },
+        "reporter": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The system name of the reporter for this location"
+        },
+        "track": {
+            "type": "array",
+            "description": "The tracks at this location",
+            "items": {
+                "type": "object"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name",
+        "userName",
+        "comment",
+        "reporter",
+        "carType"
+    ]
+}

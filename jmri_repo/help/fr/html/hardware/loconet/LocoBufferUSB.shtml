@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233;  2017-01-30-->
+<head>
+  <title>JMRI Hardware Support - LocoBuffer-USB &aacute; LocoNet&reg;</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="Digitrax Chief DCS Command Station LocoBuffer USB java model railroad JMRI install windows">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+<!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+<div id="mBody">
+  <!--#include virtual="Sidebar.shtml" -->
+  <div id="mainContent">
+
+      <h1>Guide Mat&eacute;riel JMRI: Connecter un
+      LocoBuffer-USB &aacute; LocoNet&reg;</h1><img src=
+      "http://www.rr-cirkits.com/description/LocoBuffer-USB-t.gif"
+      height="83" width="140" alt="LocoBuffer-USB image">
+
+      <p>Le LocoBuffer-USB offre un moyen tr&egrave;s fiable
+      pour connecter un ordinateur &aacute;  un LocoNet&reg;. Elle
+      est produite par la soci&eacute;t&eacute;, de
+      Dick Bronson <a href=
+      "http://www.rr-cirkits.com">RR-CirKits</a> bas&Atilde;&copy;e
+      en partie sur la conception LocoBuffer originale.</p>
+
+      <h2>D&eacute;marrage conseill&eacute;</h2>
+
+      <p>La configuration recommand&eacute;e pour la
+      LocoBuffer-USB est la suivante:</p>
+
+      <ul>
+        <li>D&eacute;marrer DecoderPro ou tout autre
+        programme et la configurer pour:
+
+          <ul>
+            <li>LocoNet LocoBuffer-USB</li>
+
+            <li>S&eacute;lectionnez votre port</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>Alimentation LocoBuffer-USB</h2>Le LocoBuffer-USB isole
+      compl&egrave;tement votre ordinateur &aacute;  partir du
+      LocoNet, supprimant la possibilit&eacute; de courants
+      de terre qui circule &aacute; travers le c&acirc;ble
+      LocoNet. Il re&ccedil;oit son alimentation en partie
+      par les lignes RailSync LocoNet et le reste de votre
+      ordinateur via le c&acirc;ble USB.
+
+      <h1>Support Mat&#233;riel JMRI: Connecter un LocoBuffer-USB &#224; LocoNet&reg;</h1>
+
+ <img src="http://www.rr-cirkits.com/description/LocoBuffer-USB-t.gif" height="83" width="140" alt="LocoBuffer-USB image">
+<p>
+Le LocoBuffer-USB offre un moyen tr&#232;s fiable pour
+connecter un ordinateur &#224; un LocoNet&reg;. Elle est produite par la soci&#233;t&#233;, de Dick Bronson
+<a href="http://www.rr-cirkits.com">  RR-CirKits </a>
+ bas&#233;e en partie sur la conception LocoBuffer originale.
+</p>
+<h2>D&#233;marrage conseill&#233;</h2>
+<p>
+La configuration recommand&#233;e pour la LocoBuffer-USB est la suivante:
+</p>
+
+<ul>
+  <li> D&#233;marrer DecoderPro ou tout autre programme et la configurer pour:
+  <ul>
+    <li> LocoNet LocoBuffer-USB
+    <li> S&#233;lectionnez votre port
+  </ul></li>
+</ul>
+
+<h2>Alimentation LocoBuffer-USB </h2>
+
+Le LocoBuffer-USB isole compl&#232;tement votre ordinateur &#224; partir du LocoNet,
+supprimant la possibilit&#233; de courants de terre qui circule &#224; travers le c&#226;ble LocoNet.
+Il re&#231;oit son alimentation en partie par les lignes RailSync LocoNet et le reste de votre
+ordinateur via le c&#226;ble USB.
+<p>LocoNet&reg; est une marque d&#233;pos&#233;e de <a href="http://www.digitrax.com">Digitrax, Inc.</a></p>
+
+    <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

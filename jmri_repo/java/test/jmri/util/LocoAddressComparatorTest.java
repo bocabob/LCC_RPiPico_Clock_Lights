@@ -1,0 +1,52 @@
+package jmri.util;
+
+import org.junit.jupiter.api.*;
+
+import jmri.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class LocoAddressComparatorTest {
+
+    @Test
+    public void testCTor() {
+        LocoAddressComparator t = new LocoAddressComparator();
+        assertNotNull( t, "exists");
+    }
+
+    @Test
+    public void testEquals() {
+        LocoAddressComparator t = new LocoAddressComparator();
+        
+        LocoAddress l1 = new DccLocoAddress(200, true);
+        LocoAddress l2 = new DccLocoAddress(200, true);
+        LocoAddress l3 = new DccLocoAddress(300, true);
+        LocoAddress l4 = new DccLocoAddress(30, true);
+        LocoAddress l5 = new DccLocoAddress(30, false);
+        
+        assertEquals( 0, t.compare(l1, l2), "200, true == 200, true");
+        assertEquals( -1, t.compare(l1, l3), "200, true < 300, true");
+        assertEquals( +1, t.compare(l3, l2), "300, true > 200, true");
+
+        assertEquals( -1, t.compare(l4, l5), "30, true < 30, false");
+        assertEquals( +1, t.compare(l5, l4), "30, false > 30, true");
+    }
+    
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(LocoAddressComparatorTest.class);
+
+}

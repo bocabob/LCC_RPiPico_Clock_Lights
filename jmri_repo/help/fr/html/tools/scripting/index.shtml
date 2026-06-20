@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Updated  by Blorec Herv&#233; 2013-09-26-->
+  <title>JMRI: Script</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+        <!-- Page Body -->
+
+      <h2>JMRI: Script</h2>
+
+      <p>Ces pages aborde les scripts JMRI
+      utilisant un langage appel&eacute; Jython.<br>
+      L'information est disponible sur</p>
+
+      <ol>
+        <li><a href="Start.shtml">Mise en route avec des scripts
+        simples</a></li>
+
+        <li><a href="Python.shtml">Le langage
+        lui-m&ecirc;me</a></li>
+
+        <li><a href="Examples.shtml">Exemples</a></li>
+
+        <li><a href="FAQ.shtml">Foire aux questions</a></li>
+
+        <li><a href="Jynstruments.shtml">Modification de
+        l'interface graphique avec Jynstruments</a></li>
+      </ol>
+
+    <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Operations-Locations Print by Car</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>Print Locations Servicing Car Types Window</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_Locations_byCar.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>The Modify Locations by Car Type Tool menu, opens the Print Locations Servicing Car Types
+      open your system printer dialog and prints output as shown. Locations are places on your
+      railroad that trains visit to pickup or drop off cars and engines.</p>
+
+      <div style="margin-left: 40px;"><img src="images/Ops_Location_Print_carsByType.png" alt=
+      "print" height="777" width="710">
+      </div>
+
+      <hr>
+
+      <div class="ops-right">
+        <p><a href="Ops_Locations_byCar.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

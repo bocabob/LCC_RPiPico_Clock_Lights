@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-31-->
+<head>
+  <title>JMRI: LocoNet Slot Monitor</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help loconet slot monitor">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>LocoNet Moniteur d'emplacements</h1><a href=
+      "../../../../../html/apps/LocoTools/images/SlotMon.gif"><img src="../../../../../html/apps/LocoTools/images/SlotMon.gif"
+      height="150" alt="Command slot station Monitor"
+      align="right"></a>
+      <p>L'outil Moniteur slot affiche un tableau du contenu des
+      "emplacements de la centrale de commande". Ces emplacements
+      sont utilis&eacute;s pour contr&ocirc;ler les
+      locomotives individuelles et le couplage. L'affichage inclut
+      le format des crans de vitesse du d&eacute;codeur, la
+      vitesse actuelle et les param&egrave;tres de fonction,
+      les information de couplage et de statut. Vous pouvez choisir
+      d'afficher soit tous les emplacements ou tout simplement ceux
+      utilis&eacute;s actuellemnet.</p>
+
+      <p>Les cases &agrave; cocher en haut vous permettent de
+      montrer juste les emplacements actifs (en service), ou tous
+      les emplacements de locomotive. Vous pouvez
+      &eacute;galement choisir d'afficher ou non le
+      "syst&egrave;me" des slots,
+      qui ne portent pas d'information de locomotive. Le bouton
+      "ESTOP tous" d&eacute;finit la vitesse de toutes les
+      locomotives &agrave; l'"Arr&ecirc;t
+      d'urgence" tr&egrave;s rapidement.</p>
+
+      <p>Les colonnes sont:</p>
+
+      <dl>
+        <dt>slot</dt>
+
+        <dd>Le num&eacute;ro de l'emplacement</dd>
+
+        <dt>E Stop</dt>
+
+        <dd>Cliquez sur ce bouton pour basculer la vitesse du
+        d&eacute;codeur sur l&apos;arr&ecirc;t d'urgence</dd>
+
+        <dt>Adresse</dt>
+
+        <dd>L'adresse de la locomotive de l'emplacement de
+        contr&ocirc;le</dd>
+
+        <dd>Vitesse</dd>
+
+        <dt>Pour les locomotives non coupl&eacute;es et les
+        adresses qui sont en t&ecirc;te d&apos;un couplage, c'est
+        le r&eacute;glage de la vitesse actuelle. C'est une
+        valeur interne pour l'emplacement de couplage.</dt>
+
+        <dt>D&eacute;codeur de Type</dt>
+
+        <dd>Le format des commandes envoy&eacute;es au
+        d&eacute;codeur,
+        g&eacute;n&eacute;ralement soit 128 crans ou 28
+        crans, bien que d'autres valeurs soient possibles.</dd>
+
+        <dt>Statut</dt>
+
+        <dd>
+          L'un des quatre &eacute;tats possibles:
+
+          <dl>
+            <dt>Libre</dt>
+
+            <dd>non r&eacute;serv&eacute; &agrave; un
+            usage particulier, aucun contenu</dd>
+
+            <dt>Inactif</dt>
+
+            <dd>non r&eacute;serv&eacute;e &agrave; un
+            usage particulier, aucun contenu</dd>
+
+            <dt>Commun</dt>
+
+            <dd>non utilis&eacute;s pour le moment, mais
+            contient encore des donn&eacute;es valides pour
+            le dernier d&eacute;codeur
+            utilis&eacute;</dd>
+
+            <dt>En Service</dt>
+
+            <dd>Contr&ocirc;le Actuellement un
+            d&eacute;codeur</dd>
+          </dl>
+        </dd>
+
+        <dt>Libre</dt>
+
+        <dd>Cliquez sur ce bouton pour lib&eacute;rer
+        l'emplacement, de sorte qu'il peut &ecirc;tre
+        r&eacute;utilis&eacute; pour une autre
+        locomotive</dd>
+
+        <dt>Coupl&eacute;</dt>
+
+        <dd>Affiche l'&eacute;tat coupl&eacute; de
+        l'emplacement, si ce n'est pas coupl&eacute;, le d'un
+        couplage, inclus dans un couplage, etc.</dd>
+
+        <dt>ID R&eacute;gulateur</dt>
+
+        <dd>L'ID du r&eacute;gulateur utilisant cet
+        emplacement. C'est affich&eacute; sur deux octets
+        hexad&eacute;cimaux. La deuxi&egrave;me paire
+        peut &ecirc;tre configur&eacute;es dans le
+        r&eacute;gulateur, voir les instructions
+        Digitrax.</dd>
+
+        <dd>Direction</dd>
+
+        <dt>si le d&eacute;codeur est actuellement
+        command&eacute; pour aller en avant ou en
+        arri&egrave;re</dt>
+
+        <dt>F0-F8</dt>
+
+        <dd>Les param&egrave;tres de la fonction
+        actuelle.</dd>
+      </dl>
+
+        <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

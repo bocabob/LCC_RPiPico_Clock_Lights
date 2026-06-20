@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Comprehensive Programmer - Sound Levels Pane</title>
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Comprehensive Programmer</h1>
+
+      <h2>Sound Levels Pane</h2>
+
+      <div class="dp-right">
+        <p><a href="Comp_SoundFX.shtml">Previous |</a> <a href="Comp_GlobalCVs.shtml">Next</a></p>
+
+        <p><a href="index.shtml#Advanced%20Programmer">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>Here are the controls for the relative volume levels and timing nuances of the sound
+      decoder. Again, this is an example of one implementation. See your decoder documentation and
+      the specific decoder programmer for details applicable to your equipment. Above all, don't be
+      afraid to play with these settings and those in the <a href=
+      "Comp_SoundFX.shtml"><strong>Sound</strong></a> pane until you get sound you like. It's much
+      easier to do here than it is to try to program these using a throttle! And even easier, if
+      you are using the <a href="Programmer_OpsMode.shtml"><strong>Ops Mode option</strong></a> to
+      program the unit when it's running on the track. If you "write changes" after doing your
+      selection change, you'll get instant feedback of how the sound has changed.</p>
+
+      <h1><img src="images/Comp_10_Sound_Levels.png" width="852" height="637" alt=
+      "Sound level pane">
+      </h1>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Comp_GlobalCVs.shtml"></a> <a href="Comp_SoundFX.shtml">Previous |</a> <a href=
+        "Comp_GlobalCVs.shtml">Next</a></p>
+
+        <p><a href="index.shtml#Advanced%20Programmer">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

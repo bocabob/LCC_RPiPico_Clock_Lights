@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+<head>
+  <title>JMRI: SDF Sound File Editor</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Digitrax SDF Sound File Editor">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>SDF &eacute;diteur de fichiers audio</h1>
+
+      <p>Les d&eacute;codeurs sonores Digitrax sont
+      charg&eacute;s avec des "projets sons",
+      stock&eacute;s dans des fichiers "Sound Project" (.
+      spj). Ceux-ci contiennent un certain nombre de "fragments
+      sonores" au format. wav, plus un petit programme qui raconte
+      au d&eacute;codeur quand jouer les sons
+      diff&eacute;rents, et contr&ocirc;le
+      l'utilisation des fonctions et des CVs. ce programme est
+      stock&eacute; dans un format "D&eacute;finition
+      du Son" (SDF).
+
+      <p>Le fichier Sound Editor SDF vous permet de faire certains
+      types de changements de l'information du SDF dans un projet
+      son. Il est utilis&eacute; avec l' <a href=
+      "../soundloader/EditorFrame.shtml">&eacute;diteur
+      SPJ</a> parce que l'information SDF est stock&eacute;e
+      dans un fichier Sound Project Digitrax SPJ. Apr&egrave;s
+      avoir modifi&eacute; les informations SDF, vous pouvez
+      l'enregistrer dans un fichier de l' <a href=
+      "../soundloader/EditorFrame.shtml">&eacute;diteur
+      SPJ</a>, et le t&eacute;l&eacute;charger dans un
+      d&eacute;codeur de son Digitrax avec un PR2 ou PR3
+      Digitrax et l' <a href=
+      "../soundloader/LoaderFrame.shtml">outils de
+      T&eacute;l&eacute;chargement sons JMRI</a> ou le
+      programme SoundLoader Digitrax</p>
+
+      <p>Digitrax fournit des exemples de fichiers projet sons
+      &aacute; leur site web de Depot sonore <a href=
+      "http://www.digitrax.com/sounddepot.php">(http://www.digitrax.com/sounddepot.php)</a>.
+      Vous pouvez &eacute;galement trouver des liens vers
+      la documentation et des outils suppl&eacute;mentaires
+      l&aacute; -bas.</p>
+
+      <p>Lorsque vous ouvrez l'&eacute;diteur de SDF en
+      cliquant sur le bouton "Editer" dans l'<a href=
+      "../soundloader/EditorFrame.shtml">&eacute;diteur
+      SPJ</a>, Une nouvelle fen&egrave;tre s'ouvre qui
+      comporte deux parties:<br>
+      <a href="SdfInitSound.gif"><img width="415" height="235" src=
+      "SdfInitSound.gif" alt="SDF Editor"></a><br>
+      Sur la gauche, il y a un Compte rendu des informations
+      enti&egrave;res SDF comme un arbre
+      d'&eacute;l&eacute;ments imbriqu&eacute;s.
+      Sur la droite li y a une fen&egrave;tre qui affiche des
+      informations suppl&eacute;mentaires sur
+      l'&eacute;l&eacute;ment qui est
+      s&eacute;lectionn&eacute; sur la gauche.</p>
+
+      <p>La fen&egrave;tre de droite a le
+      format "assembl&eacute;" de
+      l'&eacute;l&eacute;ment
+      s&eacute;lectionn&eacute; dans la partie
+      sup&eacute;rieure, puis une explication de ce
+      l'&eacute;l&eacute;ment fait dans le milieu. Si
+      un &eacute;diteur pour les type particulier de
+      l'&eacute;l&eacute;ment a
+      &eacute;t&eacute; d&eacute;fini, la section
+      du en bas aura des cases &aacute; cocher et les
+      bo&icirc;tes de s&eacute;lection pour modifier
+      les contenu de l'&eacute;l&eacute;ment.</p>
+
+      <h2>Structure SDF</h2>
+      <p>Les D&eacute;finitions sonores
+      d&eacute;finissent une s&eacute;rie de couches
+      qui contr&ocirc;lent ensemble le
+      d&eacute;codeur. En ouvrant et fermant les
+      ic&ocirc;nes sur le c&ocirc;t&eacute;
+      gauche de la fen&egrave;tre de l'&eacute;diteur,
+      vous pouvez explorer la structure d'une
+      d&eacute;finition sonore. N'h&eacute;sitez pas
+      &aacute; explorer! Jusqu'&aacute; ce que vous enregistriez
+      le fichier, vous ne d&eacute;rangez pas
+      r&eacute;ellement rien.</p>
+
+      <h3>Sch&eacute;ma</h3>
+      <p>Au niveau sup&eacute;rieur
+      il y a les "sch&eacute;mas", qui sont comme des
+      programmes pour le d&eacute;codeur. Un
+      d&eacute;codeur ne peut utiliser qu'un
+      sch&eacute;ma &aacute; un moment, mais il peut
+      &egrave;tre pr&eacute;sent dans la
+      m&eacute;moire de plusieurs &aacute; la fois. Les
+      sch&eacute;mas sont
+      num&eacute;rot&eacute;s, en
+      commen&ccedil;ant par 0, et le r&eacute;gime
+      actif est s&eacute;lectionn&eacute;e via le
+      contenu des CV. Le sch&eacute;ma 31 marque la fin du
+      fichier.</p>
+
+      <p>Il n'existe aucune option pour le sch&eacute;ma en
+      soi pour vous permettre de le modifier, mais vous pouvez
+      ouvrir le sch&eacute;ma pour travailler avec son
+      contenu.</p>
+
+      <p>Le premier &eacute;l&eacute;ment d'un
+      r&eacute;gime est une balise de num&eacute;ro de
+      version. Celle-ci d&eacute;finit le format
+      utilis&eacute; pour stocker le contenu du
+      sch&eacute;ma. Actuellement, seule la version 1 est un
+      format d&eacute;fini.</p>
+
+      <p>Apr&egrave;s la balise de version, un ou plusieurs
+      "canaux" sont d&eacute;finis.</p>
+
+      <h3>Canal</h3>
+      <p>Le d&eacute;codeur mat&eacute;riel
+      est capable de g&eacute;rer plusieurs choses &aacute; 
+      la fois. Elles sont appel&eacute;es
+      "canaux", et un ou plusieurs
+      d'entre eux font chaque sch&eacute;ma. Combien il peut
+      y en avoir d&eacute;pend du d&eacute;codeur
+      mat&eacute;riel sp&eacute;cifique, mais il est
+      assez courant de voir quatre canaux au sein d'un
+      sch&eacute;ma.</p>
+
+      <p>Bien que tous les canaux puissent jouer des sons
+      simultan&eacute;ment, chaque canal ne peut jouer qu'un
+      son (un fragment de .wav) &aacute; un moment
+      donn&eacute;. Le but de la commandes au sein du canal
+      est de d&eacute;finir quels sons il doit jouer, et
+      quand ils doivent commencer et finir.</p>
+
+      <p>L'&eacute;l&eacute;ment canal
+      lui-m&egrave;me n'a pas d'options pour vous permettre
+      de le modifier, mais vous pouvez l'ouvrir et travailler avec
+      son contenu.</p>
+
+      <h3>S&eacute;quence</h3>
+
+      <p>Dans chaque canal, il peut y avoir une ou plusieurs
+      s&eacute;quences. Chacune a une condition en vertu de
+      laquelle elle commence, puis une s&eacute;rie d'
+      op&eacute;rations &aacute; prendre alors il a
+      commenc&eacute;.</p>
+
+      <p>Les op&eacute;rations peuvent &egrave;tre des
+      choses comme de commencer &aacute; jouer un son particulier,
+      ou en modifiant la fa&ccedil;on dont un son est
+      jou&eacute;, ou de changer des informations diverses
+      internes au d&eacute;codeur. Lorsque la
+      s&eacute;quence est lanc&eacute;e, elle passe
+      jusqu&aacute; la fin, laissant derri&egrave;re les
+      choses que le d&eacute;codeur pourra refaire &aacute; 
+      l'avenir. Par exemple, il peut d&eacute;finir les
+      fragments de sons &aacute; jouer la prochaine quand l'actuel
+      est termin&eacute;, ou arr&egrave;ter le son qui
+      est actuellement en cours de lecture par le canal et
+      commencer un nouveau.</p>
+
+      <p>La s&eacute;quence commence quand une condition de
+      d&eacute;clenchement devient vrai. Vous pouvez examiner
+      et modifier la condition de d&eacute;clenchement en
+      utilisant la partie inf&eacute;rieure droite du cadre
+      de l'&eacute;diteur. Voici quelques exemples:</p>
+
+      <ul>
+        <li>D&eacute;clenchement quand une fonction devient
+        vrai, par exemple lorsque l'utilisateur
+        d&eacute;finit F1.</li>
+
+        <li>D&eacute;clenchement sur la fa&ccedil;on
+        dont le d&eacute;codeur contr&ocirc;le la
+        locomotive, par exemple:
+
+          <ul>
+            <li>lorsque la vitesse dua moteur augmente</li>
+
+            <li>lorsque la direction du moteur change</li>
+
+            <li>lorsque le moteur commence &aacute; se
+            d&eacute;placer</li>
+          </ul>
+        </li>
+
+        <li>D&eacute;clenchement sur d'autres
+        &eacute;v&eacute;nements
+        ext&eacute;rieur, tels que:
+
+          <ul>
+            <li>lorsque la came chuff devient active</li>
+
+            <li>quand un CV est &eacute;crit dans le mode
+            ops</li>
+
+            <li>lorsqu'une connexion d'entr&eacute;e devient
+            active</li>
+          </ul>
+        </li>
+      </ul>il y a beaucoup de possibilit&eacute;s, qui sont
+      &eacute;num&eacute;r&eacute;es dans la
+      bo&icirc;te de s&eacute;lection et
+      (partiellement) document&eacute;es sur une <a href=
+      "TriggerConditions.shtml">Page
+      s&eacute;par&eacute;e</a> .
+
+      <p>Il ya &eacute;galement quatre options qui peuvent
+      &ecirc;tre s&eacute;lectionn&eacute;es
+      pour changer lorsque la s&eacute;quence est
+      lanc&eacute;e:</p>
+
+      <dl>
+        <dt>Zap</dt>
+
+        <dt>Ex&eacute;cuter tout
+        d&eacute;clench&eacute;</dt>
+
+        <dt>Pas de d&eacute;clenchement
+        pr&eacute;ventif</dt>
+
+        <dt>Non d&eacute;clench&eacute;e</dt>
+
+        <dd>La s&eacute;quence commence lorsque la condition
+        inverse se produit. Par exemple, si le
+        d&eacute;clenchement est "Quand F1 devient active",
+        et que cette option est
+        s&eacute;lectionn&eacute;e, la
+        s&eacute;quence d&eacute;marre lorsque F1
+        devient inactive.</dd>
+      </dl>
+
+      <p>Chaque s&eacute;quence contient une ou plusieurs
+      instructions, la derniere doit &ecirc;tre une
+      instruction "s&eacute;quence de fin" .</p>
+
+      <h3>Instructions</h3>Dans chaque s&eacute;quence il y a
+      des instructions qui indiquent au d&eacute;codeur ce
+      qu'il faut faire comme traiter la s&eacute;quence. Nous
+      d&eacute;crivons les plus importantes ici.
+
+      <h4>Jouer Fragment</h4>
+
+      <h4>Modificateur</h4>
+
+      <h2>Exemples</h2>(Pr&eacute;voir quelques fragments de
+      code ici comme exemples)
+
+      <h2>Statut et travaux futurs</h2>
+      <img src="../../../../../images/bangdesk.gif"
+      align="right" height="45" width="45" alt="image mignon de travail">
+      Cet outil
+      &eacute;diteur a toujours un travail en cours. C'est
+      bon de naviguer sur le contenu du fichier, mais il a besoin
+      d'un texte ajout&eacute; beaucoup plus explicatif.
+      Aussi, il ne pr&eacute;voit actuellement qu'un moyen de
+      faire de petits changements sur la contenu d'un fichier SDF,
+      mais ne peut pas (encore) vous permettre de faire des
+      changements plus importants dans la structure du fichier. Par
+      exemple, si vous s&eacute;lectionn&eacute; un
+      &eacute;l&eacute;ment "Initiate Sound" , qui dit
+      au d&eacute;codeur de commencer &aacute; jouer un son
+      sous certaines conditions, vous pouvez changer ces
+      conditions. Mais l'&eacute;diteur (&aacute; 
+      pr&eacute;sent) ne fournit pas un moyen d'ajouter de
+      nouveaux &eacute;l&eacute;ments "Initiate Sound".
+
+      <p>L'&eacute;diteur est cens&eacute;
+      &ecirc;tre l'outil pour d&eacute;butant, et il
+      nous faut un texte beaucoup plus explicatif sur chaque
+      fen&egrave;tre afin que les gens sachent ce que font
+      les options.</p>
+      
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>JMRI: Web Server</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="refresh" content="0; url=index.shtml">
+</head>
+
+<body>
+  <p>This content has been superseded by <a href=
+  "index.shtml">JMRI: Web Access</a>.</p>
+</body>
+</html>

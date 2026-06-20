@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Hardware Support - __System__</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>Hardware Support: __System__</h1>
+
+      <p>A template for new Hardware Help</p>
+
+      <ul>
+        <!-- TOC -->
+
+        <li>
+          <a href="#hardware">Hardware</a>
+        </li>
+
+        <li>
+          <a href="#limitations">Limitations</a>
+        </li>
+
+        <li>
+          <a href="#connecting">Connecting</a>
+        </li>
+
+        <li>
+          <a href="#tools">JMRI Tools</a>
+        </li>
+
+        <li>
+          <a href="#documentation">Documentation</a>
+        </li>
+      </ul>
+
+      <h2 id="hardware">Supported Hardware</h2>
+
+      <h3>Command Stations</h3>
+
+      <ul>
+        <li>List</li>
+      </ul>
+
+      <h3>Computer Interfaces</h3>
+
+      <ul>
+        <li>List</li>
+      </ul>
+
+      <h2 id="limitations">Limitations</h2>
+
+      <p>Text, version</p>
+
+      <h2 id="connecting">Connecting</h2>
+
+      <h3>Wiring</h3>
+
+      <p>Physical setup, colors, connectors, etc.</p>
+
+      <h3>Software settings</h3>
+
+      <p>Text</p>
+
+      <h2 id="tools">JMRI __this system__ Tools</h2>
+      <!--
+        <img src="__System__Menu.png" width="100" height="100" class="floatRight" alt="Menu">
+      -->
+      <h4>Tool 1</h4>
+
+      <p>Steps etc.</p>
+
+      <h4>Tool 2</h4>
+
+      <p>Steps etc.</p>
+
+      <h2 id="documentation">Documentation</h2>
+
+      <h3>JMRI Help</h3>
+
+      <p>link to page 2, 3</p>
+
+      <h3>Third Party info</h3>
+
+      <p>Link to external web sites, downloads</p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

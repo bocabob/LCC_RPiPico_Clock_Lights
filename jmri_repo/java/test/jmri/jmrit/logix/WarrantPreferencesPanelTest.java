@@ -1,0 +1,30 @@
+package jmri.jmrit.logix;
+
+import jmri.swing.PreferencesPanelTestBase;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class WarrantPreferencesPanelTest extends PreferencesPanelTestBase<WarrantPreferencesPanel> {
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        jmri.util.JUnitUtil.resetProfileManager();
+        prefsPanel = new WarrantPreferencesPanel();
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        prefsPanel = null;
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(WarrantPreferencesPanelTest.class);
+
+}

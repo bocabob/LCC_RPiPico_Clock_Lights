@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Memory Variable Table Help</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Memory Variable Table">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <h1>The Memory Variable Table</h1>
+
+      <p>You can use the Memory Variable Table to look at the contents of JMRI memory
+      variables.</p>
+
+      <p>Note that you can sort the table by each of the columns, just click on the column
+      heading.</p>
+
+      <p>To change the value stored in a particular Memory Variable, just double click on the Value
+      column in the desired row. Enter a new value, followed by hitting the Return or Enter key to
+      store the ( String ) value.
+      <br>Entering an empty value will store an empty String value to the variable.</p>
+
+      <p>The Java class type ( commonly a java.lang.String ) for a Memory Variable value
+      can be viewed by hovering over the Memory value cell.</p>
+
+      <h2 id="addMemory">Adding a new Memory</h2>
+
+      <p>To create a new Memory Variable, click on the "<a href="MemoryAddEdit.shtml">Add...</a>"
+      button at the bottom left of the pane.</p>
+
+      <p>For more information on Memory Variables, see the <a href=
+      "../../../../html/tools/Memories.shtml">Memory Variables help page</a>.</p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>JMRI: Send Powerline Device message</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content=
+  "JMRI help Send grapevine message packet">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Send Powerline Device Message</h1>
+
+      <p>Ceci est de page d'aide
+      help/jmri/jmrix/powerline/ packetgen/SerialPacketGenFrame</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

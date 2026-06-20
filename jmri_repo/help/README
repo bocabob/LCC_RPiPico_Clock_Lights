@@ -1,0 +1,12 @@
+This is the JMRI "help" directory, the root of the
+JMRI JmriHelp file tree.
+
+To ease later localization, the English-language help is in
+the en/ directory.
+
+See the COPYING file for license information.
+
+For more information on JMRI, see
+
+  https://jmri.org
+

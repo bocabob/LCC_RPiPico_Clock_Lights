@@ -1,0 +1,999 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../XSLT/decoder.xsl"?>
+<!-- Copyright (C) JMRI 2001, 2005, 2007, 2-009, 2010 All rights reserved -->
+<!--                                                                        -->
+<!-- JMRI is free software; you can redistribute it and/or modify it under  -->
+<!-- the terms of version 2 of the GNU General Public License as published  -->
+<!-- by the Free Software Foundation. See the "COPYING" file for a copy     -->
+<!-- of this license.                                                       -->
+<!--                                                                        -->
+<!-- JMRI is distributed in the hope that it will be useful, but WITHOUT    -->
+<!-- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  -->
+<!-- FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License  -->
+<!-- for more details.                                                      -->
+<decoder-config xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/decoder-4-15-2.xsd">
+    <copyright xmlns="http://docbook.org/ns/docbook">
+        <year>2016</year>
+        <holder>JMRI</holder>
+    </copyright>
+    <authorgroup xmlns="http://docbook.org/ns/docbook">
+        <author>
+            <personname>
+                <firstname>Dave</firstname>
+                <surname>Heap</surname>
+            </personname>
+        </author>
+        <author>
+            <personname>
+                <firstname>Ronald</firstname>
+                <surname>Kuhn</surname>
+            </personname>
+        </author>
+        <author>
+            <personname>
+                <firstname>Pierre</firstname>
+                <surname>Billon</surname>
+            </personname>
+        </author>
+    </authorgroup>
+    <revhistory xmlns="http://docbook.org/ns/docbook">
+        <revision>
+            <revnumber>1</revnumber>
+            <date>2016-12-05</date>
+            <authorinitials>DGH</authorinitials>
+            <revremark>Created along with the Facade/capability support for programming</revremark>
+        </revision>
+        <revision>
+            <revnumber>2</revnumber>
+            <date>2019-05-19</date>
+            <authorinitials>RK</authorinitials>
+            <revremark>added german translation</revremark>
+        </revision>
+        <revision>
+            <revnumber>3</revnumber>
+            <date>2019-12-04</date>
+            <authorinitials>DGH</authorinitials>
+            <revremark>Added Bounce Effects and Secondary Address Warning</revremark>
+        </revision>
+        <revision>
+            <revnumber>4</revnumber>
+            <date>2020-10-23</date>
+            <authorinitials>DGH</authorinitials>
+            <revremark>
+                Swapped pane display order of Second Address Enable and Secondary Address
+                to work around unresolved issue with splitVal and eumVal interaction,
+                which causes CV value corruption with Read Sheets.
+                Removed Secondary Address Warning.
+            </revremark>
+        </revision>
+        <revision>
+            <revnumber>5</revnumber>
+            <date>2020-11-16</date>
+            <authorinitials>DGH</authorinitials>
+            <revremark>
+                Refactored to use new splitVal syntax.
+            </revremark>
+        </revision>
+        <revision>
+            <revnumber>6</revnumber>
+            <date>2025-01-13</date>
+            <authorinitials>PB</authorinitials>
+            <revremark>
+                Added definition for SwitchPilot Servo v3.0
+            </revremark>
+        </revision>
+    </revhistory>
+    <decoder>
+        <family name="ESU SwitchPilot" lowVersionID="0" highVersionID="254" mfg="Electronic Solutions Ulm GmbH">
+            <model model="SwitchPilot" connector ="Wires">
+                <output name="1" label="Output|1"/>
+                <output name="2" label="Output|2"/>
+                <output name="3" label="Output|3"/>
+                <output name="4" label="Output|4"/>
+                <output name="5" label="Servo|1"/>
+                <output name="6" label="Servo|2"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+            <model model="SwitchPilot Servo" connector ="Wires">
+                <output name="1" label="Servo|1"/>
+                <output name="2" label="Servo|2"/>
+                <output name="3" label="Servo|3"/>
+                <output name="4" label="Servo|4"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+            <model model="SwitchPilot Servo (MA)" connector ="Wires">
+                <output name="1" label="Servo|1"/>
+                <output name="2" label="Servo|2"/>
+                <output name="3" label="Servo|3"/>
+                <output name="4" label="Servo|4"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+            <model model="SwitchPilot Servo (2013)" lowVersionID="177" highVersionID="177"  connector ="Wires">
+                <output name="1" label="Servo|1"/>
+                <output name="2" label="Servo|2"/>
+                <output name="3" label="Servo|3"/>
+                <output name="4" label="Servo|4"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+            <model model="SwitchPilot V2.0" lowVersionID="115" highVersionID="115" connector ="Wires" productID="33554520">
+                <output name="1" label="Output|1"/>
+                <output name="2" label="Output|2"/>
+                <output name="3" label="Output|3"/>
+                <output name="4" label="Output|4"/>
+                <output name="5" label="Servo|1"/>
+                <output name="6" label="Servo|2"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+            <model model="SwitchPilot Servo V2.0" lowVersionID="153" highVersionID="200" connector ="Wires" productID="33554522">
+                <output name="1" label="Servo|1"/>
+                <output name="2" label="Servo|2"/>
+                <output name="3" label="Servo|3"/>
+                <output name="4" label="Servo|4"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+            <model model="SwitchPilot Servo V3.0" numOuts="8" numFns="8" lowVersionID="201" highVersionID="201" connector ="Wires">
+                <output name="1" label="Servo|1"/>
+                <output name="2" label="Servo|2"/>
+                <output name="3" label="Servo|3"/>
+                <output name="4" label="Servo|4"/>
+                <output name="5" label="Servo|5"/>
+                <output name="6" label="Servo|6"/>
+                <output name="7" label="Servo|7"/>
+                <output name="8" label="Servo|8"/>
+                <size length="86" width="86" height="25" units="mm"/>
+                <protocols>
+                    <protocol>dcc</protocol>
+                    <protocol>motorola</protocol>
+                </protocols>
+            </model>
+        </family>
+        <programming direct="yes" paged="yes" register="yes" ops="yes">
+            <capability>
+                <name>Ops Mode Accessory Programming</name>
+                <parameter name="Address Type">decoder</parameter>
+            </capability>
+        </programming>
+        <variables>
+            <variable CV="7" item="Decoder Version" readOnly="yes" default="201" include="SwitchPilot Servo V3.0">
+                <decVal/>
+                <label>Manufacturer Version No: </label>
+                <label xml:lang="cs">Verze dekodéru </label>
+                <label xml:lang="it">Versione Decoder: </label>
+                <label xml:lang="fr">Version décodeur: </label>
+                <label xml:lang="de">Decoderversion: </label>
+                <label xml:lang="nl">Decoderversie: </label>
+                <label xml:lang="es">Verción del decodificador: </label>
+            </variable>
+              <variable CV="7" item="Decoder Version" readOnly="yes" exclude="SwitchPilot Servo V3.0">
+                <decVal/>
+                <label>Manufacturer Version No: </label>
+                <label xml:lang="cs">Verze dekodéru </label>
+                <label xml:lang="it">Versione Decoder: </label>
+                <label xml:lang="fr">Version décodeur: </label>
+                <label xml:lang="de">Decoderversion: </label>
+                <label xml:lang="nl">Decoderversie: </label>
+                <label xml:lang="es">Verción del decodificador: </label>
+            </variable>
+            <variable CV="8" readOnly="yes" item="Manufacturer" default="151">
+                <decVal/>
+                <label>Manufacturer ID: </label>
+                <label xml:lang="cs">ID výrobce </label>
+                <label xml:lang="it">ID Costruttore: </label>
+                <label xml:lang="fr">ID constructeur: </label>
+                <label xml:lang="de">Hersteller ID: </label>
+                <label xml:lang="nl">Fabrikant-ID: </label>
+                <label xml:lang="es">ID del fabricante: </label>
+            </variable>
+            <!-- Primary Address. Definition order is important for correct loading of defaults. -->
+            <variable item="Primary_Address_1" CV="1,9" mask="XXVVVVVV XXXXXVVV" default="01">
+                <splitVal factor="4" offset="-3" min="1" max="2041"/>
+            </variable>
+            <variable item="Primary_Address_2" CV="1,9" mask="XXVVVVVV XXXXXVVV" default="02">
+                <splitVal factor="4" offset="-2" min="2" max="2042"/>
+            </variable>
+            <variable item="Primary_Address_3" CV="1,9" mask="XXVVVVVV XXXXXVVV" default="03">
+                <splitVal factor="4" offset="-1" min="3" max="2043"/>
+            </variable>
+            <variable item="Primary_Address_4" CV="1,9" mask="XXVVVVVV XXXXXVVV" default="04">
+                <splitVal factor="4" min="4" max="2044"/>
+            </variable>
+            <variable CV="1,9" mask="XXVVVVVV XXXXXVVV" item="Short Address" default="01">
+                <splitVal min="1" max="511"/>
+                <label>Primary Decoder Address</label>
+                <label xml:lang="de">Primäre Decoderadresse</label>
+                <tooltip>Sets base address for primary</tooltip>
+                <tooltip xml:lang="de">Einstellen der primären Decoderadresse</tooltip>
+            </variable>
+            <!-- Secondary Address. Definition order is important for correct loading of defaults. -->
+            <variables exclude="SwitchPilot Servo,SwitchPilot Servo (MA)">
+                <variable item="Secondary_Address_1" CV="35,36" mask="XXVVVVVV XXXXXVVV" default="2">
+                    <splitVal factor="4" offset="-3" min="1" max="2041"/>
+                </variable>
+                <variable item="Secondary_Address_2" CV="35,36" mask="XXVVVVVV XXXXXVVV" default="2">
+                    <splitVal factor="4" offset="-2" min="2" max="2042"/>
+                </variable>
+                <variables exclude="SwitchPilot,SwitchPilot V2.0">
+                    <variable item="Secondary_Address_3" CV="35,36" mask="XXVVVVVV XXXXXVVV" default="2">
+                        <splitVal factor="4" offset="-1" min="3" max="2043"/>
+                    </variable>
+                    <variable item="Secondary_Address_4" CV="35,36" mask="XXVVVVVV XXXXXVVV" default="2">
+                        <splitVal factor="4" min="4" max="2044"/>
+                    </variable>
+                </variables>
+                <variable CV="36" mask="XXXXVXXX" item="Second Address Enable" exclude="SwitchPilot Servo V3.0" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn-1_0.xml"/>
+                    <label>Enable Secondary Address</label>
+                    <label xml:lang="de">Aktiviere zweite Adresse</label>
+                    <comment>This variable interacts badly with the Second Address Variables, also using CV 36 but different bitmasks.</comment>
+                    <comment>There is a warning on the Basic pane and a JMRI issue will be raised.</comment>
+                </variable>
+                <variable CV="35,36" mask="XXVVVVVV XXXXXVVV" item="Second Address" default="2">
+                    <splitVal min="1" max="511"/>
+                    <label>Secondary Decoder Address</label>
+                    <label xml:lang="de">Zweite Decoderadresse</label>
+                </variable>
+            </variables>
+            <variable CV="29" mask="VXXXXXXX" item="Is Accessory Decoder" default="1">
+                <decVal/>
+            </variable>
+            <variable CV="29" mask="XXXXVXXX" item="RailCom Option 1" default="1">
+                <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                <label>RailCom® Enable</label>
+                <label xml:lang="de">RailCom® aktiv</label>
+            </variable>
+            <variable CV="28" mask="VXXXXXXX" include="SwitchPilot Servo (2013)" item="RailCom Option 2" default="0">
+                <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                <label>RailCom® Plus Automatic Announcement</label>
+                <label xml:lang="de">RailCom® Plus automatische Anmeldung aktiv</label>
+            </variable>
+            <variable CV="28" mask="XXXXXXVX" item="RailCom Option 3" default="1">
+                <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                <label>RailCom® Channel 2 Data Transmission</label>
+                <label xml:lang="de">RailCom® Kanal 2 (Daten)</label>
+            </variable>
+            <variable CV="28" mask="XXXXXVXX" include="SwitchPilot,SwitchPilot Servo,SwitchPilot Servo (MA)" item="RailCom Option 4" default="0">
+                <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                <label>RailCom® Channel 1 Command Confirmation</label>
+                <label xml:lang="de">RailCom® Kanal 1 (Broadcast)</label>
+            </variable>
+            <variables include="SwitchPilot,SwitchPilot V2.0">
+                <variable CV="34" mask="XXXXXXXV" item="Zoom Output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Zoom Function on Output 1</label>
+                    <label xml:lang="de">Zoom Funktion an Ausgang 1</label>
+                </variable>
+                <variable CV="34" mask="XXXXXXVX" item="Zoom Output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Zoom Function on Output 2</label>
+                    <label xml:lang="de">Zoom Funktion an Ausgang 2</label>
+                </variable>
+                <variable CV="34" mask="XXXXXVXX" item="Zoom Output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Zoom Function on Output 3</label>
+                    <label xml:lang="de">Zoom Funktion an Ausgang 3</label>
+                </variable>
+                <variable CV="34" mask="XXXXVXXX" item="Zoom Output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Zoom Function on Output 4</label>
+                    <label xml:lang="de">Zoom Funktion an Ausgang 4</label>
+                </variable>
+            </variables>
+            <variable item="DCC turnout addressing" CV="37" include="SwitchPilot Servo V3.0" mask="XXXXXXXV" tooltip="CV37 Bit 0" default="0">
+                <enumVal>
+                  <enumChoice choice="DCC turnout addressing compliant with RCN-213" value="0">
+                    <choice>DCC turnout addressing compliant with RCN-213</choice>
+                  </enumChoice>
+                  <enumChoice choice="DCC turnout addressing for ROCO centers" value="1">
+                    <choice>DCC turnout addressing for ROCO centers</choice>
+                  </enumChoice>
+                </enumVal>
+                <label>DCC turnout addressing</label>
+            </variable>
+            <variable CV="49" mask="XXXXXXXV" item="Relay 1 Delay" exclude="SwitchPilot Servo V3.0" default="0">
+                <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                <label>Enable Relay 1 Delay</label>
+                <label xml:lang="de">Relais 1 verzögert</label>
+            </variable>
+            <variable CV="49" mask="XXXXXXVX" item="Relay 2 Delay" exclude="SwitchPilot Servo V3.0" default="0">
+                <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                <label>Enable Relay 2 Delay</label>
+                <label xml:lang="de">Relais 2 verzögert</label>
+            </variable>
+            <variables exclude="SwitchPilot V2.0,SwitchPilot Servo V3.0">
+                <variable CV="49" mask="XXXXXVXX" item="Relay 3 Delay" default="0" exclude="SwitchPilot V2.0,SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 3 Delay</label>
+                    <label xml:lang="de">Relais 3 verzögert</label>
+                </variable>
+                <variable CV="49" mask="XXXXVXXX" item="Relay 4 Delay" default="0" exclude="SwitchPilot V2.0,SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 4 Delay</label>
+                    <label xml:lang="de">Relais 4 verzögert</label>
+                </variable>
+            </variables>
+            <variables include="SwitchPilot Servo V3.0">
+                <variable CV="118" mask="XXXXVXXX" item="Relay 1 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 1 Delay</label>
+                    <label xml:lang="de">Relais 1 verzögert</label>
+                </variable>
+                <variable CV="126" mask="XXXXVXXX" item="Relay 2 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 2 Delay</label>
+                    <label xml:lang="de">Relais 2 verzögert</label>
+                </variable>
+                <variable CV="134" mask="XXXXVXXX" item="Relay 3 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 3 Delay</label>
+                    <label xml:lang="de">Relais 3 verzögert</label>
+                </variable>
+                <variable CV="142" mask="XXXXVXXX" item="Relay 4 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 4 Delay</label>
+                    <label xml:lang="de">Relais 4 verzögert</label>
+                </variable>
+                <variable CV="150" mask="XXXXVXXX" item="Relay 5 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 5 Delay</label>
+                    <label xml:lang="de">Relais 5 verzögert</label>
+                </variable>
+                <variable CV="158" mask="XXXXVXXX" item="Relay 6 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 6 Delay</label>
+                    <label xml:lang="de">Relais 6 verzögert</label>
+                </variable>
+                <variable CV="166" mask="XXXXVXXX" item="Relay 7 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 7 Delay</label>
+                    <label xml:lang="de">Relais 7 verzögert</label>
+                </variable>
+                <variable CV="174" mask="XXXXVXXX" item="Relay 8 Delay" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Enable Relay 8 Delay</label>
+                    <label xml:lang="de">Relais 8 verzögert</label>
+                </variable>
+            </variables>
+            <variables exclude="SwitchPilot,SwitchPilot Servo,SwitchPilot Servo V3.0">
+                <variable CV="50" mask="XXXXXXXV" item="Servo Control 1" default="0" exclude="SwitchPilot,SwitchPilot Servo,SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Initial impulse only after command received</label>
+                    <label xml:lang="de">Servoimpuls nach empfangenem Kommando einschalten</label>
+                </variable>
+                <variable CV="50" mask="XXXXXXVX" item="Servo Control 2" default="0" exclude="SwitchPilot,SwitchPilot Servo,SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Timeout impulse after position reached</label>
+                    <label xml:lang="de">Servo nach Erreichen der Endstellung abschalten</label>
+                </variable>
+                <variable CV="50" mask="XXXXXVXX" item="Servo Control 3" default="0" exclude="SwitchPilot Servo (MA),SwitchPilot,SwitchPilot Servo,SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Power on servo only while moving</label>
+                    <label xml:lang="de">Stromversorgung nur bei Bewegung anschalten</label>
+                </variable>
+            </variables>
+            <variables include="SwitchPilot Servo V3.0">
+                <variable CV="43" mask="XXXXXXXV" item="Servo Control 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Generate servo impulse only after the first command</label>
+                    <label xml:lang="de">Servoimpuls nach empfangenem Kommando einschalten</label>
+                </variable>
+                <variable CV="43" mask="XXXXXXVX" item="Servo Control 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Switch off the servo pulse approx. 1 second after reaching the end position</label>
+                </variable>
+                <variable CV="43" mask="XXXXXVXX" item="Servo Control 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                    <label>Power on servo only while moving</label>
+                    <label xml:lang="de">Stromversorgung nur bei Bewegung anschalten</label>
+                </variable>
+            </variables>
+            <variables exclude="SwitchPilot,SwitchPilot Servo,SwitchPilot V2.0,SwitchPilot Servo V3.0">
+                <variable CV="51" mask="XXXXXXXV" item="F1 controls output 1" default="1" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXXXVX" item="F1 controls output 2" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXXVXX" item="F1 controls output 3" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXVXXX" item="F1 controls output 4" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="52" mask="XXXXXXXV" item="F2 controls output 1" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="52" mask="XXXXXXVX" item="F2 controls output 2" default="1" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="52" mask="XXXXXVXX" item="F2 controls output 3" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="52" mask="XXXXVXXX" item="F2 controls output 4" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="53" mask="XXXXXXXV" item="F3 controls output 1" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="53" mask="XXXXXXVX" item="F3 controls output 2" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="53" mask="XXXXXVXX" item="F3 controls output 3" default="1" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="53" mask="XXXXVXXX" item="F3 controls output 4" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="54" mask="XXXXXXXV" item="F4 controls output 1" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="54" mask="XXXXXXVX" item="F4 controls output 2" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="54" mask="XXXXXVXX" item="F4 controls output 3" default="0" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="54" mask="XXXXVXXX" item="F4 controls output 4" default="1" exclude="SwitchPilot Servo V3.0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+            </variables>
+            <variables include="SwitchPilot Servo V3.0">
+                <variable CV="44" mask="XXXXXXXV" item="F1 controls output 1" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="XXXXXXVX" item="F1 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="XXXXXVXX" item="F1 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="XXXXVXXX" item="F1 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="XXXVXXXX" item="F1 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="XXVXXXXX" item="F1 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="XVXXXXXX" item="F1 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="44" mask="VXXXXXXX" item="F1 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XXXXXXXV" item="F2 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XXXXXXVX" item="F2 controls output 2" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XXXXXVXX" item="F2 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XXXXVXXX" item="F2 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XXXVXXXX" item="F2 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XXVXXXXX" item="F2 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="XVXXXXXX" item="F2 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="45" mask="VXXXXXXX" item="F2 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XXXXXXXV" item="F3 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XXXXXXVX" item="F3 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XXXXXVXX" item="F3 controls output 3" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XXXXVXXX" item="F3 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XXXVXXXX" item="F3 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XXVXXXXX" item="F3 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="XVXXXXXX" item="F3 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="46" mask="VXXXXXXX" item="F3 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XXXXXXXV" item="F4 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XXXXXXVX" item="F4 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XXXXXVXX" item="F4 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XXXXVXXX" item="F4 controls output 4" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XXXVXXXX" item="F4 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XXVXXXXX" item="F4 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="XVXXXXXX" item="F4 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="47" mask="VXXXXXXX" item="F4 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XXXXXXXV" item="F5 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XXXXXXVX" item="F5 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XXXXXVXX" item="F5 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XXXXVXXX" item="F5 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XXXVXXXX" item="F5 controls output 5" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XXVXXXXX" item="F5 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="XVXXXXXX" item="F5 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="48" mask="VXXXXXXX" item="F5 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XXXXXXXV" item="F6 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XXXXXXVX" item="F6 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XXXXXVXX" item="F6 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XXXXVXXX" item="F6 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XXXVXXXX" item="F6 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XXVXXXXX" item="F6 controls output 6" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="XVXXXXXX" item="F6 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="49" mask="VXXXXXXX" item="F6 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XXXXXXXV" item="F7 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XXXXXXVX" item="F7 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XXXXXVXX" item="F7 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XXXXVXXX" item="F7 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XXXVXXXX" item="F7 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XXVXXXXX" item="F7 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="XVXXXXXX" item="F7 controls output 7" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="50" mask="VXXXXXXX" item="F7 controls output 8" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXXXXV" item="F8 controls output 1" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXXXVX" item="F8 controls output 2" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXXVXX" item="F8 controls output 3" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXXVXXX" item="F8 controls output 4" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXXVXXXX" item="F8 controls output 5" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XXVXXXXX" item="F8 controls output 6" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="XVXXXXXX" item="F8 controls output 7" default="0">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+                <variable CV="51" mask="VXXXXXXX" item="F8 controls output 8" default="1">
+                    <xi:include href="http://jmri.org/xml/decoders/parts/enum-OffOn.xml"/>
+                </variable>
+            </variables>
+            <xi:include href="http://jmri.org/xml/decoders/esu/switchPilotFnOutCVs.xml"/>
+        </variables>
+        <resets>
+            <factReset label="Reset All CVs" CV="8" default="8">
+                <label xml:lang="it">Reset delle CV ai valori di fabbrica</label>
+            </factReset>
+        </resets>
+    </decoder>
+    <pane>
+        <name>Basic</name>
+        <name xml:lang="ca">Bàsic</name>
+        <name xml:lang="it">Basic</name>
+        <name xml:lang="de">Basis</name>
+        <name xml:lang="cs">Základní</name>
+        <column>
+            <row>
+                <column>
+                    <row>
+                        <group include="SwitchPilot,SwitchPilot V2.0">
+                            <column>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Short Address" tooltip="Sets base address for primary"/>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Primary_Address_1" viewOnly="yes">
+                                    <label>Output 1 Address</label>
+                                    <label xml:lang="de">Ausgang 1 Adresse</label>
+                                </display>
+                                <display item="Primary_Address_2" viewOnly="yes">
+                                    <label>Output 2 Address</label>
+                                    <label xml:lang="de">Ausgang 2 Adresse</label>
+                                </display>
+                                <display item="Primary_Address_3" viewOnly="yes">
+                                    <label>Output 3 Address</label>
+                                    <label xml:lang="de">Ausgang 3 Adresse</label>
+                                </display>
+                                <display item="Primary_Address_4" viewOnly="yes">
+                                    <label>Output 4 Address</label>
+                                    <label xml:lang="de">Ausgang 4 Adresse</label>
+                                </display>
+                            </column>
+                        </group>
+                        <group exclude="SwitchPilot,SwitchPilot V2.0">
+                            <column>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Short Address" tooltip="Sets base address for primary"/>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Primary_Address_1" viewOnly="yes">
+                                    <label>Servo 1 Address</label>
+                                    <label xml:lang="de">Servo 1 Adresse</label>
+                                </display>
+                                <display item="Primary_Address_2" viewOnly="yes">
+                                    <label>Servo 2 Address</label>
+                                    <label xml:lang="de">Servo 2 Adresse</label>
+                                </display>
+                                <display item="Primary_Address_3" viewOnly="yes">
+                                    <label>Servo 3 Address</label>
+                                    <label xml:lang="de">Servo 3 Adresse</label>
+                                </display>
+                                <display item="Primary_Address_4" viewOnly="yes">
+                                    <label>Servo 4 Address</label>
+                                    <label xml:lang="de">Servo 4 Adresse</label>
+                                </display>
+                            </column>
+                        </group>
+                        <column>
+                            <label>
+                                <text>     </text>
+                            </label>
+                        </column>
+                        <group include="SwitchPilot,SwitchPilot V2.0">
+                            <column>
+                                <!-- The order of the following two display items must not be swapped -->
+                                <!-- in order to avoid CV corruption during Read Sheet. -->
+                                <!-- See: https://github.com/JMRI/JMRI/issues/9084 -->
+                                <display item="Second Address" tooltip="Sets base address for Secondary"/>
+                                <display item="Second Address Enable" format="checkbox"/>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Secondary_Address_1" viewOnly="yes">
+                                    <label>Servo 1 Address</label>
+                                    <label xml:lang="de">Servo 1 Adresse</label>
+                                </display>
+                                <display item="Secondary_Address_2" viewOnly="yes">
+                                    <label>Servo 2 Address</label>
+                                    <label xml:lang="de">Servo 2 Adresse</label>
+                                </display>
+                                <display item="Secondary_Address_3" viewOnly="yes">
+                                    <label>Servo 3 Address</label>
+                                    <label xml:lang="de">Servo 3 Adresse</label>
+                                </display>
+                                <display item="Secondary_Address_4" viewOnly="yes">
+                                    <label>Servo 4 Address</label>
+                                    <label xml:lang="de">Servo 4 Adresse</label>
+                                </display>
+                            </column>
+                        </group>
+                        <group exclude="SwitchPilot,SwitchPilot V2.0,SwitchPilot Servo V3.0">
+                            <column>
+                                <!-- The order of the following two display items must not be swapped -->
+                                <!-- in order to avoid CV corruption during Read Sheet. -->
+                                <!-- See: https://github.com/JMRI/JMRI/issues/9084 -->
+                                <display item="Second Address" tooltip="Sets base address for Secondary"/>
+                                <display item="Second Address Enable" format="checkbox"/>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Secondary_Address_1" viewOnly="yes">
+                                    <label>Servo 1 Address for position C and D</label>
+                                    <label xml:lang="de">Servo 1 Adresse für Position C und D</label>
+                                </display>
+                                <display item="Secondary_Address_2" viewOnly="yes">
+                                    <label>Servo 2 Address for position C and D</label>
+                                    <label xml:lang="de">Servo 2 Adresse für Position C und D</label>
+                                </display>
+                                <display item="Secondary_Address_3" viewOnly="yes">
+                                    <label>Servo 3 Address for position C and D</label>
+                                    <label xml:lang="de">Servo 3 Adresse für Position C und D</label>
+                                </display>
+                                <display item="Secondary_Address_4" viewOnly="yes">
+                                    <label>Servo 4 Address for position C and D</label>
+                                    <label xml:lang="de">Servo 4 Adresse für Position C und D</label>
+                                </display>
+                            </column>
+                        </group>
+                        <group include="SwitchPilot Servo V3.0">
+                            <column>
+                                <!-- The order of the following two display items must not be swapped -->
+                                <!-- in order to avoid CV corruption during Read Sheet. -->
+                                <!-- See: https://github.com/JMRI/JMRI/issues/9084 -->
+                                <display item="Second Address" tooltip="Sets base address for Secondary"/>
+                                <display item="Second Address Enable" format="checkbox"/>
+                                <label>
+                                    <text> </text>
+                                </label>
+                                <display item="Secondary_Address_1" viewOnly="yes">
+                                    <label>Servo 5 Address</label>
+                                    <label xml:lang="de">Servo 5 Adresse</label>
+                                </display>
+                                <display item="Secondary_Address_2" viewOnly="yes">
+                                    <label>Servo 6 Address</label>
+                                    <label xml:lang="de">Servo 6 Adresse</label>
+                                </display>
+                                <display item="Secondary_Address_3" viewOnly="yes">
+                                    <label>Servo 7 Address</label>
+                                    <label xml:lang="de">Servo 7 Adresse</label>
+                                </display>
+                                <display item="Secondary_Address_4" viewOnly="yes">
+                                    <label>Servo 8 Address</label>
+                                    <label xml:lang="de">Servo 8 Adresse</label>
+                                </display>
+                            </column>
+                        </group>
+                    </row>
+                </column>
+                <column>
+                    <label>
+                        <text>     </text>
+                    </label>
+                </column>
+                <column>
+                    <display item="Manufacturer" tooltip="The manufacturer's ID number (read only)">
+                        <tooltip xml:lang="it">ID Costruttore (sola lettura)</tooltip>
+                        <tooltip xml:lang="ca">Número de fabricant (noméss lectura)</tooltip>
+                        <tooltip xml:lang="de">Hersteller ID (nur lesen)</tooltip>
+                        <tooltip xml:lang="cs">ID číslo výrobce (pouze pro čtení)</tooltip>
+                    </display>
+                    <display item="Decoder Version" tooltip="The decoder version number (read only)">
+                        <tooltip xml:lang="it">Numero versione del Decoder (sola lettura)</tooltip>
+                        <tooltip xml:lang="ca">Número de versió del descodificador (noméss lectura)</tooltip>
+                        <tooltip xml:lang="de">Dekoder Version (nur lesen)</tooltip>
+                        <tooltip xml:lang="cs">Číslo verze dekodéru (pouze pro čtení)</tooltip>
+                    </display>
+                    <display item="Product Number" tooltip="The decoder product number (if used) (read only)">
+                        <tooltip xml:lang="it">Codice di prodotto del Decoder (se usato) (sola lettura)</tooltip>
+                        <tooltip xml:lang="ca">La referència del descodificador (només si es fa servir) (només lectura)</tooltip>
+                        <tooltip xml:lang="de">Softwareversion des Dekoders (nur lesen)</tooltip>
+                        <tooltip xml:lang="cs">Číslo výrobku dekodéru (pokud je použito) (pouze pro čtení)</tooltip>
+                    </display>
+                </column>
+            </row>
+            <!--
+            <column>
+                <group>
+                    <qualifier>
+                        <variableref>Second Address</variableref>
+                        <relation>exists</relation>
+                        <value>1</value>
+                    </qualifier>
+                    <separator/>
+                    <label>
+                        <text>&lt;html&gt;&lt;h2&gt;Warning: Issue with "Read Sheet(s)"&lt;/h2&gt;&lt;/html&gt;</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <label>
+                        <text>&lt;html&gt;&lt;em&gt;Due to an unresolved JMRI issue, use of "Read Sheet(s)" will show incorrect values for the majority of settings on multiple panes.&lt;/em&gt;&lt;/html&gt;</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <label>
+                        <text>&lt;html&gt;&lt;strong&gt;Workaround: Switch to "CVs" pane and "Read Full Sheet".&lt;/strong&gt;&lt;/html&gt;</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <label>
+                        <text>&lt;html&gt;The correct from-decoder values will then be shown in all panes and can be changed/written.&lt;/html&gt;</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <separator/>
+                </group>
+            </column>
+            -->
+        </column>
+    </pane>
+    <pane>
+        <name>Advanced</name>
+        <name xml:lang="ca">Avançat</name>
+        <name xml:lang="it">Avanzato</name>
+        <name xml:lang="de">Erweitert</name>    
+        <name xml:lang="da">Avanceret</name>
+        <name xml:lang="cs">Pokročilý</name>
+        <column>
+            <label>
+                <text>RailCom® Settings</text>
+                <text xml:lang="it">RailCom®</text>
+                <text xml:lang="de">RailCom® Einstellungen</text>
+            </label>
+            <label>
+                <text> </text>
+            </label>
+            <display item="RailCom Option 1" layout="right" format="checkbox"/>
+            <display item="RailCom Option 2" layout="right" format="checkbox"/>
+            <label>
+                <text> </text>
+            </label>
+            <row>
+                <column>
+                    <label>
+                        <text>     </text>
+                    </label>
+                </column>
+                <column>
+                    <label>
+                        <text>Send following information to the command station:</text>
+                        <text xml:lang="de">Folgende Informationen an die Zentrale senden:</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <display item="RailCom Option 3" layout="right" format="checkbox"/>
+                    <display item="RailCom Option 4" layout="right" format="checkbox"/>
+                    <label>
+                        <text>     </text>
+                    </label>
+                </column>
+            </row>
+            <row>
+                <display item="DCC turnout addressing"/>
+            </row>
+        </column>
+    </pane>
+    <xi:include href="http://jmri.org/xml/decoders/esu/switchPilotFnOutPane.xml"/>
+    <pane>
+        <name>Function Settings</name>
+        <name xml:lang="de">Funktionseinstellungen</name>
+        <column>
+            <group include="SwitchPilot,SwitchPilot V2.0">
+                <column>
+                    <separator/>
+                    <label>
+                        <text>"Zoom" Configuration</text>
+                        <text xml:lang="de">"Zoom" Konfiguration</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <display item="Zoom Output 1" layout="right" format="checkbox"/>
+                    <display item="Zoom Output 2" layout="right" format="checkbox"/>
+                    <display item="Zoom Output 3" layout="right" format="checkbox"/>
+                    <display item="Zoom Output 4" layout="right" format="checkbox"/>
+                    <label>
+                        <text> </text>
+                    </label>
+                </column>
+            </group>
+            <group>
+                <column>
+                    <separator/>
+                    <label>
+                        <text>Relay Control Settings (SwitchPilot Extension)</text>
+                        <text xml:lang="de">Relais Einstellungen (SwitchPilot Extension)</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <display item="Relay 1 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 2 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 3 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 4 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 5 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 6 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 7 Delay" layout="right" format="checkbox"/>
+                    <display item="Relay 8 Delay" layout="right" format="checkbox"/>
+                    <label>
+                        <text> </text>
+                    </label>
+                </column>
+            </group>
+            <group exclude="SwitchPilot,SwitchPilot Servo">
+                <column>
+                    <separator/>
+                    <label>
+                        <text>Servo Control</text>
+                        <text xml:lang="de">Servo Einstellungen</text>
+                    </label>
+                    <label>
+                        <text> </text>
+                    </label>
+                    <display item="Servo Control 1" layout="right" format="checkbox"/>
+                    <display item="Servo Control 2" layout="right" format="checkbox"/>
+                    <display item="Servo Control 3" layout="right" format="checkbox"/>
+                    <label>
+                        <text> </text>
+                    </label>
+                </column>
+            </group>
+        </column>
+    </pane>
+</decoder-config>

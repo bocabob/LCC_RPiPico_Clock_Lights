@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Tables Servlet</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>JMRI: Tables Servlet</h1>
+
+      <p>The JMRI Tables Servlet provides web access to information about JMRI objects such as
+      Turnouts and Sensors.</p>
+
+      <p>This servlet responds to the following URL patterns:</p>
+
+      <dl>
+        <dt>/tables/</dt>
+
+        <dt>/tables/type</dt>
+
+        <dd>Lists all potentially supported data types (in a table).</dd>
+
+        <dt>/tables/&lt;type&gt;</dt>
+
+        <dd>Displays an operating list of objects of that type (or "No data for this table." in
+        case of an empty list).<br>
+        The table updates dynamically to reflect changes in JMRI. Click the State column entry to
+        toggle the state of that item in JMRI.<br>
+        <em>&lt;type&gt;</em> is one of: <em>turnout</em>, <em>sensor</em>, <em>route</em>,
+        <em>reporter</em> etc.</dd>
+        
+        <dt>/tables/&lt;type&gt;?&lt;key1&gt;=&lt;value1&gt;&amp;&lt;key2&gt;=&lt;value2&gt;...</dt>
+
+        <dd>Query string of key=value pairs, where the specified column (key) value must match the
+         specified value. For example, <code>/tables/car?trainId=12&location=Lakeview</code> will only 
+         show cars which have trainID of 12 and location of Lakeview. Use <code>?</code> to start the query 
+         string and separate multiple parameters with <code>&amp;</code>. Any columns in the table
+         can be used as a filter. Note: Both key and value are case-sensitive.</dd>
+
+      </dl>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

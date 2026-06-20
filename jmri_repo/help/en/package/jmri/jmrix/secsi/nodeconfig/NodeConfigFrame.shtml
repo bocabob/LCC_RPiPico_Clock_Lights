@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Configure SECSI Nodes</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help configure grapevine node">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <h1>Configure SECSI Nodes</h1>
+
+      <p>SECSI nodes need to be configured before input works.</p>
+
+      <p>The following is just a placeholder...</p>
+
+      <p>The node software comes in three separate varieties:</p>
+
+      <dl>
+        <dt>??</dt>
+
+        <dd>Generally considered the best</dd>
+
+        <dt>???</dt>
+
+        <dd>If you have one of these, you should probably update the software in it</dd>
+
+        <dt>Original node</dt>
+
+        <dd>Although JMRI has code to support these, it has not been extensively tested. If you
+        encounter problems, please let us now so we improve the support for these cards.</dd>
+
+        <dt>This is the help/jmri/jmrix/secsi/nodeconfig/NodeConfigFrame help page</dt>
+      </dl>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013-10-11-->
+<head>
+  <title>JMRI: Add/Edit Sections</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Section Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Ajouter/éditer les Sections</h1>
+
+      <h2><a name="addSection" id="addSection">Ajout d'un nouvel élément</a>
+      </h2>
+      Pour ajouter une nouvelle section, suivez cette procédure:
+      <ol>
+        <li>
+          <p>Cliquez <strong><a href="SectionTable.shtml">Sections</a></strong> dans le sous - menu
+          <strong>Tableaux</strong> du menu <strong>Outils</strong> pour faire apparaître le
+          Tableau Section, puis cliquez sur le bouton <strong>Ajouter ...</strong> au bas du
+          tableau pour ouvrir la fenêtre Ajouter/modifier l'élément.</p>
+          <img src="SectionAddFrame.png" height="591" width="804" alt="">
+        </li>
+
+        <li>Entrez un <strong>Nom Système</strong>, selon la convention JMRI. Comme les sections
+        sont des objets internes, la première lettre doit être "I" (pour interne). La seconde
+        lettre devrait être "Y" pour indiquer une section. Ceci est généralement suivi par un
+        nombre, mais le programme accepte tous les caractères alphanumériques. Le nom système doit
+        être différent du Nom Système d'autres sections. JMRI mettra tous les caractères
+        alphabétiques dans le Nom Système en majuscules.</li>
+
+        <li>Entrez un <strong>Nom Utilisateur</strong>. Toute chaîne de caractères qui est
+        différente des Nom Utilisateur d'autres sections seront acceptées, mais il est sage
+        d'utiliser une chaîne qui décrit l'utilisation prévue de la section.</li>
+
+        <li>Ensuite, ajoutez les <strong>Cantons</strong> à la Section. Chaque section doit avoir
+        au moins un Canton, mais peut-être plus. Les cantons doivent être connectés, et doit être
+        inscrits dans l'ordre. Sélectionnez le Canton où vous voulez commencer la section dans le
+        menu contextuel. A tout moment pendant l'ajout de Canton, le menu contextuel répertorie
+        uniquement les Cantons qui sont admissibles pour l'addition. Cliquez <strong>Ajouter Canton
+        sélectionné</strong> pour ajouter le premier canton de la section.</li>
+
+        <li>Si la Section doit avoir plusieurs cantons, ajouter plusieurs Cantons de la même
+        manière. Sélectionnez le Canton devant être ajouté dans le menu contextuel et cliquez sur
+        <strong>Ajouter la Sélection Canton</strong>. Note importante: Les Cantons de commande
+        ajoutés déterminent le sens <strong>AVANT</strong> et <strong>INVERSE</strong>de la
+        directions dans la Section. L'AVANT est de la partie supérieure du Canton à la partie
+        inférieure du Canton. Si à tout moment vous décidez que vous voulez recommencer, cliquez
+        <strong>Supprimer Tous les Cantons</strong> pour effacer le Tableau Cantons, et revenir à
+        l'étape 4 ci-dessus.</li>
+
+        <li>La suite détermine la <strong>Direction de Déplacement</strong> de chaque <strong>Point
+        d'Entrée</strong> de la Section. Comme les cantons ont été saisis, le programme réuni une
+        liste de tous les Points d'entrée pour la nouvelle Section. Dans la colonne <strong>Canton
+        Entré Depuis</strong>, tous les Cantons non dans la Section, mais relié aux cantons dans la
+        Section sont énumérés. Pour chaque Canton, le Nom Système et le Nom Utilisateur (entre
+        parenthèses) sont présentés, suivis par la direction du chemin. Normalement la direction du
+        chemin peut être ignorée, mais s'il y a deux points d'entrée à partir du même Canton, la
+        direction du chemin devrait vous permettent d'identifier qui est qui.
+          <p>Les entrées <strong>Sens du Déplacement</strong> de la colonne sont les menus
+          déroulants qui doivent être réglés AVANT si un train entre dans la Section à partir de ce
+          Canton se rendra dans les autres Cantons vers l'avant dans la Section, ou réglé sur
+          INVERSE, si un train entrant depuis le Canton se rendra dans le sens INVERSE de la
+          Section. Note: Ne pas confondre les directions AVANT et INVERSE dans une Section, avec
+          les paramètres Marche avant et arrière sur un régulateur - Ce sont deux choses
+          différentes</p>
+          .
+          <p>Lorsque c'est possible, le programme a entré AVANT ou ARRIèRE pour vous. S'il ne
+          pouvait pas déterminer la direction sans aucune ambiguÃ¯té, il a entré
+          <strong>INCONNU</strong>. Vous devez attribuer toutes les directions de Déplacement
+          inconnues pour que la nouvelle section puisse être créée. Note Importante:.
+          <strong>l'attribution du Sens de Déplacement doit être conforme</strong> Si la nouvelle
+          section a un seul canton, ce n'est pas important quelle direction que vous choisissez
+          comme AVANT, mais une fois que vous faites ce choix, toutes les affectations doivent s'y
+          conformer. Si la nouvelle Section a plusieurs cantons, AVANT est la direction d'un train
+          qui se déplacerait du Canton du haut vers le Canton du bas.</p>
+        </li>
+
+        <li>Si vous utilisez des <strong>Capteurs de Direction</strong>, entrez les noms de vos
+        <strong>Capteur Avant</strong> et capteur de marche arriÉre <strong>Capteur
+        Inverse</strong> dans les domaines désignés. Ces Capteurs sont habituellement des capteurs
+        internes (commencant par "IS" dans leur nom système). Si vous n'avez pas encore créé les
+        capteurs, entrez leurs noms système et les entrées seront faites dans le Tableau Capteur
+        pour ces capteurs. Plus d'informations sur l'orientation des Capteurs et leur utilisation
+        sontt données dans la section <a href="SectionTable.shtml">Fichier d'aide de Tableau</a>.
+        Si les capteurs de direction ne sont pas nécessaires, laissez les champs vides. Vous pouvez
+        toujours les ajouter par la suite via la fonction Modifier</li>
+
+        <li>Si vous utilisez des <strong>Capteurs d'Arrêt</strong>, entrez les noms de vos
+        <strong>Capteurs d'Arrêt Avant</strong> et <strong>Capteurs d'Arrêt Inverse</strong> dans
+        les champs désignés. Ces capteurs sont des capteurs physiques sur le réseau qui s'active
+        quand un train a atteint la fin de la section lorsque vous voyagez vers l'avant ou en
+        direction inverse. Si vous n'avez pas encore créé les entrées de ces capteurs dans le
+        tableau capteur, entrer leurs noms système, et les inscriptions seront ajouté au Tableau
+        Capteur. Plus d'informations sur les capteurs d'arrêt et leur utilisation est donnée dans
+        la section <a href="SectionTable.shtml">Fichier d'aide de tableau</a>. Si les capteurs
+        d'arrêt ne sont pas nécessaires, laisser les champs vides -. vous pouvez toujours les
+        ajouter par la suite via la fonction Modifier</li>
+
+        <li>Cliquez sur le bouton <strong>Créer</strong> situé au bas de la fenêtre. Si tout va
+        bien, la fenêtre se ferme et une nouvelle Section apparaîtra dans le Tableau Sections. S'il
+        y a des problèmes avec quoi que ce soit, un message sera affiché, indiquant l'erreur et ce
+        que vous devriez faire pour la réparer. Corrigez l'erreur et cliquez sur
+        <strong>Créer</strong> à nouveau.</li>
+      </ol>
+
+      <h2>Modification d'une Section Existante</h2>
+      Pour modifier un article existant, suivez cette procédure:
+      <ol>
+        <li>Cliquez le bouton <strong>d'une section à Modifier</strong> dans le <a href=
+        "SectionTable.shtml">Tableau section</a> pour faire apparaître la fenêtre Ajouter/Modifier
+        l'élément. La fenêtre pourra être le même que celle indiquée ci-dessus, sauf le nom système
+        qui seront fixés, et le bouton <strong>Créer</strong> sera remplacé par un bouton
+        <strong>Mise à Jour</strong>.</li>
+
+        <li>Effectuez les modifications ou les ajouts que vous devez à l'information dans la
+        fenêtre. Notez que le Nom Système de la Section ne peut pas être changé, mais le Nom
+        Utilisateur peut être changé. Les éléments qui peuvent être édités sont décrits <a href=
+        "#addSection">ci-dessus</a> dans les étapes 3 à 8 de la procédure d'ajout d'une nouvelle
+        Section.</li>
+
+        <li>
+          <p>Après avoir modifié les informations de section, cliquez sur <strong>Mise à
+          Jour</strong> Pour changer la section sélectionnée. Si tout va bien, la fenêtre se ferme.
+          S'il y a un problème, un message s'affiche indiquant l'erreur et ce que vous devriez
+          faire pour le réparer. Corrigez l'erreur et cliquez sur <strong>Mise à jour</strong> à
+          nouveau.</p>
+        </li>
+
+        <li style="list-style: none">Cliquez</li>
+
+        <li><strong>Annuler</strong> pour quitter sans modifier la section sélectionnée. Si la
+        fenêtre de la section Ajouter/éditer est fermée pendant l'édition, <strong>Annuler</strong>
+        est automatiquement sélectionné, et aucune modification n'est apportée à la section
+        sélectionnée.</li>
+      </ol>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

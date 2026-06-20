@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>DecoderPro Throttle</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Main Window</h1>
+
+      <h2>JMRI&reg; Throttle Window - Address Panel</h2>
+
+      <div class="dp-right">
+        <p><a href="dp3_Main_Throttle.shtml">Back</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <h3>Address Panel</h3>
+
+      <table>
+        <tbody>
+          <tr>
+            <td style="width: 40%"><img src="images/Main_Throttle_Address.png" alt=
+            "Throttle address frame" height="134" width="277">
+            </td>
+            <td>
+              <p>Primary use is to identify the decoders address, and to Set, Dispatch or Release
+              the identified address in your DCC Controller. Locomotive addresses may be entered by
+              one of two methods: typed into text box or use drop-down list to select locomotive
+              from your roster. If you have added <strong><a href=
+              "Adv_FunctionLabel.shtml">Function labels</a></strong><a href=
+              "Adv_FunctionLabel.shtml">,</a> to your Roster, the label text from the Roster will
+              be displayed on the throttle function buttons.</p>
+
+              <p>Click on the <span class="textbutton">Set</span> button to send
+              the address to your system to make this throttle active for the selected
+              locomotive..</p>
+
+              <p>The <span class="textbutton">Dispatch</span> button is used to
+              dispatch the locomotive which releases the throttle for that address so that it can
+              be acquired by another throttle</p>
+
+              <p>The <span class="textbutton">Release</span> button
+              is used to release the address from your system.</p>
+
+              <p>The <span class="textbutton">Program</span> button
+              opens the <a href="Comp_Setup_Roster.shtml"><strong>Programmer</strong></a> for the
+              locomotive selected in ops-mode (Programming on the Main) Only active when roster
+              entry is used to select the address for the throttle.</p>
+
+              <p>Any of the buttons may be grayed out depending on the status of your system.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <div class="dp-right">
+        <a href="#Top">Top</a>
+        <p><a href="dp3_Main_Throttle.shtml">Back</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

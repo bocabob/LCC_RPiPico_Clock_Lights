@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Translated  by Blorec Herv&#233; le 2011-10-27-->
+  <title>JMRI: RPS Debugger</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Déboggeur RPS</h1><a href=
+      "../../../../../../html/hardware/rps/images/Debugger.jpg"><img src="../../../../../../html/hardware/rps/images/Debugger.jpg"
+      height="262" width="168" alt="RPS Receiver Control window"
+      align="right"></a>
+      <p>
+      La fenêtre du débogueur vous permet
+      de chercher de l'information pendant qu'elle se
+      déplace à travers le <a href=
+      "../../../../../../html/hardware/rps/index.shtml">système
+      RPS</a>.</p>
+
+      <p>La partie supérieure gauche affiche la valeur
+      du temps de chaque récepteur actif chaque fois
+      qu'une lecture est prise.</p>
+
+      <p>Si une position a été
+      calculée avec succès à
+      plusieurs reprises, la valeur "résultante" est
+      affichée pour chaque récepteur.
+      Ceci est la différence entre le temps
+      mesuré et le temps que le système
+      RPS a attendu pour mesurer si la locomotive
+      était vraiment dans cette position. Les Valeur
+      typique sont d'environ plus ou moins 100, correspondant
+      à environ un pouce de précision. Si un
+      ou deux récepteurs ont des valeurs
+      résiduelles beaucoup plus grandes, il y a peut
+      être un problème avec les lectures
+      de ces récepteurs avec l'émetteur
+      à son emplacement actuel.</p>
+
+      <p>La section inférieure de la
+      fenêtre affiche la position
+      calculée à partir de chaque lecture.
+      Ci-dessous les positions calculées est le code
+      de retour du calcul. Une valeur positive est
+      considérée comme un
+      résultat OK, et une valeur nulle ou
+      négative indique un certain type d'erreur.</p>
+
+      <p>Il est également possible de taper des
+      valeurs dans les champs et demander au système de
+      les traiter comme si elles étaient
+      entrées. La boîte de
+      sélection et bouton en bas sont comment vous
+      faites cela.</p>
+
+      <p>Le menu "Fichier" comprend un
+      élément "Démarrer
+      Export CSV ..." qui peut être
+      utilisé pour copier l'entrée brutes
+      du système RPS dans un fichier. Une fois que vous
+      avez sélectionné cette option, il vous est
+      présenté un dialogue pour
+      sélectionner le Nom de fichier de sortie. Si
+      vous sélectionnez le nom d'un fichier qui existe
+      déjà, il sera retiré avant
+      le début de l'export. Chaque entrée
+      RPS lorsque vous sélectionnez un nom de fichier
+      sera écrit dans ce fichier, et le choix du menu
+      va changer pour "Arrêter
+      l'exportation CSV ...". Sélectionnez ce choix de
+      menu pour arrêter l'enregistrement et assurer
+      que les dernières lignes ont
+      été écrites.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

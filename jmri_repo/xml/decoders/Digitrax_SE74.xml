@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../XSLT/decoder.xsl"?>
+<decoder-config xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/decoder-4-15-2.xsd"
+                showEmptyPanes="no"
+                suppressFunctionLabels="yes"
+                suppressRosterMedia="yes"
+                >
+
+    <version author="Bob Jacobsen" version="1" lastUpdated="20230205" />
+
+    <decoder>
+
+        <family name="Series 7 Boards" mfg="Digitrax">
+            <model model="SE74"/>
+        </family>
+
+        <programming direct="no" paged="yes" register="no" ops="no">
+            <!-- paged yes allows initial setup and change of address -->
+            <mode>LOCONETBD7OPSWMODE</mode>
+        </programming>
+
+        <variables>
+          <variable CV="1" comment="Base Address" item="Long Address" default="253" infoOnly="yes">
+            <!-- This is needed to set the Base Address value.
+                2037 is a practical maximum.
+                Note that the SE74 will allow higher numbers
+                to be set, but they will conflict with the
+                "interrogate" switches.  -->
+            <splitVal highCV="2" upperMask="XXXXXVVV" default="0" min="1" max="2037"/>
+            <label>Base Address</label>
+          </variable>
+
+           <!-- CV7 is the product ID. Should be 0x70, decimal 112 -->
+          <variable CV="7" item="Device Type" readOnly="yes">
+            <decVal min="0" max="255"/>
+            <label>Device Type</label>
+          </variable>
+
+          <variable CV="8" item="Device Mfgr" readOnly="yes" default="129">
+            <decVal/>
+            <label>Device Manufacturer (NMRA number) </label>
+          </variable>
+
+          <variable CV="9" item="Serial Number" default="0" mask="VVVVVVVV" readOnly="yes">
+            <splitVal highCV="10" upperMask="VVVVVVVV"/>
+            <label>Serial Number</label>
+          </variable>
+
+
+          <variable CV="11" item="Turnout Type" default="0" tooltip="OpSw01" mask="XXXXXXXV">
+            <enumVal>
+              <enumChoice value="0">
+                <choice>Pulsed (Solenoid)</choice>
+              </enumChoice>
+              <enumChoice value="1">
+                <choice>Slow Motion (Constantly-powered)</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Switch Outputs Type is</label>
+          </variable>
+
+          <variable CV="11" item="Signal Control Mode" default="0" tooltip="OpSw05" mask="XXXVXXXX">
+            <enumVal>
+              <enumChoice>
+                <choice>Switch Command Mode</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>DCC Aspect Signal Control Mode</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Signal Control Mode is</label>
+          </variable>
+
+          <variable CV="11" item="Internal Routes" default="0" tooltip="OpSw06" mask="XXVXXXXX">
+            <enumVal>
+              <enumChoice>
+                <choice>enabled</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>disabled</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Internal Routes are</label>
+          </variable>
+
+          <variable CV="12" item="Bushby" default="0" tooltip="OpSw10" mask="XXXXXXVX">
+            <enumVal>
+              <enumChoice>
+                <choice>disabled</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>enabled</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Bushby Bit is</label>
+          </variable>
+
+          <variable CV="12" item="Input Lines" default="0" tooltip="OpSw11" mask="XXXXXVXX">
+            <enumVal>
+              <enumChoice>
+                <choice>do turnout, sensor commands</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>trigger routes</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Input Lines</label>
+          </variable>
+
+          <variable CV="12" item="Command Source" default="0" tooltip="OpSw14" mask="XXVXXXXX">
+            <enumVal>
+              <enumChoice>
+                <choice>Loconet switch commands</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>DCC switch commands only</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Command source is</label>
+          </variable>
+
+          <variable CV="12" item="Route Echo" default="0" tooltip="OpSw15" mask="XVXXXXXX">
+            <enumVal>
+              <enumChoice>
+                <choice>echo to Loconet</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>do not echo to Loconet</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Route Switch Commands</label>
+          </variable>
+
+          <variable CV="12" item="Solenoid Pulse" default="0" tooltip="OpSw16" mask="VXXXXXXX">
+            <qualifier>
+                <variableref>Turnout Type</variableref>
+                <relation>eq</relation>
+                <value>0</value>
+            </qualifier>
+            <enumVal>
+              <enumChoice>
+                <choice>normal</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>high CD voltage</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Solenoid Pulse</label>
+          </variable>
+
+          <variable CV="14" item="SW Messages" default="0" tooltip="OpSw30" mask="XXVXXXXX">
+            <enumVal>
+              <enumChoice>
+                <choice>normal B0 (&lt;OPC_SW_REQ&gt;) format messages</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>special B2 (&lt;OPC_INPUT_REP&gt;) format messages</choice>
+              </enumChoice>
+            </enumVal>
+            <label>For switch messages, send</label>
+          </variable>
+
+          <variable CV="15" item="Signal Lamps" default="0" tooltip="OpSw33,34" mask="XXXXXXVV">
+            <enumVal>
+              <enumChoice value="0">
+                <choice>separate Red/Yellow/Green outputs</choice>
+              </enumChoice>
+              <enumChoice value="1">
+                <choice>separate Red/Yellow/Green outputs (Alternate)</choice>
+              </enumChoice>
+              <enumChoice value="2">
+                <choice>3-wire "Searchlight" outputs</choice>
+              </enumChoice>
+              <enumChoice value="3">
+                <choice>2-wire "Searchlight" outputs</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Signal lamps use</label>
+          </variable>
+
+          <variable CV="15" item="Wiring" default="0" tooltip="OpSw35" mask="XXXXXVXX">
+            <enumVal>
+              <enumChoice>
+                <choice>common anode</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>common cathode</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Signals wired with</label>
+          </variable>
+
+          <variable CV="15" item="Broadcast" default="0" tooltip="OpSw37,36" mask="XXXVVXXX">
+            <enumVal>
+              <enumChoice choice="0">
+                <choice>flashing yellow</choice>
+              </enumChoice>
+              <enumChoice choice="1">
+                <choice>dark</choice>
+              </enumChoice>
+              <enumChoice choice="2">
+                <choice>flashing red</choice>
+              </enumChoice>
+              <enumChoice choice="3">
+                <choice>flashing green</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Fourth aspect is</label>
+          </variable>
+
+          <variable CV="15" item="1021 Broadcast" default="0" tooltip="OpSw38" mask="XXVXXXXX">
+            <enumVal>
+              <enumChoice>
+                <choice>enabled</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>disabled</choice>
+              </enumChoice>
+            </enumVal>
+            <label>SW1021/2022 signal broadcast: </label>
+          </variable>
+
+          <variable CV="16" item="Lunar" default="0" tooltip="OpSw41" mask="XXXXXXXV">
+            <enumVal>
+              <enumChoice>
+                <choice>not persistent</choice>
+              </enumChoice>
+              <enumChoice>
+                <choice>persistent</choice>
+              </enumChoice>
+            </enumVal>
+            <label>Lunar Aspects are</label>
+          </variable>
+        </variables>
+    </decoder>
+  <pane xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/programmer.xsd">
+    <name>CVs</name>
+    <column>
+        <row>
+            <cvtable/>
+        </row>
+        <row>
+            <column>
+                <label>
+                    <text>&lt;html&gt;The "CV" column in the table above shows CV
+                        numbers, not the Op Switch number.&lt;p&gt;To see those, hover
+                        your mouse over a variable on the OpSw Settings pane.
+                        &lt;p&gt;CVs 1 and 2 are the low and high (respectively) 8-bit
+                        "Base Address" values.&lt;p&gt;The "Base Address" is practically
+                        limited to 2005, max. in "Switch" mode, &lt;p&gt;or 2032
+                        max. when, in "Aspect" mode.&lt;p&gt;The "Roster" tool and its
+                        Roster entries &lt;em&gt; cannot&lt;/em&gt; change the
+                        "Base Address".
+                    </text>
+                </label>
+                <label>
+                    <text> </text>
+                </label>
+            </column>
+        </row>
+    </column>
+
+  </pane>
+  <pane>
+      <name>Basic</name>
+      <column>
+          <display item="Long Address"/>
+          <label>
+            <text>&lt;html&gt;
+                &lt;p&gt;This roster entry will only access the specified
+                board if the Base Address specified above &lt;br&gt;was
+                correctly entered when the roster entry was first created.
+                You &lt;em&gt;cannot&lt;/em&gt; change it in the Roster Entry.
+            &lt;/html&gt;</text>
+          </label>
+          <label>
+              <text> </text>
+          </label>
+          <display item="Device Type"/>
+          <display item="Device Mfgr"/>
+          <display item="Serial Number"/>
+      </column>
+  </pane>
+
+    <pane>
+        <name>Signal OpSw Settings</name>
+        <column>
+            <label><text>&lt;html&gt;&lt;span style=&quot;color: black;&quot;&gt;&lt;h2&gt;&lt;strong&gt;
+                Signaling Mode&lt;/strong&gt;&lt;/h2&gt;&lt;/html&gt;</text>
+            </label>
+
+            <display item="Signal Control Mode"/>
+
+            <label>
+                <text>&lt;html&gt;&lt;span style=&quot;color: black;&quot;&gt;&lt;h2&gt;&lt;strong&gt;Signal Control Configuration&lt;/strong&gt;&lt;/h2&gt;&lt;/html&gt;</text>
+            </label>
+            <display item="Command Source"/>
+            <display item="Bushby"/>
+            <display item="1021 Broadcast"/>
+            <display item="Broadcast"/>
+            <display item="Lunar"/>
+
+            <label><text>&lt;html&gt;&lt;span style=&quot;color: black;&quot;&gt;&lt;h2&gt;&lt;strong&gt;Signal Lamp Configuration&lt;/strong&gt;&lt;/h2&gt;&lt;/html&gt;</text></label>
+            <display item="Signal Lamps"/>
+            <display item="Wiring"/>
+        </column>
+    </pane>
+
+    <pane>
+        <name>Sw. Ctrl, Inputs Settings</name>
+        <column>
+            <label><text>&lt;html&gt;&lt;span style=&quot;color: black;&quot;&gt;&lt;h2&gt;&lt;strong&gt;
+                Switch Control Configuration&lt;/strong&gt;&lt;/h2&gt;&lt;/html&gt;</text>
+            </label>
+            <display item="Turnout Type"/>
+            <display item="Solenoid Pulse"/>
+
+                <label label="&lt;html&gt;(The &quot;Solenoid pulse&quot; value is ignored when using&lt;p&gt;
+                    the &quot;Slow Motion&quot; outputs setting.)">
+            <qualifier>
+                <variableref>Turnout Type</variableref>
+                <relation>eq</relation>
+                <value>1</value>
+            </qualifier>
+                </label>
+
+            <label><text>&lt;html&gt;&lt;span style=&quot;color: black;&quot;&gt;&lt;h2&gt;&lt;strong&gt;
+                Inputs Configuration&lt;/strong&gt;&lt;/h2&gt;&lt;/html&gt;</text>
+            </label>
+            <display item="Internal Routes"/>
+            <display item="Route Echo"/>
+            <display item="Input Lines"/>
+            <display item="SW Messages"/>
+
+
+        </column>
+    </pane>
+
+</decoder-config>

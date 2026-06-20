@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Herv&#233; Blorec 2013-10-08 -->
+<head>
+  <title>JMRI: Roster Servlet</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+      <h1>JMRI: Liste Servlet</h1>
+      <p>La Liste Servlet JMRI fournit un
+      acc&egrave;s Web &agrave; des informations sur les
+      entr&eacute;es liste JMRI. Ce servlet r&eacute;pond aux
+      mod&egrave;les d'URL suivants:</p>
+
+      <ul>
+        <li>/roster/</li>
+        <li>/roster/list</li>
+        <li>/roster/list?filter=filter[&amp;filter=filter]</li>
+        <li>/roster/&lt;ID&gt;</li>
+        <li>/roster/entry/&lt;ID&gt;</li>
+        <li>/roster/&lt;ID&gt;/image</li>
+        <li>/roster/&lt;ID&gt;/icon</li>
+      </ul>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+package jmri.jmrix.easydcc;
+
+import java.io.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.Vector;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ * JUnit tests for the EasyDccTrafficController class
+ *
+ * @author Bob Jacobsen Copyright (C) 2003, 2007, 2015
+ */
+@Timeout(90)
+public class EasyDccTrafficControllerTest extends jmri.jmrix.AbstractMRTrafficControllerTest {
+
+    @Test
+    public void testSendThenRcvReply() throws IOException {
+        EasyDccTrafficController c = new EasyDccTrafficController(new EasyDccSystemConnectionMemo("E", "EasyDCC Test")){
+            @Override
+            protected void terminate(){
+               // do nothing, so we don't try to write to a closed pipe
+               // after this test
+            }
+        };
+
+        // connect to iostream via port controller
+        EasyDccPortControllerScaffold p = new EasyDccPortControllerScaffold();
+        c.connectPort(p);
+
+        // object to receive reply
+        EasyDccListenerScaffold l = new EasyDccListenerScaffold();
+        assertNull(l.rcvdMsg);
+        c.addEasyDccListener(l);
+
+        // send a message
+        EasyDccMessage m = new EasyDccMessage(3);
+        m.setOpCode('0');
+        m.setElement(1, '1');
+        m.setElement(2, '2');
+        c.sendEasyDccMessage(m, l);
+
+        ostream.flush();
+        JUnitUtil.waitFor(()->{return tostream.available() == 4;}, "total length");
+        
+        // test the result of sending
+        assertEquals( 4, tostream.available(), "total length ");
+        assertEquals( (byte)'0', tostream.readByte(), "Char 0");
+        assertEquals( (byte)'1', tostream.readByte(), "Char 1");
+        assertEquals( (byte)'2', tostream.readByte(), "Char 2");
+        assertEquals( 0x0d, tostream.readByte(), "EOM");
+
+        // now send reply
+        tistream.write('P');
+        tistream.write(0x0d);
+
+        // threading causes the traffic controller to handle the reply,
+        // so wait until that happens.
+        JUnitUtil.waitFor(()->{return l.rcvdReply != null;}, "reply received");
+
+        assertNotNull( l.rcvdReply, "reply received ");
+        assertEquals( 'P', l.rcvdReply.getOpCode(), "first char of reply ");
+        c.terminateThreads(); // stop any threads we might have created.
+    }
+
+    // internal class to simulate an EasyDccPortController
+    private class EasyDccPortControllerScaffold extends EasyDccPortController {
+
+        EasyDccPortControllerScaffold() {
+            super(new EasyDccSystemConnectionMemo());
+            assertDoesNotThrow( () -> {
+                PipedInputStream tempPipe;
+                tempPipe = new PipedInputStream();
+                tostream = new DataInputStream(tempPipe);
+                ostream = new DataOutputStream(new PipedOutputStream(tempPipe));
+                tempPipe = new PipedInputStream();
+                istream = new DataInputStream(tempPipe);
+                tistream = new DataOutputStream(new PipedOutputStream(tempPipe));
+            });
+        }
+
+        @Override
+        public Vector<String> getPortNames() {
+            return null;
+        }
+
+        @Override
+        public String openPort(String portName, String appName) {
+            return null;
+        }
+
+        @Override
+        public void configure() {
+        }
+
+        @Override
+        public String[] validBaudRates() {
+            return new String[] {};
+        }
+
+        //@Override
+        @Override
+        public int[] validBaudNumbers() {
+            return new int[] {};
+        }
+
+        // returns the InputStream from the port
+        @Override
+        public DataInputStream getInputStream() {
+            return istream;
+        }
+
+        // returns the outputStream to the port
+        @Override
+        public DataOutputStream getOutputStream() {
+            return ostream;
+        }
+
+        // check that this object is ready to operate
+        @Override
+        public boolean status() {
+            return true;
+        }
+    }
+
+    private DataOutputStream ostream;  // Traffic controller writes to this
+    private DataInputStream tostream;  // so we can read it from this
+
+    private DataOutputStream tistream; // tests write to this
+    private DataInputStream istream;   // so the traffic controller can read from this
+
+    private EasyDccSystemConnectionMemo memo;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        memo = new EasyDccSystemConnectionMemo("E", "EasyDCC Test");
+        tc = new EasyDccTrafficController(memo);
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        if (tc!=null) {
+            tc.terminateThreads();
+        }
+        if ( memo != null ) {
+            memo.dispose();
+            memo = null;
+        }
+        JUnitUtil.tearDown();
+    }
+
+}

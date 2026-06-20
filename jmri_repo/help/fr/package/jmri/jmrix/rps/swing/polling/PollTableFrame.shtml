@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Blorec Herv&#233; le 2012-01-25-->
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <title>JMRI: RPS Polling Control</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Contr&ocirc;le de Scrutation RPS</h1>
+      <a href=
+      "../../../../../../html/hardware/rps/images/PollControl.gif"><img src="../../../../../../html/hardware/RPS/images/PollControl.gif"
+      height="80" width="300" alt=
+      "Fen&egrave;tre R&eacute;cepteur de Contr&ocirc;le RPS"
+      align="right"></a><br>
+      La fen&egrave;tre de Contr&oacute;le de
+      Scrutation RPS est l&aacute; o&uacute; vous dites au
+      <a href=
+      "../../../../../../html/hardware/rps/index.shtml">syst&egrave;me
+      RPS</a> lesquelles de vos locomotives ont un
+      "metteurs RPS install", et combien
+      de fois de ils ont parler avec eux.
+
+      <p>Lorsque vous ouvrez la fen&egrave;tre, vous devriez
+      voir votre alignement entier <a href=
+      "../../../../../../manual/Comp_Setup_Roster.shtml">de
+      locomotives</a> affich&eacute;, un par ligne.</p>
+
+      <p>Si une locomotive a un &eacute;metteur RPS
+      install&eacute; et vous aimeriez que le
+      syst&egrave;me permette de suivre sa position, cochez la
+      case dans le "sondage" de la colonne.</p>
+
+      <p>Pour contr&ocirc;ler ou le syst&egrave;me
+      scrute dans son ensemble , cochez ou d&eacute;cochez le
+      case "sondage" dans la section inf&eacute;rieure de la
+      fen&egrave;tre.</p>
+
+      <p>Le tableau est compos&eacute; de neuf colonnes:</p>
+
+      <ul>
+        <li>"Nom Liste" - C'est le nom
+        d&eacute;codeur partir de la liste.</li>
+
+        <li>"ID" - Le nom que RPS utilise pour faire
+        r&eacute;f&eacute;copy;rence &aacute; cet
+        &eacute;metteur. Par d&eacute;faut, c'est la
+        m&ecirc;me chose que le nom de fichier, mais vous
+        pouvez le changer si vous le souhaitez.</li>
+
+        <li>"Adresse Locomotive" et
+        "Long" - L'adresse du
+        d&eacute;codeur DCC. Le "Long" case sera
+        coch&eacute;e si ce n'est une adresse
+        "long"
+        ("&eacute;tendue").</li>
+
+        <li>"Scrute" - Si le syst&egrave;me RPS mesure cette
+        position?</li>
+
+        <li>" Derni&egrave;r X", " Derni&egrave;r Y",
+        "Derni&egrave;r Z" - La position la plus
+        r&eacute;cente mesur&eacute;e pour cet
+        &eacute;metteur.</li>
+
+        <li>"Last Time" - Le temps auquel la derni&egrave;re
+        mesure a &eacute;t&eacute; prise.</li>
+      </ul>Il ya trois boutons radio qui contr&ocirc;lent
+      la fa&ccedil;on de vote se termine.
+
+      <dl>
+        <dt>Utilisez Sondage BSC</dt>
+
+        <dd>Quand elle est coch&eacute;e, cela utilise un
+        &Eacute;tat de Commande Binaire" pour
+        interroger le syst&egrave;me RPS. Si votre RPS
+        &eacute;metteurs le supporte, il est le
+        r&eacute;glage recommand&eacute;, sauf pour les
+        syst&egrave;mes Lenz.</dd>
+
+        <dt>Usage de Sondage Direct</dt>
+
+        <dd>Quand elle est coch&eacute;e, JMRI envoie des
+        commandes F2 directement sur la voie. Utilisez cette option
+        si votre &eacute;metteurs RPS
+        n&eacute;cessitent des sondages F2, et vous n'avez
+        pas un syst&egrave;me DCC Lenz .</dd>
+
+        <dt>Utilisez Sondage R&eacute;gulateur</dt>
+
+        <dd>Quand elle est coch&eacute;e, JMRI simule un
+        r&eacute;gulateur pour envoyer des sondages sur F2.
+        C'est actuellement exig&eacute; pour les
+        syst&egrave;mes de Lenz, et non
+        recommand&eacute;e pour les autres.</dd>
+      </dl>
+
+      <p>La bo&egrave;te intervalle contr&ocirc;le le
+      nombre de millisecondes entre les sondages. Cela ne devrait
+      pas &ecirc;tre inf&eacute;rieure &aacute;
+      environ 80. Si vous avez moins de 5 &eacute;metteurs,
+      elle a mis &aacute;  300 ou plus. Cette option sera
+      finalement retir&eacute; dans une version
+      ult&eacute;rieure JMRI, quand il devient
+      automatique.</p>
+
+      <p>Pour sauvegarder les valeurs de sorte qu'ils seront
+      utilis&eacute;s automatiquement lorsque le programme
+      est commenc&eacute;, cliquez sur "Stocker maintenant
+      les valeurs par d&eacute;fauts".</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

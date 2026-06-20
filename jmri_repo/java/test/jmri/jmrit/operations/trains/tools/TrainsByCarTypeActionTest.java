@@ -1,0 +1,21 @@
+package jmri.jmrit.operations.trains.tools;
+
+import jmri.jmrit.operations.OperationsTestCase;
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class TrainsByCarTypeActionTest extends OperationsTestCase {
+
+    @Test
+    public void testCTor() {
+        TrainsByCarTypeAction t = new TrainsByCarTypeAction();
+        Assert.assertNotNull("exists",t);
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(TrainsByCarTypeActionTest.class);
+
+}

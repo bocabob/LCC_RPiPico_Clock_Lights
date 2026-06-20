@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright ($Author$) 2011 -->
+  <!-- Retain to prevent dead links -->
+
+  <title>JMRI: inControl - Web Throttles and Frames</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <h1>JMRI: inControl - Web Throttles and Frames (inControl.html application)</h1>
+
+      <p><strong>Notice</strong> <em>inControl</em> is no longer supported. Use <a href=
+      "/help/en/package/jmri/jmrit/webThrottle/webThrottle.shtml">WebThrottle</a> instead.</p>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+  <!-- close #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

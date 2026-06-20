@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Updated by Blorec Herv&#233; le 2016-09-15-->
+
+  <title>JMRI: Mâts de Signalisation</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI: Mâts de Signalisation</h1>
+
+      <p>Informations générales sur les Mâts Signal JMRI</p>
+      <a href="../../../package/jmri/jmrit/beantable/SignalMastTable.png"><img src=
+      "../../../package/jmri/jmrit/beantable/SignalMastTable.png" height="86" width="338" align=
+      "right" alt=""></a> Les objets JMRI "SignalMast" vous permettent d'afficher des aspects
+      réalistes sur les signaux. Pour plus d'information, consultez la page <a href=
+      "AspectSignaling.shtml">Aspect Signalisation</a> .
+      <p>Les Mâts de Signalisation sont configurés via le <a href=
+      "../../../package/jmri/jmrit/beantable/SignalMastTable.shtml">Tableau Mâts de
+      Signalisation</a> Vous pouvez en ajouter de nouveaux avec le bouton "Ajouter ..." sur le
+      tableau, qui vous emmène à la <a href=
+      "../../../package/jmri/jmrit/beantable/SignalMastAddEdit.shtml">fenêtre "Ajouter Mâts de
+      Signalisation"</a> .</p>
+
+      <p>Du tableau, vous pouvez définir des Mâts de Signalisation individuels avec tous les
+      aspects qu'ils sont capables d'afficher en cliquant dans la colonne "Aspect".</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

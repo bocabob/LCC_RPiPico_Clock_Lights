@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-28-->
+<head>
+  <title>JMRI: Edit NCE Macro</title>
+  <meta name="author" content="Dan Boudreau">
+  <meta name="keywords" content="JMRI Help NCE Show Cabs">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Montrer Cabines NCE</h1>
+
+      <p>Cet outil fournit une liste des Cabs* NCE
+      connectées à votre centrale de commande
+      NCE. Jusqu'à 63 commandes Cabs peuvent
+      être connectées, les types de Cabs
+      sont ProCab, Cab04, USB, et l'AIU. L'outil fournit
+      également l'adresse de chaque Cab de locomotive
+      active, la vitesse, Numéro de couplage, et
+      quelles fonctions de la locomotive sont actives.</p>
+
+      <p>Le moniteur va lire les informations de la Cab actuelle
+      lorsque l'outil est d'abord sélectionné. la liste sera mise
+      à jour lorsque le bouton "Rafraichir" est
+      pressé ou si une adresse de Cab est purgée.</p>
+
+      <p>Pour aider à gérer les Cabs sur les
+      réseaux très grand, l'écran affiche la dernière fois
+      qu'une Cab a été considérée comme active et que des
+      paramètres ont changés.
+      L'utilisation de ceci vous permet d'entrer l'ID de la Cab et
+      utiliser le bouton "Purger" pour marquer l'adresse de Cab
+      en-activité. Cela devrait améliorer
+      le temps de réponse de la frappe sur les
+      commande Cabs restantes que les centrales de commande
+      n'auront pas à temporiser en attendant une
+      réponse de l'adresse de la Cab purgée. *commande manuelle</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

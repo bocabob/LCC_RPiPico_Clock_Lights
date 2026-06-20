@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; BLOREC <bzh56420@yahoo.fr> on 2016-07-04 -->
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: Fenêtre Principale SoundPro</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="author" content="Matthew Harris">
+  <meta name="keywords" content="JMRI help preferences">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>JMRI: Fenêtre Principale SoundPro</h1>
+      <img src="../../../../../resources/SoundPro.gif" align="right" height="100" width="100" alt=
+      ""> Le fenêtre principale SoundPro vous donne accès à toutes les capacités de JMRI.
+      <p>Aide sur les menus spécifiques:</p>
+
+      <ul>
+        <li>Edit - (<a href="../TabbedPreferences.shtml">Préférences</a>)</li>
+      </ul>
+
+      <p>Aide sur les menus spécifiques:</p>
+
+      <ul>
+        <li>Edit - (<a href="../TabbedPreferences.shtml">Préférences</a>)</li>
+
+        <li><a href="../../jmri/jmrit/ToolsMenu.shtml">Outils</a>
+        </li>
+
+        <li><a href="../../../html/apps/DecoderPro/Roster.shtml#menu">Inventaire</a>
+        </li>
+
+        <li><a href="../../../html/tools/Audio.shtml">Audio</a>
+        </li>
+      </ul>
+      Plus d'information au sujet de <a href="../../setup/Files.shtml">Fichiers de Configuration
+      JMRI</a>
+      <ul>
+        <li><a href="../../../html/tools/Audio.shtml">Audio</a>
+        </li>
+      </ul>
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

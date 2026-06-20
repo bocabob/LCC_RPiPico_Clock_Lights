@@ -1,0 +1,120 @@
+package jmri.jmrix.tmcc;
+
+import java.util.Locale;
+import javax.annotation.Nonnull;
+import jmri.*;
+import jmri.managers.AbstractTurnoutManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Implement turnout manager for TMCC serial systems.
+ * <p>
+ * System names are "TTnnn", where T is the user configurable system prefix,
+ * nnn is the turnout number without padding.
+ *
+ * @author Bob Jacobsen Copyright (C) 2003, 2006
+ * with edits/additions by
+ * @author Timothy Jump Copyright (C) 2025
+ */
+
+public class SerialTurnoutManager extends AbstractTurnoutManager implements SerialListener {
+
+    public SerialTurnoutManager(TmccSystemConnectionMemo memo) {
+        super(memo);
+        memo.getTrafficController().addSerialListener(this);
+        log.debug("TMCC TurnoutManager prefix={}", getSystemPrefix());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Nonnull
+    public TmccSystemConnectionMemo getMemo() {
+        return (TmccSystemConnectionMemo) memo;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Nonnull
+    @Override
+    protected Turnout createNewTurnout(@Nonnull String systemName, String userName) throws IllegalArgumentException {
+        // validate the system name
+        String sName = validateSystemNameFormat(systemName);
+        // does this turnout already exist?
+        Turnout t = getBySystemName(sName);
+        if (t != null) {
+            log.debug("Turnout already exists");
+            return t;
+        }
+        // create the turnout
+        log.debug("new SerialTurnout with addr = {}", systemName.substring(getSystemPrefix().length() + 1));
+        int addr = Integer.parseInt(systemName.substring(getSystemPrefix().length() + 1));
+        t = new SerialTurnout(getSystemPrefix(), addr, getMemo());
+        t.setUserName(userName);
+        return t;
+    }
+
+    /**
+     * Listeners for messages from the command station.
+     */
+    @Override
+    public void message(SerialMessage m) {
+        log.debug("message received unexpectedly: {}", m.toString());
+    }
+
+    // Listen for status changes from TMCC system
+    @Override
+    public void reply(SerialReply r) {
+        // There isn't anything meaningful coming back at this time.
+        log.debug("reply received unexpectedly: {}", r.toString());
+    }
+
+    // Turnout address format is more than a simple number.
+    @Override
+    public boolean allowMultipleAdditions(@Nonnull String systemName) {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Nonnull
+    public String validateSystemNameFormat(@Nonnull String name, @Nonnull Locale locale) {
+        return validateIntegerSystemNameFormat(name, 0, 119, locale);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NameValidity validSystemNameFormat(@Nonnull String systemName) {
+        NameValidity validity = super.validSystemNameFormat(systemName);
+        if (validity == NameValidity.VALID) {
+            int num;
+            try {
+                num = Integer.parseInt(systemName.substring(getSystemNamePrefix().length()));
+                if (num < 0 || num > 119) {
+                    validity = NameValidity.INVALID;
+                }
+            } catch (NumberFormatException ex) {
+                validity = NameValidity.INVALID;
+            }
+        }
+        return validity;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getEntryToolTip() {
+        return Bundle.getMessage("AddOutputEntryToolTip");
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(SerialTurnoutManager.class);
+
+}

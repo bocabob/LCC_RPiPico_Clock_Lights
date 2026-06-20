@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-hello-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"hello\"",
+    "properties": {
+        "locale": {
+            "type": "string",
+            "description": "The client locale matching a Java Locale string representation"
+        },
+        "client": {
+            "type": "string",
+            "description": "A token the client can use to subscribe to a message stream"
+        },
+        "version": {
+            "type": "string",
+            "description": "The JSON protocol version the client will use"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name"
+    ]
+}

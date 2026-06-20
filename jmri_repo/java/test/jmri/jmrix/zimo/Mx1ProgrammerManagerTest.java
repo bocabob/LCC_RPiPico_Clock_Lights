@@ -1,0 +1,46 @@
+package jmri.jmrix.zimo;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class Mx1ProgrammerManagerTest {
+
+    private Mx1SystemConnectionMemo memo = null;
+    private Mx1Programmer programmer = null;
+
+    @Test
+    public void testCTor() {
+        Mx1ProgrammerManager t = new Mx1ProgrammerManager(programmer, memo);
+        Assert.assertNotNull("exists",t);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        Mx1TrafficController tc = new Mx1TrafficController(){
+           @Override
+           public boolean status(){
+              return true;
+           }
+           @Override
+           public void sendMx1Message(Mx1Message m,Mx1Listener reply) {
+           }
+        };
+        memo = new Mx1SystemConnectionMemo(tc);
+        programmer = new Mx1Programmer(tc);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(Mx1ProgrammerManagerTest.class);
+
+}

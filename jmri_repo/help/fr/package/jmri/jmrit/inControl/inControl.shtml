@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Translated by Herv&#233; Blorec  bzh56420@yahoo.fr 2013-11-02 -->
+  <title>JMRI: inControl - Web Throttles and Frames</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: inControl - R&eacute;gulateurs Web et Fen&ecirc;tr
+      es (inControl.html application)</h1>
+      <!-- Needs Translation -->
+
+      <p><b>Notice</b> <i>inControl</i> is no longer supported. Use
+      <a href=
+      "/help/en/package/jmri/jmrit/webThrottle/webThrottle.shtml">WebThrottle</a>
+      instead.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

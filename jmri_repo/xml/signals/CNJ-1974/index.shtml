@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright ($Author: jcomuzzi $) 2018 -->
+
+  <title>JMRI: CNJ-1974 Signaling Definition</title>
+  <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: CNJ-1974 Signaling Definition</h1>
+      This directory contains signaling definitions corresponding to Central Railroad of New Jersey
+      rules as described in <a href=
+      "http://signals.jovet.net/rules/CNJ%20Signal%20Rules.pdf">http://http://signals.jovet.net/rules/CNJ
+      Signal Rules.pdf</a> and <a href=
+      "http://raildata.railfan.net/cnj/SigRules74/CNJSignalRules74.html">http://raildata.railfan.net/cnj/SigRules74/CNJSignalRules74.html</a>.
+      These rules were also used by the New York and Long Branch.
+      <p>See the <a href="aspects.xml">aspect page</a>.</p>
+
+      <p>Signal Mast definitions:</p>
+
+      <ul>
+        <li>
+          <a href="appearance-SL-1-high-abs.xml">Single searchlight high absolute signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-2-abs.xml">Double searchlight absolute signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-3-abs.xml">Triple searchlight absolute signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-1-low-abs.xml">Single searchlight low absolute signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-2-pbs.xml">Double searchlight permissive signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-3-pbs.xml">Triple searchlight permissive signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-SL-1-dwarf-abs.xml">Single searchlight dwarf signal</a>
+        </li>
+      </ul>
+
+      <!--#include virtual="/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/main.js"></script>
+</body>
+</html>

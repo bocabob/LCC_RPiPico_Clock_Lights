@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Blorec Herv&#233; le 2011-22-05 -->
+
+<head>
+  <title>Page d'Aide JMRI</title>
+  <meta name="generator" content="HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.17), see www.w3.org">
+  <meta name="author" content="Bob Jacobsen, JMRI">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mainContent" class="no-sidebar">
+
+    <h1>JMRI Système d'Aide</h1>
+
+    <p>Ceci est la page d'aide de haut niveau JMRI.</p>
+
+  <p>La <a href="Acknowledgements.shtml">page de remerciements</a>
+  montre que beaucoup de personnes ont été en mesure de contribuer.</p>
+
+<!--
+  <h2>Utilisation du Syst&Atilde;&uml;me d'Aide</h2>Si vous voyez
+  ceci gr&Atilde;&cent;ce &Atilde;  un outil d'aide du programme,
+  la section &Atilde;  gauche vous donne trois types
+  d'acc&Atilde;&uml;s &Atilde;  l'aide de JMRI.
+
+  <ul>
+    <li>L'ic&Atilde;&acute;ne "livre" indique une <a href=
+    "webtoc.shtml">Table des Mati&Atilde;&uml;res</a>.</li>
+
+    <li>L'ic&Atilde;&acute;ne "onglets" indique le <a href=
+    "webindex.shtml">Index</a>.</li>
+
+    <li>La "Loupe" vous permet de rechercher le contenu</li>
+  </ul>Si vous voyez ceci sur le web, les liens ci-dessus vous
+  permettent de vous rendre &Atilde; ux sections correspondantes.
+-->
+
+  <h2>Information future</h2>La page web principale de JMRI
+  <a href="https://jmri.org">https://jmri.org</a> est un bon point de
+  départ pour obtenir des renseignements sur
+  l'état actuel, les mises à jour, etc (en
+  fonction sur votre ordinateur, vous pourriez avoir á
+  copier ce lien dans votre navigateur Web pour être
+  en mesure de voir des sites extérieurs correctement)
+
+  <p>Nous avons un groupe "JMRI utilisateurs" pour une
+  discussion générale. Si vous souhaitez
+  poser une question, obtenir des d'aide, ou de
+  suggérer des améliorations, ce groupe
+  de discussion est un bon endroit. Vous pouvez abonner, voir les
+  messages, etc, á <a href=
+  "https://groups.io/g/jmriusers">https://groups.io/g/jmriusers</a>.</p>
+
+  <p>Nos <a href=
+  "https://jmri.org/help/en/html/doc/Technical/index.shtml">pages
+  techniques</a> sont encore en cours d'écriture.
+  C'est encore un stade précoce, et nous sommes
+  à court de documentation. Mais si vous êtes
+  intéressés en travaillant avec le code,
+  nous serions ravis de vous aider á démarrer
+  par e-mail, etc.</p>
+
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

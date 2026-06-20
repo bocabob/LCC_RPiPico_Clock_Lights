@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: How to Use the Logging Facilities</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI log4j logging log"><!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>JMRI Code: How to Use the Logging Facilities</h1>
+
+      <p>This page provides information on how JMRI logs error, status and debugging information.</p>
+      <p>For ways to view these log events, see <a href="../../apps/Debug.shtml">JMRI: Debugging and System Logging</a></p>
+      <p>For other details on JMRI internals, please see the <a href="../Technical/index.shtml"
+      title="technical pages">technical pages</a>.</p>
+
+      <p>JMRI uses the Apache <a href="https://logging.apache.org/log4j/2.x/">Log4J</a>
+      package to handle logging from individual classes. Specifically, as of Summer 2023, we use
+      Log4J version 2.20 via the <a href="https://www.slf4j.org/">SLF4J</a> 2.0.7 framework.
+      <br>For libraries that use the java.util.logging framework, e.g. jmDNS, we also use the jul-to-slf4j adapter)</p>
+
+      <h3 id="levels">Logging Levels</h3>
+      This combination provides several levels of messages:
+      <table border="1">
+        <tr>
+          <th>Level</th>
+          <th>Code Fragment</th>
+          <th>Use</th>
+        </tr>
+
+        <tr>
+          <td>ERROR</td>
+          <td>log.error(..)</td>
+          <td>Indicates the desired operation is not going to happen, and should explain why. ERROR
+          is meant to be used only for serious problems which should get some attention every time
+          they happen, typically indicating a possible fault in JMRI itself.</td>
+        </tr>
+
+        <tr>
+          <td>WARN</td>
+          <td>log.warn(..)</td>
+          <td>The program is still operating, sort of, but something has gone wrong; often used to
+          say "This operation may not have done all you wanted". Use WARN when the cause of the
+          problem is incorrect user input.</td>
+        </tr>
+
+        <tr>
+          <td>INFO</td>
+          <td>log.info(..)</td>
+          <td>Routine messages you want to see in normal operation. Keep these to a minimum please,
+          there shouldn't be any after the program has started up.</td>
+        </tr>
+
+        <tr>
+          <td>DEBUG</td>
+          <td>log.debug(..)</td>
+          <td>Detailed messages, only used in debugging. There is a lot of this, and turning it all
+          on can slow the program down significantly.</td>
+        </tr>
+
+        <tr>
+          <td>TRACE</td>
+          <td>log.trace(..)</td>
+          <td>Very detailed messages, even more than DEBUG, used for voluminous debugging (e.g.
+          every character in a transmission) that would normally be off even when debugging.
+          Typically only turned on for one class at a time due to volume and performance
+          issues.</td>
+        </tr>
+      </table>
+      <p>The Log4J Level FATAL is not in the SLF4J interface, hence unused by JMRI.</p>
+
+      <h3 id="config">Configuration</h3>
+      <p>By convention, JMRI applications will attempt to initialize Log4J using a "<a href=
+      "https://github.com/JMRI/JMRI/blob/master/default_lcf.xml">default_lcf.xml</a>" logging configuration file.
+      JMRI contains a version of the default_lcf.xml file with extensive comments. (When running
+      <a href="JUnit.shtml">JUnit tests</a>, a similar "<a href=
+      "https://github.com/JMRI/JMRI/blob/master/tests_lcf.xml">tests_lcf.xml</a>" file is used.) Although
+      JMRI distributes the default_lcf.xml file in the "Program Location", it's better if you put your
+      own version in the "Settings Location", which can be found by selecting the "File Locations"
+      item in the main Help menu). The rest of this section describes the contents of a logging
+      control file using the contents of <code>default_lcf.xml</code> as an example.</p>
+      
+      <p class="important">JMRI &lt; 5.5.4 uses the default.lcf file to control logging configuration.
+      Open this file with a text editor to make changes as per the file comments.</p>
+
+      
+
+      <p>In the file, there are three &quot;Appenders&quot; A1, T and R which define where the log events go.
+      <ul>
+        <li>A1 - the console on the local computer, really stdout/stderr, which is also available
+        via the Console item on the JMRI Help menu</li>
+
+        <li>R - a single file. By default, this is called "session.log". This starts anew each time
+        JMRI is restarted.</li>
+
+        <li>T - a set of rolling files. The current file is called "messages.log". When it reaches
+        1MB, it rolls to a new file. Two older versions are kept. Note that this continues through
+        program restarts, so you can see any messages logged at the very beginning or end of the
+        program.</li>
+      </ul>
+      
+      <h4>Standard Output Logging</h4>
+          <p>While the program is running, debugging information is printed to &quot;standard output&quot;,
+          which is in different places depending on what operating system you're using and how you
+          started the program.
+          <br>On a Macintosh classic, it appears in a window that's created with
+          the first error message. With Mac OS X, it may appear in a new window, or you may have to
+          launch the "Console" application to see it.
+          <br>On Windows, you may have to run one the &quot;Debug&quot; batch files to see the error messages;
+          look for them in the application's directory.</p>
+      
+      
+      Generated log files are stored in the directory specified by the jmri.log.path parameter, which
+      defaults to the log subdirectory in the preferences directory.
+      <p>The &quot;default_lcf.xml&quot; file also determines the format of the output by setting the "layout"
+      parameter(s).</p>
+
+      <pre style="font-family: monospace;">
+        &lt;Console name=&quot;A1&quot; target=&quot;SYSTEM_ERR&quot;&gt;
+            &lt;PatternLayout pattern=&quot;%d{ABSOLUTE} %-37.37c{8} %-5p - %m [%t]%n&quot;/&gt;
+        &lt;/Console&gt;
+</pre>
+      <p>An example of the default format:</p>
+
+      <pre style="font-family: monospace;">
+2015-10-28 20:31:52,307 jmri.jmrit.powerpanel.PowerPane  WARN - No power manager instance found, panel not active [AWT-EventQueue-0]
+</pre>The columns are:
+      <ul>
+        <li><code>2015-10-28 20:31:52,307</code> - local time the message was logged</li>
+
+        <li><code>jmri.jmrit.powerpanel.PowerPane</code> - the place in the code (class name) that
+        emitted the message</li>
+
+        <li><code>WARN</code> - the severity of the message</li>
+
+        <li><code>No power manager instance found, panel not active</code> - the message
+        itself</li>
+
+        <li><code>[AWT-EventQueue-0]</code> - name of the thread that emitted the message</li>
+      </ul>
+      
+      To define the level for a particular Logger, towards the bottom of the file, with the other Logger elements, add
+      the logger Category name and Level, eg.
+      
+      <pre style="font-family: monospace;">
+        <code><strong>&lt;Logger name=&quot;jmri.jmrit.operations&quot; level=&quot;DEBUG&quot;&sol;&gt;</strong></code>
+</pre>
+      
+      <p>The levels ( INFO, DEBUG etc. ) that JMRI logs at can be changed
+      via <a href="../../../package/apps/jmrit/log/Log4JTreePane.shtml">Display / Edit Log Categories</a>
+      , however these changes do not propogate to the Logging Configuration File and
+      do not persist between sessions.</p>
+
+      <h3 id="code">Coding</h3>
+      To log messages from a class named MyClass, add this to the bottom of the class's .java file:
+
+      <pre style="font-family: monospace;">
+        private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MyClass.class);
+</pre>
+
+      <p>Some classes import both org.slf4j.Logger and org.slf4j.LoggerFactory which is fine, although
+      2 imports to support 1 line of code may appear excessive to some.</p>
+      <p>(If logging is removed (e.g. commented out), it's OK to comment out the log definition so
+      that it can be easily added back later on.)</p>
+
+      <p>Then for each message to log insert a line like:</p>
+
+      <pre style="font-family: monospace;">
+        log.debug("message");
+</pre>
+      <p>Messages that are not just an explicit string should use this form instead for
+      variables:</p>
+
+      <pre style="font-family: monospace;">
+        log.debug("Found {}", numberEntries);
+</pre>
+      <p>The string operations to build the actual error message (in this case, combining "Found"
+      and the numberEntries argument) are only done if the message is going to be stored in the
+      logs, which saves a lot of time during normal (non-debug) execution.</p>
+
+      <p><strong>Note</strong> It slows down logging to add <code>.toString()</code> to any fields
+      or method results, so do not add that. SLF4J takes care of ensuring that
+      <code>toString()</code> is called correctly.</p>
+
+      <p>If it would be computationally expensive to pass a parameter into the log, use following
+      form so the program does not waste time calculating parameters (in this case, calling
+      numberEntries() to get a value to pass to the function call):</p>
+
+      <pre style="font-family: monospace;">
+        if (log.isDebugEnabled()) {
+            log.debug("Found {}", numberEntries());
+        }
+</pre>
+      <p>If you want to emit a warning or information message only the first time it happens, there are service methods
+      that will handle that for you:</p>
+
+      <pre style="font-family: monospace;">
+        Log4JUtil.infoOnce(log, "This info message will only be output once.");
+        Log4JUtil.warnOnce(log, "The warning with arguments {} {}", "A", "B");
+</pre>
+      <p>Note: The warnOnce and infoOnce methods require a bit of special handling in the unit and CI tests, see
+      <a href="JUnit.shtml#warrnOnce">testing documentation</a>.</p>
+
+      <p>Exceptions should be logged as:</p>
+
+      <pre style="font-family: monospace;">
+        log.error("my local text"+exception.getLocalizedMessage(), exception);
+
+</pre>to include the user readable description from the exception itself, plus all its traceback
+information.
+
+      <p>Logging in JMRI via SLF4J / Log4J can also be achieved with 
+      <a href="https://github.com/JMRI/JMRI/blob/master/jython/ThrottleFunctionForTurnout.py">Jython</a> and 
+      <a href="https://github.com/JMRI/JMRI/blob/master/jython/test/JavaScriptTest.js">JavaScript</a>.</p>
+
+<!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

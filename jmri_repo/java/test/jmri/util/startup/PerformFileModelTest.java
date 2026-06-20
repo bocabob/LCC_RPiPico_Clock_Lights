@@ -1,0 +1,31 @@
+package jmri.util.startup;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class PerformFileModelTest {
+
+    @Test
+    public void testCTor() {
+        PerformFileModel t = new PerformFileModel();
+        Assertions.assertNotNull( t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(PerformFileModelTest.class);
+
+}

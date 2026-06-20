@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-configProfile-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"configProfile\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Configuration profile identity"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name"
+    ]
+}

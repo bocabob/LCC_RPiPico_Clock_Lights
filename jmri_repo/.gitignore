@@ -1,0 +1,81 @@
+# build artifacts
+jmri.jar
+jmri-tests.jar
+/dist
+java/docs
+/target
+
+# test artifacts
+junit-results.xml
+junit*.properties
+findbugs.xml
+findbugs.html
+spotbugs.xml
+spotbugs-check.xml
+spotbugs.html
+spotbugs-check.html
+tests-spotbugs.xml
+tests-spotbugs-check.xml
+tests-spotbugs.html
+tests-spotbugs-check.html
+jacoco.exec
+jmri-fb.html
+coveragereport
+tests.log
+cucumber-results.xml
+cucumber-results.json
+failed_files.txt
+
+# runtime artifacts
+messages.log*
+session.log
+
+# transient artifacts
+.ant-targets-build.xml
+/java/classes
+/java/test-classes
+/java/tmp
+/java/doc
+/java/test-classes/
+/scripts/HOWTO-distribution.md.bak
+*.class
+/temp
+.pydevproject
+*.swp
+*.swo
+/lib/cachedir
+/xml/XSLT/DTD
+/xml/XSLT/properties
+/xml/XSLT/xml
+/xml/XSLT/pages
+.run.sh
+hs_err_pid*.log
+nohup.out
+
+# private / per-user configuration files
+/nbproject
+/web/app/nbproject/private
+/scripts/config-portable/nbproject/private
+/.idea/workspace.xml
+/.idea/modules.xml
+local.properties
+/test
+/test/jmri.conf
+*.original~
+.metadata
+RemoteSystemsTempFiles
+.idea/codeStyles/Project.xml
+.idea/jarRepositories.xml
+.idea/libraries/**
+.idea/sonarlint/issuestore
+.factorypath
+
+# user-installed components
+/web/TrainCrew
+
+# CATS source, sometimes present for test
+/java/src/cats
+
+# OS junk files
+[Tt]humbs.db
+*.DS_Store

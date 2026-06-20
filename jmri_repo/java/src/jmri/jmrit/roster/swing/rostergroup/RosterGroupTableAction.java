@@ -1,0 +1,131 @@
+package jmri.jmrit.roster.swing.rostergroup;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jmri.jmrit.roster.Roster;
+import jmri.jmrit.roster.swing.CreateRosterGroupAction;
+import jmri.jmrit.roster.swing.RosterGroupComboBox;
+
+import jmri.util.swing.WindowInterface;
+
+/**
+ * Swing action to create and register a Roster Group Table.
+ *
+ * @author Bob Jacobsen Copyright (C) 2003
+ * @author Kevin Dickerson Copyright (C) 2009
+ */
+public class RosterGroupTableAction extends jmri.util.swing.JmriAbstractAction {
+
+    public RosterGroupTableAction(String s, WindowInterface wi) {
+        super(s, wi);
+    }
+
+    public RosterGroupTableAction(String s, Icon i, WindowInterface wi) {
+        super(s, i, wi);
+    }
+
+    /**
+     * Create an action with a specific title.
+     * <p>
+     * Note that the argument is the Action title, not the title of the
+     * resulting frame. Perhaps this should be changed?
+     * @param s action title though may be changed?
+     *
+     */
+    public RosterGroupTableAction(String s) {
+        super(s);
+
+    }
+
+    public RosterGroupTableAction() {
+        this(Bundle.getMessage("RosterGroupTable"));
+    }
+
+    RosterGroupTableModel m;
+    RosterGroupTableFrame f;
+
+    void createModel() {
+
+        m = new RosterGroupTableModel();
+    }
+
+    public void actionPerformed() {
+        // create the JTable model, with changes for specific NamedBean
+        createModel();
+
+        // create the frame
+        f = new RosterGroupTableFrame(m, helpTarget()) {
+            /**
+             * Include an "add" button
+             */
+            @Override
+            void extras() {
+                final var selectAddCombo = new RosterGroupComboBox();
+                selectAddCombo.setAllEntriesEnabled(false);  // don't show "All Entries" group
+                JPanel p25 = new JPanel();
+                p25.add(new JLabel(Bundle.getMessage("SelectRosterGroup")));
+                p25.add(selectAddCombo);
+                selectAddCombo.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            comboAddSelected(e, selectAddCombo.getSelectedItem());
+                        } catch (Exception ex) {
+                            log.debug("Null pointer exception");
+                        }
+                    }
+                });
+                selectAddCombo.setVisible(true);
+                AbstractAction createGroupAction = new CreateRosterGroupAction(Bundle.getMessage("MenuGroupCreate"), p25);
+                var newButton = new JButton(createGroupAction);
+                p25.add(newButton);
+
+                addToTopBox(p25);
+     
+            }
+        };
+        setTitle();
+        addToFrame(f);
+        f.pack();
+        f.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        actionPerformed();
+    }
+
+    public void addToFrame(RosterGroupTableFrame f) {
+    }
+
+    void setTitle() {
+        f.setTitle(Bundle.getMessage("RosterGroupTable"));
+    }
+
+    String helpTarget() {
+        return "package.jmri.jmrit.roster.swing.RosterGroupTable"; // NOI18N
+    }
+
+    void comboAddSelected(ActionEvent e, String group) {
+        m.setAddGroup(Roster.ROSTER_GROUP_PREFIX + group);
+        m.fireTableDataChanged();
+
+    }
+
+    @Override
+    public jmri.util.swing.JmriPanel makePanel() {
+        throw new IllegalArgumentException("Should not be invoked");
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(RosterGroupTableAction.class);
+}

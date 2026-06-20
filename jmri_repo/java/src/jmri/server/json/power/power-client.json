@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-power-client-message",
+    "type": "object",
+    "description": "Data portion of message from client to JMRI for type \"power\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "User name of the power manager to control; omit to use the default"
+        },
+        "prefix": {
+            "type": "string",
+            "description": "System prefix of the connection to control (e.g. \"L\" for LocoNet); takes precedence over name when provided"
+        },
+        "state": {
+            "type": "integer",
+            "description": "If present, sets the power state",
+            "enum": [
+                0,
+                2,
+                4,
+                8
+            ]
+        }
+    },
+    "additionalProperties": false
+}

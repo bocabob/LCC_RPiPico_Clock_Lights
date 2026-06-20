@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Herv&#233; Blorec 2013-10-12 -->
+<head>
+  <title>JMRI: Signal Masts Repeater</title>
+  <meta name="author" content="Kevin Dickerson">
+  <meta name="keywords" content="JMRI help Signal Mast Repeater">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>M&acirc;t Signal R&eacute;p&eacute;teur</h1>
+
+      <p>L'outil M&acirc;t Signal R&eacute;p&eacute;teur vous
+      permet de configurer un m&acirc;t signal pour qu'il suive
+      l'&eacute;tat d'un autre, ou pour les deux M&acirc;ts Signaux
+      mettre &agrave; jours l'&eacute;tat
+      &acirc;&euro;&lsaquo;&acirc;&euro;&lsaquo;des autres.<br>
+      Pour que cela fonctionne chaque M&acirc;tSignal doit
+      &ecirc;tre du m&ecirc;me syst&egrave;me de signal et Type de
+      m&acirc;t.<br>
+      Quand un M&acirc;t principal est choisi dans la liste au bas
+      de l'&eacute;cran la liste d'esclaves est remplie avec les
+      M&acirc;tsSignaux correspondants du m&ecirc;me type. S'il n'y
+      a pas M&acirc;ts valides alors la possibilit&eacute; de
+      s&eacute;lectionner l'esclave restera
+      d&eacute;sactiv&eacute;e.</p>
+
+      <p>Dans le tableau principal, il est possible de choisir la
+      direction dans laquelle les mises &agrave; jour auront lieu,
+      soit ma&icirc;tre &agrave; l'esclave, l'esclave au
+      ma&icirc;tre ou Bidirectionnel. Vous pouvez &eacute;galement
+      activer/d&eacute;sactiver le r&eacute;p&eacute;teur avec sa
+      suppression de cet &eacute;cran.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

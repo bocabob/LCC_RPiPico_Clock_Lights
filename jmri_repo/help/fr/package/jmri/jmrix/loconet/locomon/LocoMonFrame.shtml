@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+<head>
+  <title>JMRI: Monitor LocoNet Traffic</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help monitor loconet traffic message packet">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Moniteur de Trafic LocoNet</h1><a href=
+      "../../../../../html/apps/LocoTools/images/LocoMonFrame.gif"><img src="../../../../../html/apps/LocoTools/images/LocoMonFrame.gif"
+      height="150" alt="Command slot station Monitor"
+      align="right"></a>
+      <p>
+      L'outil Moniteur LocoNet affiche le trafic LocoNet dans un
+      une forme lisible. Les 20 derniers messages sont disponibles
+      dans une fen&ecirc;tre de d&eacute;filement. En
+      option, vous pouvez inclure le moment o&ugrave; le
+      message a &eacute;t&eacute; re&ccedil;u,
+      et/ou le paquet octets brut. Les informations du journal
+      peuvent &eacute;galement &ecirc;tre stock&eacute;es dans un texte fichier.</p>
+
+      <p>Pour plus d'informations sur les diff&eacute;rents
+      contr&ocirc;les et les options, s'il vous
+      pla&icirc;t voir la <a href=
+      "../../AbstractMonFrame.shtml">page Fen&ecirc;tre
+      Moniteur de Communications</a></p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

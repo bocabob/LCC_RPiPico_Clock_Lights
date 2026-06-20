@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>DecoderPro Throttle</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Main Window</h1>
+
+      <h2>JMRI&reg; Throttle Window - Local JMRI&reg; Throttles</h2>
+
+      <div class="dp-right">
+        <p><a href="Main_Throttle_menubar.shtml">Back</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <h4>Local JMRI throttles</h4>
+
+      <p>Opens the Local JMRI throttles Window displaying all the throttles that are in use on your
+      program.<br></p>
+
+      <table class="cdp-enter">
+        <tbody>
+          <tr>
+            <td rowspan="4">
+              <div style="margin-left: 2em">
+                <div class="dp-center"><img src="images/Main_Tool02.png" alt="local JMRI throttles"
+                height="207" width="313">
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="dp-center"><img src="images/Main_Tool_Throttle01.png" alt="icon1" height=
+              "44" width="45">
+              </div>
+            </td>
+            <td>Opens a new Thottle</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="dp-center"><img src="images/Main_Tool_Throttle02.png" alt="icon" height=
+              "44" width="49">
+              </div>
+            </td>
+            <td>Emergency stop for all Throttles under JMRI control</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="dp-center"><img src="images/Main_Tool_Throttle03.png" alt="icon3" height=
+              "43" width="41">
+              </div>
+            </td>
+            <td>Track power control</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="dp-center"><img src="images/Main_Tool_Throttle04.png" alt="icon4" height=
+              "43" width="42">
+              </div>
+            </td>
+            <td>Opens the Throttles preferences window</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Main_Throttle_menubar.shtml">Back</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

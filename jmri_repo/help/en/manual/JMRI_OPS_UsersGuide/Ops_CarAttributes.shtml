@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Operations - Edit Car Attributes</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>OperationsPro: Edit Car Attributes</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_AddCars.shtml">Back</a><a href="#"></a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>To the right of each of the Car attributes (<strong>Road</strong>, <strong>Type</strong>,
+      <strong>Length</strong>, <strong>Color</strong>, <strong>Load</strong>,
+      <strong>Kernel</strong>, <strong>Owner</strong>) there is an <span class="textbutton">Edit</span>
+      button that displays the Edit [attribute] dialog to allow you to
+      edit the list of attributes available to use for Car definition.
+      Use this to <span class="textbutton">Add</span> , <span class="textbutton">Delete</span> or
+      <span class="textbutton">Replace</span> the available attributes for a Car.</p>
+
+      <table>
+        <tr>
+          <td>Road<br>
+          <img src="images/Ops_EditAttributes.png" width="150" height="96" alt="road"></td>
+          <td>Type<br>
+          <img src="images/Ops_EditAttributes01.png" width="150" height="90" alt="type"><br></td>
+          <td>Length<br>
+          <img src="images/Ops_EditAttributes02.png" width="150" height="90" alt="length"></td>
+          <td>Color<br>
+          <img src="images/Ops_EditAttributes03.png" width="150" height="90" alt="color"></td>
+          <td>Load<br>
+          <img src="images/Ops_EditAttributes04.png" width="150" height="138" alt="load"></td>
+          <td>Kernel<br>
+          <img src="images/Ops_EditAttributes05.png" width="150" height="90" alt="Kernel"></td>
+          <td>Owner<br>
+          <img src="images/Ops_EditAttributes05.png" width="150" height="90" alt="owner"></td>
+        </tr>
+      </table>
+
+      <h3>Tools menu</h3>
+
+      <table>
+        <tr>
+          <td>
+            <p>Road, Type, Length, Color, Kernel, Owner</p>
+
+            <p><strong>Show the number of cars with this attribute</strong>
+            </p>
+            <br>
+            <img src="images/Ops_EditAttributes_number.png" width="300" height="180" alt="Edit">
+          </td>
+          <td>
+            <p>Loads</p>
+
+            <p><strong>Show the number of cars with this attribute</strong>
+            </p>
+
+            <p><img src="images/Ops_EditAttributes_number.png" width="300" height="180" alt=
+            "number">
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <p><strong>Delete unused attributes</strong>
+            </p>
+
+            <p><img src="images/Ops_DeleteAttributes.png" width="292" height="122" alt="delete">
+            </p>
+
+            <p>Prompt to delete unused attributes.</p>
+          </td>
+          <td>
+            <p><strong>Preview</strong>
+            </p>
+
+            <p><img src="images/Ops_Preview_CarLoads.png" width="654" height="213" alt=
+            "preview loads">
+            </p>
+
+            <p><strong>Print</strong>
+            </p>
+
+            <p><img src="images/Ops_print_loads.png" width="720" height="182" alt="print loads">
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <p><span class="textbutton">Add</span> To add a new Car
+            attribute (value), enter the desired text in the text box and press
+            <span class="textbutton">Add</span> . When you first enter a new Car
+            attribute it will show up at the start of the list. Later when your restart the program
+            it will be sorted in the correct order.</p>
+
+            <p><span class="textbutton">Delete</span> To delete a Car
+            attribute, select the attribute you want to delete in the menu box and press
+            <span class="textbutton">Delete</span> .</p>
+
+            <p><span class="textbutton">Replace</span> If you need to
+            change a specific Car attribute (Road, Type, Color, etc.) in your entire Car Roster,
+            you can use the <span class="textbutton">Replace</span> button
+            found at the bottom right of the Edit Car attribute pane.</p>
+
+            <p><img src="images/Ops_Replace.png" width="269" height="119" alt="Replace">
+            </p>
+
+            <p>For example, if you wish to change the Car road name attribute "UP" to "UPS" for all
+            of your cars, press <span class="textbutton">Replace</span>
+            for any of your Cars in the Cars pane. The <strong>Replace All?</strong> dialog will
+            display with a <span class="textbutton">Yes</span> or
+            <span class="textbutton">No</span> option. Enter the new
+            road "UPS" in the text box, select "UP" in the menu box, and press <span class="textbutton">Replace</span> .
+            All cars with "UP" as their Road will now have "UPS" as their Road.</p>
+          </td>
+        </tr>
+      </table>
+
+      <div class="ops-right">
+        <p><a href="Ops_AddCars.shtml">Back</a><a href="#"></a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

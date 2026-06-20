@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Decoder definition Submission</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Decoder Definition</h1>
+
+      <h2>Submitting to JMRI</h2>
+
+      <div class="dp-right">
+        <p><a href="Dcode_Testing.shtml">Previous</a>
+        </p>
+
+        <p><a href="index.shtml#DecoderDefinition">Back to Index</a><a href="index.shtml#Main"></a>
+        </p>
+      </div>
+
+      <hr>
+
+      <h4>Submitting to JMRI</h4>
+
+      <p><strong>How do I go about getting these approved and into the next release?</strong>
+      </p>
+
+      <p>If you're happy with them, you can contribute them to the next release by creating a
+      "Patch" for the project.</p>
+
+      <p>Save your DecoderDefinition.xml in a .zip file to process.</p>
+
+      <p><strong>To do this:</strong>
+      </p>
+
+      <ol>
+        <li>Log into GitHub (create a new GitHub account if needed).</li>
+
+        <li>Create a <a href="https://github.com/JMRI/JMRI/issues/new">new issue</a>.
+        </li>
+
+        <li>Provide a descriptive but short title, a comment, and attach your zip file.</li>
+
+        <li>Click <em>Submit new issue</em>.</li>
+      </ol>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Dcode_Testing.shtml">Previous</a>
+        </p>
+
+        <p><a href="index.shtml#DecoderDefinition">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

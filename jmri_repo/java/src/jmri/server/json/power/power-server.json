@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-power-server-message",
+    "type": "object",
+    "description": "Data portion of message from JMRI to client for type \"power\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "System name the connection associated with power manager"
+        },
+        "prefix": {
+            "type": "string",
+            "description": "System prefix of the connection associated with this power manager"
+        },
+        "default": {
+            "type": "boolean",
+            "description": "True if system connection has default power manager"
+        },
+        "state": {
+            "type": "integer",
+            "description": "The state of the power",
+            "enum": [
+                0,
+                2,
+                4,
+                8
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name",
+        "state",
+        "default"
+    ]
+}

@@ -1,0 +1,73 @@
+package jmri.managers;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
+import jmri.*;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ * Overall tests of Logix operation, including operation of
+ * conditionals.  To ease setup, reads from XML files.
+ *
+ * @author Bob Jacobsen Copyright (C) 2015
+ */
+public class LogixSystemTest {
+
+    /**
+     * Test of inter-Logix references for Conditionals
+     *
+     * Creates a sensor, which is watched by a Conditional in Logix 1,
+     * which in turn is watched by two Conditionals in Logix 2
+     *     (once by system name and once by user name),
+     * which in turn each toggle one of two internal Turnouts on changes
+     *
+     * @throws jmri.JmriException if unable to load test XML
+     */
+    @Test
+    public void testLogixReferenceSetup() throws jmri.JmriException {
+
+        // load and activate sample file
+        java.io.File f = new java.io.File("java/test/jmri/managers/LogixSystemTestConditionaReferenceCheck.xml");
+        jmri.configurexml.ConfigXmlManager cm = new jmri.configurexml.ConfigXmlManager() {};
+        Assertions.assertTrue(cm.load(f));
+        InstanceManager.getDefault(jmri.LogixManager.class).activateAllLogixs();
+
+        // get references, in process checking load
+        Sensor is1 = InstanceManager.getDefault(jmri.SensorManager.class).getSensor("IS1");
+        Turnout it1 = InstanceManager.getDefault(jmri.TurnoutManager.class).getTurnout("IT1");
+        Turnout it2 = InstanceManager.getDefault(jmri.TurnoutManager.class).getTurnout("IT2");
+        assertNotNull(is1);
+        assertNotNull(it1);
+        assertNotNull(it2);
+
+        // remember startup state for Turnouts, so can detect change
+        int oldIt1 = it1.getState();
+        int oldIt2 = it2.getState();
+
+        // drive the sensor change that should cause the Conditionals to change
+        is1.setState(jmri.Sensor.ACTIVE);
+
+        // check for propagation (maybe needs a wait someday?)
+        assertNotSame( oldIt1, it1.getState(), "IT1");
+        assertNotSame( oldIt2, it2.getState(), "IT2");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetInstanceManager();
+        JUnitUtil.initInternalTurnoutManager();
+        JUnitUtil.initInternalLightManager();
+        JUnitUtil.initInternalSensorManager();
+        JUnitUtil.initIdTagManager();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+}

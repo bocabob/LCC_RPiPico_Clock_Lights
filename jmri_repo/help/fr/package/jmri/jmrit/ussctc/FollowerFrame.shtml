@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-12-->
+<head>
+  <title>JMRI: Suiveurs</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Followers">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Suiveurs</h1><img src="images/FollowerFrame.jpg" alt=
+      "Screen shot" align="right">
+      <p>Ceci fournit un moyen simple pour d&eacute;finir un
+      aiguillage qui "suit" l'&eacute;tat d'un capteur
+      d'entr&eacute;e. Vous voudrez peut-&Atilde;&ordf;tre ceci,
+      alors vous pouvez connecter un interrupteur TCO qui bascule
+      &agrave; la fois sur un capteur, et qui pilote un
+      interrupteur de moteur qui est connect&eacute; comme un
+      aiguillage JMRI, par exemple,</p>
+
+      <p>Les champs et les boutons:</p>
+
+      <dl>
+        <dd>Nom de sortie</dd>
+
+        <dt>Saisissez le nom syst&egrave;me ou nom
+        util&ugrave;isateur de l'aiguillage que le suiveur va
+        contr&ocirc;</dt>
+
+        <dd>Nom du Capteur</dd>
+
+        <dt>Entrez le nom syst&egrave;me ou nom utilisateur du
+        Capteur suiveur qu'il surveille</dt>
+
+        <dt>Inverser</dt>
+
+        <dd>Normalement, l'aiguillage est fix&eacute;
+        d&eacute;vi&eacute; lorsque le capteur est ACTIF, et
+        d&eacute;fini DROIT lorsque le capteur est INACTIF.
+        V&eacute;rification que la case "Inverser" entra&icirc;ne
+        l'aiguillage en position D&Eacute;VI&Eacute; lorsque le
+        capteur est INACTIF, et DROIT lorsque le capteur est
+        ACTIF.</dd>
+
+        <dd>Nom v&eacute;to</dd>
+
+        <dt>Si un capteur est ajout&eacute; ici, le suiveur ne
+        contr&ocirc; pas l'aiguillage lorsque le capteur est ACTIF.
+        Ceci peut &Atilde;&ordf;tre utilis&eacute; par exemple pour
+        verrouiller un aiguillage depuis une commande locale.</dt>
+
+        <dd>Voir</dd>
+
+        <dt>Entrez un nom d'aiguillage de sortie et cliquez sur ce
+        bouton pour voir toute configuration suiveuse existante
+        .</dt>
+
+        <dt>Ajouter/Mettre &agrave; jour</dt>
+
+        <dd>Dossier hors champs comme d&eacute;sir&eacute; et
+        appuyez sur Ajouter/Mettre &agrave; jour pour cr&eacute;er
+        un nouveau suiveur ou en modifier un existant.</dd>
+      </dl>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

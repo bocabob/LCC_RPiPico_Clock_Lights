@@ -1,0 +1,818 @@
+package jmri.jmrit.dispatcher;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import jmri.util.FileUtil;
+import jmri.util.XmlFilenameFilter;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jmri.InstanceManager;
+import jmri.configurexml.AbstractXmlAdapter.EnumIO;
+import jmri.configurexml.AbstractXmlAdapter.EnumIoNamesNumbers;
+import jmri.jmrit.dispatcher.ActiveTrain.TrainDetection;
+
+/**
+ * Handles reading and writing of TrainInfo files to disk as an XML file to/from
+ * the dispatcher/traininfo/ directory in the user's preferences area
+ * <p>
+ * This class manipulates the files conforming to the dispatcher-traininfo DTD
+ * <p>
+ * The file is written when the user requests that train information be saved. A
+ * TrainInfo file is read when the user request it in the Activate New Train
+ * window
+ *
+ * <p>
+ * This file is part of JMRI.
+ * <p>
+ * JMRI is open source software; you can redistribute it and/or modify it under
+ * the terms of version 2 of the GNU General Public License as published by the
+ * Free Software Foundation. See the "COPYING" file for a copy of this license.
+ * <p>
+ * JMRI is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * @author Dave Duchamp Copyright (C) 2009
+ */
+public class TrainInfoFile extends jmri.jmrit.XmlFile {
+
+    public TrainInfoFile() {
+        super();
+    }
+    // operational variables
+    private String fileLocation = FileUtil.getUserFilesPath()
+            + "dispatcher" + File.separator + "traininfo" + File.separator;
+
+    public void setFileLocation(String testLocation) {
+        fileLocation = testLocation;
+    }
+    private Document doc = null;
+    private Element root = null;
+
+    static final EnumIO<ActiveTrain.TrainDetection> trainsdectionFromEnumMap = new EnumIoNamesNumbers<>(ActiveTrain.TrainDetection.class);
+    static final EnumIO<ActiveTrain.TrainLengthUnits> trainlengthFromEnumMap = new EnumIoNamesNumbers<>(ActiveTrain.TrainLengthUnits.class);
+
+    /*
+     *  Reads Dispatcher TrainInfo from a file in the user's preferences directory
+     *  If the file containing Dispatcher TrainInfo does not exist this routine returns quietly.
+     *  "name" is assumed to have the .xml or .XML extension already included
+     */
+    public TrainInfo readTrainInfo(String name) throws org.jdom2.JDOMException, java.io.IOException {
+        log.debug("entered readTrainInfo for {}", name);
+        TrainInfo tInfo = null;
+        int version  = 1;
+        // check if file exists
+        if (checkFile(fileLocation + name)) {
+            // file is present.
+            tInfo = new TrainInfo();
+            root = rootFromName(fileLocation + name);
+            if (root != null) {
+                // there is a file
+                Element traininfo = root.getChild("traininfo");
+                if (traininfo != null) {
+                    // get version so we dont look for missing fields
+                    if (traininfo.getAttribute("version") != null ) {
+                        try {
+                            version = traininfo.getAttribute("version").getIntValue();
+                        } catch (org.jdom2.DataConversionException ex) {
+                            log.error("Traininfo file version number not an integer: assuming version 1");
+                            version = 1;
+                        }
+                    } else {
+                        version = 1;
+                    }
+                    tInfo.setVersion(version);
+                    // there are train info options defined, read them
+                    if (traininfo.getAttribute("transitname") != null) {
+                        // there is a transit name selected
+                        tInfo.setTransitName(traininfo.getAttribute("transitname").getValue());
+                    } else {
+                        log.error("Transit name missing when reading TrainInfoFile {}", name);
+                    }
+                    if (traininfo.getAttribute("dynamictransit") != null ) {
+                        tInfo.setDynamicTransit(traininfo.getAttribute("dynamictransit").getValue().equals("yes"));
+                    }
+                    if (traininfo.getAttribute("dynamictransitcloseloop") != null ) {
+                        tInfo.setDynamicTransitCloseLoopIfPossible(traininfo.getAttribute("dynamictransitcloseloop").getValue().equals("yes"));
+                    }
+                    if (version < 6) {
+                        if (traininfo.getAttribute("trainname") != null) {
+                            tInfo.setTrainName(traininfo.getAttribute("trainname").getValue());
+                            tInfo.setRosterId(traininfo.getAttribute("trainname").getValue());
+                            tInfo.setTrainUserName(traininfo.getAttribute("trainname").getValue());
+                        } else {
+                            log.error("Train name missing when reading TrainInfoFile {}", name);
+                        }
+                    } else {
+                        if (traininfo.getAttribute("trainname") != null) {
+                            tInfo.setTrainName(traininfo.getAttribute("trainname").getValue());
+                        }
+                        if (traininfo.getAttribute("rosterid") != null) {
+                            tInfo.setRosterId(traininfo.getAttribute("rosterid").getValue());
+                        }
+                        if (traininfo.getAttribute("trainusername") != null) {
+                            tInfo.setTrainUserName(traininfo.getAttribute("trainusername").getValue());
+                        }
+                    }
+                    if (traininfo.getAttribute("dccaddress") != null) {
+                        tInfo.setDccAddress(traininfo.getAttribute("dccaddress").getValue());
+                    } else {
+                        log.error("DCC Address missing when reading TrainInfoFile {}", name);
+                    }
+                    if (traininfo.getAttribute("trainintransit") != null) {
+                        tInfo.setTrainInTransit(true);
+                        if (traininfo.getAttribute("trainintransit").getValue().equals("no")) {
+                            tInfo.setTrainInTransit(false);
+                        }
+                    } else {
+                        log.error("Train in Transit check box missing  when reading TrainInfoFile {}", name);
+                    }
+                    if (traininfo.getAttribute("startblockname") != null) {
+                        // there is a transit name selected
+                        tInfo.setStartBlockName(traininfo.getAttribute("startblockname").getValue());
+                    } else {
+                        log.error("Start block name missing when reading TrainInfoFile {}", name);
+                    }
+                    if (traininfo.getAttribute("endblockname") != null) {
+                        // there is a transit name selected
+                        tInfo.setDestinationBlockName(traininfo.getAttribute("endblockname").getValue());
+                    } else {
+                        log.error("Destination block name missing when reading TrainInfoFile {}", name);
+                    }
+                    if (tInfo.getDynamicTransit()) {
+                        if (traininfo.getAttribute("viablockname") != null) {
+                            // there is a transit name selected
+                            tInfo.setViaBlockName(traininfo.getAttribute("viablockname").getValue());
+                        } else {
+                            log.error("Via block name missing for dynamic trainsit when reading TrainInfoFile {}", name);
+                        }
+                    }
+                    if (traininfo.getAttribute("trainfromroster") != null) {
+                        tInfo.setTrainFromRoster(true);
+                        if (traininfo.getAttribute("trainfromroster").getValue().equals("no")) {
+                            tInfo.setTrainFromRoster(false);
+                        }
+                    }
+                    if (traininfo.getAttribute("trainfromtrains") != null) {
+                        tInfo.setTrainFromTrains(true);
+                        if (traininfo.getAttribute("trainfromtrains").getValue().equals("no")) {
+                            tInfo.setTrainFromTrains(false);
+                        }
+                    }
+                    if (traininfo.getAttribute("trainfromuser") != null) {
+                        tInfo.setTrainFromUser(true);
+                        if (traininfo.getAttribute("trainfromuser").getValue().equals("no")) {
+                            tInfo.setTrainFromUser(false);
+                        }
+                    }
+                    if (traininfo.getAttribute("trainfromsetlater") != null) {
+                        tInfo.setTrainFromSetLater(true);
+                        if (traininfo.getAttribute("trainfromsetlater").getValue().equals("no")) {
+                            tInfo.setTrainFromSetLater(false);
+                        }
+                    }
+                    if (traininfo.getAttribute("priority") != null) {
+                        tInfo.setPriority(Integer.parseInt(traininfo.getAttribute("priority").getValue()));
+                    } else {
+                        log.error("Priority missing when reading TrainInfoFile {}", name);
+                    }
+                    if (traininfo.getAttribute("allocatealltheway") != null) {
+                        if (traininfo.getAttribute("allocatealltheway").getValue().equals("yes")) {
+                            tInfo.setAllocateAllTheWay(true);
+                        }
+                    }
+                    if (traininfo.getAttribute("allocationmethod") != null) {
+                        tInfo.setAllocationMethod(traininfo.getAttribute("allocationmethod").getIntValue());
+                    }
+                    if (traininfo.getAttribute("nexttrain") != null) {
+                        tInfo.setNextTrain(traininfo.getAttribute("nexttrain").getValue());
+                    }
+                    if (traininfo.getAttribute("resetwhendone") != null) {
+                        if (traininfo.getAttribute("resetwhendone").getValue().equals("yes")) {
+                            tInfo.setResetWhenDone(true);
+                        }
+                        if (traininfo.getAttribute("delayedrestart") != null) {
+                            // for older files that didnot have seperate restart details for to and fro
+                            // we default that data to this data.
+                            switch (traininfo.getAttribute("delayedrestart").getValue()) {
+                                case "no":
+                                    tInfo.setDelayedRestart(ActiveTrain.NODELAY);
+                                    tInfo.setReverseDelayedRestart(ActiveTrain.NODELAY);
+                                    break;
+                                case "sensor":
+                                    tInfo.setDelayedRestart(ActiveTrain.SENSORDELAY);
+                                    tInfo.setReverseDelayedRestart(ActiveTrain.SENSORDELAY);
+                                    if (traininfo.getAttribute("delayedrestartsensor") != null) {
+                                        tInfo.setRestartSensorName(traininfo.getAttribute("delayedrestartsensor").getValue());
+                                        tInfo.setReverseRestartSensorName(traininfo.getAttribute("delayedrestartsensor").getValue());
+                                    }
+                                    if (traininfo.getAttribute("resetrestartsensor") != null) {
+                                        tInfo.setResetRestartSensor(traininfo.getAttribute("resetrestartsensor").getValue().equals("yes"));
+                                        tInfo.setReverseResetRestartSensor(traininfo.getAttribute("resetrestartsensor").getValue().equals("yes"));
+                                    }
+                                    break;
+                                case "timed":
+                                    tInfo.setDelayedRestart(ActiveTrain.TIMEDDELAY);
+                                    tInfo.setReverseDelayedRestart(ActiveTrain.TIMEDDELAY);
+                                    if (traininfo.getAttribute("delayedrestarttime") != null) {
+                                        tInfo.setRestartDelayMin((int) traininfo.getAttribute("delayedrestarttime").getLongValue());
+                                        tInfo.setReverseRestartDelayMin((int) traininfo.getAttribute("delayedrestarttime").getLongValue());
+                                    }   break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    if (traininfo.getAttribute("reverseatend") != null) {
+                        tInfo.setReverseAtEnd(true);
+                        if (traininfo.getAttribute("reverseatend").getValue().equals("no")) {
+                            tInfo.setReverseAtEnd(false);
+                        }
+                        if (version > 3) {
+                            // fro delays are independent from to delays
+                            if (traininfo.getAttribute("reversedelayedrestart") != null) {
+                                switch (traininfo.getAttribute("reversedelayedrestart").getValue()) {
+                                    case "no":
+                                        tInfo.setReverseDelayedRestart(ActiveTrain.NODELAY);
+                                        break;
+                                    case "sensor":
+                                        tInfo.setReverseDelayedRestart(ActiveTrain.SENSORDELAY);
+                                        if (traininfo.getAttribute("reversedelayedrestartsensor") != null) {
+                                            tInfo.setReverseRestartSensorName(
+                                                    traininfo.getAttribute("reversedelayedrestartsensor").getValue());
+                                        }
+                                        if (traininfo.getAttribute("reverseresetrestartsensor") != null) {
+                                            tInfo.setReverseResetRestartSensor(
+                                                    traininfo.getAttribute("reverseresetrestartsensor").getValue()
+                                                            .equals("yes"));
+                                        }
+                                        break;
+                                    case "timed":
+                                        tInfo.setReverseDelayedRestart(ActiveTrain.TIMEDDELAY);
+                                        if (traininfo.getAttribute("reversedelayedrestarttime") != null) {
+                                            tInfo.setReverseRestartDelayMin((int) traininfo
+                                                    .getAttribute("reversedelayedrestarttime").getLongValue());
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    if (traininfo.getAttribute("delayedstart") != null) {
+                        switch (traininfo.getAttribute("delayedstart").getValue()) {
+                            case "no":
+                                tInfo.setDelayedStart(ActiveTrain.NODELAY);
+                                break;
+                            case "sensor":
+                                tInfo.setDelayedStart(ActiveTrain.SENSORDELAY);
+                                break;
+                            default:
+                                //This covers the old versions of the file with "yes"
+                                tInfo.setDelayedStart(ActiveTrain.TIMEDDELAY);
+                                break;
+                        }
+                    }
+                    if (traininfo.getAttribute("departuretimehr") != null) {
+                        tInfo.setDepartureTimeHr(Integer.parseInt(traininfo.getAttribute("departuretimehr").getValue()));
+                    }
+                    if (traininfo.getAttribute("departuretimemin") != null) {
+                        tInfo.setDepartureTimeMin(Integer.parseInt(traininfo.getAttribute("departuretimemin").getValue()));
+                    }
+                    if (traininfo.getAttribute("delayedSensor") != null) {
+                        tInfo.setDelaySensorName(traininfo.getAttribute("delayedSensor").getValue());
+                    }
+                    if (traininfo.getAttribute("resetstartsensor") != null) {
+                        tInfo.setResetStartSensor(traininfo.getAttribute("resetstartsensor").getValue().equals("yes"));
+                    }
+                    if (traininfo.getAttribute("traintype") != null) {
+                        tInfo.setTrainType(traininfo.getAttribute("traintype").getValue());
+                    }
+                    if (traininfo.getAttribute("autorun") != null) {
+                        tInfo.setAutoRun(true);
+                        if (traininfo.getAttribute("autorun").getValue().equals("no")) {
+                            tInfo.setAutoRun(false);
+                        }
+                    }
+                    if (traininfo.getAttribute("loadatstartup") != null) {
+                        tInfo.setLoadAtStartup(true);
+                        if (traininfo.getAttribute("loadatstartup").getValue().equals("no")) {
+                            tInfo.setLoadAtStartup(false);
+                        }
+                    }
+                    // here retrieve items related only to automatically run trains if present
+                    if (traininfo.getAttribute("speedfactor") != null) {
+                        tInfo.setSpeedFactor(Float.parseFloat(traininfo.getAttribute("speedfactor").getValue()));
+                    }
+                    if (traininfo.getAttribute("maxspeed") != null) {
+                        tInfo.setMaxSpeed(Float.parseFloat(traininfo.getAttribute("maxspeed").getValue()));
+                    }
+                    // Optional scale km/h cap (absent in older files).
+                    if (traininfo.getAttribute("maxspeedscalekmh") != null) {
+                        try {
+                            tInfo.setMaxSpeedScaleKmh(traininfo.getAttribute("maxspeedscalekmh").getFloatValue());
+                        } catch (org.jdom2.DataConversionException ex) {
+                            // Malformed value: leave unset (0.0f) for backward compatibility.
+                        }
+                    }
+                    if (traininfo.getAttribute("minreliableoperatingspeed") != null) {
+                        tInfo.setMinReliableOperatingSpeed(Float.parseFloat(traininfo.getAttribute("minreliableoperatingspeed").getValue()));
+                    }
+                    if (traininfo.getAttribute("ramprate") != null) {
+                        tInfo.setRampRate(traininfo.getAttribute("ramprate").getValue());
+                    }
+                    tInfo.setTrainDetection(TrainDetection.TRAINDETECTION_WHOLETRAIN);
+                    if (version > 4) {
+                        if (traininfo.getAttribute("traindetection") != null) {
+                            tInfo.setTrainDetection(trainsdectionFromEnumMap.inputFromAttribute(traininfo.getAttribute("traindetection")));
+                        }
+                    }
+                    else {
+                        if (traininfo.getAttribute("resistancewheels").getValue().equals("no")) {
+                            tInfo.setTrainDetection(TrainDetection.TRAINDETECTION_HEADONLY);
+                        }
+                    }
+                    if (traininfo.getAttribute("runinreverse") != null) {
+                        tInfo.setRunInReverse(true);
+                        if (traininfo.getAttribute("runinreverse").getValue().equals("no")) {
+                            tInfo.setRunInReverse(false);
+                        }
+                    }
+                    if (traininfo.getAttribute("sounddecoder") != null) {
+                        tInfo.setSoundDecoder(true);
+                        if (traininfo.getAttribute("sounddecoder").getValue().equals("no")) {
+                            tInfo.setSoundDecoder(false);
+                        }
+                    }
+                    if (version > 5) {
+                        if (traininfo.getAttribute("trainlengthunits") != null) {
+                            tInfo.setTrainLengthUnits(trainlengthFromEnumMap.inputFromAttribute(traininfo.getAttribute("trainlengthunits")));
+                        }
+                    }
+                    if (traininfo.getAttribute("maxtrainlengthscalemeters") != null) {
+                        tInfo.setMaxTrainLengthScaleMeters(Float.parseFloat(traininfo.getAttribute("maxtrainlengthscalemeters").getValue()));
+                    } else {
+                        if (traininfo.getAttribute("maxtrainlength") != null) {
+                            if (InstanceManager.getDefault(DispatcherFrame.class).getUseScaleMeters()) {
+                                tInfo.setMaxTrainLengthScaleMeters(Float.parseFloat(traininfo.getAttribute("maxtrainlength").getValue()));
+                            } else {
+                                tInfo.setMaxTrainLengthScaleFeet(Float.parseFloat(traininfo.getAttribute("maxtrainlength").getValue()));
+                            }
+                        }
+                    }
+                    if (traininfo.getAttribute("terminatewhendone") != null) {
+                        tInfo.setTerminateWhenDone(false);
+                        if (traininfo.getAttribute("terminatewhendone").getValue().equals("yes")) {
+                            tInfo.setTerminateWhenDone(true);
+                        }
+                    }
+                    if (traininfo.getAttribute("usespeedprofile") != null) {
+                        tInfo.setUseSpeedProfile(false);
+                        if (traininfo.getAttribute("usespeedprofile").getValue().equals("yes")) {
+                            tInfo.setUseSpeedProfile(true);
+                        }
+                    }
+                    if (traininfo.getAttribute("stopbyspeedprofile") != null) {
+                        tInfo.setStopBySpeedProfile(false);
+                        if (traininfo.getAttribute("stopbyspeedprofile").getValue().equals("yes")) {
+                            tInfo.setStopBySpeedProfile(true);
+                        }
+                    }
+
+                 // Read the per-train stop-by-speed-profile adjust factor (fraction of block length)
+                 // Preferred attribute name since v5+: "stopbyspeedprofileadjust"
+                 // Backward-compatibility: accept a couple of historical synonyms if present.
+                 org.jdom2.Attribute adjAttr = traininfo.getAttribute("stopbyspeedprofileadjust");
+                 if (adjAttr == null) {
+                     // Legacy fallbacks seen in older files/tests
+                     adjAttr = traininfo.getAttribute("speedprofileadjust");
+                 }
+                 if (adjAttr == null) {
+                     adjAttr = traininfo.getAttribute("usespeedprofileadjust");
+                 }
+                 if (adjAttr != null) {
+                     try {
+                         float v = adjAttr.getFloatValue();
+                         // Sanity: bounds to [0.0, 1.0] if needed; older content is a fraction (not percent)
+                         if (v < 0.0f) v = 0.0f;
+                         if (v > 1.0f) v = 1.0f;
+                         tInfo.setStopBySpeedProfileAdjust(v);
+                     } catch (org.jdom2.DataConversionException ex) {
+                         // Malformed value -> leave adjust at default for backward compatibility
+                     }
+                 }
+
+                 // Preferred: "overridestopsensor" (yes/no or true/false or 1/0)
+                 // Fallback:  legacy "usestopsensor" (yes/no or true/false or 1/0)
+                 // Default:   use sensors (existing behavior)
+                 boolean useSensors = true; // default preserves existing behavior
+
+                 if (traininfo.getAttribute("overridestopsensor") != null) {
+                     String v = traininfo.getAttribute("overridestopsensor").getValue();
+                     boolean override = "yes".equalsIgnoreCase(v) || "true".equalsIgnoreCase(v) || "1".equals(v);
+                     useSensors = !override;
+                 } else if (traininfo.getAttribute("usestopsensor") != null) {
+                     String v = traininfo.getAttribute("usestopsensor").getValue();
+                     boolean legacyUse = "yes".equalsIgnoreCase(v) || "true".equalsIgnoreCase(v) || "1".equals(v);
+                     useSensors = legacyUse;
+                 }
+                 tInfo.setUseStopSensor(useSensors);
+
+                 if (traininfo.getAttribute("stopbydistance_mm") != null) {
+                     try {
+                         float mm = traininfo.getAttribute("stopbydistance_mm").getFloatValue();
+                         if (mm > 0.0f) {
+                             tInfo.setStopByDistanceMm(mm);
+                             // HEAD by default; override if attribute present and equals "TAIL"
+                             if (traininfo.getAttribute("stopbydistance_ref") != null) {
+                                 String ref = traininfo.getAttribute("stopbydistance_ref").getValue();
+                                 if ("TAIL".equalsIgnoreCase(ref)) {
+                                     tInfo.setStopByDistanceRef(TrainInfo.StopReference.TAIL);
+                                 } else {
+                                     tInfo.setStopByDistanceRef(TrainInfo.StopReference.HEAD);
+                                 }
+                             }
+                         }
+                     } catch (org.jdom2.DataConversionException ex) {
+                         // Malformed value => leave unset for backward compatibility
+                     }
+                 }
+                    
+                    if (traininfo.getAttribute("waittime") != null) {
+                        tInfo.setWaitTime(traininfo.getAttribute("waittime").getFloatValue());
+                    }
+                    if (traininfo.getAttribute("blockname") != null) {
+                        tInfo.setBlockName(traininfo.getAttribute("blockname").getValue());
+                    }
+                    if (traininfo.getAttribute("fnumberlight") != null) {
+                        tInfo.setFNumberLight(Integer.parseInt(traininfo.getAttribute("fnumberlight").getValue()));
+                    }
+                    if (traininfo.getAttribute("fnumberbell") != null) {
+                        tInfo.setFNumberBell(Integer.parseInt(traininfo.getAttribute("fnumberbell").getValue()));
+                    }
+                    if (traininfo.getAttribute("fnumberhorn") != null) {
+                        tInfo.setFNumberHorn(Integer.parseInt(traininfo.getAttribute("fnumberhorn").getValue()));
+                    }
+                    
+                    // Physics: read additional train weight (metric tonnes)
+                    if (traininfo.getAttribute("additionaltrainweight_tonnes") != null) {
+                        try {
+                            tInfo.setAdditionalTrainWeightMetricTonnes(traininfo.getAttribute("additionaltrainweight_tonnes").getFloatValue());
+                        } catch (org.jdom2.DataConversionException ex) {
+                            // Malformed value -> leave default (0.0f) for backward compatibility
+                        }
+                    }
+                     
+                    // Physics: read rolling resistance coefficient (dimensionless)
+                    if (traininfo.getAttribute("rollingresistancecoeff") != null) {
+                        try {
+                            tInfo.setRollingResistanceCoeff(traininfo.getAttribute("rollingresistancecoeff").getFloatValue());
+                        } catch (org.jdom2.DataConversionException ex) {
+                            // Malformed value -> leave default (0.002f) for backward compatibility
+                        }
+                    }
+                     
+                      // Physics: read driver power percent (stored as fraction 0..1; default 1.0 if absent)
+                     if (traininfo.getAttribute("driverpowerpercent") != null) {
+                         try {
+                             float dp = traininfo.getAttribute("driverpowerpercent").getFloatValue();
+                             if (dp < 0.0f) dp = 0.0f;
+                             if (dp > 1.0f) dp = 1.0f;
+                             tInfo.setDriverPowerPercent(dp);
+                         } catch (org.jdom2.DataConversionException ex) {
+                             // Malformed: ignore and leave TrainInfo default (typically 1.0f)
+                         }
+                     }
+            
+                    if (version == 1) {
+                        String parseArray[];
+                        // If you only have a systemname then its everything before the dash
+                        tInfo.setStartBlockId(tInfo.getStartBlockName().split("-")[0]);
+                        // If you have a systemname and username you want everything before the open bracket
+                        tInfo.setStartBlockId(tInfo.getStartBlockId().split("\\(")[0]);
+                        // to guard against a dash in the names, we need the last part, not just [1]
+                        parseArray = tInfo.getStartBlockName().split("-");
+                        tInfo.setStartBlockSeq(-1); // default value
+                        if (parseArray.length > 0) {
+                            try {
+                                tInfo.setStartBlockSeq(Integer.parseInt(parseArray[parseArray.length -1]));
+                            }
+                            catch (NumberFormatException Ex) {
+                                log.error("Invalid StartBlockSequence{}",parseArray[parseArray.length -1]);
+                            }
+                        }
+                        // repeat for destination
+                        tInfo.setDestinationBlockId(tInfo.getDestinationBlockName().split("-")[0]);
+                        tInfo.setDestinationBlockId(tInfo.getDestinationBlockId().split("\\(")[0]);
+                        parseArray = tInfo.getDestinationBlockName().split("-");
+                        tInfo.setDestinationBlockSeq(-1);
+                        if (parseArray.length > 0) {
+                            try {
+                                tInfo.setDestinationBlockSeq(Integer.parseInt(parseArray[parseArray.length -1]));
+                            }
+                            catch (NumberFormatException Ex) {
+                                log.error("Invalid StartBlockSequence{}",parseArray[parseArray.length -1]);
+                            }
+                        }
+                        // Transit we need the whole thing or the bit before the first open bracket
+                        tInfo.setTransitId(tInfo.getTransitName().split("\\(")[0]);
+                        log.debug("v1: t = {}, bs = {}, be = {}", tInfo.getTransitName(), tInfo.getStartBlockName(), tInfo.getDestinationBlockName());
+                    }
+                    if ( version > 1 ) {
+                        if (traininfo.getAttribute("transitid") != null) {
+                            // there is a transit name selected
+                            tInfo.setTransitId(traininfo.getAttribute("transitid").getValue());
+                        } else {
+                            log.error("Transit id missing when reading TrainInfoFile {}", name);
+                        }
+                        if (traininfo.getAttribute("startblockid") != null) {
+                            // there is a transit name selected
+                            tInfo.setStartBlockId(traininfo.getAttribute("startblockid").getValue());
+                        } else {
+                            log.error("Start block Id missing when reading TrainInfoFile {}", name);
+                        }
+                        if (traininfo.getAttribute("endblockid") != null) {
+                            // there is a transit name selected
+                            tInfo.setDestinationBlockId(traininfo.getAttribute("endblockid").getValue());
+                        } else {
+                            log.error("Destination block Id missing when reading TrainInfoFile {}", name);
+                        }
+                        if (traininfo.getAttribute("startblockseq") != null) {
+                            // there is a transit name selected
+                            try {
+                                tInfo.setStartBlockSeq(traininfo.getAttribute("startblockseq").getIntValue());
+                            }
+                            catch (org.jdom2.DataConversionException ex) {
+                                log.error("Start block sequence invalid when reading TrainInfoFile");
+                            }
+                        } else {
+                            log.error("Start block sequence missing when reading TrainInfoFile {}", name);
+                        }
+                        if (traininfo.getAttribute("endblockseq") != null) {
+                            // there is a transit name selected
+                            try {
+                                tInfo.setDestinationBlockSeq(traininfo.getAttribute("endblockseq").getIntValue());
+                            }
+                            catch (org.jdom2.DataConversionException ex) {
+                                log.error("Destination block sequence invalid when reading TrainInfoFile {}", name);
+                            }
+                        } else {
+                            log.error("Destination block sequence missing when reading TrainInfoFile {}", name);
+                        }
+                    }
+                    if ( version == 1 || version == 2) {
+                        // Change transit and block names from sysName(userName) to displayName
+                        tInfo.setTransitName(convertName(tInfo.getTransitName()));
+                        tInfo.setStartBlockName(convertName(tInfo.getStartBlockName()));
+                        tInfo.setDestinationBlockName(convertName(tInfo.getDestinationBlockName()));
+                    }
+               }
+            }
+        }
+        return tInfo;
+    }
+
+    public String convertName(String name) {
+        // transit: sys(user), block: sys(user)-n
+        String newName = name;
+
+        Pattern p = Pattern.compile(".+\\((.+)\\)(-\\d+)*");
+        Matcher m = p.matcher(name);
+        if (m.matches()) {
+            log.debug("regex: name = '{}', group 1 = '{}', group 2 = '{}'", name, m.group(1), m.group(2));
+            if (m.group(1) != null) {
+                newName = m.group(1).trim();
+                if (m.group(2) != null) {
+                    newName = newName + m.group(2).trim();
+                }
+            }
+        }
+
+        log.debug("convertName: old = '{}', new = '{}'", name, newName);
+        return newName;
+    }
+
+    /*
+     *  Writes out Dispatcher options to a file in the user's preferences directory
+     */
+    public void writeTrainInfo(TrainInfo tf, String name) throws java.io.IOException {
+        log.debug("entered writeTrainInfo");
+        root = new Element("traininfofile");
+        doc = newDocument(root, dtdLocation + "dispatcher-traininfo.dtd");
+        // add XSLT processing instruction
+        // <?xml-stylesheet type="text/xsl" href="XSLT/block-values.xsl"?>
+        java.util.Map<String, String> m = new java.util.HashMap<>();
+        m.put("type", "text/xsl");
+        m.put("href", xsltLocation + "dispatcher-traininfo.xsl");
+        org.jdom2.ProcessingInstruction p = new org.jdom2.ProcessingInstruction("xml-stylesheet", m);
+        doc.addContent(0, p);
+
+        // save Dispatcher TrainInfo in xml format
+        Element traininfo = new Element("traininfo");
+        // write version number
+        traininfo.setAttribute("version", "8");
+        traininfo.setAttribute("transitname", tf.getTransitName());
+        traininfo.setAttribute("transitid", tf.getTransitId());
+        traininfo.setAttribute("dynamictransit", (tf.getDynamicTransit() ? "yes" : "no"));
+        traininfo.setAttribute("trainname", tf.getTrainName());
+        traininfo.setAttribute("trainusername", tf.getTrainUserName());
+        traininfo.setAttribute("rosterid", tf.getRosterId());
+        traininfo.setAttribute("dccaddress", tf.getDccAddress());
+        traininfo.setAttribute("trainintransit", "" + (tf.getTrainInTransit() ? "yes" : "no"));
+        traininfo.setAttribute("startblockname", tf.getStartBlockName());
+        traininfo.setAttribute("startblockid", tf.getStartBlockId());
+        traininfo.setAttribute("startblockseq", Integer.toString(tf.getStartBlockSeq()));
+        traininfo.setAttribute("endblockname", tf.getDestinationBlockName());
+        traininfo.setAttribute("endblockid", tf.getDestinationBlockId());
+        traininfo.setAttribute("endblockseq", Integer.toString(tf.getDestinationBlockSeq()));
+        traininfo.setAttribute("viablockname", tf.getViaBlockName());
+        traininfo.setAttribute("trainfromroster", "" + (tf.getTrainFromRoster() ? "yes" : "no"));
+        traininfo.setAttribute("trainfromtrains", "" + (tf.getTrainFromTrains() ? "yes" : "no"));
+        traininfo.setAttribute("trainfromuser", "" + (tf.getTrainFromUser() ? "yes" : "no"));
+        traininfo.setAttribute("trainfromsetlater", "" + (tf.getTrainFromSetLater() ? "yes" : "no"));
+        traininfo.setAttribute("priority", Integer.toString(tf.getPriority()));
+        traininfo.setAttribute("traindetection", trainsdectionFromEnumMap.outputFromEnum(tf.getTrainDetection()));
+        traininfo.setAttribute("resetwhendone", "" + (tf.getResetWhenDone() ? "yes" : "no"));
+        switch (tf.getDelayedRestart()) {
+            case ActiveTrain.SENSORDELAY:
+                traininfo.setAttribute("delayedrestart", "sensor");
+                traininfo.setAttribute("delayedrestartsensor", tf.getRestartSensorName());
+                traininfo.setAttribute("resetrestartsensor", "" + (tf.getResetRestartSensor() ? "yes" : "no"));
+                break;
+            case ActiveTrain.TIMEDDELAY:
+                traininfo.setAttribute("delayedrestart", "timed");
+                traininfo.setAttribute("delayedrestarttime", Integer.toString(tf.getRestartDelayMin()));
+                break;
+            default:
+                traininfo.setAttribute("delayedrestart", "no");
+                break;
+        }
+
+        traininfo.setAttribute("reverseatend", "" + (tf.getReverseAtEnd() ? "yes" : "no"));
+        switch (tf.getReverseDelayedRestart()) {
+            case ActiveTrain.SENSORDELAY:
+                traininfo.setAttribute("reversedelayedrestart", "sensor");
+                traininfo.setAttribute("reversedelayedrestartsensor", tf.getReverseRestartSensorName());
+                traininfo.setAttribute("reverseresetrestartsensor", "" + (tf.getReverseResetRestartSensor() ? "yes" : "no"));
+                break;
+            case ActiveTrain.TIMEDDELAY:
+                traininfo.setAttribute("reversedelayedrestart", "timed");
+                traininfo.setAttribute("reversedelayedrestarttime", Integer.toString(tf.getReverseRestartDelayMin()));
+                break;
+            default:
+                traininfo.setAttribute("reversedelayedrestart", "no");
+                break;
+        }
+        if (tf.getDelayedStart() == ActiveTrain.TIMEDDELAY) {
+            traininfo.setAttribute("delayedstart", "timed");
+        } else if (tf.getDelayedStart() == ActiveTrain.SENSORDELAY) {
+            traininfo.setAttribute("delayedstart", "sensor");
+            if (tf.getDelaySensorName() != null) {
+                traininfo.setAttribute("delayedSensor", tf.getDelaySensorName());
+                traininfo.setAttribute("resetstartsensor", "" + (tf.getResetStartSensor() ? "yes" : "no"));
+            }
+        }
+
+        traininfo.setAttribute("terminatewhendone", (tf.getTerminateWhenDone() ? "yes" : "no"));
+        traininfo.setAttribute("departuretimehr", Integer.toString(tf.getDepartureTimeHr()));
+        traininfo.setAttribute("departuretimemin", Integer.toString(tf.getDepartureTimeMin()));
+        traininfo.setAttribute("traintype", tf.getTrainType());
+        traininfo.setAttribute("autorun", "" + (tf.getAutoRun() ? "yes" : "no"));
+        traininfo.setAttribute("loadatstartup", "" + (tf.getLoadAtStartup() ? "yes" : "no"));
+        traininfo.setAttribute("allocatealltheway", "" + (tf.getAllocateAllTheWay() ? "yes" : "no"));
+        traininfo.setAttribute("allocationmethod", Integer.toString(tf.getAllocationMethod()));
+        traininfo.setAttribute("nexttrain", tf.getNextTrain());
+        // here save items related to automatically running active trains
+        traininfo.setAttribute("speedfactor", Float.toString(tf.getSpeedFactor()));
+        traininfo.setAttribute("maxspeed", Float.toString(tf.getMaxSpeed()));
+        // Persist maximum speed in scale km/h when the user selected a speed cap.
+        // Omit when 0.0f (means "use throttle cap" for backward compatibility).
+        if (tf.getMaxSpeedScaleKmh() > 0.0f) {
+            traininfo.setAttribute("maxspeedscalekmh", Float.toString(tf.getMaxSpeedScaleKmh()));
+        }
+        traininfo.setAttribute("minreliableoperatingspeed", Float.toString(tf.getMinReliableOperatingSpeed()));
+        traininfo.setAttribute("ramprate", tf.getRampRate());
+        traininfo.setAttribute("runinreverse", "" + (tf.getRunInReverse() ? "yes" : "no"));
+        traininfo.setAttribute("sounddecoder", "" + (tf.getSoundDecoder() ? "yes" : "no"));
+        traininfo.setAttribute("maxtrainlengthscalemeters", Float.toString(tf.getMaxTrainLengthScaleMeters()));
+        traininfo.setAttribute("trainlengthunits", trainlengthFromEnumMap.outputFromEnum(tf.getTrainLengthUnits()));
+        traininfo.setAttribute("usespeedprofile", "" + (tf.getUseSpeedProfile() ? "yes" : "no"));
+        traininfo.setAttribute("stopbyspeedprofile", "" + (tf.getStopBySpeedProfile() ? "yes" : "no"));
+        traininfo.setAttribute("stopbyspeedprofileadjust", Float.toString(tf.getStopBySpeedProfileAdjust()));
+        traininfo.setAttribute("usestopsensor", (tf.getUseStopSensor() ? "yes" : "no"));
+        traininfo.setAttribute("overridestopsensor", (tf.getUseStopSensor() ? "no" : "yes"));
+        traininfo.setAttribute("waittime", Float.toString(tf.getWaitTime()));
+        traininfo.setAttribute("blockname", tf.getBlockName());
+        traininfo.setAttribute("fnumberlight", Integer.toString(tf.getFNumberLight()));
+        traininfo.setAttribute("fnumberbell", Integer.toString(tf.getFNumberBell()));
+        traininfo.setAttribute("fnumberhorn", Integer.toString(tf.getFNumberHorn()));
+        // Physics: persist additional train weight (metric tonnes, float)
+        traininfo.setAttribute("additionaltrainweight_tonnes", Float.toString(tf.getAdditionalTrainWeightMetricTonnes()));
+        // Physics: persist rolling resistance coefficient (dimensionless)
+        traininfo.setAttribute("rollingresistancecoeff", Float.toString(tf.getRollingResistanceCoeff()));
+        traininfo.setAttribute("driverpowerpercent", Float.toString(tf.getDriverPowerPercent()));
+            
+         // Only write these when the user has set a positive distance in mm; otherwise omit.
+         if (tf.getStopByDistanceMm() > 0.0f) {
+             // Persist the explicit distance (mm) into the stop block
+             traininfo.setAttribute("stopbydistance_mm", Float.toString(tf.getStopByDistanceMm()));
+             // Persist whether the distance applies to the HEAD or TAIL of the train
+             traininfo.setAttribute("stopbydistance_ref", tf.getStopByDistanceRef().name()); // HEAD | TAIL
+         }
+
+        root.addContent(traininfo);
+
+        // write out the file
+        try {
+            if (!checkFile(fileLocation + name)) {
+                // file does not exist, create it
+                File file = new File(fileLocation + name);
+                if (!file.createNewFile()) // create file and check result
+                {
+                    log.error("createNewFile failed");
+                }
+            }
+            // write content to file
+            writeXML(findFile(fileLocation + name), doc);
+        } catch (java.io.IOException ioe) {
+            log.error("IO Exception writing", ioe);
+            throw (ioe);
+        }
+    }
+
+    /**
+     * Get the names of all current TrainInfo files. Returns names as an array
+     * of Strings. Returns an empty array if no files are present. Note: Fill
+     * names still end with .xml or .XML. (Modeled after a method in
+     * RecreateRosterAction.java by Bob Jacobsen)
+     *
+     * @return names as an array or an empty array if none present
+     */
+    public String[] getTrainInfoFileNames() {
+        // ensure preferences will be found for read
+        FileUtil.createDirectory(fileLocation);
+        // create an array of file names from roster dir in preferences, count entries
+        List<String> names = new ArrayList<>();
+        log.debug("directory of TrainInfoFiles is {}", fileLocation);
+        File fp = new File(fileLocation);
+        if (fp.exists()) {
+            String[] xmlList = fp.list(new XmlFilenameFilter());
+            if (xmlList!=null) {
+                names.addAll(Arrays.asList(xmlList));
+            }
+        }
+        // Sort the resulting array
+        names.sort((s1, s2) -> {
+            return s1.compareTo(s2);
+        });
+        return names.toArray(new String[names.size()]);
+    }
+
+    /**
+     * Get the names of all current TrainInfo files. Returns list
+     * of files and some basic details for each file
+     *.
+     * @return names as an array or an empty array if none present
+     */
+    public List<TrainInfoFileSummary> getTrainInfoFileSummaries() {
+        List<TrainInfoFileSummary> summaries = new ArrayList<>();
+        for (String fileName : getTrainInfoFileNames()) {
+            try {
+                TrainInfo ti = readTrainInfo(fileName);
+                summaries.add(new TrainInfoFileSummary(fileName, ti.getTrainName(), ti.getTransitName(),
+                        ti.getStartBlockName(), ti.getDestinationBlockName(), ti.getDccAddress()));
+            } catch (org.jdom2.JDOMException ex) {
+                summaries.add(new TrainInfoFileSummary(fileName));
+            } catch (IOException ex) {
+                summaries.add(new TrainInfoFileSummary(fileName));
+            } catch (RuntimeException ex) {
+                log.error("Traininfo File [{}] unexplained error, currupted?",fileName);
+            }
+        }
+        return summaries;
+    }
+
+    /**
+     * Delete a specified TrainInfo file.
+     *
+     * @param name the file to delete
+     */
+    public void deleteTrainInfoFile(String name) {
+        // locate the file and delete it if it exists
+        File f = new File(fileLocation + name);
+        if (!f.delete()) { // delete file and check success
+            log.error("failed to delete TrainInfo file - {}", name);
+        }
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(TrainInfoFile.class);
+}

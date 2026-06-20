@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Operations-Edit Locations</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>Operations Edit Location Menu Bar</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_EditLocation.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+      <img style="width: 798px; height: 96px;" alt="menu bar" src=
+      "images/Ops_EditLocation_menubar.png"><br>
+
+      <ul>
+        <li>
+          <span style="font-weight: bold;">Tools</span>
+          <ul>
+            <li>
+              <a href="Ops_Locations_byCar.shtml"><span style="font-weight: bold;">Modify Location
+              by Car Type</span></a>
+            </li>
+
+            <li>
+              <a href="Ops_Cars.shtml"><span style="font-weight: bold;">Show Cars</span></a>
+            </li>
+
+            <li>
+              <span style="font-weight: bold;">Change Track Type</span>
+              <p><img style="width: 362px; height: 107px;" alt="change track type" src=
+              "images/Ops_EditLocation_changeTrack.png">
+              </p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="ops-right">
+        <p><a href="Ops_EditLocation.shtml">Back<br></a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

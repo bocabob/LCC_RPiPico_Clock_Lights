@@ -1,0 +1,41 @@
+package jmri.util.swing.mdi;
+
+import jmri.util.JUnitUtil;
+import jmri.util.junit.annotations.DisabledIfHeadless;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Bob Jacobsen Copyright 2003, 2010
+ */
+public class MdiMainFrameTest {
+
+    @Test
+    @DisabledIfHeadless
+    public void testShow() {
+        MdiMainFrame f = new MdiMainFrame("Test of MDI Frame",
+                "java/test/jmri/util/swing/xml/Gui3LeftTree.xml",
+                "java/test/jmri/util/swing/xml/Gui3Menus.xml",
+                "java/test/jmri/util/swing/xml/Gui3MainToolBar.xml"
+        );
+        f.setSize(new java.awt.Dimension(400, 400));
+        f.setVisible(true);
+
+        // close
+        JUnitUtil.dispose(f);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetProfileManager();
+        JUnitUtil.initDefaultUserMessagePreferences();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec <bzh56420@yahoo.fr>  2013-11-01-->
+<head>
+  <title>JMRI: MultiSensor Icon Editor Help</title>
+  <meta name="author" content="Pete Cressman">
+  <meta name="keywords" content="JMRI help Panel Editor">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+   <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>L'Éditeur d'Icône Multicapteurs</h1>
+
+      <p>La façon dont les icônes sont modifiées dans l'Édteur d'Icône Multicapteurs est la même
+      que celles qui les modifie dans les autres Éditeurs d'Icône. Le bouton <strong>Changer
+      l'Icône...</strong> et le Catalogue de fonction sont identiques avec les autre Éditeurs
+      d'Icône. Le Menu <strong>Trouver des Icônes</strong> et ses éléments sont également
+      identiques.</p>
+
+      <p>Voir la <a href="IconAdder.shtml">pages Éditeurs d'Icône</a> et l'image <a href=
+      "../catalog/ImageIndex.shtml">Page Éditeur d'index</a> pour plus de détails sur leur
+      utilisation.</p>
+
+      <h2>Contenu de l'Éditeur d'Icône Multicapteurs</h2>
+      <img src="images/MultiSensorIcon.png" align="right" alt="">
+      <p>Les icônes de l'Éditeur d'Icône Multicapteurs ne diffèrent que par l'existence de
+      plusieurs icônes "actives". Chacune correspond à un commutateur ou à la position d'un levier.
+      Dans le Panneau, les positions s'enchaînent dans l'ordre. Une position peut être supprimée en
+      appuyant sur la touche <strong>Supprimer</strong> sous l'icône. D'autres positions peuvent
+      être ajoutées en appuyant sur le bouton <strong>Ajouter</strong> une autre icône.</p>
+
+      <p>Chaque icône active doit avoir un capteur qui lui est associé. Pour attribuer un capteur à
+      une position de l'icône, faites glisser une ligne du Tableau Capteur à l'endroit dans
+      l'onglet icône à un emplacement intitulé "indéfini". Lorsque la ligne du capteur est tombé
+      sur l'étiquette, il affiche le nom du capteur.</p>
+
+      <p>Lorsque toutes les icônes actives sont affectées" aux capteurs, le bouton <strong>Ajouter
+      au Panneau</strong> devient actif et il peut être appuyé pour installer le multicapteurs dans
+      le panneau.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

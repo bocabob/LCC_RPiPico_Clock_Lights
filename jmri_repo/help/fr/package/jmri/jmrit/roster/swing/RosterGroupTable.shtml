@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec bzh56420@yahoo.fr-->
+<head>
+  <title>JMRI: Power Control</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Roster Grouping">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Groupement de Liste</h1>
+      <p>Ce tableau r&eacute;pertorie
+      toutes les entr&eacute;es Liste, &agrave; partir du menu
+      d&eacute;roulant en haut s&eacute;lectionnez le groupe que
+      vous souhaitez consulter ajouter/supprimer des fiches. Placer
+      une coche va ajouter la Fiche dans le Groupe Liste, enlever
+      la coche va supprimer cette Fiche du groupe Liste.</p>
+
+      <p>Ceci est la page d'aide
+      help/fr/package/jmri/jmrit/roster/swing/RosterGroupTable.shtml</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

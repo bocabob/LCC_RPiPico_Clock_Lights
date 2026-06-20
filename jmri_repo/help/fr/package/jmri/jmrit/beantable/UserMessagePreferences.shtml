@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013/10/13-->
+<head>
+  <title>JMRI: User Message Preferences</title>
+  <meta name="author" content="Kevin Dickerson">
+  <meta name="keywords" content="User Message Preferences">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Pr&eacute;f&eacute;rences Message Utilisateur</h1>
+
+      <p>Cela
+      vous permet de changer la fa&ccedil;on dont les messages
+      d'information et d'alerte sont affich&eacute;s dans JMRI. Il
+      vous permettra &eacute;galement de configurer un
+      r&eacute;ponses par d&eacute;faut et la question
+      affich&eacute;e.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

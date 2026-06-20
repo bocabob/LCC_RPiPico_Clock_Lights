@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Setup - Sharing Files with GitHub</title>
+  <meta name="keywords" content="java model railroad JMRI install Dropbox">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI Setup: Sharing Files with GitHub</h1>
+
+      <p><a href="https://github.com">GitHub</a> is a free service that lets you share files
+      between multiple computers across a network by storing a common copy in a Git repository.
+      After you've signed up with GitHub and configured your local machine(s), you can configure
+      JMRI to use it to share Rosters, layout configuration files and other information between
+      multiple computers.</p>
+
+      <p>Note: If you're not familiar with Git and GitHub, you might be better off using <a href=
+      "Dropbox.shtml">Dropbox</a> to share files between computers. Git and GitHub are a
+      full-featured software version control system, which makes them more complex than the
+      almost-automatic nature of Dropbox. Git and Github will let you control when changes are
+      stored, have multiple versions on branches, and in general manage your JMRI configurations
+      very closely; but if you just want share files, Dropbox may be easier.</p>
+
+      <p>Using Git has some advantages:</p>
+
+      <ul>
+        <li>In normal use, Git will keep the entire history of your files locally so that you can
+        always back up to an earlier configuration.</li>
+
+        <li>Git provides very powerful tools for managing updates when you're making changes on
+        multiple computers, i.e. the main layout computer and some convenient laptoo.</li>
+
+        <li>Git can be used with a sneaker-net connection by pushing/pulling from a copy of a
+        repository on a USB stick.</li>
+      </ul>
+
+      <h3>Step 1 - Creating Your Common Repository On GitHub</h3>
+
+        First, <a href="https://github.com/join">create a GitHub account</a> if you don't have one.
+
+        <p>Next we're going to put an existing JMRI user files location up onto GitHub for sharing.
+           (These instructions assume that the associated JMRI profile is also in that
+           user files location.)
+           If you don't have that set up yet in JMRI, please create a profile, set the preferences, etc.
+
+        <p>Next, locate the JMRI user files location directory for that profile on your computer's file system.
+           To do that, go to
+            Help-&gt;File Locations and press [Open User Files Location].<br>
+            <a href="images/Help_Locations.png"><img src="images/Help_Locations.png" width="682" height="139" alt="user filess location"></a><br>
+            This will open a window on your desktop showing that directory.
+
+        <p>On your command line, change directory to that location.
+           (How you do this depends on what kind of computer you have)
+
+        <p>Execute the following git commands:
+<pre>
+            git init
+            git add .
+            git commit -m"initial contents"
+</pre>
+        This will turn the directory into a git repository
+        and commit your current contents into it.
+
+        <p>Now we move to GitHub and create a corresponding repository there. To do that
+            <ul>
+            <li>Sign into your GitHub account
+            <li>Create a new repository on GitHub using the "New" button on your Repositories
+            pane. Name it for your profile (to reduce confusion).</li>
+            <li>Click the button named "(downarrow) Code" and copy the URL for your
+            repository. It will be something like
+            <code>https://github.com/myaccountname/myreponame.git</code></li>
+            <li>Back on your own computer, enter the <command>
+<pre>
+        git remote add origin https://github.com/myaccountname/myreponame.git
+</pre>
+            where the URL is the one you copied from GitHub.
+            <li>Finally, push your directory contents up to GitHub using the command
+<pre>
+        git branch -M main
+        git push --set-upstream origin main
+</pre>
+            (The <code>-u origin</code> option is a one-time thing to associate the
+            repository on your computer with the one on GitHub.)
+            </ul>
+        <p>At this point, you have a working setup.  When you make changes in your
+           profile directory, you can record them in git with the usual
+           "<code>git commit</code>"
+           command, and move them to and from github with
+           "<code>git push</code>" and
+           "<code>git pull</code>"
+           as usual.
+
+        <p>Finally, open JMRI, go to the <strong>Load and store</strong> pane
+           in the Preferences, and select the checkboxes to exclude dynamic content.
+           This omits various time and version information from the XML files that
+           JMRI writes, which will reduce un-necessary merge conflicts as you
+           work with those XML files.  Commit this change and "git push"
+           it to GitHub.
+
+      <h3>Step 2 - Sharing To Another Computer</h3>
+
+      <p>The only steps you need to do on subsequent computers are:</p>
+
+      <ul>
+        <li>"git clone" with the roster URL to make your initial download of the repository ("git
+        pull" after that)</li>
+
+        <li>Preferences -&gt; Roster -&gt; Roster -&gt; Roster Location -&gt; Reset. Do not enter a
+        Roster Location. That way it will follow the User Files Location.</li>
+
+        <li>Preferences -&gt; File Locations -&gt; User Files Location and set it to the JMRI folder you
+        created in with the "git clone".</li>
+      </ul>
+
+      <h2>Sharing Existing Content Using Sneaker Net</h2>
+
+      <p>First, copy the <u>entire</u> profile directory from one of your computers to the USB stick. This
+      will be a master that you're moving around. (You can also directly 'git clone' onto the USB
+      stick.)</p>
+
+      <p>Then, from your computer's JMRI preferences Git directory, you can bring the USB stick up
+      to date with your directory with</p>
+
+<pre>
+            git commit -m"really lucid comment" .
+            git push /path/to/USB/directory
+</pre>
+      <p>Similarly, you can get the contents from the USB stick with</p>
+
+      <pre>
+            git pull /path/to/USB/directory
+            
+</pre><!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

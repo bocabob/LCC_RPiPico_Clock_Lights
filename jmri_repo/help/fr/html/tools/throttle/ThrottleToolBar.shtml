@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; le 2017-01-07-->
+<head>
+  <title>Throttle pane Toolbar</title>
+  <meta name="keywords" content="JMRI decoderpro dcc nmra throttle throttlepro">
+	<meta name="description" content="Throttle documentation for JMRI project">
+	<meta name="author" content="Lionel Jeanson">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Barre d'outils R&#233;gulateur</h1>
+
+<img src="images/ThrottleToolBar.png" alt="La barre d'outils r&#233;gulateur"><br>
+
+<p>La barre d'outils r&#233;gulateur est activable depuis le <a href="ThrottlesPreferencesPane.shtml"> Panneau des
+      Pr&#233;f&#233;rences R&#233;gulateurs </a>.
+<br>
+Lorsque elle est activ&#233;e, une Fen&#234;tre R&#233;gulateur peut accueillir un ensemble de R&#233;gulateurs, ces R&#233;gulateurs peuvent &#234;tre  list&#233;s en utilisant le: <br>
+</p>
+
+<h2> bouton Pr&#233;c&#233;dent</h2>
+
+D&#233;place vers le R&#233;gulateur pr&#233;c&#233;dent pour cette Fen&#234;tre de R&#233;gulateur.
+
+<h2> bouton Suivant </h2>
+
+D&#233;place vers le R&#233;gulateur suivant pour cette Fen&#234;tre de R&#233;gulateur.
+
+<h2>Bouton Nouveau</h2>
+
+Ajouter un nouveau R&#233;gulateur dans cette Fen&#234;tre de R&#233;gulateur.<br> 
+Une fois que le nombre de R&#233;gulateurs dans une Fen&#234;tre R&#233;gulateur est sup&#233;rieure &#224; un, ensuite les boutons 
+Pr&#233;c&#233;dent et Corbeille sont activ&#233;s.
+
+<h2>Bouton Corbeille</h2>
+
+Retirez le R&#233;gulateur actuel de cette Fen&#234;tre de R&#233;gulateur. <br>
+Lorsque le nombre de R&#233;gulateur dans une Fen&#234;tre de R&#233;gulateur est &#233;gal &#224; un, les boutons  Suivant, 
+Pr&#233;c&#233;dent et Corbeille sont d&#233;sactiv&#233;s 
+
+ <h2>Bouton d'Arr&#234;t Urgence</h2>
+
+Envoie un message d'arr&#234;t &#224; tous les R&#233;gulateurs g&#233;r&#233;s par JMRI.
+
+ <h2>Le bouton d'alimentation </h2>
+
+Permet la commande de l'alimentation du r&#233;seau  si possible (rouge = Arr&#234;t,  vert = Marche , le jaune est le statut 
+inconnu).
+
+<h2>Bouton Liste</h2>
+
+<p>Afficher/Masquer la liste des <a href="ThrottlesListWindow.shtml">R&#233;gulateurs</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div> <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Herv&#233; Blorec 2013-10-09 -->
+<head>
+  <title>JMRI: Automat Table Help</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Automat Thread Table">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Le Tableau (Liens) Automate</h1>
+
+      Ceci est la page d'aide
+      help/jmri/jmrit/automat/monitor/AutomatTable
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

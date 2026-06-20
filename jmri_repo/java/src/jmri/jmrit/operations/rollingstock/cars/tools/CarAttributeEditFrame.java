@@ -1,0 +1,275 @@
+package jmri.jmrit.operations.rollingstock.cars.tools;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jmri.InstanceManager;
+import jmri.jmrit.operations.locations.tools.LocationsByCarTypeFrame;
+import jmri.jmrit.operations.rollingstock.RollingStock;
+import jmri.jmrit.operations.rollingstock.RollingStockAttributeEditFrame;
+import jmri.jmrit.operations.rollingstock.cars.*;
+import jmri.jmrit.operations.rollingstock.engines.EngineManager;
+import jmri.jmrit.operations.rollingstock.tools.AttributeCharacterLengthAction;
+import jmri.jmrit.operations.setup.Control;
+import jmri.jmrit.operations.trains.tools.TrainsByCarTypeFrame;
+import jmri.util.swing.JmriJOptionPane;
+
+/**
+ * Frame for editing a car attribute.
+ *
+ * @author Daniel Boudreau Copyright (C) 2008, 2014, 2020
+ */
+public class CarAttributeEditFrame extends RollingStockAttributeEditFrame {
+
+    CarManager carManager = InstanceManager.getDefault(CarManager.class);
+
+    // incremental attributes for this frame
+    public static final String COLOR = "Color";
+    public static final String KERNEL = "Kernel";
+
+    public CarAttributeEditFrame(){
+    }
+
+    /**
+     * 
+     * @param attribute One of the six possible attributes for a car.
+     */
+    public void initComponents(String attribute) {
+        initComponents(attribute, NONE);
+    }
+
+    /**
+     * 
+     * @param attribute One of the six possible attributes for a car.
+     * @param name      The name of the attribute to edit.
+     */
+    @Override
+    public void initComponents(String attribute, String name) {
+        super.initComponents(attribute, name);
+
+        setTitle(Bundle.getMessage("TitleCarEditAtrribute", attribute));
+        carManager.addPropertyChangeListener(this);
+
+        // build menu
+        JMenuBar menuBar = new JMenuBar();
+        JMenu toolMenu = new JMenu(Bundle.getMessage("MenuTools"));
+        toolMenu.add(new CarAttributeAction(this));
+        toolMenu.add(new CarDeleteAttributeAction(this));
+        toolMenu.add(new AttributeCharacterLengthAction());
+        menuBar.add(toolMenu);
+        setJMenuBar(menuBar);
+        // add help menu to window
+        addHelpMenu("package.jmri.jmrit.operations.Operations_EditCarAttributes", true); // NOI18N
+    }
+
+    @Override
+    protected void deleteAttributeName(String deleteItem) {
+        super.deleteAttributeName(deleteItem);
+        if (_attribute.equals(TYPE)) {
+            InstanceManager.getDefault(CarTypes.class).deleteName(deleteItem);
+        }
+        if (_attribute.equals(COLOR)) {
+            InstanceManager.getDefault(CarColors.class).deleteName(deleteItem);
+        }
+        if (_attribute.equals(LENGTH)) {
+            InstanceManager.getDefault(CarLengths.class).deleteName(deleteItem);
+        }
+        if (_attribute.equals(KERNEL)) {
+            InstanceManager.getDefault(KernelManager.class).deleteKernel(deleteItem);
+        }
+    }
+
+    @Override
+    @SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "GUI ease of use")
+    protected void addAttributeName(String addItem) {
+        super.addAttributeName(addItem);
+        if (_attribute.equals(TYPE)) {
+            InstanceManager.getDefault(CarTypes.class).addName(addItem);
+            if (showDialogBox) {
+                int results = JmriJOptionPane.showOptionDialog(this, Bundle.getMessage("AddNewCarType"),
+                        Bundle.getMessage("ModifyLocations"), JmriJOptionPane.DEFAULT_OPTION,
+                        JmriJOptionPane.QUESTION_MESSAGE, null,
+                        new Object[] { Bundle.getMessage("ButtonYes"),
+                                Bundle.getMessage("ButtonNo"), Bundle.getMessage("ButtonDontShow") },
+                        Bundle.getMessage("ButtonNo"));
+                if (results == 0 ) { // array position 0, ButtonYes
+                    LocationsByCarTypeFrame lf = new LocationsByCarTypeFrame();
+                    lf.initComponents(addItem);
+                }
+                if (results == 2 ) { // array position 2, ButtonDontShow
+                    showDialogBox = false;
+                }
+                results = JmriJOptionPane.showOptionDialog(this, Bundle.getMessage("AddNewCarType"),
+                        Bundle.getMessage("ModifyTrains"), JmriJOptionPane.DEFAULT_OPTION,
+                        JmriJOptionPane.QUESTION_MESSAGE, null, new Object[] { Bundle.getMessage("ButtonYes"),
+                                Bundle.getMessage("ButtonNo"), Bundle.getMessage("ButtonDontShow") },
+                        Bundle.getMessage("ButtonNo"));
+                if (results == 0 ) { // array position 0, ButtonYes
+                    TrainsByCarTypeFrame lf = new TrainsByCarTypeFrame();
+                    lf.initComponents(addItem);
+                }
+                if (results == 2 ) { // array position 2, ButtonDontShow
+                    showDialogBox = false;
+                }
+            }
+        }
+        if (_attribute.equals(COLOR)) {
+            InstanceManager.getDefault(CarColors.class).addName(addItem);
+        }
+        if (_attribute.equals(LENGTH)) {
+            InstanceManager.getDefault(CarLengths.class).addName(addItem);
+            comboBox.setSelectedItem(addItem);
+        }
+        if (_attribute.equals(KERNEL)) {
+            InstanceManager.getDefault(KernelManager.class).newKernel(addItem);
+        }
+        if (_attribute.equals(OWNER)) {
+            InstanceManager.getDefault(CarOwners.class).addName(addItem);
+        }
+    }
+
+    @Override
+    protected void replaceItem(String oldItem, String newItem) {
+        super.replaceItem(oldItem, newItem);
+        // replace kernel
+        if (_attribute.equals(KERNEL)) {
+            InstanceManager.getDefault(KernelManager.class).replaceKernelName(oldItem, newItem);
+        }
+        // now adjust cars, locations and trains
+        if (_attribute.equals(TYPE)) {
+            InstanceManager.getDefault(CarTypes.class).replaceName(oldItem, newItem);
+            InstanceManager.getDefault(CarLoads.class).replaceType(oldItem, newItem);
+        }
+        if (_attribute.equals(LENGTH)) {
+            InstanceManager.getDefault(CarLengths.class).replaceName(oldItem, newItem);
+        }
+        if (_attribute.equals(COLOR)) {
+            InstanceManager.getDefault(CarColors.class).replaceName(oldItem, newItem);
+        }
+    }
+
+    @Override
+    protected void loadCombobox() {
+        super.loadCombobox();
+        if (_attribute.equals(TYPE)) {
+            comboBox = InstanceManager.getDefault(CarTypes.class).getComboBox();
+            InstanceManager.getDefault(CarTypes.class).addPropertyChangeListener(this);
+        }
+        if (_attribute.equals(COLOR)) {
+            comboBox = InstanceManager.getDefault(CarColors.class).getComboBox();
+            InstanceManager.getDefault(CarColors.class).addPropertyChangeListener(this);
+        }
+        if (_attribute.equals(LENGTH)) {
+            comboBox = InstanceManager.getDefault(CarLengths.class).getComboBox();
+            InstanceManager.getDefault(CarLengths.class).addPropertyChangeListener(this);
+        }
+        if (_attribute.equals(KERNEL)) {
+            comboBox = InstanceManager.getDefault(KernelManager.class).getComboBox();
+            InstanceManager.getDefault(KernelManager.class).addPropertyChangeListener(this);
+        }
+    }
+
+    @Override
+    protected void updateAttributeQuanity() {
+        if (!showQuanity) {
+            return;
+        }
+        int number = 0;
+        String item = (String) comboBox.getSelectedItem();
+        log.debug("Selected item {}", item);
+        for (Car car : carManager.getList()) {
+            if (_attribute.equals(ROAD)) {
+                if (car.getRoadName().equals(item)) {
+                    number++;
+                }
+            }
+            if (_attribute.equals(TYPE)) {
+                if (car.getTypeName().equals(item)) {
+                    number++;
+                }
+            }
+            if (_attribute.equals(COLOR)) {
+                if (car.getColor().equals(item)) {
+                    number++;
+                }
+            }
+            if (_attribute.equals(LENGTH)) {
+                if (car.getLength().equals(item)) {
+                    number++;
+                }
+            }
+            if (_attribute.equals(OWNER)) {
+                if (car.getOwnerName().equals(item)) {
+                    number++;
+                }
+            }
+            if (_attribute.equals(KERNEL)) {
+                if (car.getKernelName().equals(item)) {
+                    number++;
+                }
+            }
+        }
+        quanity.setText(Integer.toString(number));
+        // Tool to delete all attributes that haven't been assigned to a car
+        if (number == 0 && deleteUnused) {
+            // need to check if an engine is using the road name
+            if (_attribute.equals(ROAD)) {
+                for (RollingStock rs : InstanceManager.getDefault(EngineManager.class).getList()) {
+                    if (rs.getRoadName().equals(item)) {
+                        log.info("Engine ({} {}) is assigned road name ({})", rs.getRoadName(), rs.getNumber(), item); // NOI18N
+                        return;
+                    }
+                }
+            }
+            // need to check if an engine is using the road name
+            if (_attribute.equals(OWNER)) {
+                for (RollingStock rs : InstanceManager.getDefault(EngineManager.class).getList()) {
+                    if (rs.getOwnerName().equals(item)) {
+                        log.info("Engine ({} {}) is assigned owner name ({})", rs.getRoadName(), rs.getNumber(), item); // NOI18N
+                        return;
+                    }
+                }
+            }
+            // confirm that attribute is to be deleted
+            confirmDelete(item);
+        }
+    }
+
+
+    @Override
+    public void dispose() {
+        InstanceManager.getDefault(CarTypes.class).removePropertyChangeListener(this);
+        InstanceManager.getDefault(CarColors.class).removePropertyChangeListener(this);
+        InstanceManager.getDefault(CarLengths.class).removePropertyChangeListener(this);
+        InstanceManager.getDefault(KernelManager.class).removePropertyChangeListener(this);
+        carManager.removePropertyChangeListener(this);
+        super.dispose();
+    }
+
+    @Override
+    public void propertyChange(java.beans.PropertyChangeEvent e) {
+        if (Control.SHOW_PROPERTY) {
+            log.debug("Property change: ({}) old: ({}) new: ({})", e.getPropertyName(), e.getOldValue(),
+                    e.getNewValue());
+        }
+        if (e.getPropertyName().equals(CarTypes.CARTYPES_CHANGED_PROPERTY)) {
+            InstanceManager.getDefault(CarTypes.class).updateComboBox(comboBox);
+        }
+        if (e.getPropertyName().equals(CarColors.CARCOLORS_CHANGED_PROPERTY)) {
+            InstanceManager.getDefault(CarColors.class).updateComboBox(comboBox);
+        }
+        if (e.getPropertyName().equals(CarLengths.CARLENGTHS_CHANGED_PROPERTY)) {
+            InstanceManager.getDefault(CarLengths.class).updateComboBox(comboBox);
+        }
+        if (e.getPropertyName().equals(KernelManager.LISTLENGTH_CHANGED_PROPERTY)) {
+            InstanceManager.getDefault(KernelManager.class).updateComboBox(comboBox);
+        }
+        if (e.getPropertyName().equals(CarManager.LISTLENGTH_CHANGED_PROPERTY)) {
+            updateAttributeQuanity();
+        }
+        super.propertyChange(e);
+    }
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CarAttributeEditFrame.class);
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+<head>
+  <title>JMRI: Digitrax Downloader</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help digitrax downloader">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Digitrax T&eacute;l&eacute;chargeur de
+      Programme</h1>
+      
+      <p>Certains produits peuvent avoir de nouveau
+      firmware (programmes internes) Digitrax
+      t&eacute;l&eacute;charg&eacute;s pour eux.
+      Les mises &agrave; jour du firmware sont
+      r&eacute;partis dans des fichiers ".dmf" (Digitrax
+      Firmware Mangled). Ils contiennent &agrave; la fois le code
+      lui-m&ecirc;me, et des informations de gestion
+      vari&eacute;es pour s&apos;assurer qu&apos;il peut
+      &ecirc;tre
+      t&eacute;l&eacute;charg&eacute; dans le
+      mat&eacute;riel qui l'attend.</p>
+
+      <p>Notez que ce n'est pas le m&ecirc;me que <a href=
+      "../soundloader/LoaderFrame.shtml">L'outil de
+      T&eacute;l&eacute;chargement</a>, qui est
+      utilis&eacute; avec un PR2 ou PR3 pour charger des
+      projets solides dans un nouveau d&eacute;codeur sonore
+      Digitrax.</p>
+
+      <p>Pour utiliser cet outil:</p>
+
+      <ul>
+        <li>Cliquez sur le bouton [S&eacute;lectionner] et
+        s&eacute;lectionnez le fichier. dmf vous souhaitez
+        t&eacute;l&eacute;charger.</li>
+
+        <li>Cliquez sur [Lire le fichier] pour lire le fichier dans
+        le programme et v&eacute;rifier son contenu</li>
+
+        <li>Seulement si demand&eacute; par Digitrax,
+        modifier les diff&eacute;rentes valeurs dans Les
+        champs de contr&ocirc;le (ce n&apos;est pas
+        n&eacute;cessaire habituellement)</li>
+
+        <li>Cliquez sur [T&eacute;l&eacute;charger] pour
+        charger le firmware. Cela va prendre un peu de temps, de
+        sorte il ya la barre de progression sous les boutons.</li>
+
+        <li>Si d&eacute;sir&eacute;, cliquez sur
+        [V&eacute;rifier] pour v&eacute;rifier le
+        contenu. Cela prend aussi du temps tout.</li>
+      </ul>
+
+      <p>(Ceci est la page d'aide help/en/jmri/jmrix/
+        loconet/downloader/LoaderFrame)</p>
+      
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

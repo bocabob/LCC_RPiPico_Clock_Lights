@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; le 2016-08-05-->
+<head>
+  <title>JMRI: Comment faire pour utiliser le Rapport</title>
+  <meta name="Author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI log4j logging log">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI: Comment faire pour utiliser le Rapport</h1>
+      Cette page fournit un peu d'information sur la façon dont JMRI enregistre les erreur, l'état
+      et les informations de débogage.
+      <p>Pour d'autres détails internes sur JMRI , s'il vous plaît voir les <a href=
+      "../Technical/index.shtml">pages techniques</a>.</p>
+
+      <p>JMRI utilise le paquet Jakarta <a href=
+      "https://logging.apache.org/log4j/1.2/index.html">Log4J</a> pour gérer les enregistrements
+      depuis les classes individuelles. spécifiquement, depuis l'été 2015, nous utilisons la
+      version 1.2.15; ce n'est pas la plus récente! nous l'utilisons via le système: <a href=
+      "http://www.slf4j.org">SLF4J</a>. ( Pour les librairies qui utilisent le systèm"
+      java.util.loggind, exemple: jmDNS, nous utilisons ausssi l'adaptateur jul-to-slf4j ) <a name=
+      "levels" id="levels"></a></p>
+
+      <h3>Niveaux d'Enregistrement</h3>
+      Cette combinaisons fournit plusieurs niveaux d'enegistrement
+      <table border="1" summary="">
+        <tr>
+          <th>Niveau</th>
+          <th>Fragment Code</th>
+          <th>Utilisation</th>
+        </tr>
+
+        <tr>
+          <td>ERREUR</td>
+          <td>log.error(..)</td>
+          <td>Indique que l'opération désirée n'a pas réussi et et devrait expliquer pourquoi.
+          ERROR est destinée à être utilisé uniquement pour les graves problèmes qui demandent plus
+          d'attention à chaque fois qu'ils surviennent, typiquement indication d'une possible faute
+          dans JMRI lui-même.</td>
+        </tr>
+
+        <tr>
+          <td>ATTENTION</td>
+          <td>log.warn(..)</td>
+          <td>Le programme fonctionne toujours, en quelque sorte, mais quelque chose a mal
+          fonctionné; souvent utilisé pour dire "Cette opération peut ne pas avoir fait tout ce que
+          vous vouliez". Utilisez WARN lorsque la cause du problème est une entrée utilisateur
+          incorrecte.</td>
+        </tr>
+
+        <tr>
+          <td>INFO</td>
+          <td>log.info(..)</td>
+          <td>Routines messages que vous voulez voir en fonctionnement normal. Gardez les à un
+          minimum s'il vous plaît, il ne devrait pas y en avoir après que le programme a
+          démarré.</td>
+        </tr>
+
+        <tr>
+          <td>DEBOGAGE</td>
+          <td>log.debug(..)</td>
+          <td>Messages détaillés, Utilisés seulement pout le débogage. Il y en a beaucoup , et les
+          activer tous peut ralentir le programme de manière significative.</td>
+        </tr>
+
+        <tr>
+          <td>TRACE</td>
+          <td>log.debug(..)</td>
+          <td>Messages très détaillés, plus encore que DEBUG, utilisé pour le débogage volumineux
+          (exemple: tous les caractères dans une transmissions) qui devrait normalement être
+          désactivé, même lors du débogage. Typiquement seulement allumé pour une classe à la fois
+          en raison de problèmes de volume et de performance.</td>
+        </tr>
+      </table>
+      <a name="config" id="config"></a>
+      <h3>Configuration</h3>
+      Par convention, les applications JMRI attendront pour initialiser Log4J utilisant le fichier
+      de contrôle de connexion: "<a href=
+      "https://github.com/JMRI/JMRI/blob/master/default_lcf.xml">default_lcf.xml</a>" JMRI qui contient une
+      version du fichier defaut_lcf.xml avec de nombreux commentaires. ( Ce fichier doit être
+      impérativement dans le "Répertoire Program", qui peut être trouvé en sélectionnant l'élémment
+      "Emplacement" dans le menu Aide principal )</p>
+      
+      
+      <p>Un exemple de ce format par défaut:</p>
+
+      <pre><code>
+2015-10-28 20:31:52,307 jmri.jmrit.powerpanel.PowerPane  WARN - No power manager instance found, panel not active [AWT-EventQueue-0]
+</code></pre>Les colonnes sont:
+      <ul>
+        <li><code>2015-10-28 20:31:52,307</code> - Heure locale à laquelle le message a été
+        enregistré</li>
+
+        <li><code>jmri.jmrit.powerpanel.PowerPane</code> - l'emplacement dans le code ( nom de la
+        classe ) qui a émit le message.</li>
+
+        <li><code>WARN</code> - sévérité du message</li>
+
+        <li><code>No power manager instance found, panel not active</code> - le message
+        lui-même.</li>
+
+        <li><code>[AWT-EventQueue-0]</code> - nom de la tâche qui a émit le message.</li>
+      </ul>
+      <a name="code" id="code"></a>
+      <h3>Codage</h3>
+      Pour enregistrer des messages à partir d'une classe nommée MyClass, ajoutez à la fin du
+      fichier de classe .java:
+
+      <pre><code>
+        private static final Logger log = LoggerFactory.getLogger(MyClass.class);
+</code></pre>
+      <p>et ajoutez des importations pour org.slf4j.Logger et org.slf4j.LoggerFactory dans votre
+      section importation:</p>
+      <code>import org.slf4j.Logger;<br>
+      import org.slf4j.LoggerFactory;</code> Il est également OK de combiner ceux-ci suivant cette
+      forme :
+
+      <pre><code>
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MyClass.class);
+</code></pre>
+      <p>(Si l'enregistrement est retiré (par exemple commenté), il est OK pour commenter la
+      définition de l'enregistrement de sorte qu'il peut être facilement rajouté plus tard. )</p>
+
+      <p>Pour chaque message à enregistrer, inserez une ligne comme;</p>
+
+      <pre><code>
+        log.debug("message");
+</code></pre>
+      <p>Les messages qui ne sont pas juste une chaîne explicites doivent utiliser cette forme à la
+      place des variables:</p>
+
+      <pre><code>
+        log.debug("Found {}", numberEntries);
+</code></pre>Les opérations de chaîne pour construire le message réel d'erreur (dans ce cas, la
+combinaison "Found" et l'argument numberEntries) ne sont fait que si le message va être stocké dans
+les journaux, ce qui permet d'économiser beaucoup de temps lors de l'exécution normale (non-debug )
+.
+      <p>Si c'est informatiquement coûteux de passer un paramètre dans le journal, utilisez le
+      formulaire ci-dessous pour que le programme ne perde pas de temps en calcul de paramètres
+      (dans ce cas, appeler numberEntries () pour obtenir une valeur pour passer à l'appel de
+      fonction):</p>
+
+      <pre><code>
+        if (log.isDebugEnabled()) {
+            log.debug("Found {}", numberEntries());
+        }
+</code></pre>
+      <p>Les exceptions devraient être enregistrées comme:</p>
+
+      <pre><code>
+        log.error("my local text"+exception.getLocalizedMessage(), exception);
+</code></pre>pour inclure la description lisible de l'utilisateur depuis l'exception elle-même,
+ainsi que toutes ses informations de retraçage.
+      <table border="1" summary="">
+        <tr>
+          <td>DEBUG</td>
+          <td>log.debug(..)</td>
+          <td>Messages détaillés, utilisé dans le débogage</td>
+        </tr>
+
+        <tr>
+          <td>INFO</td>
+          <td>log.info(..)</td>
+          <td>Messages de routine que vous pouvez voir en fonctionnement normal</td>
+        </tr>
+
+        <tr>
+          <td>WARN</td>
+          <td>log.warn(..)</td>
+          <td>Le programme est encore en exploitation, en quelque sorte, mais quelque chose doit
+          être examiné</td>
+        </tr>
+
+        <tr>
+          <td>ERROR</td>
+          <td>log.error(..)</td>
+          <td>Indique que l'opération souhaitée ne va pas se produire, et explique pourquoi</td>
+        </tr>
+      </table>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

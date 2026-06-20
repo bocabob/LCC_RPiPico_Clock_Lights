@@ -1,0 +1,343 @@
+package jmri.jmrix.loconet.logixng.configurexml;
+
+import jmri.jmrit.logixng.actions.IfThenElse;
+
+import java.beans.PropertyVetoException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+import jmri.*;
+import jmri.jmrit.logixng.*;
+import jmri.jmrit.logixng.expressions.And;
+import jmri.jmrit.logixng.util.LogixNG_Thread;
+import jmri.jmrix.loconet.LnTrafficController;
+import jmri.jmrix.loconet.LocoNetSystemConnectionMemo;
+import jmri.jmrix.loconet.logixng.ActionClearSlots;
+import jmri.jmrix.loconet.logixng.ActionUpdateSlots;
+import jmri.jmrix.loconet.logixng.ExpressionSlotUsage;
+import jmri.util.*;
+import jmri.util.junit.annotations.DisabledIfHeadless;
+
+import org.apache.commons.lang3.mutable.MutableInt;
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ * Creates a LogixNG with all actions and expressions to test store and load.
+ * <P>
+ * It uses the Base.printTree(PrintWriter writer, String indent) method to
+ * compare the LogixNGs before and after store and load.
+ *
+ * @author Daniel Bergqvist Copyright 2020
+ */
+public class StoreAndLoadTest {
+
+    private LnTrafficController lnis1;
+    private LnTrafficController lnis2;
+    private LocoNetSystemConnectionMemo memo1;
+    private LocoNetSystemConnectionMemo memo2;
+
+    @DisabledIfHeadless
+    @Test
+    public void testLogixNGs() throws PropertyVetoException, SocketAlreadyConnectedException, IOException, JmriException {
+
+        LogixNG_Manager logixNG_Manager = InstanceManager.getDefault(LogixNG_Manager.class);
+        ConditionalNG_Manager conditionalNGManager = InstanceManager.getDefault(ConditionalNG_Manager.class);
+        DigitalActionManager digitalActionManager = InstanceManager.getDefault(DigitalActionManager.class);
+        DigitalExpressionManager digitalExpressionManager = InstanceManager.getDefault(DigitalExpressionManager.class);
+
+
+        LogixNG logixNG = logixNG_Manager.createLogixNG("A logixNG");
+        ConditionalNG conditionalNG =
+                conditionalNGManager.createConditionalNG(logixNG, "A conditionalNG");
+        logixNG.setEnabled(false);
+        conditionalNG.setEnabled(true);
+
+        FemaleSocket femaleSocket = conditionalNG.getFemaleSocket();
+
+        IfThenElse ifThenElse = new IfThenElse(digitalActionManager.getAutoSystemName(), null);
+        MaleSocket maleSocket = digitalActionManager.registerAction(ifThenElse);
+        femaleSocket.connect(maleSocket);
+
+        And and = new And(digitalExpressionManager.getAutoSystemName(), null);
+        and.setComment("A comment");
+        maleSocket = digitalExpressionManager.registerExpression(and);
+        ifThenElse.getChild(0).connect(maleSocket);
+
+        Set<ExpressionSlotUsage.AdvancedState> states = new HashSet<>();
+
+        ExpressionSlotUsage expressionSlotUsage = new ExpressionSlotUsage(digitalExpressionManager.getAutoSystemName(), null, null);
+        maleSocket = digitalExpressionManager.registerExpression(expressionSlotUsage);
+        and.getChild(0).connect(maleSocket);
+
+        expressionSlotUsage = new ExpressionSlotUsage(digitalExpressionManager.getAutoSystemName(), null, memo1);
+        expressionSlotUsage.setAdvanced(false);
+        expressionSlotUsage.set_Has_HasNot(ExpressionSlotUsage.Has_HasNot.HasNot);
+        expressionSlotUsage.setSimpleState(ExpressionSlotUsage.SimpleState.InUse);
+        states.clear();
+        expressionSlotUsage.setAdvancedStates(states);
+        expressionSlotUsage.setCompare(ExpressionSlotUsage.Compare.Equal);
+        expressionSlotUsage.setNumber(20);
+        expressionSlotUsage.setPercentPieces(ExpressionSlotUsage.PercentPieces.Percent);
+        expressionSlotUsage.setTotalSlots(30);
+        maleSocket = digitalExpressionManager.registerExpression(expressionSlotUsage);
+        and.getChild(1).connect(maleSocket);
+
+        expressionSlotUsage = new ExpressionSlotUsage(digitalExpressionManager.getAutoSystemName(), null, memo2);
+        expressionSlotUsage.setComment("A comment");
+        expressionSlotUsage.setAdvanced(false);
+        expressionSlotUsage.set_Has_HasNot(ExpressionSlotUsage.Has_HasNot.Has);
+        expressionSlotUsage.setSimpleState(ExpressionSlotUsage.SimpleState.Free);
+        states.clear();
+        states.add(ExpressionSlotUsage.AdvancedState.Common);
+        states.add(ExpressionSlotUsage.AdvancedState.Free);
+        states.add(ExpressionSlotUsage.AdvancedState.Idle);
+        states.add(ExpressionSlotUsage.AdvancedState.InUse);
+        expressionSlotUsage.setAdvancedStates(states);
+        expressionSlotUsage.setCompare(ExpressionSlotUsage.Compare.GreaterThan);
+        expressionSlotUsage.setNumber(11);
+        expressionSlotUsage.setPercentPieces(ExpressionSlotUsage.PercentPieces.Pieces);
+        expressionSlotUsage.setTotalSlots(0);
+        maleSocket = digitalExpressionManager.registerExpression(expressionSlotUsage);
+        and.getChild(2).connect(maleSocket);
+
+        ActionUpdateSlots actionUpdateSlots = new ActionUpdateSlots(digitalActionManager.getAutoSystemName(), null, null);
+        actionUpdateSlots.setComment("A comment");
+        maleSocket = digitalActionManager.registerAction(actionUpdateSlots);
+        ifThenElse.getChild(1).connect(maleSocket);
+
+        ActionClearSlots actionClearSlots = new ActionClearSlots(digitalActionManager.getAutoSystemName(), null, null);
+        actionClearSlots.setComment("A comment");
+        maleSocket = digitalActionManager.registerAction(actionClearSlots);
+        ifThenElse.getChild(2).connect(maleSocket);
+
+/*
+        if (1==1) {
+            final String treeIndent = "   ";
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            logixNG_Manager.printTree(Locale.ENGLISH, printWriter, treeIndent);
+
+            System.out.println("--------------------------------------------");
+            System.out.println("The current tree:");
+            System.out.println("XXX"+stringWriter.toString()+"XXX");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");
+
+            log.error("--------------------------------------------");
+            log.error("The current tree:");
+            log.error("XXX"+stringWriter.toString()+"XXX");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+            log.error("--------------------------------------------");
+//            return;
+        }
+*/
+
+
+
+        // Store panels
+        jmri.ConfigureManager cm = InstanceManager.getNullableDefault(jmri.ConfigureManager.class);
+        assertNotNull( cm, "Unable to get default configure manager");
+
+        FileUtil.createDirectory(FileUtil.getUserFilesPath() + "temp");
+        File firstFile = new File(FileUtil.getUserFilesPath() + "temp/" + "LogixNG_temp.xml");
+        File secondFile = new File(FileUtil.getUserFilesPath() + "temp/" + "LogixNG.xml");
+        log.info("Temporary first file: {}", firstFile.getAbsoluteFile());
+        log.info("Temporary second file: {}", secondFile.getAbsoluteFile());
+
+        final String treeIndent = "   ";
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        logixNG_Manager.printTree(Locale.ENGLISH, printWriter, treeIndent, new MutableInt(0));
+        final String originalTree = stringWriter.toString();
+
+        assertTrue( cm.storeUser(firstFile),
+            "Failed to store panel.");
+
+        // Add the header comment to the xml file
+        addHeader(firstFile, secondFile);
+
+
+        //**********************************
+        // Delete all the LogixNGs, ConditionalNGs, and so on before reading the file.
+        //**********************************
+
+        java.util.Set<LogixNG> logixNG_Set = new java.util.HashSet<>(logixNG_Manager.getNamedBeanSet());
+        for (LogixNG aLogixNG : logixNG_Set) {
+            logixNG_Manager.deleteLogixNG(aLogixNG);
+        }
+
+        java.util.Set<ConditionalNG> conditionalNGSet = new java.util.HashSet<>(conditionalNGManager.getNamedBeanSet());
+        for (ConditionalNG aConditionalNG : conditionalNGSet) {
+            conditionalNGManager.deleteConditionalNG(aConditionalNG);
+        }
+
+        java.util.Set<MaleDigitalActionSocket> digitalActionSet = new java.util.HashSet<>(digitalActionManager.getNamedBeanSet());
+        for (MaleDigitalActionSocket aDigitalActionSocket : digitalActionSet) {
+            digitalActionManager.deleteDigitalAction(aDigitalActionSocket);
+        }
+
+        java.util.Set<MaleDigitalExpressionSocket> digitalExpressionSet = new java.util.HashSet<>(digitalExpressionManager.getNamedBeanSet());
+        for (MaleDigitalExpressionSocket aDigitalExpression : digitalExpressionSet) {
+            digitalExpressionManager.deleteDigitalExpression(aDigitalExpression);
+        }
+
+        assertEquals(0, logixNG_Manager.getNamedBeanSet().size());
+        assertEquals(0, conditionalNGManager.getNamedBeanSet().size());
+        assertEquals(0, digitalActionManager.getNamedBeanSet().size());
+        assertEquals(0, digitalExpressionManager.getNamedBeanSet().size());
+
+        LogixNG_Thread.stopAllLogixNGThreads();
+        LogixNG_Thread.assertLogixNGThreadNotRunning();
+
+
+        //**********************************
+        // Try to load file
+        //**********************************
+
+        java.util.Set<ConditionalNG> conditionalNG_Set =
+                new java.util.HashSet<>(conditionalNGManager.getNamedBeanSet());
+        for (ConditionalNG aConditionalNG : conditionalNG_Set) {
+            conditionalNGManager.deleteConditionalNG(aConditionalNG);
+        }
+        java.util.SortedSet<MaleDigitalActionSocket> set3 = digitalActionManager.getNamedBeanSet();
+        List<MaleSocket> l = new ArrayList<>(set3);
+        for (MaleSocket x3 : l) {
+            digitalActionManager.deleteBean((MaleDigitalActionSocket)x3, "DoDelete");
+        }
+        java.util.SortedSet<MaleDigitalExpressionSocket> set4 = digitalExpressionManager.getNamedBeanSet();
+        l = new ArrayList<>(set4);
+        for (MaleSocket x4 : l) {
+            digitalExpressionManager.deleteBean((MaleDigitalExpressionSocket)x4, "DoDelete");
+        }
+
+        assertTrue( cm.load(secondFile), "store failed, Failed to load panel" );
+
+        logixNG_Manager.setupAllLogixNGs();
+
+        StringWriter stringWriter2 = new StringWriter();
+        printWriter = new PrintWriter(stringWriter2);
+        logixNG_Manager.printTree(Locale.ENGLISH, printWriter, treeIndent, new MutableInt(0));
+
+        assertEquals( originalTree, stringWriter2.toString(), () ->
+            System.lineSeparator() + "--------------------------------------------"
+            + System.lineSeparator() + "Old tree:"
+            + System.lineSeparator() + "XXX"+originalTree+"XXX"
+            + System.lineSeparator() + "--------------------------------------------"
+            + System.lineSeparator() + System.lineSeparator()
+            + System.lineSeparator() + "--------------------------------------------"
+            + System.lineSeparator() + "New tree:"
+            + System.lineSeparator() + "XXX"+stringWriter2.toString()+"XXX"
+            + System.lineSeparator() + "--------------------------------------------");
+
+            //  + conditionalNGManager.getBySystemName(originalTree).getChild(0).getConnectedSocket().getSystemName());
+    }
+
+
+    private void addHeader(File inFile, File outFile) throws FileNotFoundException, IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(inFile), StandardCharsets.UTF_8));
+                PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile), StandardCharsets.UTF_8)))) {
+
+            String line = reader.readLine();
+            writer.println(line);
+
+            writer.println("<!--");
+            writer.println("*****************************************************************************");
+            writer.println();
+            writer.println("DO NOT EDIT THIS FILE!!!");
+            writer.println();
+            writer.println("This file is created by jmri.jmrit.logixng.configurexml.StoreAndLoadTest");
+            writer.println("and put in the temp/temp folder. LogixNG uses both the standard JMRI load");
+            writer.println("and store test, and a LogixNG specific store and load test.");
+            writer.println();
+            writer.println("After adding new stuff to StoreAndLoadTest, copy the file temp/temp/LogixNG.xml");
+            writer.println("to the folder java/test/jmri/jmrit/logixng/configurexml/load");
+            writer.println();
+            writer.println("******************************************************************************");
+            writer.println("-->");
+
+            while ((line = reader.readLine()) != null) {
+                writer.println(line);
+            }
+        }
+    }
+
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetInstanceManager();
+        JUnitUtil.resetProfileManager();
+        JUnitUtil.initConfigureManager();
+        JUnitUtil.initInternalTurnoutManager();
+        JUnitUtil.initInternalLightManager();
+        JUnitUtil.initInternalSensorManager();
+
+        JUnitUtil.initInternalSignalHeadManager();
+        JUnitUtil.initDefaultSignalMastManager();
+//        JUnitUtil.initSignalMastLogicManager();
+        JUnitUtil.initOBlockManager();
+        JUnitUtil.initWarrantManager();
+
+//        JUnitUtil.initLogixNGManager();
+
+        // The class under test uses LocoNet connections that it pulls from the InstanceManager.
+        memo1 = new jmri.jmrix.loconet.LocoNetSystemConnectionMemo("L", "LocoNet");
+        lnis1 = new jmri.jmrix.loconet.LocoNetInterfaceScaffold(memo1);
+        memo1.setLnTrafficController(lnis1);
+        memo1.configureCommandStation(jmri.jmrix.loconet.LnCommandStationType.COMMAND_STATION_DCS100, false, false, false, false,false);
+        memo1.configureManagers();
+        jmri.InstanceManager.store(memo1, jmri.jmrix.loconet.LocoNetSystemConnectionMemo.class);
+
+        // The class under test uses LocoNet connections that it pulls from the InstanceManager.
+        memo2 = new jmri.jmrix.loconet.LocoNetSystemConnectionMemo("L2", "LocoNet");
+        lnis2 = new jmri.jmrix.loconet.LocoNetInterfaceScaffold(memo2);
+        memo2.setLnTrafficController(lnis2);
+        memo2.configureCommandStation(jmri.jmrix.loconet.LnCommandStationType.COMMAND_STATION_DCS100, false, false, false, false,false);
+        memo2.configureManagers();
+        jmri.InstanceManager.store(memo2, jmri.jmrix.loconet.LocoNetSystemConnectionMemo.class);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // JUnitAppender.clearBacklog();    // REMOVE THIS!!!
+        lnis1.dispose();
+        lnis2.dispose();
+        memo1.dispose();
+        memo2.dispose();
+
+        JUnitUtil.removeMatchingThreads("LnPowerManager LnTrackStatusUpdateThread");
+        JUnitUtil.removeMatchingThreads("LnSensorUpdateThread");
+        JUnitUtil.removeMatchingThreads("LocoNetThrottledTransmitter");
+
+        LogixNG_Thread.stopAllLogixNGThreads();
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StoreAndLoadTest.class);
+
+}

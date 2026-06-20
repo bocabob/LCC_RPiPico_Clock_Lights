@@ -1,0 +1,55 @@
+package jmri.jmrix.jinput.treecontrol;
+
+import jmri.jmrix.jinput.TreeModel;
+import jmri.util.JUnitAppender;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ * Test simple functioning of TreePanel
+ *
+ * @author Paul Bender Copyright (C) 2016
+ */
+public class TreePanelTest {
+
+    @Test
+    public void testCtor() throws InterruptedException {
+        TreePanel t = null;
+        try {
+            // just checking for failure to construct
+            t = new TreePanel();
+        } catch (Throwable e) {
+            log.warn("TreeModelTest caught ", e);
+            if (e instanceof UnsatisfiedLinkError) {
+                log.info("TreeModel.instance threw UnsatisfiedLinkError, which means we can't test on this platform");
+                return;
+            } else if (e instanceof ClassNotFoundException) {
+                log.info("TreeModel.instance threw ClassNotFoundException, which means we can't test on this platform");
+                return;
+            } else {
+                Assertions.fail("instance threw "+e, e);
+            }
+        }
+        Assertions.assertNotNull(t);
+
+        // then kill the thread
+        TreeModel.instance().terminateThreads();
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitAppender.suppressWarnMessageStartsWith("Found unknown Windows version: Windows 1");
+        JUnitAppender.suppressWarnMessage("Attempting to use default windows plug-in.");
+        JUnitAppender.suppressWarnMessage("unable to show help page package.jmri.jmrix.jinput.treemodel.TreeFrame due to:");
+        JUnitAppender.suppressWarnMessage("loading of HID System failed");
+        JUnitUtil.tearDown();
+    }
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TreePanelTest.class);
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233;  2013-09-04-->
+<head>
+  <title>JMRI: Getting the Code</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI technical code CVS download">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+    <h1>JMRI: Obtention du Code</h1>
+
+      <h2>Lancement Rapide</h2>
+      <p>Vous pouvez t&eacute;l&eacute;charger le code source le plus
+      r&eacute;cent via SVN en utilisant:</p>
+      <pre>
+<code>svn checkout svn://svn.code.sf.net/p/jmri/code/trunk/jmri
+</code>
+</pre>
+
+      <h2>D&eacute;tails</h2>
+      <p>Notre code source est distribu&eacute;
+      en utilisant <a href=
+      "http://subversion.apache.org/">Subversion</a> (Nous gardons
+      aussi le <a href="WebSite.shtml">site web</a> dans le SVN, si
+      vous souhaitez travailler directement avec lui.) Si vous
+      voulez travailler avec le code, cela vaut la peine de prendre
+      quelques minutes pour installer SVN. Nous sommes
+      d&eacute;sol&eacute;s, mais nous ne pouvons pas accepterr
+      d'autres m&eacute;thodes (envoi des fichiers. zip, etc), car
+      ils sont tout simplement sources de trop d'erreurs.</p>
+
+      <p>Quelques ordinateurs sont livr&eacute;s avec Subversion
+      install&eacute;, principalement divers syst&egrave;mes Linux
+      . Si il n'est pas install&eacute; sur votre ordinateur, vous
+      aurez besoin de trouver et d'installer le logiciel client
+      n&eacute;cessaire. voir les pages <a href=
+      "http://subversion.apache.org/packages.html">t&eacute;l&eacute;chargements
+      binaires Subversion</a> pour des paquets pour plusieurs
+      syst&egrave;mes d'exploitation (y compris Mac OS X, Windows
+      et diff&eacute;rentes distibution Linux).</p>
+
+      <p>De nombreux environnements de d&eacute;veloppement (par
+      exemple, Netbeans ou Eclipse) auront le support pour
+      Subversion, soit directement, soit comme un add-on.
+      V&eacute;rifiez la documentation de votre IDE favori pour
+      v&eacute;rifier le support SVN.</p>
+
+      <p><a href=
+      "https://sourceforge.net/apps/trac/sourceforge/wiki/Subversion">
+      Serveur Subversion sur SourceForge</a> ne n&eacute;cessite
+      aucune information utilisateur lorsque vous extrayez une
+      copie du code.</p>
+
+      <p>Si vous avez une copie existante du code et que vous
+      vouliez la mettre &agrave; jour , la commande est:</p>
+      <pre>
+svn update
+</pre>
+
+      <p>Voir aussi la <a href="SVNFAQ.shtml">page FAQ
+      Subversion</a>.</p>
+
+      <p>Apr&egrave;s que la v&eacute;rification soit
+      termin&eacute;e, vous trouverez un r&eacute;pertoire de haut
+      niveau appel&eacute; <code>java</code> , avec des
+      sous-r&eacute;pertoires <code>xml</code> , ressources ,
+      <code>jython</code> , <code>aide</code> , <code>lib</code> ,
+      <code>java</code> et d'autres.</p>
+
+      <p>Changement de <code>java</code> . L&agrave;, vous trouverez un
+      r&eacute;pertoire <code>src</code> qui contient le code source
+      pour JMRI lui-m&ecirc;me, et un r&eacute;pertoire de
+      <code>test</code> qui contient divers tests.</p>
+
+      <p>Vous pouvez consulter le code avec votre &eacute;diteur de
+      texte favori. Pour compiler et ex&eacute;cuter, vous avez
+      besoin d'un des outils de compilation d&eacute;crit sur la
+      barre &agrave; gauche: <a href="Ant.shtml">Ant</a> , <a href=
+      "Eclipse.shtml">Eclipse</a> , <a href=
+      "%20NetBeans.shtml">NetBeans</a> , etc.</p>
+
+      <p>Une fois que vous travaillez avec le code, vous aurez
+      probablement cr&eacute;er quelques am&eacute;liorations que
+      vous souhaitez contribuer en retour au projet. C'est
+      l&agrave; que Subversion a un &eacute;norme avantage, avec
+      les autorisations et les commandes appropri&eacute;s, vous
+      pouvez fusionner vos modifications dans la source commune
+      automagiquement. Contactez-nous si vous &ecirc;tes pr&ecirc;t
+      &agrave; faire ou voir la <a href=
+      "index.shtml#contributing">info sur contribution</a>.</p>
+
+      <h2>Acc&egrave;s aux anciennes Versions</h2>
+
+      <p>La meilleure fa&ccedil;on de r&eacute;cup&eacute;rer la
+      source pour les versions 2.12 et ant&eacute;rieures est
+      d'utiliser le <a href="getoldcode.shtml">CVS Repository</a> .
+      s'il vous pla&icirc;t Voir les instructions pour plus de
+      d&eacute;tails.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div><!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

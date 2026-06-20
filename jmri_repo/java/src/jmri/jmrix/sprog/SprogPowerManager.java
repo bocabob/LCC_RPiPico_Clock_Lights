@@ -1,0 +1,121 @@
+package jmri.jmrix.sprog;
+
+import jmri.JmriException;
+import jmri.PowerManager;
+import jmri.jmrix.AbstractMessage;
+import jmri.managers.AbstractPowerManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * PowerManager implementation for controlling SPROG layout power.
+ *
+ * @author Bob Jacobsen Copyright (C) 2001
+ */
+public class SprogPowerManager extends AbstractPowerManager<SprogSystemConnectionMemo>
+        implements SprogListener {
+
+    boolean waiting = false;
+    int onReply = UNKNOWN;
+    SprogTrafficController trafficController = null;
+
+    public SprogPowerManager(SprogSystemConnectionMemo memo) {
+        super(memo);
+        // connect to the TrafficManager
+        trafficController = memo.getSprogTrafficController();
+        trafficController.addSprogListener(this);
+    }
+
+    @Override
+    public void setPower(int v) throws JmriException {
+        int old = power;
+        power = UNKNOWN; // while waiting for reply
+        checkTC();
+        if (v == ON) {
+            // configure to wait for reply
+            log.debug("setPower ON");
+            waiting = true;
+            onReply = PowerManager.ON;
+            // send "Enable main track"
+            SprogMessage l = SprogMessage.getEnableMain();
+            trafficController.sendSprogMessage(l, this);
+        } else if (v == OFF) {
+            // configure to wait for reply
+            log.debug("setPower OFF");
+            waiting = true;
+            onReply = PowerManager.OFF;
+            // send "Kill main track"
+            SprogMessage l = SprogMessage.getKillMain();
+            for (int i = 0; i < 3; i++) {
+                trafficController.sendSprogMessage(l, this);
+            }
+        }
+        firePowerPropertyChange(old, power);
+    }
+
+    /**
+     * Update power state after service mode programming operation
+     * without sending a message to the SPROG.
+     * @param v new power state.
+     */
+    public void notePowerState(int v) {
+        int old = power;
+        power = v;
+        firePowerPropertyChange(old, power);
+    }
+
+    /**
+     * Free resources when no longer used.
+     */
+    @Override
+    public void dispose() throws JmriException {
+        trafficController.removeSprogListener(this);
+        trafficController = null;
+    }
+
+    private void checkTC() throws JmriException {
+        if (trafficController == null) {
+            throw new JmriException("attempt to use SprogPowerManager after dispose");
+        }
+    }
+
+    /**
+     * Listen for status changes from Sprog system.
+     */
+    @Override
+    public void notifyReply(SprogReply m) {
+        if (waiting) {
+            log.debug("Reply while waiting");
+            int old = power;
+            power = onReply;
+            firePowerPropertyChange(old, power);
+        }
+        waiting = false;
+    }
+
+    @Override
+    public void notifyMessage(SprogMessage m) {
+        if (m.isKillMain()) {
+            // configure to wait for reply
+            log.debug("Seen Kill Main");
+            waiting = true;
+            onReply = PowerManager.OFF;
+        } else if (m.isEnableMain()) {
+            // configure to wait for reply
+            log.debug("Seen Enable Main");
+            waiting = true;
+            onReply = PowerManager.ON;
+        }
+    }
+
+    public void notify(AbstractMessage m) {
+        if (m instanceof SprogMessage) {
+            this.notifyMessage((SprogMessage) m);
+        } else if (m instanceof SprogReply){
+            this.notifyReply((SprogReply) m);
+        }
+    }
+
+    // initialize logging
+    private static final Logger log = LoggerFactory.getLogger(SprogPowerManager.class);
+}

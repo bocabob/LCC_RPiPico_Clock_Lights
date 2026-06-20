@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Updated by Herv&#233; Blorec  2017-02-06-->
+  <title>JMRI: RFID Reader Support</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="../Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Documentation Matériel: Lecteurs RFID</h1>
+      <em>La documentation sur cette page est en rapide évolution; le code actuel peut être en
+      avance ou en retard sur la documentation pour un jour donné.</em>
+      <p>JMRI fournit une prise en charge pour les <a href=
+      "../../../html/tools/Sensors.shtml">Capteurs</a> JMRI en général et <a href=
+      "../../../html/tools/Reporters.shtml">Rapports</a> en termes "d'évènements" du Lecteur RFID.
+      <a name="hardware" id="hardware"></a></p>
+
+      <h2>Matériel pris en</h2>
+
+      <h3>Protocoles</h3>
+      JMRI prend en charge plusieurs protocoles de lecture RFID :
+      <ul>
+        <li>CORE-ID / ID-Innovations - depuis la 2.11.4</li>
+
+        <li>Olimex - depuis v 3.9.2</li>
+
+        <li>Parallax - depuis v 3.9.2</li>
+      </ul>
+
+      <p>Choisir le protocole approprié lors du réglage des Préférences.</p>
+
+      <p>JMRI prend également en charge jusqu'à 8 lecteurs individuels connectés via un
+      Concentrateur. À l'heure actuelle, le seul concentrateur pris en charge est celui de MERG, et
+      seulement pour les lecteurs utilisant le protocole CORE-ID. Sélectionnez "Concentrateur MERG"
+      pour "Adaptateur" dans l'onglet Connexions dans les Préférences JMRI. <a name="connecting"
+      id="connecting"></a></p>
+
+      <h2>Connexion</h2>
+
+      <h3>Câblage</h3>
+
+      <ul>
+        <li>Les connexionx série directes ont été prises en charge depuis JMRI 2.11.4</li>
+
+        <li>Les connexions réseauxsont ciblées pour la série JMRI 4.1</li>
+      </ul>
+
+      <h3>Réglages</h3>
+      <a href="RFID_Preferences.png"><img src="RFID_Preferences.png" align="right" height="220"
+      width="430" alt=""></a>
+      <p>Vous configurez votre connexion JMRI à votre matériel RFID dans les Préférences JMRI<br>
+      Elle apparait comme "RFID" dans le menu déroulant Fabricant Système.</p>
+
+      <h2>Désignation</h2>
+      La <a href="../../../html/doc/Technical/Names.shtml">lettre système</a> pour les connexions
+      RFID est "F". Les détails des événement, des noms, des objets RFID sont décrits ci-dessous. 
+      <!-- , avec les d&#233;tails techniques sur une <a href="Names.shtml">page s&#233;par&#233;e</a> -->
+
+      <p>JMRI associe les événements RFID avec des Objets individuels JMRI (Capteurs, Rapports,
+      etc) via le Noms système JMRI. Un Nom Système comme le "<code>FSA</code>" définit un Capteur
+      qui suit le lecteur "A" , tandis qu'un Nom Système comme " <code>FRB</code> " définit un
+      Rapport qui suit le lecteur "B" .</p>
+
+      <h3>Capteurs</h3>
+
+      <p>Les lectures RFID dans les applications à venir de JMRI peuvent être accessibles via des
+      objets Capteur JMRI. Le <!-- <a href="Names.shtml">system name</a> -->Nom Système du Capteur
+      détermine à quel lecteur RFID il correspond.</p>
+
+      <p>Un capteur est défini par deux événements: Celui qui l'ACTIVE, et celui qui le DÉSACTIVE.
+      Quand une étiquette RFID se trouve à proximité d'un Lecteur RFID, le capteur associé est
+      ACTIF; en dehors de ces moments, il est INACTIF. Vous créez les capteurs en utilisant le
+      bouton <a href=
+      "../../../../fr/package/jmri/jmrit/beantable/SensorAddEdit.shtml">Ajouter...</a> sur le
+      <a href="../../../../fr/package/jmri/jmrit/beantable/SensorTable.shtml">Tableau
+      Capteur</a>.</p>
+
+      <h3>Rapports</h3>
+      Les lectures RFID à venir dans les applications JMRI sont également accessibles via les
+      Objets Rapports JMRI. Le Nom Système <!-- <a href="Names.shtml"> du Rapport </a> --> du
+      Rapport détermine à quel lecteur RFID il correspond.
+      <p>Un Rapport peut contenir des informations arbitraires, contrairement à un capteur qui
+      n'est qu'actif ou inactif. Chaque Rapport est associé à une source d'information spécifique
+      sur le réseau, et fait que les informations sur les appareils sont disponibles dans le reste
+      de JMRI.</p>
+
+      <p>Quand un Lecteur RFID rapporte qu'une étiquette spécifique a été vue, le Rapport
+      correspondant contiendra des informations sur l' <a href="../../tools/IdTags.shtml">IdTag</a>
+      spécifique vue. Ceci permet alors à d'autres outils JMRI de réagir à cette information</p>
+
+      <h4>Tableau Rapport</h4>
+      Le <a href="../../../package/jmri/jmrit/beantable/ReporterTable.shtml">tableau Rapport</a>
+      offre un accès facile au contenu de tous les Rapports que JMRI connaît. Il ya aussi une
+      touche <a href="../../../package/jmri/jmrit/beantable/ReporterAddEdit.shtml">"Ajouter
+      ..."</a> pour créer vos propres Rapports internes; JMRI crée automatiquement des Objets
+      Rapport pour les périphériques découvert sur le réseau.
+      <h4>Affichage des Valeurs du Rapport sur des Panneaux</h4>
+
+      <p>La valeur d'un Rapport peut être affichée sur un panneau par l'intermédiaire d'une icône.
+      Pour ce faire:</p>
+
+      <ul>
+        <li>Sur la fenêtre de l'Éditeur du Panneau pour votre panneau, trouver le bouton "Ajouter
+        Rapport".</li>
+
+        <li>Dans la zone de texte à côté de ce bouton, tapez le nom utilisateur ou le nom système
+        du Rapport désiré.</li>
+
+        <li>Cliquez sur le bouton. L'icône Rapport sera placée sur le panneau. Si elle n'est pas
+        visible, cela pourrait être parce que la valeur est actuellement vide; utiliser le tableau
+        de Rapport pour changer la valeur à quelque chose qui sera visible.</li>
+
+        <li>Vous pouvez faire glisser l'icône à l'endroit où vous voulez de la manière
+        habituelle.</li>
+
+        <li>Le menu contextuel sur l'icône vous permettra de changer la mise en forme.</li>
+      </ul>
+      &lt;<!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

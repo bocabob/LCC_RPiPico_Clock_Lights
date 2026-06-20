@@ -1,0 +1,32 @@
+package jmri.jmrix.can.adapters.lawicell.canusb.serialdriver;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class CanUsbDriverAdapterTest {
+
+    @Test
+    public void testCTor() {
+        CanUsbDriverAdapter t = new CanUsbDriverAdapter();
+        Assert.assertNotNull("exists",t);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(CanUsbDriverAdapterTest.class);
+
+}

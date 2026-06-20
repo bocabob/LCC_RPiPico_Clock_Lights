@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-11-->
+  <title>JMRI: Cadre Logique du Signal</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar" -->
+    <div id="mainContent">
+
+      <h1>JMRI: Cadre Logique du Signal de Source</h1>
+      <p>De cette
+      fen&ecirc;tre, vous pouvez voir toutes les logiques signal
+      qui affectent l'aspect du m&acirc;t de signal, tout en
+      &eacute;tant capable d'&eacute;diter chaque logique.<br>
+      Si l'&eacute;diteur de r&eacute;seau est utilis&eacute;, il
+      est possible de d&eacute;couvrir automatiquement toutes les
+      logiques M&acirc;t Signal bas&eacute;es sur le panneau.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

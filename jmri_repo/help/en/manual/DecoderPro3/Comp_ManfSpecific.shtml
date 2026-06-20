@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>Comprehensive Programmer - Manuf Specific Pane</title>
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">DecoderPro&reg; Comprehensive Programmer</h1>
+
+      <h2>Manufacturer Specific Data Pane</h2>
+
+      <div class="dp-right">
+        <p><a href="Comp_GlobalCVs.shtml">Previous</a> | <a href=
+        "Comp_PrintData.shtml">Next</a></p>
+
+        <p><a href="index.shtml#Advanced%20Programmer">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>This pane in the <strong>Comprehensive Programmer</strong> provides programming for
+      functions that are specific to an individual manufacturer, but outside the realm of the DCC
+      standard. While items like <strong>Transponding</strong> may eventually find a place in the
+      NMRA DCC standard, and are therefore in the Advanced pane, these items are obviously beyond
+      that category. This pane will be manufacturer dependent and decoder family dependent</p>
+
+      <h1><img src="images/Comp_12_Manufacturer.png" width="922" height="799" alt=
+      "Manufacturers pane">
+      </h1>
+
+      <p class="dp-center"><img src="images/Comp_12A_Manufacturer.png" width="922" height="739"
+      alt="Extended mfr panes">
+      </p>
+
+      <p>These items will, by definition, vary greatly between manufacturers. Once again, your best
+      resource is the documentation for the specific decoder you are programming and this pane in
+      the programmer for that decoder.</p>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="Comp_PrintData.shtml"></a> <a href="Comp_GlobalCVs.shtml">Previous</a> |
+        <a href="Comp_PrintData.shtml">Next</a></p>
+
+        <p><a href="index.shtml#Advanced%20Programmer">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

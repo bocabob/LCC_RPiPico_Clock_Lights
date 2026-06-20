@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/xml/XSLT/dispatcheroptions.xsl" type="text/xsl"?>
+<!DOCTYPE dispatcheroptions SYSTEM "/xml/DTD/dispatcher-options.dtd">
+<dispatcheroptions>
+  <!--Written by JMRI version 5.1.6-ClubBase-2022-NewStopping-202210211338+R3cfb83f on Sat Nov 26 13:56:20 EST 2022-->
+  <options lename="Test Layout" useconnectivity="yes" trainsfrom="TRAINSFROMROSTER" autoallocate="yes" autorelease="yes" autoturnouts="yes" trustknownturnouts="yes" minthrottleinterval="100" fullramptime="10000" hasoccupancydetection="yes" sslcheckdirectionsensors="yes" shortactivetrainnames="no" shortnameinblock="yes" extracolorforallocated="yes" nameinallocatedblock="no" supportvsdecoder="no" layoutscale="N" usescalemeters="no" userosterentryinblock="no" stoppingspeedname="RestrictedSlow" usesignaltype="signalmast" />
+</dispatcheroptions>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Me 2008 -->
+  <!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-12-->
+  <title>JMRI: Single CV Programmer</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h2>Programmateur Simple CV</h2>
+
+      <a href="SimpleProgFrame.jpg"><img src="SimpleProgFrame.jpg" align="right" width="132"
+      height="180" alt=""></a>
+      <p>Le programmeur simple CV vous permet de facilement lire et écrire Les valeurs de CV dans les
+      décodeurs DCC.</p>
+      <p>Au sommet se trouvent deux boutons pour "Lire CV" et "Ecrire CV".</p>
+
+      <p>Avant de les utilisez, vous devrez mettre le numéro CV (adresse), et si vous voulez faire
+      une écriture, la nouvelle valeur valeur.</p>
+
+      <p>Sur la gauche vous pouvez choisir le mode de programmation. Les modes que votre centrale
+      de commande ne peut pas fournir sont grisés et ne peuvent pas être sélectionnés.</p>
+
+      <p>Si vous sélectionnez un mode "ops", qui peut pas programmer sur la voie principale, vous
+      devez entrer l'adresse du décodeur à programmer Selon votre système DCC, vous pourriez avoir
+      besoin de cocher la case "Adresse Longue" s'il s'agit d'une adresse longue, pour certains
+      systèmes DCC, JMRI peut comprendre cela à partir de l'adresse. Certains systèmes DCC ne vous
+      permettent pas de lire sur la voie principale, dans ce cas le bouton "Lire" sera
+      désactivé.</p>
+
+      <p>Á la droite de ceci est un endroit où vous pouvez sélectionner le format des valeurs
+      d'entrées soit en valeur Décimale (base 10) ou hexadécimale (base 16).</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

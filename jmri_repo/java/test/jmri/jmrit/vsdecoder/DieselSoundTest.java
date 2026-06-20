@@ -1,0 +1,37 @@
+package jmri.jmrit.vsdecoder;
+
+import jmri.*;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class DieselSoundTest {
+
+    @Test
+    public void testCTor() {
+        DieselSound t = new DieselSound("test");
+        Assertions.assertNotNull(t, "exists");
+
+        // this created an audio manager, clean that up
+        InstanceManager.getDefault(jmri.AudioManager.class).cleanup();
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.removeMatchingThreads("VSDecoderManagerThread");
+        JUnitUtil.clearShutDownManager();
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(DieselSoundTest.class);
+
+}

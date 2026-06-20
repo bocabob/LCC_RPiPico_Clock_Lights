@@ -1,0 +1,132 @@
+package jmri.jmrit.throttle;
+
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.swing.AbstractAction;
+import javax.swing.JFileChooser;
+
+import jmri.InstanceManager;
+import jmri.configurexml.StoreXmlConfigAction;
+import jmri.jmrit.throttle.implementation.ThrottleUICore;
+import jmri.jmrit.throttle.interfaces.ThrottleControllersUIContainer;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Save JMRI throttle window layout to XML
+ * 
+ * <hr>
+ * This file is part of JMRI.
+ * <p>
+ * JMRI is free software; you can redistribute it and/or modify it under the
+ * terms of version 2 of the GNU General Public License as published by the Free
+ * Software Foundation. See the "COPYING" file for a copy of this license.
+ * <p>
+ * JMRI is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * @author Glen Oberhauser
+ * @author Daniel Boudreau (C) Copyright 2008
+ */
+public class StoreXmlThrottlesLayoutAction extends AbstractAction {
+
+    /**
+     * Constructor
+     *
+     * @param s Name for the action.
+     */
+    public StoreXmlThrottlesLayoutAction(String s) {
+        super(s);
+        // disable this ourselves if there is no throttle Manager
+        if (jmri.InstanceManager.getNullableDefault(jmri.ThrottleManager.class) == null) {
+            setEnabled(false);
+        }
+    }
+
+    public StoreXmlThrottlesLayoutAction() {
+        this("Save default throttle layout...");
+    }
+
+    /**
+     * The action is performed. Let the user choose the file to save to. Write
+     * XML for each ThrottleFrame.
+     *
+     * @param e The event causing the action.
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JFileChooser fileChooser = jmri.jmrit.XmlFile.userFileChooser(Bundle.getMessage("PromptXmlFileTypes"), "xml");
+        fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        fileChooser.setCurrentDirectory(new File(ThrottleUICore.getDefaultThrottleFolder()));
+        java.io.File file = StoreXmlConfigAction.getFileName(fileChooser);
+        if (file == null) {
+            return;
+        }
+        saveThrottlesLayout(file);
+    }
+
+    public void saveThrottlesLayout(java.io.File f) {
+
+        try {
+            Element root = new Element("throttle-layout-config");
+            root.setAttribute("noNamespaceSchemaLocation",  // NOI18N
+                    "http://jmri.org/xml/schema/throttle-layout-config.xsd",  // NOI18N
+                    org.jdom2.Namespace.getNamespace("xsi",
+                            "http://www.w3.org/2001/XMLSchema-instance"));  // NOI18N
+            Document doc = new Document(root);
+
+            // add XSLT processing instruction
+            // <?xml-stylesheet type="text/xsl" href="XSLT/throttle-layout-config.xsl"?>
+            java.util.Map<String,String> m = new java.util.HashMap<String,String>();
+            m.put("type", "text/xsl");
+            m.put("href", jmri.jmrit.XmlFile.xsltLocation + "throttle-layout-config.xsl");
+            org.jdom2.ProcessingInstruction p = new org.jdom2.ProcessingInstruction("xml-stylesheet", m);
+            doc.addContent(0, p);
+
+            java.util.ArrayList<Element> children = new java.util.ArrayList<Element>(5);
+
+            // throttle list window
+            children.add(InstanceManager.getDefault(ThrottleFrameManager.class).getThrottlesListPanel().getXml());
+
+            // throttle windows
+            for (Iterator<ThrottleControllersUIContainer> i = InstanceManager.getDefault(ThrottleFrameManager.class).iterator(); i.hasNext();) {
+                ThrottleWindow tw = (ThrottleWindow) i.next();
+                Element throttleElement = tw.getXml();
+                children.add(throttleElement);
+            }
+            root.setContent(children);
+
+            FileOutputStream o = new java.io.FileOutputStream(f);
+            try {
+                XMLOutputter fmt = new XMLOutputter();
+                fmt.setFormat(Format.getPrettyFormat()
+                        .setLineSeparator(System.getProperty("line.separator"))
+                        .setTextMode(Format.TextMode.TRIM_FULL_WHITE));
+                fmt.output(doc, o);
+            } catch (IOException ex) {
+                log.warn("Exception in storing throttle xml", ex);
+            } finally {
+                o.close();
+            }
+        } catch (FileNotFoundException ex) {
+            log.warn("Exception in storing throttle xml", ex);
+        } catch (IOException ex) {
+            log.warn("Exception in storing throttle xml", ex);
+        }
+    }
+
+    // initialize logging
+    private static final Logger log = LoggerFactory.getLogger(StoreXmlThrottlesLayoutAction.class);
+
+}

@@ -1,0 +1,52 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-turnout-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"turnout\"",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "System name of the turnout"
+        },
+        "userName": {
+            "type": "string",
+            "description": "If present, set the user name of the turnout"
+        },
+        "comment": {
+            "type": "string",
+            "description": "If present, set the comment for the turnout"
+        },
+        "inverted": {
+            "type": "boolean",
+            "description": "true if turnout is inverted; false otherwise"
+        },
+        "state": {
+            "type": "integer",
+            "description": "If present, sets the state of the turnout",
+            "enum": [
+                0,
+                2,
+                4
+            ]
+        },
+        "feedbackMode": {
+            "type": "integer",
+            "description": "If present, sets the feedback mode for the turnout"
+        },
+        "sensor": {
+            "type": "array",
+            "description": "The feedback sensor names for the turnout in order",
+            "items": {
+                "type": [
+                    "string",
+                    "null"
+                ],
+                "description": "The name of the sensor to set or null to unset a sensor"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "name"
+    ]
+}

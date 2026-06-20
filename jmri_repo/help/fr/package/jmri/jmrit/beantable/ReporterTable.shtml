@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013-10-11-->
+<head>
+  <title>JMRI: Reporter Table Help</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Reporter Table">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Le Tableau Rapport</h1>
+
+      <p>Les "Rapports" JMRI montrent les informations
+      d'&eacute;tat re&ccedil;ues de votre r&eacute;seau. Par
+      exemple, <a href=
+      "http://www.digitrax.com/menu_transponding.php">transpondeur
+      Digitrax</a> fournit des informations via des objets Rapport
+      JMRI. Le tableau Rapport montre tous les Rapports existants
+      et de leurs plus r&eacute;centes informations.</p>
+
+      <p>Pour plus d'informations sur les Rapport et leur
+      utilisation, consultez la <a href=
+      "../../../../html/tools/Reporters.shtml">page principale
+      Rapport</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

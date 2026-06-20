@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-10-30-->
+<!-- Copyright Bob Jacobsen 2008 -->
+<head>
+  <title>JMRI: Configure LocoNet ID</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help configure loconet ID">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Configurer ID LocoNet</h1>
+      <p>Si vous utilisez le
+      r&eacute;cepteur radio(s) UR91 sur votre LocoNet, vous
+      avez une ID LocoNet. Utiliser les manettes de radio et UR91
+      r&eacute;cepteur (s) pour vous assurer qu'ils se
+      parlent bien les uns aux autres, au lieu de quelques autres
+      appareils radios.</p>
+
+      <p>Vous avez seulement besoin de changer l'ID LocoNet quand
+      il y a plusieurs LocoNets s&eacute;par&eacute;es
+      utilisant la radio &agrave; proximit&eacute;. Lors
+      d'une exposition s'entra&icirc;ner avec plusieurs
+      r&eacute;seaux &agrave; base LocoNet utilisant les
+      manettes de radio, par exemple, ils ont besoin d'avoir
+      diff&eacute;rents identifiants LocoNet ou leurs radios
+      va interf&eacute;rer les unes avec les autres. L'outil
+      LocoID (sous le menu Digitrax) vous permet de lire et de
+      modifier l'ID.</p>
+
+      <p>Notez que l'ID est stock&eacute;e dans le
+      r&eacute;cepteurs de radio UR91, de sorte que si vous
+      n'avez pas un de ceux-ci, cet outil ne sera pas en mesure de
+      lire ou &eacute;crire des valeurs.</p>
+
+      <p>Pour plus d'informations sur le fonctionnement UR91 et la
+      radio, voir la <a href=
+      "http://digitrax.com/menu_wireless.php">page Digitrax</a>
+      correspondant</p>
+
+      <p>Voir aussi page 98 du <a href=
+      "http://www.digitrax.com/ftp/superchief.pdf">manuel Super
+      Chief</a> de Digitrax (PDF).</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

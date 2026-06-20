@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated Herv&#233; Blorec le 2013-10-11-->
+<head>
+  <title>JMRI: Id Tag Table Help</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Le Tableau &eacute;tiquette ID</h1>
+      
+      <p>Vous pouvez utiliser
+      le Tableau &eacute;tiquette ID pour regarder le contenu des
+      objets IdTag JMRI.</p>
+
+      <p>Notez que vous pouvez trier le tableau par chacune des
+      colonnes, cliquez simplement sur la t&ecirc;te de
+      colonne.</p>
+
+      <p>Pour cr&eacute;er une nouvelle &eacute;tiquette
+      d'identification, cliquez sur le bouton " <a href=
+      "IdTagAddEdit.shtml">Ajouter ...</a>" au bas de la
+      fen&ecirc;tre.</p>
+
+      <p>Pour plus d'informations sur les &eacute;tiquettes
+      d'identification, consultez le <a href=
+      "../../../../html/tools/IdTags.shtml">page d'aide IdTag</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

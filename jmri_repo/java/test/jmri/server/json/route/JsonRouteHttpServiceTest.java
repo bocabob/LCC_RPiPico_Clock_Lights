@@ -1,0 +1,231 @@
+package jmri.server.json.route;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.NullNode;
+
+import jmri.InstanceManager;
+import jmri.JmriException;
+import jmri.Route;
+import jmri.RouteManager;
+import jmri.Sensor;
+import jmri.SensorManager;
+import jmri.Turnout;
+import jmri.TurnoutManager;
+import jmri.server.json.JSON;
+import jmri.server.json.JsonException;
+import jmri.server.json.JsonNamedBeanHttpServiceTestBase;
+import jmri.server.json.JsonRequest;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ *
+ * @author Paul Bender
+ * @author Randall Wood
+ */
+public class JsonRouteHttpServiceTest extends JsonNamedBeanHttpServiceTestBase<Route, JsonRouteHttpService>{
+
+    private static final Logger log = LoggerFactory.getLogger(JsonRouteHttpServiceTest.class);
+
+    @Test
+    public void testDoGetWithRouteSensor() throws JmriException, JsonException {
+        RouteManager manager = InstanceManager.getDefault(RouteManager.class);
+        Route route1 = manager.provideRoute("IO1", "Route1");
+        Sensor sensor1 = InstanceManager.getDefault(SensorManager.class).provideSensor("IS1");
+        route1.setTurnoutsAlignedSensor(sensor1.getSystemName());
+        JsonNode result;
+        result = service.doGet(JsonRouteServiceFactory.ROUTE, "IO1", NullNode.getInstance(), new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JsonRouteServiceFactory.ROUTE, result.path(JSON.TYPE).asText());
+        assertEquals("IO1", result.path(JSON.DATA).path(JSON.NAME).asText());
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        sensor1.setKnownState(Sensor.ACTIVE);
+        result = service.doGet(JsonRouteServiceFactory.ROUTE, "IO1", NullNode.getInstance(), new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JSON.ACTIVE, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        sensor1.setKnownState(Sensor.INACTIVE);
+        result = service.doGet(JsonRouteServiceFactory.ROUTE, "IO1", NullNode.getInstance(), new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JSON.INACTIVE, result.path(JSON.DATA).path(JSON.STATE).asInt());
+    }
+
+    @Test
+    public void testDoGetWithoutRouteSensor() throws JmriException, JsonException {
+        RouteManager manager = InstanceManager.getDefault(RouteManager.class);
+        Route route1 = manager.provideRoute("IO1", "Route1");
+        JsonNode result;
+        result = service.doGet(JsonRouteServiceFactory.ROUTE, "IO1", NullNode.getInstance(), new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals("IO1", result.path(JSON.DATA).path(JSON.NAME).asText());
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        route1.setState(Sensor.ACTIVE);
+        result = service.doGet(JsonRouteServiceFactory.ROUTE, "IO1", NullNode.getInstance(), new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        route1.setState(Sensor.INACTIVE);
+        result = service.doGet(JsonRouteServiceFactory.ROUTE, "IO1", NullNode.getInstance(), new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+    }
+
+    @Test
+    public void testDoPostWithRouteSensor() throws JmriException, JsonException {
+        log.debug("testDoPostWithRouteSensor");
+        RouteManager manager = InstanceManager.getDefault(RouteManager.class);
+        Route route1 = manager.provideRoute("IO1", "Route1");
+        Sensor sensor1 = InstanceManager.getDefault(SensorManager.class).provideSensor("IS1");
+        Turnout turnout1 = InstanceManager.getDefault(TurnoutManager.class).provideTurnout("IT1");
+        turnout1.setCommandedState(Turnout.CLOSED);
+        route1.setTurnoutsAlignedSensor(sensor1.getSystemName());
+        assertTrue(route1.addOutputTurnout(turnout1.getSystemName(), Turnout.THROWN));
+        route1.activateRoute();
+        assertNotNull(route1.getTurnoutsAlgdSensor());
+        JsonNode result;
+        JsonNode message;
+        // set ACTIVE
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.ACTIVE);
+        assertEquals(Sensor.INACTIVE, route1.getState());
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        JUnitUtil.waitFor(() -> {
+            return route1.getState() == Sensor.ACTIVE;
+        }, "Route to activate");
+        assertEquals(Sensor.ACTIVE, route1.getState());
+        validate(result);
+        // set INACTIVE - remains ACTIVE
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.INACTIVE);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        JUnitUtil.waitFor(() -> {
+            return route1.getState() == Sensor.ACTIVE;
+        }, "Route to activate");
+        assertEquals(Sensor.ACTIVE, route1.getState());
+        // not testing results content because result *may* be set before route state changes
+        // so its not predictable (this is not unanticipated in the design)
+        validate(result);
+        // set UNKNOWN - remains ACTIVE
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.UNKNOWN);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        JUnitUtil.waitFor(() -> {
+            return route1.getState() == Sensor.ACTIVE;
+        }, "Route to activate");
+        assertEquals(Sensor.ACTIVE, route1.getState());
+        validate(result);
+        // reset to INACTIVE
+        turnout1.setCommandedState(Turnout.CLOSED);
+        JUnitUtil.waitFor(() -> {
+            return route1.getState() == Sensor.INACTIVE;
+        }, "Route to activate");
+        assertEquals(Sensor.INACTIVE, route1.getState());
+        // set TOGGLE - becomes ACTIVE
+        log.debug("Toggling route in testDoPostWithRouteSensor");
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.TOGGLE);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        JUnitUtil.waitFor(() -> {
+            return route1.getState() == Sensor.ACTIVE;
+        }, "Route to activate");
+        assertEquals(Sensor.ACTIVE, route1.getState());
+        validate(result);
+        // set TOGGLE - remains ACTIVE
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.TOGGLE);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        JUnitUtil.waitFor(() -> {
+            return route1.getState() == Sensor.ACTIVE;
+        }, "Route to activate");
+        assertEquals(Sensor.ACTIVE, route1.getState());
+        validate(result);
+        // set invalid state
+        JsonNode messageEx = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, 42); // Invalid value
+        JsonException ex = assertThrows( JsonException.class, () ->
+            service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", messageEx,
+                new JsonRequest(locale, JSON.V5, JSON.GET, 42)),
+            "Expected exception not thrown.");
+        assertEquals(400, ex.getCode());
+        assertEquals(Sensor.ACTIVE, route1.getState());
+    }
+
+    @Test
+    public void testDoPostWithoutRouteSensor() throws JmriException, JsonException {
+        RouteManager manager = InstanceManager.getDefault(RouteManager.class);
+        Route route1 = manager.provideRoute("IO1", "Route1");
+        assertNull(route1.getTurnoutsAlgdSensor());
+        JsonNode result;
+        JsonNode message;
+        // set off
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.INACTIVE);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        // set on
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.ACTIVE);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        validate(result);
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        // set unknown
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.UNKNOWN);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        // set toggle
+        message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, JSON.TOGGLE);
+        result = service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        assertEquals(JSON.UNKNOWN, result.path(JSON.DATA).path(JSON.STATE).asInt());
+        // set invalid state
+        JsonNode messageEx = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, 42); // Invalid value
+        JsonException ex = assertThrows( JsonException.class, () ->
+            service.doPost(JsonRouteServiceFactory.ROUTE, "IO1", messageEx,
+                new JsonRequest(locale, JSON.V5, JSON.GET, 42)),
+            "Expected exception not thrown.");
+        assertEquals(400, ex.getCode());
+    }
+
+    @Test
+    public void testDoPut() {
+        RouteManager manager = InstanceManager.getDefault(RouteManager.class);
+        assertNull(manager.getRoute("IO1"));
+        JsonException ex = assertThrows( JsonException.class, () -> {
+            JsonNode message = mapper.createObjectNode().put(JSON.NAME, "IO1").put(JSON.STATE, Sensor.INACTIVE);
+            service.doPut(JsonRouteServiceFactory.ROUTE, "IO1", message, new JsonRequest(locale, JSON.V5, JSON.GET, 42));
+        }, "add a route Expected exception not thrown.");
+        assertEquals(405, ex.getCode());
+        assertNull(manager.getRoute("IO1"));
+    }
+
+    @Test
+    public void testDoGetList() throws JsonException {
+        RouteManager manager = InstanceManager.getDefault(RouteManager.class);
+        JsonNode result;
+        result = service.doGetList(JsonRouteServiceFactory.ROUTE, mapper.createObjectNode(), new JsonRequest(locale, JSON.V5, JSON.GET, 0));
+        validate(result);
+        assertEquals(0, result.size());
+        manager.provideRoute("IO1", "Route1");
+        manager.provideRoute("IO2", "Route2");
+        result = service.doGetList(JsonRouteServiceFactory.ROUTE, mapper.createObjectNode(), new JsonRequest(locale, JSON.V5, JSON.GET, 0));
+        validate(result);
+        assertEquals(2, result.size());
+    }
+
+    @BeforeEach
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        service = new JsonRouteHttpService(mapper);
+        JUnitUtil.resetInstanceManager();
+        JUnitUtil.initRouteManager();
+        JUnitUtil.initDebugThrottleManager();
+    }
+
+    @AfterEach
+    @Override
+    public void tearDown() throws Exception {
+        JUnitUtil.clearTurnoutThreads();
+        super.tearDown();
+    }
+
+}

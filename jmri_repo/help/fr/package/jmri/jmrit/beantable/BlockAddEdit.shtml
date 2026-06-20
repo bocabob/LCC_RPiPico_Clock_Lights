@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- translated by Herv&#233; Blorec le 2012/01/02-->
+<head>
+  <title>JMRI: Block Add/Edit Help</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help Block Table">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Ajouter/Modifier les entr&eacute;es de Tableau
+      Canton</h1>
+
+      <p>Entrez le nom syst&egrave;me pour le Canton que vous
+      voulez ajouter. Par exemple, un nom valide comme nom
+      syst&egrave;me de Canton pour un r&eacute;seau LocoNet
+      pourrait &ecirc;tre LB456. Un autre exemple, un nom
+      syst&egrave;me interne valide pour un capteur pourrait
+      &ecirc;tre IB123. Le nom utilisateur facultatif peut
+      &ecirc;tre quelque chose que vous voulez pour d&eacute;crire
+      le Canton. Voir la page d'aide " <a href=
+      "../../../../html/doc/Technical/Names.shtml">Noms</a> " pour
+      plus d'informations.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

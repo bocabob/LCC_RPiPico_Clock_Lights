@@ -1,0 +1,32 @@
+package jmri.configurexml;
+
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class ErrorMemoTest {
+
+    @Test
+    public void testCTor() {
+        ErrorMemo t = new ErrorMemo(new jmri.jmrix.internal.configurexml.InternalSensorManagerXml(),"load","fail","IS0","",new IllegalArgumentException("test"));
+        Assertions.assertNotNull(t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetProfileManager();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(ErrorMemoTest.class);
+
+}

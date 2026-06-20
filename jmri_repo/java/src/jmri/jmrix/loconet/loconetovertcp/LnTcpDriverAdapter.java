@@ -1,0 +1,105 @@
+package jmri.jmrix.loconet.loconetovertcp;
+
+import jmri.jmrix.loconet.LnNetworkPortController;
+import jmri.jmrix.loconet.LnTrafficController;
+import jmri.jmrix.loconet.LocoNetSystemConnectionMemo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Implements SerialPortAdapter for the LocoNetOverTcp system network
+ * connection.
+ * <p>
+ * This connects a LocoNet via a telnet connection. Normally controlled by the
+ * LnTcpDriverFrame class.
+ *
+ * @author Bob Jacobsen Copyright (C) 2001, 2002, 2003
+ * @author Alex Shepherd Copyright (C) 2003, 2006
+ */
+public class LnTcpDriverAdapter extends LnNetworkPortController {
+
+    public LnTcpDriverAdapter(LocoNetSystemConnectionMemo m) {
+        super(m);
+        allowConnectionRecovery = true;
+        reconnectMaxAttempts = -1; // retry indefinitely
+        option2Name = "CommandStation";
+        option3Name = "TurnoutHandle";
+        options.put(option2Name, new Option(Bundle.getMessage("CommandStationTypeLabel"), commandStationNames, false));
+        options.put(option3Name, new Option(Bundle.getMessage("TurnoutHandling"),
+                new String[]{Bundle.getMessage("HandleNormal"), Bundle.getMessage("HandleSpread"), Bundle.getMessage("HandleOneOnly"), Bundle.getMessage("HandleBoth")})); // I18N
+        options.put("TranspondingPresent", new Option(Bundle.getMessage("TranspondingPresent"),
+                new String[]{Bundle.getMessage("ButtonNo"), Bundle.getMessage("ButtonYes")} )); // NOI18N
+        options.put("InterrogateOnStart", new Option(Bundle.getMessage("InterrogateOnStart"),
+                new String[]{Bundle.getMessage("ButtonYes"), Bundle.getMessage("ButtonNo")} )); // NOI18N
+        options.put("LoconetProtocolAutoDetect", new Option(Bundle.getMessage("LoconetProtocolAutoDetectLabel"),
+                new String[]{Bundle.getMessage("LoconetProtocolAutoDetect"),Bundle.getMessage("ButtonNo")} )); // NOI18N
+
+    }
+
+    public LnTcpDriverAdapter() {
+        this(new LocoNetSystemConnectionMemo());
+    }
+
+    @Override
+    public void recover() {
+        if (allowConnectionRecovery && opened) {
+            log.info("Connection to {}:{} lost. Attempting to recover...", getHostName(), getPort());
+        }
+        super.recover();
+    }
+
+    // after reconnect, reattach the packetizer's streams and restart the receive thread
+    @Override
+    protected void resetupConnection() {
+        LnTrafficController tc = getSystemConnectionMemo().getLnTrafficController();
+        if (tc instanceof LnOverTcpPacketizer) {
+            LnOverTcpPacketizer packets = (LnOverTcpPacketizer) tc;
+            packets.connectPort(this);
+            packets.restartRcvThread();
+        }
+    }
+
+    /**
+     * Set up all of the other objects to operate with a LocoNet connected via
+     * this class.
+     */
+    @Override
+    public void configure() {
+
+        setCommandStationType(getOptionState(option2Name));
+        setTurnoutHandling(getOptionState(option3Name));
+        setTranspondingAvailable(getOptionState("TranspondingPresent"));
+        setInterrogateOnStart(getOptionState("InterrogateOnStart"));
+        setLoconetProtocolAutoDetect(getOptionState("LoconetProtocolAutoDetect"));
+
+
+        // connect to a packetizing traffic controller
+        LnOverTcpPacketizer packets = new LnOverTcpPacketizer(this.getSystemConnectionMemo());
+        packets.connectPort(this);
+
+        // create memo
+        this.getSystemConnectionMemo().setLnTrafficController(packets);
+        // do the common manager config
+        this.getSystemConnectionMemo().configureCommandStation(commandStationType,
+                mTurnoutNoRetry, mTurnoutExtraSpace, mTranspondingAvailable, mInterrogateAtStart, mLoconetProtocolAutoDetect);
+        this.getSystemConnectionMemo().configureManagers();
+
+        // start operation
+        packets.startThreads();
+    }
+
+    @Override
+    public boolean status() {
+        return opened;
+    }
+
+    @Override
+    public void configureOption1(String value) {
+        super.configureOption1(value);
+        log.debug("configureOption1: {}", value);
+        setCommandStationType(value);
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(LnTcpDriverAdapter.class);
+
+}

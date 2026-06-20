@@ -1,0 +1,99 @@
+package jmri.jmrix.cmri.serial.serialdriver;
+
+import java.util.ResourceBundle;
+
+import javax.annotation.Nonnull;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import jmri.jmrix.cmri.CMRISystemConnectionMemo;
+import jmri.jmrix.cmri.serial.nodeconfigmanager.NodeConfigManagerAction;
+
+/**
+ * Definition of objects to handle configuring a layout connection via a C/MRI
+ * SerialDriverAdapter object.
+ *
+ * @author Bob Jacobsen Copyright (C) 2001, 2003
+ * @author Chuck Catania Copyright (C) 2017
+ */
+public class ConnectionConfig extends jmri.jmrix.AbstractSerialConnectionConfig {
+
+    public static final String NAME = Bundle.getMessage("TypeSerial");
+
+    /**
+     * Ctor for an object being created during load process; Swing init is
+     * deferred.
+     * @param p serial port adapter.
+     */
+    public ConnectionConfig(jmri.jmrix.SerialPortAdapter p) {
+        super(p);
+    }
+
+    /**
+     * Ctor for a connection configuration with no preexisting adapter.
+     * {@link #setInstance()} will fill the adapter member.
+     */
+    public ConnectionConfig() {
+        super();
+    }
+
+    @Override
+    public String name() {
+        return NAME;
+    }
+
+    private JButton b;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void loadDetails(JPanel details) {
+
+        setInstance();
+        b = new JButton(Bundle.getMessage("ConfigureNodesTitle"));
+        b.addActionListener(new NodeConfigManagerAction((CMRISystemConnectionMemo)adapter.getSystemConnectionMemo()));
+        if (!additionalItems.contains(b)) {
+            additionalItems.add(b);
+        }
+        super.loadDetails(details);
+
+    }
+
+    @Override
+    protected ResourceBundle getActionModelResourceBundle() {
+        return ResourceBundle.getBundle("jmri.jmrix.cmri.CmriActionListBundle");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void setInstance() {
+        if (adapter == null) {
+            adapter = new SerialDriverAdapter();
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Config getConfig() {
+        return ((CMRISystemConnectionMemo) getAdapter().getSystemConnectionMemo())
+                .getConfig();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setConfig(@Nonnull Config config) {
+        if (config instanceof CMRISystemConnectionMemo.Config) {
+            ((CMRISystemConnectionMemo) getAdapter().getSystemConnectionMemo())
+                    .setConfig((CMRISystemConnectionMemo.Config) config);
+        } else {
+            log.info("Can't set config. Expected {} but got {}",
+                    config.getClass().getName(),
+                    CMRISystemConnectionMemo.Config.class.getName());
+        }
+    }
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ConnectionConfig.class);
+}

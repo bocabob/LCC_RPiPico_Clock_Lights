@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-locale-client-message",
+    "type": "object",
+    "description": "Schema data object in message from client to JMRI for type \"locale\"",
+    "properties": {
+        "locale": {
+            "type": "string",
+            "description": "The client locale matching a Java Locale string representation"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "locale"
+    ]
+}

@@ -1,0 +1,33 @@
+package jmri.jmrit.throttle;
+
+import jmri.jmrit.throttle.panels.SpeedPanel;
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class SpeedPanelTest {
+
+    @Test
+    public void testCTor() {
+        SpeedPanel t = new SpeedPanel();
+        Assert.assertNotNull("exists",t);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(SpeedPanelTest.class);
+
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../XSLT/decoder.xsl"?>
+<!-- Copyright (C) JMRI 2001, 2005, 2007, 2009, 2010, 2014 All rights reserved -->
+<!--                                                                        -->
+<!-- JMRI is free software; you can redistribute it and/or modify it under  -->
+<!-- the terms of version 2 of the GNU General Public License as published  -->
+<!-- by the Free Software Foundation. See the "COPYING" file for a copy     -->
+<!-- of this license.                                                       -->
+<!--                                                                        -->
+<!-- JMRI is distributed in the hope that it will be useful, but WITHOUT    -->
+<!-- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or  -->
+<!-- FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License  -->
+<!-- for more details.                                                      -->
+<variables xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/decoder-4-15-2.xsd">
+  <copyright xmlns="http://docbook.org/ns/docbook">
+    <year>2014</year>
+    <holder>JMRI</holder>
+  </copyright>
+  <authorgroup xmlns="http://docbook.org/ns/docbook">
+    <author>
+      <personname>
+          <firstname>Alain</firstname>
+          <surname>Le Marchand</surname>
+      </personname>
+    </author>
+  </authorgroup>
+  <revhistory xmlns="http://docbook.org/ns/docbook">
+    <revision>
+      <revnumber>1</revnumber>
+      <date>2014-05-09</date>
+      <authorinitials>ALM</authorinitials>
+      <revremark>Created from NMRA cv29analog.xml file, for use with Uhlenbrock (not with IntelliDrive2 and later) </revremark>
+    </revision>
+  </revhistory>
+  <variable CV="29" mask="XXXXXVXX" item="Analog (DC) Operation" default="1">
+	<enumVal>
+	  <enumChoice choice="Digital only">
+          <choice>NMRA Digital only</choice>
+          <choice xml:lang="it">Solo NMRA Digitale</choice>
+          <choice xml:lang="fr">Digital NMRA seulement</choice>
+          <choice xml:lang="ca">NMRA Digital only (ca)</choice>
+          <choice xml:lang="de">Nur Digital nach NMRA</choice>
+          <choice xml:lang="cs">Pouze digitál NMRA</choice>
+          <choice xml:lang="nl">Alleen digitaal NMRA</choice>
+	  </enumChoice>
+	  <enumChoice choice="Auto. Digital/Analog detection">
+            <choice>Auto. Digital/Analog detection</choice>
+            <choice xml:lang="it">Convers. Analogica/Digitale auto.</choice>
+            <choice xml:lang="fr">Detect. Analogique/Digital auto.</choice>
+            <choice xml:lang="ca">Auto. Digital/Analog detection(ca)</choice>
+            <choice xml:lang="de">Auto. Analog-/Digitalumschaltung</choice>
+            <choice xml:lang="nl">Auto. omschakelen Analoog/Digitaal</choice>
+      </enumChoice>
+	</enumVal>
+    <label>Power Source Conversion</label>
+    <label xml:lang="it">Conversione Sorgente Alimentazione</label>
+    <label xml:lang="fr">Conversion source d'alimentation</label>
+    <label xml:lang="ca">Power Source Conversion(ca)</label>
+    <label xml:lang="de">Stromquelle Konversion</label>
+    <label xml:lang="cs">Konverze napájení</label>
+    <label xml:lang="nl">Stroombron-omschakeling</label>
+    <tooltip>&lt;html&gt;NMRA Digital only: Digital Operation Only.&lt;br&gt; DC conversion enabled: both Digital + Analog, default is both&lt;br&gt;</tooltip>
+    <tooltip xml:lang="it">&lt;html&gt;'4' bit.&lt;br&gt; Permette alla loco di andare in DC, per default è On&lt;br&gt;</tooltip>
+    <tooltip xml:lang="fr">&lt;html&gt;Digital NMRA seulement: fonctionne uniquement en Digital&lt;br&gt; Mode analogique activé: fonctionne à la fois en Digital et en analogique&lt;br&gt;Les deux par défaut.&lt;br&gt;</tooltip>
+    <tooltip xml:lang="de">&lt;html&gt;Nur Digital nach NMRA: Die Lokomotive fährt nur digital.&lt;br&gt; Analogbetrieb Aktiviert: Die Lokomotive fährt sowohl digital als auch analog.&lt;br&gt;</tooltip>
+    <tooltip xml:lang="cs">&lt;html&gt;Pouze digitál NMRA: pouze digitální provoz. &lt;br&gt; Povolena konverze DC: obojí provoz digitální + analogový, výhozí hodnota je vypnuto.&lt;br&gt;</tooltip>
+    <tooltip xml:lang="nl">&lt;html&gt;Alleen digitaal volgens NMRA: de locomotief rijdt alleen digitaal.&lt;br&gt; Analoge modus geactiveerd: de locomotief rijdt zowel digitaal als analoog.&lt;br&gt;</tooltip>
+  </variable>
+</variables>

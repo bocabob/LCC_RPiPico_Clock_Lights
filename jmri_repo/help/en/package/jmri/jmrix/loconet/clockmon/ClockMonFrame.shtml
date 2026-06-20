@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI: LocoNet Fast Clock Control</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help loconet fast clock monitor">
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <h1>LocoNet Fast Clock Control</h1>
+
+      <p>See the <a href="../../../../../html/tools/fastclock/LocoNetClock.shtml">LocoNet Clock
+      Help</a></p>
+      This is the help/jmri/jmrix/loconet/clockmon/ClockMonFrame help page 
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

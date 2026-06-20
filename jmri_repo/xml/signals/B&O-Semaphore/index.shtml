@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright ($Author: jacobsen $) 2009 -->
+
+  <title>JMRI: B&amp;O-Semaphore Signaling Definition</title>
+  <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: B&amp;O-Semaphore Signaling Definition</h1>
+      This directory contains signaling definitions corresponding to the 1969 B&amp;O rules.
+      <p>See the <a href="aspects.xml">aspect page</a>.</p>
+
+      <p>This signal system just contains B&amp;O semaphore masts but will work in conjunction with
+      the position light masts of the B&amp;O-2009 system if required. This is a speed signaling
+      system therefore speeds will need to be set on blocks or turnouts (either will do) to ensure
+      that the correct aspects are displayed. As per the prototype no account is taken of turnout
+      position when assessing the aspect to be displayed.</p>
+
+      <p>Signal Mast definitions:</p>
+
+      <ul>
+        <li>
+          <a href="appearance-bumper.xml">Buffer stop that always indicates stop for attaching to
+          buffer stops</a>
+        </li>
+
+        <li>
+          <a href="appearance-dwarf.xml">Single arm dwarf signalmast</a>
+        </li>
+
+        <li>
+          <a href="appearance-single.xml">Single arm block signal mast</a>
+        </li>
+
+        <li>
+          <a href="appearance-double.xml">Double arm absolute signal mast</a>
+        </li>
+
+        <li>
+          <a href="appearance-triple.xml">Triple arm absolute signal mast</a>
+        </li>
+      </ul>
+
+      <!--#include virtual="/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/main.js"></script>
+</body>
+</html>

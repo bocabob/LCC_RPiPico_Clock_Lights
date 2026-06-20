@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI OperationsPro - Add Train</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>OperationsPro: Manifest Print Preview</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_EditTrain.shtml">Back</a><a href="#"></a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <div style="margin-left: 40px;"><img src="images/Ops_ManifestPreview.png" height="1425"
+      width="900" alt="">
+      </div>
+
+      <div class="ops-right">
+        <p><a href="Ops_EditTrain.shtml">Back</a><a href="#"></a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

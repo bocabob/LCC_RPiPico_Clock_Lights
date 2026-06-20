@@ -1,0 +1,38 @@
+package jmri.web.servlet.operations;
+
+import jmri.InstanceManager;
+import jmri.jmrit.operations.trains.TrainManager;
+import jmri.util.JUnitUtil;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class HtmlTrainCommonTest {
+
+    @Test
+    public void testCTor() throws java.io.IOException {
+        HtmlTrainCommon t = new HtmlTrainCommon(java.util.Locale.US,
+                     (InstanceManager.getDefault(TrainManager.class)).getTrainById("2"));
+        Assertions.assertNotNull(t, "exists");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.initIdTagManager();
+        jmri.util.JUnitOperationsUtil.setupOperationsTests();
+        jmri.util.JUnitOperationsUtil.initOperationsData();     
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.clearShutDownManager();
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(HtmlTrainCommonTest.class);
+
+}

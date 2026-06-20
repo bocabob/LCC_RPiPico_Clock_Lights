@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Copyright Bob Jacobsen 2008 -->
+  <!-- Updated by Blorec Herv&#233;<bzh56420@yahoo.fr> 2016-09-11-->
+
+  <title>JMRI: Aspect de la Signalisation</title>
+  <meta name="Author" content="Bob Jacobsen, Egbert Broerse">
+  <meta name="Date.Modified" content="20151002">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI: Aspect de la Signalisation</h1>
+
+      <p class="subtitle">Commande des signaux modèle d'une manière réaliste</p>
+      <a href="images/Rule282.png"><img src="images/Rule282.png" height="241" width="159" align=
+      "right" alt=""></a> Le Systèmes de signalisation réaliste présente des "<a href=
+      "index.shtml#aspect">Aspects</a>" au conducteur pour lui dire comment faire fonctionner son
+      train. L'aspect "Stop" , par exemple, est assez simple: arrêter le train. L'aspect "Approche
+      au ralenti" indique quelque chose de plus compliqué: "Procéder à l'approche du signal suivant
+      à vitesse moyenne". Chaque aspect est associé à un "indication", qui est habituellement
+      codifié dans le livre de règle du chemin de fer.
+      <p>L'image en haut à droite montre un exemple, Règle 282 du livre de réglementation AAR de
+      1946 (Aspect: Approche au ralenti).</p>
+
+      <h2>Aide JMRI pour L'Aspect de la Signalisation</h2>
+
+      <p>Une collection d'instructions simples vous permettent de configurer la <a href=
+      "SignalingSetup.shtml">Signalisation en 7 Étapes rapides</a>.</p>
+
+      <p>L'Aspect de la Signalisation est supporté dans JMRI par l'utilisation de trois des Outils
+      de Signalisation:</p>
+
+      <ul>
+        <li><strong>Les objets <a href="SignalMasts.shtml">Mât de Signalisation</a></strong>
+        représentent un signal entier avec un ou plusieurs Feux de Signalisation. Un Mât de
+        Signlisation peut commander tous ses Feux, car nécessaire pour réaliser une signalisation
+        complète et réaliste basée sur les aspects. Quand son aspect est configuré par exemple pour
+        "Approche au ralenti" JMRI gère la communication nécessaire avec le réseau pourque le
+        signal sur le réseau affiche les bonnes couleurs.<br>
+        <a href="../../../package/jmri/jmrit/beantable/images/SignalMasts-num.png"><img src=
+        "../../../package/jmri/jmrit/beantable/images/SignalMasts-num.png" width="309" height="83"
+        align="right" alt=""></a> Les Mâts de Signalisation sont configurés par le <a href=
+        "../../../package/jmri/jmrit/beantable/SignalMastTable.shtml">Tableau Mât de
+        Signalisation</a>. Vous en ajoutez de nouveaux avec le bouton "Ajouter..." en dessous du
+        tableau, qui vous emmène à la <a href=
+        "../../../package/jmri/jmrit/beantable/SignalMastAddEdit.shtml">fenêtre "Ajouter Mât de
+        Signalisation</a>. Là vous précisez quelle sorte de système de signalisation va être
+        utilisé (voir <a href="#systems">la liste ci-dessous</a>), Le type de signal spécifique
+        exemple "double searchlight" ou "double feux miniature" et quels Feux de Signalisation ce
+        Mât va commander.<br>
+        Vous pouvez ajouter une icône Mât de Signalisation dans l'Éditeur de Panneau en
+        cliquant-droit n'importe où et choisir Ajouter élément --&gt;Mât de Signalisation.<br>
+        Dans l'Éditeur de Réseau entrez l'adresse du Mât de Signalisation et Maj-Clic sur un
+        aiguillage ou un point d'ancrage sur le panneau où vous voulez placer un Signal. L'icône
+        Mât de Signalisation affichera l'image spécifiée dans la définition d'apparence pour ce
+        type de Mât et de système particulier. Les icônes de Signaux affichées sur votre panneau
+        sont une partie d'un Système de Signaux et ils ne peuvent pas être changés individuellement
+        par l'utilisateur comme les icônes d'Aiguillage.<br>
+        L'image sur la droite: Icônes Signaux Règle 281 du Système de Signaux ARR-2. 
+        <!-- icons from AAR-2 xml appearance definition xml March 2014 --> <a href=
+        "https://jmri.org/xml/signals/AAR-1946/aspects.xml"><img src="images/AAR-2Clear.png" width=
+        "187" height="187" align="right" border="1" alt=""></a><br>
+        &nbsp;</li>
+
+        <li><strong><a href="SignalGroups.shtml">Groupes de Signaux</a></strong> sont utilisés pour
+        définir un nombre de Feux de Signalisation, où seul un Feu de Signalisation peut être
+        allumé à un moment donné Les Groupes de Signaux doivent être utilisés où des indicateurs
+        supplémentaires pour aider le Mât Signal, comme à une Jonction, un Itinéraire, ou
+        affichages de Vitesse. Ces indicateurs fournissent une information supplémentaire au
+        conducteur qui n'est pas donnée par le Mât Signal principal. De tels indicateurs sont vus
+        fréquemment en Signalisation Européenne et Britannique.</li>
+
+        <li>L'outil <strong><a href="SignalMastLogic.shtml">Logique Mât de
+        Signalisation</a></strong> permet à la Logique de Signalisation d'être construite comme une
+        paire de conditions entre des Mâts de Signalisation sur le réseau. La Logique Mât de
+        Signalisation utilise les états des Cantons, Aiguillages, Capteurs, et Mâts de
+        Signalisation adjacent pour déterminer quel Aspect un Mât de Signalisation doit
+        afficher.<br>
+        Si le réseau a été dessiné en utilisant l'Éditeur de Réseau et si les Mâts de Signalisation
+        ont été placés sur le panneau en utilisant les divers outils, il est possible pour toute la
+        Logique Mât de Signalisation d'être construite dynamiquement, avec peu d'intervention de
+        l'utilisateur. Pour les panneaux créés par l'Éditeur de Panneau de Commande certaines de
+        ces informations doivent être entrées à la main.</li>
+      </ul>
+
+      <h3>Comment travaille-t-elle?</h3>
+
+      <p>En raccourci, un ensemble de fichiers pour le Système de Signalisation sélectionné
+      contient le code basique pour déterminer quelles combinaisons sont disponibles dans l(outil
+      Logique Mât de Signalisation.<br>
+      Dans le répertoire xml/signals localisé dans le répertoire dau programme JMRI, il y a un
+      répertoire pour tous les Systèmes de Signalisation qui a été défini un fichier "aspects.xml"
+      qui liste tous les Aspects possibles plus un nombre de fichier "apparence (i.e.
+      <em>appearance-one-searchlight.xml</em>),<br>
+      Le Tableau Logique Mât de Signalisation est ensuite utilisé pour vérifier que les paires de
+      Mâts de Signalisation sont actives dans cette Logique si l'aspect ne devrait <em>pas</em>
+      être "Stop". Ceci est fait en regardant les positions des Aiguillages ( si applicables ),
+      l'occupation de Cantons et si possible les Capteurs. Dans l'onglet Mât de Signalisation vous
+      pouvez même spécifier des Mats de Signalisation supplémentaires exemple pour un
+      Enclenchement. Pour tout Mât de Signalisation, il peut y avoir de 1 à n Mats de
+      sSignalisation destination, un d'eux est actif en fonction de la position des aiguillages
+      connectant les Cantons protégés.<br>
+      Si tout est OK, alors le fichier "apparence..." pour ce type de Mât de Signalisation sera
+      utilisé avec la Logique Mât de Signalisation pour affecter un nouvel Aspect basé sur l'Aspect
+      de du prochain Mât de Signalisation.<br>
+      Cela couvre le fonctionnement de base dans une présentation de très haut niveau. (Merci à
+      Dave Sand)</p>
+      <p>
+      <img src="images/Panel1Stop.png" width="185" height="135" border="1" alt=""> <img src=
+      "images/Panel2Approach.png" width="185" height="135" border="1" alt=""><br>
+      Signal 4B montrant l'Aspect "Stop" quand le capteur 0D1 est Actif ( à gauche ) et "Approche
+      Dévié" quand le canton est vide ( à droite).</p>
+
+      <a id="systems" name="systems"></a>
+      <h2>Systèmes de Signalisation DisponiblesAvailable Signaling Systems</h2>
+      <!-- checked for JMRI version 3.6, April 2014 -->
+      Les utilisateurs JMRI ont fourni les Aspect pré-définis des Systèmes de Signalisation:
+      <dl>
+        <dt><a href="../../../../../xml/signals/basic/index.shtml">Basique</a>
+        </dt>
+
+        <dd>un jeu d'aspects et d'apparences non réaliste que la plupart des modéliste comprendra
+        aisément.</dd>
+
+        <dt><a href="../../../../../xml/signals/AAR-1946/index.shtml">AAR-1946</a>
+        </dt>
+
+        <dd>Livre de réglementation American Association of Railroads 1946</dd>
+
+        <dt><a href="../../../../../xml/signals/Amtrak-2010/index.shtml">Amtrak-2010</a>
+        </dt>
+
+        <dd>Amtrak Northeast Corridor Color Position Light signals</dd>
+
+        <dt><a href="../../../../../xml/signals/B&amp;O-1957/index.shtml">B&amp;O-1957</a>
+        </dt>
+
+        <dd>1957 B&amp;O<br>
+        (<em>Incomplet, non terminé pour JMRI 3.10.</em>)</dd>
+
+        <dt><a href="../../../../../xml/signals/B&amp;O-2009/index.shtml">B&amp;O-2009</a>
+        </dt>
+
+        <dd>2009 B&amp;O (CSX)</dd>
+
+        <dt><a href="../../../../../xml/signals/BN-1989/index.shtml">BN-1989</a>
+        </dt>
+
+        <dd>Burlington Northern Oct. 1989 rule book</dd>
+
+        <dt><a href="../../../../../xml/signals/BNSF-1996/index.shtml">BNSF-1996</a>
+        </dt>
+
+        <dd>BNSF Railway 1996 rule book</dd>
+
+        <dt><a href="../../../../../xml/signals/BR-2003/index.shtml">BR-2003</a>
+        </dt>
+
+        <dd>British Rail 2003 rule book</dd>
+
+        <dt><a href="../../../../../xml/signals/CFL-2014/index.shtml">CFL-2014</a>
+        </dt>
+
+        <dd>Current (2014) Luxemburg railways (Societé Nationale des Chemins de Fer
+        Luxembourgeois)</dd>
+
+        <dt><a href="../../../../../xml/signals/CROR-2008/index.shtml">CROR-2008</a>
+        </dt>
+
+        <dd>Transport Canada (TC) 2008 O-0-93 rule book</dd>
+
+        <dt><a href=
+        "../../../../../xml/signals/CSD-1962-zakladni/index.shtml">CSD-1962-zakladni</a> – <a href=
+        "../../../../../xml/signals/CSD-1962-cestova/index.shtml">CSD-1962-cestova</a> – <a href=
+        "../../../../../xml/signals/CSD-1962-vlozena/index.shtml">CSD-1962-vlozena</a> – <a href=
+        "../../../../../xml/signals/CSD-1962-mechaniky/index.shtml">CSD-1962-mechaniky</a> –
+        <a href=
+        "../../../../../xml/signals/SZDC-2015-zakladni/index.shtml">SZDC-2015-zakladni</a></dt>
+
+        <dd>ČSD – Československé státní dráhy – Tchécoslovaquie définition du signal 1962<br>
+        <em>CSD-1962-zakladni – signaux de base – Set 0</em><br>
+        <em>CSD-1962-cestova – signaux intermédiaires – Set 1</em><br>
+        <em>CSD-1962-vlozena – signaux embarqués et signaux de triage à bosse – Set 2</em><br>
+        <em>CSD-1962-mechaniky – signaux mécaniques – Set 4</em><br>
+        SŽDC – Správa železniční dopravní cesty – Définition du signal tchèque 2015<br>
+        <em>SZDC-2015-zakladni – signaux de base – Set 3</em></dd>
+
+        <dt><a href="../../../../../xml/signals/CSX-1998/index.shtml">CSX-1998</a>
+        </dt>
+
+        <dd>CSX Transportation Signal Rules - 281-298, January 1998<br>
+        (<em>Some errors in aspect mapping, not finished as of JMRI 3.10.</em>)</dd>
+
+        <dt><a href="../../../../../xml/signals/DB-HV-1969/index.shtml">DB HV 1969</a>
+        </dt>
+
+        <dd>1969 Deutsche Bundesbahn "Einheitsbauform" Home Signal/Distant signal
+        (Hauptsignal/Vorsignal) system revision<br>
+        (<em>Missing aspect mapping, not finished as of JMRI 3.10.</em>)</dd>
+
+        <dt><a href="../../../../../xml/signals/GWR-1931/index.shtml">GWR-1931</a>
+        </dt>
+
+        <dd>Great Western Railway 1931 searchlight signals (British)</dd>
+
+        <dt><a href="../../../../../xml/signals/InfraBel-2013/index.shtml">InfraBel-2013</a>
+        </dt>
+
+        <dd>Belgian Railways, taken from Wikipedia, current as of 2013</dd>
+
+        <dt><a href="../../../../../xml/signals/LMS-1932/index.shtml">LMS-1932</a>
+        </dt>
+
+        <dd>Complete London, Midland and Scottish Railway speed signaling from 1932-1988
+        (British)</dd>
+
+        <dt><a href="../../../../../xml/signals/NS-2008/index.shtml">NS-2008</a>
+        </dt>
+
+        <dd>Norfolk Southern Corporation Operating rules book (NORAC)</dd>
+
+        <dt><a href="../../../../../xml/signals/NYCS-1937/index.shtml">NYCS-1937</a>
+        </dt>
+
+        <dd>New York Central System 1937 rule book<br>
+        (<em>Missing aspect mapping, not finished as of JMRI 3.10.</em>)</dd>
+
+        <dt><a href="../../../../../xml/signals/NYC-1956/index.shtml">NYC-1956</a>
+        </dt>
+
+        <dd>From the New York Central System publication "Rules of the Operating Department,
+        Effective October 28, 1956."</dd>
+
+        <dt><a href="../../../../../xml/signals/ProRail-1954/index.shtml">ProRail-1954</a>
+        </dt>
+
+        <dd>1954 Prorail rule book, still in use in 2015 (the Netherlands)</dd>
+
+        <dt><a href="../../../../../xml/signals/RG-1965/index.shtml">RG-1965</a>
+        </dt>
+
+        <dd>1965 Rio Grande Rules of the Operating Department</dd>
+
+        <dt><a href="../../../../../xml/signals/SLSF-1973/index.shtml">SLSF-1973</a>
+        </dt>
+
+        <dd>St. Louis - San Francisco Railroad (Frisco) 1973 rule book<br>
+        (<em>Missing some icons, not finished as of JMRI 3.10.</em>)</dd>
+
+        <dt><a href="../../../../../xml/signals/SPTCO-1930/index.shtml">SPTCO-1930</a>
+        </dt>
+
+        <dd>Southern Pacific Railway and Transportation Company 1930 rule book</dd>
+
+        <dt><a href="../../../../../xml/signals/SPTCO-1960/index.shtml">SPTCO-1960</a>
+        </dt>
+
+        <dd>Southern Pacific Railway and Transportation Company 1960 rule book</dd>
+
+        <dt><a href="../../../../../xml/signals/UP-2008/index.shtml">UP-2008</a>
+        </dt>
+
+        <dd>Union Pacific Railroad 2008 rule book<br></dd>
+      </dl>
+
+      <p>La liste la plus à jour des aspect des système de Signalisation dans JMRI peut être
+      trouvée à <a href="https://jmri.org/xml/signals/">https://jmri.org/xml/signals/</a>.</p>
+
+      <p>Pour créer votre propre Définition de Système de Signalisation suivre ces <a href=
+      "DefineNewAspects.shtml">Instructions</a>. Si vous créez une nouvelle définition pour un
+      autre chemin de fer ou époque, après test, svp contribuez au projet JMRI car nous pouvons le
+      distribuer avec les prochaines versions pour que les qutres puissent l'utiliser. Comme les
+      Définitions de Décodeurs dans DecoderPro, Plus nous avons de Définitions de Système de
+      Signalisation plus il y aura d'utilisateurs du programme, et plus les gens passeront du temps
+      pour l'améliorer. Nous sommes tous gagnants de cette façon!</p>
+
+      <h2>Code d'Accès pour l'Information d'Aspect</h2>
+
+      <h3><a name="logix" id="logix">Logix</a></h3>
+
+      <p>Les Mâts de Signalisation peuvent être à la fois testés ( en Conditionnels ) et configurés
+      ( en Actions ) via Logix. Quand Vous modifiez un Conditionnel ou une Action Logix, vous devez
+      saisir le nom du Mât de Signalisation et appuyez sur Entrée/retour pour que le programme
+      puisse voir les Aspects disponibles pour ce Mât de Signalisation particulier. <a name=
+      "mastscripting" id="mastscripting"></a></p>
+
+      <h3>Script</h3>
+
+      <p>Un programme ( en Java ou Python ) peut accéder à l'information d'Aspect de deux façons.
+      Si le code à une référence à un Mât de Signalisation spécifique "m", il peut utiliser
+      <code>m.getValidAspects()</code> pour obtenir la liste des noms d'aspects que ce Mât de
+      Signalisation peut afficher. Le programme peut alors accéder à la définition du Système de
+      Signaux avec <code>SignalSystem sys = m.getSignalSystem()</code> puis en savoir davantage sur
+      les propriétés de l'aspect: <code>sys.getProperty("Clear","speed");</code> où le premier
+      argument est le nom d'aspect (l'utilisation, par exemple, <code>m.getAspect ()</code> pour
+      obtenir l'aspect actuel sur le mât) et le second est une propriété spécifique. Les propriétés
+      peuvent être définies par programmation, par exemple par <code>m.setProperty ("Libre",
+      "vitesse", "69");</code> ou les chargées automatiquement à partir des éléments dans le
+      fichier <a href="DefineNewAspects.shtml">aspect.xml</a> qui définit le système de
+      signalisation spécifiques.</p>
+
+      <p>En plus des propriétés globales d'un aspect, il peut également y avoir des propriétés
+      locales d'un type de mât de signal spécifique. Un exemple de ceci est l'image d'icône par
+      défaut: L'image d'un Mât de Signalisation à deux Feux est différent de celui d'un Mât de
+      Signalisation un Feu, même s'ils représentent tous les deux "Libre".</p>
+
+      <p>Pour obtenir celles-ci: <code>m.getAppearanceMap () getProperty ("clear",
+      "IMAGELINK");</code> Autrement dit, c'est en disant "Obtenir l'info Apparence pour ce Mât,
+      puis vérifiez la propriété imagelink de l'aspect Libre ".</p>
+
+      <p>Alternativement, si vous connaissez le nom du Système de Signal en service, vous pouvez
+      aller directement à lui par l'InstanceManager: <code>SignalSystem sys =
+      InstanceManager.signalSystemManagerInstance () getSystem ("basic");</code></p>
+
+      <p>Retour à la <a href="index.shtml">page d'aide principale Signalisation</a>.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div><!-- closes #mainContent-->
+  </div><!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

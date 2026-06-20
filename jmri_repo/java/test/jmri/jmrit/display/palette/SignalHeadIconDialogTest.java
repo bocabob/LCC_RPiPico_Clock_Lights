@@ -1,0 +1,48 @@
+package jmri.jmrit.display.palette;
+
+import jmri.*;
+import jmri.jmrit.display.DisplayFrame;
+import jmri.jmrit.display.controlPanelEditor.ControlPanelEditor;
+import jmri.jmrit.picker.PickListModel;
+import jmri.util.JUnitUtil;
+import jmri.util.junit.annotations.DisabledIfHeadless;
+
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class SignalHeadIconDialogTest {
+
+    @Test
+    @DisabledIfHeadless
+    public void testCTor() {
+        PickListModel<SignalHead> tableModel = PickListModel.signalHeadPickModelInstance(); // NOI18N
+        ControlPanelEditor editor = new ControlPanelEditor("EdTextItem");
+        DisplayFrame df = new DisplayFrame("Indicator TO Icon Dialog Test", editor); // NOI18N
+        SignalHeadItemPanel ship = new SignalHeadItemPanel(df,"IS01","",tableModel);  // NOI18N
+        SignalHeadIconDialog shd = new SignalHeadIconDialog("SignalHead","SignalHead",ship); // NOI18N
+        Assertions.assertNotNull(shd,"exists");
+        JUnitUtil.dispose(shd);
+        ship.dispose();
+        JUnitUtil.dispose(df);
+        JUnitUtil.dispose(editor);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+        JUnitUtil.resetProfileManager();
+        JUnitUtil.initInternalSignalHeadManager();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.deregisterBlockManagerShutdownTask();
+        JUnitUtil.tearDown();
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(SignalHeadIconDialogTest.class);
+
+}

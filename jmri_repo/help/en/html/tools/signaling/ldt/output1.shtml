@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright Bob Jacobsen 2008 -->
+
+  <title>JMRI: LDT Signaling for SBB (Swiss Federal Railways) type L Signals</title>
+  <!--#include virtual="/help/en/parts/Style.shtml" -->
+
+  <style>
+    th {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+
+    .ctr {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+      <!-- Page Body -->
+
+      <h2>JMRI: LDT Signaling for SBB (Swiss Federal Railways) type L Signals</h2>
+
+      <h2><strong>Home signal with 5 or 7 lamps</strong> <img src="output1_html_m4f5f2ce4.png"
+      width="8" height="26" alt=""> <img src="output1_html_44a4ff16.png" width="12" height="26"
+      alt=""></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-SBB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>2 - 40km/h</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>3 - 60km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>6 - 40km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Home signal with 4 lamps</strong> <img src="output1_html_m55495bcc.png" width="8"
+      height="21" alt=""></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-SBB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>2 - 40km/h</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>3 - 60km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>2 - 40km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Home signal with 3 lamps</strong> <img src="output1_html_7f201b69.png" width="8"
+      height="17" alt=""></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-DB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>2 - slow approach</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>2 - slow approach</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Advance signal with 5 lamps</strong> <img src="output1_html_m140dd523.png" width=
+      "15" height="17" alt=""></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-SBB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th class="ctr">turnout no.</th>
+          <th class="ctr">turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">1</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>2 - 40km/h</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>3 - 60km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>6 - 40km/h</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Advance signal with 4 lamps</strong> <img src="output1_html_4a835f8c.png" width=
+      "15" height="16" alt=""></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-DB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th class="ctr">turnout no.</th>
+          <th class="ctr">turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>2 - slow approach</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>1 - proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>2 - slow approach</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>H - train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <h2><strong>Dwarf signal</strong> <img src="output1_html_m5bfb00d.png" width="14" height="14"
+      alt=""></h2>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-DB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>slow proceed</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">2</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">2</td>
+          <td class="ctr">closed</td>
+          <td>slow proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">1</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+      </table>
+
+      <p style="margin-bottom: 0in"><br>
+      </p>
+
+      <p style="margin-bottom: 0in">decoder: LS-DEC-DB</p>
+
+      <table>
+        <tr>
+          <th>JMRI aspect</th>
+          <th>turnout no.</th>
+          <th>turnout state</th>
+          <th>signal head aspect</th>
+        </tr>
+
+        <tr>
+          <td>green</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>yellow</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>slow proceed</td>
+        </tr>
+
+        <tr>
+          <td>red</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>flash green</td>
+          <td class="ctr">4</td>
+          <td class="ctr">thrown</td>
+          <td>proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash yellow</td>
+          <td class="ctr">3</td>
+          <td class="ctr">thrown</td>
+          <td>slow proceed</td>
+        </tr>
+
+        <tr>
+          <td>flash red</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+
+        <tr>
+          <td>dark</td>
+          <td class="ctr">3</td>
+          <td class="ctr">closed</td>
+          <td>train stop</td>
+        </tr>
+      </table>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+  <!-- close #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

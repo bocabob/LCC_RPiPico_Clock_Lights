@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&#233; Blorec 2013-10-11-->
+<head>
+  <title>JMRI: Adding/Editing Id Tags</title>
+  <meta name="author" content="Matthew Harris">
+  <meta name="keywords" content="JMRI help Id Tag Add Edit">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Ajout/Modification d'&eacute;tiquettes ID</h1>
+
+      <p>Pour cr&eacute;er une &eacute;tiquette d'identification, cliquez
+      sur le bouton "Ajouter ..." sur la <a href=
+      "IdTagTable.shtml">Table ID Tag</a>. Cela ouvrira une petite
+      fen&ecirc;tre avec un espace pour entrer un nom
+      syst&egrave;me et un nom utilisateur pour la nouvelle
+      &eacute;tiquette d'identification, plus une bouton
+      "Ajouter".</p>
+
+      <p>Vous devez entrer un nom syst&egrave;me unique. Les Noms
+      syst&egrave;me des &eacute;tiquettes ID doivent avoir le
+      mod&egrave;le suivant. Ils devraient commencer par "ID" pour
+      "identit&eacute; interne", suivi par le num&eacute;ro de
+      l'&eacute;tiquette elle-m&ecirc;me.</p>
+
+      <p>Le nom utilisateur est facultatif, mais si on leur en
+      donne un, il doit &ecirc;tre unique.</p>
+
+      <p>L'&eacute;tiquette ID indiqu&eacute;e dans le tableau est
+      d&eacute;termin&eacute;e &agrave; partir du nom
+      syst&egrave;me.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+package jmri.jmrix.dccpp;
+
+import jmri.*;
+import jmri.util.JUnitUtil;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.*;
+
+/**
+ *
+ * @author Paul Bender Copyright (C) 2017
+ */
+public class DCCppTurnoutManagerTest {
+    // Note: this doesn't use the usual test pattern for turnouts, which
+    // inherits an extensive set of tests
+
+    @Test
+    public void testCTor() {
+        // infrastructure objects
+        DCCppInterfaceScaffold tc = new DCCppInterfaceScaffold(new DCCppCommandStation());
+
+        DCCppSystemConnectionMemo memo = new DCCppSystemConnectionMemo(tc);
+
+        DCCppTurnoutManager tm = new DCCppTurnoutManager(memo);
+        Assert.assertNotNull("exists",tm);
+    }
+
+    @Test
+    public void testZeroIsOkAddress() {
+        DCCppInterfaceScaffold tc = new DCCppInterfaceScaffold(new DCCppCommandStation());
+
+        DCCppSystemConnectionMemo memo = new DCCppSystemConnectionMemo(tc);
+
+        DCCppTurnoutManager tm = new DCCppTurnoutManager(memo);
+        
+        Turnout t = tm.provideTurnout("DT0");
+        Assert.assertNotNull("exists",t);
+        Assert.assertEquals("DT0", t.getSystemName());
+        
+    }
+    @Test
+    public void testAddressFormOK() {
+        DCCppInterfaceScaffold tc = new DCCppInterfaceScaffold(new DCCppCommandStation());
+
+        DCCppSystemConnectionMemo memo = new DCCppSystemConnectionMemo(tc);
+
+        DCCppTurnoutManager tm = new DCCppTurnoutManager(memo);
+        
+        Turnout t = tm.provideTurnout("DT10");
+        Assert.assertNotNull("exists",t);
+        Assert.assertEquals("DT10", t.getSystemName());
+        
+    }
+    
+    @Test
+    public void testSerialQueueSendsOneRequestOnIDsReply() {
+        DCCppInterfaceScaffold tc = new DCCppInterfaceScaffold(new DCCppCommandStation());
+        DCCppSystemConnectionMemo memo = new DCCppSystemConnectionMemo(tc);
+        new DCCppTurnoutManager(memo);
+        int baseline = tc.outbound.size();
+
+        tc.sendTestMessage(DCCppReply.parseDCCppReply("jT 146 147 201"));
+
+        Assert.assertEquals("only one detail request sent", baseline + 1, tc.outbound.size());
+        Assert.assertEquals("first ID requested", "J T 146", tc.outbound.get(baseline).toString());
+    }
+
+    @Test
+    public void testSerialQueueAdvancesOnIDReply() {
+        DCCppInterfaceScaffold tc = new DCCppInterfaceScaffold(new DCCppCommandStation());
+        DCCppSystemConnectionMemo memo = new DCCppSystemConnectionMemo(tc);
+        new DCCppTurnoutManager(memo);
+        int baseline = tc.outbound.size();
+
+        tc.sendTestMessage(DCCppReply.parseDCCppReply("jT 146 147"));
+        Assert.assertEquals(baseline + 1, tc.outbound.size());
+
+        tc.sendTestMessage(DCCppReply.parseDCCppReply("jT 146 C \"Test turnout\""));
+        Assert.assertEquals("queue advanced to second ID", baseline + 2, tc.outbound.size());
+        Assert.assertEquals("second ID requested", "J T 147", tc.outbound.get(baseline + 1).toString());
+    }
+
+    @BeforeEach
+    public void setUp() {
+        JUnitUtil.setUp();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        JUnitUtil.resetWindows(false,false); // shouldn't be necessary, can't see where windows are created
+        JUnitUtil.clearShutDownManager(); // put in place because AbstractMRTrafficController implementing subclass was not terminated properly
+        JUnitUtil.tearDown();
+
+    }
+
+    // private static final Logger log = LoggerFactory.getLogger(DCCppTurnoutManagerTest.class);
+
+}

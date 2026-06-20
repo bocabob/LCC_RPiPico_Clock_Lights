@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated  by Blorec Herv&#233; le 2011-11-1-->
+<head>
+  <title>JMRI: Renumber Grapevine Node</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content=
+  "JMRI help configure grapevine node">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>Modifier Adresse d'une Carte Grapevine</h1>
+      
+      <p>Cet outil vous
+      permet de changer l'adresse d'une carte Grapevine.</p>
+
+      <p>La carte se souvient du changement, m&ecirc;me
+      &agrave; travers les cycles alimentation On/Off,
+      jusqu&apos;&agrave; ce que vous le changiez &agrave;
+      nouveau.</p>
+
+      <p>Saisissez le num&eacute;ro de n&oelig;ud d&apos;origine,
+      le num&eacute;ro du nouveau n&oelig;ud, et appuyez sur
+      &quot;Changer le num&eacute;ro de n&oelig;ud&quot;.</p>
+
+      <p>Vous pouvez ouvrir la <a href="NodeTableFrame.shtml">Table
+        n&oelig;ud</a> et cliquez sur &quot;V&eacute;rifier&quot; pour
+      voir si le renum&eacute;rotation a r&eacute;ussi.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

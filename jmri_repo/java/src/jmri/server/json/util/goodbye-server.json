@@ -1,0 +1,8 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "jmri-json-goodbye-server-message",
+    "type": "object",
+    "description": "Data portion of message from JMRI to client for type \"goodbye\"",
+    "properties": {},
+    "additionalProperties": false
+}

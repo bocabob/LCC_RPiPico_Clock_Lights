@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+"http://www.w3.org/TR/html4/strict.dtd">
+<!-- Updated by Blorec Herv&#233; le 2016-08-04-->
+<head>
+  <title>JMRI: Java Version-Specific Features</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI technical code road map">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>JMRI: Caractéristiques Java spécifique à la version</h1>
+
+      <p class="important">D'information le plus actuelle se trouve <a
+      href="/help/en/html/doc/Technical/JVMCapabilities.shtml">ici</a> (en Anglais).</p>
+
+      <p>Cette page contient des informations sur la compatibilité et les fonctionnalités des
+      différentes Versions de Java. Nous utilisons cette information pour décider de notre <a href=
+      "TechRoadMap.shtml">feuille de route</a> pour les versions futures de JMRI.</p>
+
+      <h2>Capacités</h2>
+
+      <p>Cette section répertorie les nouvelles fonctions de Java, et quelles Version de Java
+      firent leurs premières apparitions. La colonne "JDK" indique le premier Java Development Kit
+      qui pourrait rassembler les fonctionnalités, la colonne "JRE" indique l'environnement
+      d'exécution d'abord que pourrait exécuter la fonctionnalité, y compris la JVM et les
+      bibliothèque de soutien.</p>
+
+      <table border="1" summary="">
+        <tr>
+          <th>Entité</th>
+          <th>JDK</th>
+          <th>JRE</th>
+        </tr>
+
+        <tr>
+          <td>Collections</td>
+          <td>1.3</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>Java2D</td>
+          <td>1.3</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>Mise à Jour Impression</td>
+          <td>1.3</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>JUnit 3.8</td>
+          <td>1.3</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>JDOM 1.0</td>
+          <td>1.4</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>Java regexp</td>
+          <td>1.4</td>
+          <td>1.4</td>
+        </tr>
+
+        <tr>
+          <td>Java3D</td>
+          <td>1.4</td>
+          <td>1.4</td>
+        </tr>
+
+        <tr>
+          <td>Mise à Jour JavaHelp</td>
+          <td>1.4</td>
+          <td>1.4</td>
+        </tr>
+
+        <tr>
+          <td>Drag and Drop</td>
+          <td>1.4 (additionel<br>
+          amélioration en 1.6)</td>
+          <td>1.4, 1.6</td>
+        </tr>
+
+        <tr>
+          <td>Logging API</td>
+          <td>1.4 (additionel<br>
+          amélioration en 1.6)</td>
+          <td>1.4, 1.6</td>
+        </tr>
+
+        <tr>
+          <td>XML catalog resolver</td>
+          <td>1.3?</td>
+          <td>1.4?</td>
+        </tr>
+
+        <tr>
+          <td>Annotations</td>
+          <td>1.5</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>JavaMail</td>
+          <td>1.5</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>JUnit 4.0</td>
+          <td>1.5</td>
+          <td>1.3</td>
+        </tr>
+
+        <tr>
+          <td>SwingWorker</td>
+          <td>1.5</td>
+          <td>1.5 (*1.4)</td>
+        </tr>
+
+        <tr>
+          <td>JSpinner</td>
+          <td>1.5</td>
+          <td>1.5</td>
+        </tr>
+
+        <tr>
+          <td>Enums</td>
+          <td>1.5</td>
+          <td>1.5</td>
+        </tr>
+
+        <tr>
+          <td>printf, Formatter</td>
+          <td>1.5</td>
+          <td>1.5</td>
+        </tr>
+
+        <tr>
+          <td>generics</td>
+          <td>1.5</td>
+          <td>1.5</td>
+        </tr>
+
+        <tr>
+          <td>Desktop class</td>
+          <td>1.6</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Browser integration</td>
+          <td>1.6</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>JDOM2 (generics)</td>
+          <td>1.6</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Toolbars</td>
+          <td>1.6</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>JTable Sorting</td>
+          <td>1.6</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Webstart compatibility</td>
+          <td>1.6</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Generics for Swing classes</td>
+          <td>1.7</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>NIO improves .zip file access</td>
+          <td>1.7</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>I18N I/O improvements</td>
+          <td>1.7</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>Memory use and<br>
+          GC improvements<br>
+          (better performance)</td>
+          <td>1.7</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>Jetty Version 9</td>
+          <td>1.7</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>JUnit 4 and the<br>
+          <code>assert</code> keyword</td>
+          <td>1.7</td>
+          <td>1.7</td>
+        </tr>
+      </table>
+      (* Indique qu'une librairie compatible est utilisée pour la première version)
+      <h2>Disponibilité JRE</h2>
+
+      <p>Cette section énumère les version disponible les plus récentes de Java Runtime pour
+      différentes versions du système d'exploitation. S'il vous plaît noter que tous les
+      utilisateurs de ce système d'exploitation n'auront pas fait les mise à jour vers cette
+      version de Java; beaucoup utilisent une version plus ancienne.</p>
+
+      <table border="1" summary="">
+        <tr>
+          <th>OS et plateforme</th>
+          <th>Dernier JRE</th>
+        </tr>
+
+        <tr>
+          <td>Linux</td>
+          <td>(1.6?)</td>
+        </tr>
+
+        <tr>
+          <td>Win 8 (32-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win 7 (32-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Vista (32-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Server 2008 (32-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Web Server 2008 (32-bit)</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Win 2000 (32-bit)</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Win Server 2003 (32-bit)</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Win 8 (64-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Server 2012 (64-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Server 2012 R2 (64-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win 7 (64-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Server 2008 R2 (64-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win Server 2008 (64-bit)</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>Win Web Server 2008 R2 (64-bit)</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Win Vista (64-bit)</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Win 2003 (64-bit)</td>
+          <td>1.6</td>
+        </tr>
+
+        <tr>
+          <td>Windows XP</td>
+          <td>1.8<br>
+          <a href="https://www.java.com/en/download/faq/winxp.xml">Unofficial<br>
+          Support</a></td>
+        </tr>
+
+        <tr>
+          <td>Windows 98 (2nd Ed)</td>
+          <td>1.5-11</td>
+        </tr>
+
+        <tr>
+          <td>Windows 98</td>
+          <td>1.4.2_14</td>
+        </tr>
+
+        <tr>
+          <td>Windows 95</td>
+          <td>1.3.1_20</td>
+        </tr>
+
+        <tr>
+          <td>Mac OS X 10.8.3 and later on Intel</td>
+          <td>1.8</td>
+        </tr>
+
+        <tr>
+          <td>Mac OS X 10.7.3 and later on Intel</td>
+          <td>1.7</td>
+        </tr>
+
+        <tr>
+          <td>Mac OS X 10.5.8 and later on Intel</td>
+          <td>1.6 (Apple JVM)</td>
+        </tr>
+
+        <tr>
+          <td>Mac OS X 10.5.7 and earlier on Intel</td>
+          <td>1.5 (Apple JVM)</td>
+        </tr>
+
+        <tr>
+          <td>Mac OS X 10.3 and later on PowerPC</td>
+          <td>1.5 (Apple JVM)</td>
+        </tr>
+
+        <tr>
+          <td>MacOS "Classic"</td>
+          <td>1.1.8</td>
+        </tr>
+
+        <tr>
+          <td>OS/2</td>
+          <td>1.3</td>
+        </tr>
+      </table>
+
+      <p>Voir la page de téléchargement <a href="http://java.com/en/download/manual.jsp">Java.com
+      pour tous les systèmes d'exploitation</a> et<br>
+      information sur les <a href="https://www.java.com/en/download/help/sysreq.xml">Versions Java
+      les Configurations matérielles</a>.</p>
+
+      <p>Les combinaison suivantes des versions JMRI- Java- Systèmes d'Exploitation étaientt basées
+      sur des Développeurs sources Oracles et Systèmes d'Exploitation. C'est traduit des
+      instruction d'installation des Systèmes d'Exploitation (suivre les hyperliens dans les
+      en-têtes OS)</p>
+
+      <table border="1" summary="">
+        <tbody>
+          <tr>
+            <th>JMRI</th>
+            <th>Java</th>
+            <th><a href="https://jmri.org/install/MacOSX.shtml#sysreq">macOS</a>
+            </th>
+            <th><a href="https://jmri.org/install/WindowsNew.shtml#sysreq">Windows</a>
+            </th>
+            <th><a href="https://jmri.org/install/Linux.shtml#sysreq">Linux</a>
+            </th>
+            <th><a href="https://jmri.org/install/Ubuntu.shtml#sysreq">Ubuntu</a>
+            </th>
+            <th><a href="https://jmri.org/install/Raspbian.shtml#sysreq">Raspbian</a>
+            </th>
+          </tr>
+
+          <tr>
+            <td>4.2</td>
+            <td>1.8</td>
+            <td>10.8.3+ Mountain Lion</td>
+            <td>Win7 SP1/8/10, Vista SP2, (XP)</td>
+            <td>5.5+</td>
+            <td>12.04+</td>
+            <td>14.04LTS</td>
+          </tr>
+
+          <tr>
+            <td>3.10.1</td>
+            <td>1.7</td>
+            <td>10.7.3 Lion</td>
+            <td>Win7 SP1/8/10, Vista SP2, (XP)</td>
+            <td>5.5+</td>
+            <td>12.04</td>
+            <td>12.04</td>
+          </tr>
+
+          <tr>
+            <td>3.10.1</td>
+            <td>1.6</td>
+            <td>10.6 Snow Leopard (JVM6)</td>
+            <td>Win2003, Win2000 (x86)</td>
+            <td>5.5</td>
+            <td>10.4</td>
+            <td>N/A</td>
+          </tr>
+
+          <tr>
+            <td>2.14.1</td>
+            <td>1.5</td>
+            <td>10.5.7 Leopard (JVM5)</td>
+            <td>Vista SP1, Win2000 SP3, Win8.x (x64)</td>
+            <td>
+            </td>
+            <td>9.04</td>
+            <td>N/A</td>
+          </tr>
+
+          <tr>
+            <td>2.8</td>
+            <td>1.5</td>
+            <td>10.4 Tiger</td>
+            <td>Win98 (2nd Ed), XP, ME</td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>N/A</td>
+          </tr>
+
+          <tr>
+            <td>2.2</td>
+            <td>1.5</td>
+            <td>10.3 Panther</td>
+            <td>Win98, ME</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+
+          <tr>
+            <td>
+            </td>
+            <td>1.3.1</td>
+            <td>10.3 Panther</td>
+            <td>Win95, Win98</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+
+          <tr>
+            <td>1.6</td>
+            <td>1.1.8</td>
+            <td>MacOS9.1 (MRJ)</td>
+            <td>Win95, Win98</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2><a id="JDK8" name="JDK8">Évolution vers Java 1.8 depuis 1.6</a>
+      </h2>
+      Cette section aborde, à peu près en ordre décroissant d'importance, le processus de migration
+      de Java 1.6 vers Java 1.8.
+      <h3>Génériques, Swing et JComboBox</h3>
+      Java 1.8 introduit des génériques pour les objets Swing. Le plus commun est JComboBox.Cette
+      ligne de Java 1.6:
+
+      <pre><code>
+    JComboBox box = new JComboBox();
+</code></pre>décrit la création d'un JComboBox qui sélectionne les éléments ( Objets ) génériques.
+Dans Java 1.8, la JComboBox détient et sélectionne les objets d'un type spécifique, habituellement
+String. C'est écrit:
+
+      <pre><code>
+    JComboBox&lt;String&gt; box = new JComboBox&lt;&gt;();
+</code></pre>parce que la JComboBox peut contenir actuellement des objets d'autres types. ( Comment
+cela peut se produire? Si la case est modifiable, et que quelqu'un entre un autre type ) Pour
+éviter le cas, un idiome plus robuste est:
+
+      <pre><code>
+    String result = box.getItemAt(progBox.getSelectedIndex());
+</code></pre>
+      <h3>JavaDoc et doclint</h3>
+      Java 1.8 exécute par défaut le <a href=
+      "https://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html#CHDFDACB">doclint</a>
+      doclet qui fait JavaDoc. Par défaut , il est <a href=
+      "http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html">très agressif</a>
+      sur les erreurs possibles. Les constructions basées sur Ant désactivent certains des termes
+      de contrôle avec:
+
+      <pre><code>
+-Xdoclint:all,-missing,-accessibility,-html,-syntax
+</code></pre>pour laisser tomber les tests pour les balises JavaDoc manquantes et certaines erreurs
+HTML bénignes. ( Pour l'instant ).
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; le 2017-01-09-->
+<head>
+  <title>Throttles List</title>
+  <meta name="keywords" content="JMRI decoderpro dcc nmra throttle throttlepro" />
+	<meta name="description" content="Throttle documentation for JMRI project" />
+	<meta name="author" content="Lionel Jeanson" />
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+      <!-- Page Body -->
+
+      <h1>Liste des R&#233;gulateurs</h1>
+
+<p><img src="images/ThrottleListWindow.png" alt="" /></p>
+
+Cette liste est accessible depuis la <a href="ThrottleToolBar.shtml">barre d'outil du panneau  R&#233;gulateur. </a> <br />
+ La Liste R&#233;gulateurs affiche tous les r&#233;gulateurs actuellement ouvert dans JMRI, si une ic&#244;ne <a href="RostersMediaPane.shtml"> 
+est disponible pour les listes dans la base de donn&#233;e </a>, elle sera automatiquement utilis&#233;e. <br />
+<br />
+Cliquer sur une ligne am&#232;nera jusqu'au r&#233;gulateur correspondant. <br />
+
+<h2>Nouveau bouton </h2>
+Ce bouton ouvre une nouvelle fen&#234;tre r&#233;gulateur. (donc diff&#233;rent du bouton Nouveau dans la fen&#234;tre <a 
+href="ThrottleToolBar.shtml">  barre d'outils R&#233;gulateur </a>) <br />
+
+<h2>Bouton d'alimentation</h2>
+Le M&#234;me que dans <a href="ThrottleToolBar.shtml"> la Fen&#234;tre barre d'outils R&#233;gulateur </a>. <br />
+
+<h2>Bouton d'arr&#234;t</h2>
+Le M&#234;me que dans<a href="ThrottleToolBar.shtml"> la Fen&#234;tre barre d'outils R&#233;gulateur </a>. <br />
+
+<!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+      </div><!-- closes #mainContent-->
+    </div> <!-- closes #mBody-->
+  </body>
+</html>

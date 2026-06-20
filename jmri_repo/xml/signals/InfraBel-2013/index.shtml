@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright ($Author: Suzie _Tall $) 2013 -->
+
+  <title>JMRI: InfraBel Wikipedia signals for Belgium</title>
+  <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Belgium InfraBel signal definition</h1>
+      This signalling system contains signaling definitions worked out following five minures of
+      study of the Belgian signals page on Wikipedia.
+      <p><a href="http://en.wikipedia.org/wiki/Belgian_railway_signalling">Belgian signalling
+      wiki</a>.</p>
+
+      <p>See the <a href="aspects.xml">aspect page</a>.</p>
+
+      <p>Signal Mast definitions:</p>
+
+      <ul>
+        <li>
+          <a href="appearance-Block.xml">Main block signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Distant.xml">Distant signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Home3.xml">Triple lamp stop signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Home2.xml">Double lamp stop signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-BlockR.xml">Reverse main block signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-DistantR.xml">Reverse distant signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Home3R.xml">Reverse triple lamp stop signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Home2R.xml">Reverse double lamp stop signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Simple.xml">Double lamp simple stop signal</a>
+        </li>
+
+        <li>
+          <a href="appearance-Dwarf.xml">Dwarf signal</a>
+        </li>
+      </ul>
+
+      <!--#include virtual="/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Translated by Blorec Herv&#233; le 2017-01-29-->
+<head>
+  <title>JMRI Hardware Support - Fleischmann Twin Centre via Serial Port</title>
+  <meta name="author" content="Michael Beck">
+  <meta name="author" content="John Plocher">
+  <meta name="keywords" content="Uhlenbrock Intellibox java model railroad JMRI install">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+    <div id="mainContent">
+
+    <h1> Support Mat&#233;riel: Fleischmann Twin Centre</h1>
+
+    <p>JMRI peut communiquer avec Fleischmann Twin Centre de plusieurs fa&#231;ons. Pour avoir plus de d&#233;tails, voir la page
+    <a href="Uhlenbrock.shtml"> sur la configuration des &#233;quipements compatibles avec Uhlenbrock</a>.</p>
+
+    <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

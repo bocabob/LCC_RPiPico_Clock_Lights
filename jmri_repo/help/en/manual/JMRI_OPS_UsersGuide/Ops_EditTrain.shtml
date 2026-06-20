@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>JMRI Operations - Edit Train</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- OperationsPro Styles -->
+
+  <style>
+    .ops-center {text-align: center;}
+    .ops-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1 id="Top">Using JMRI&reg; to Operate Trains</h1>
+
+      <h2>OperationsPro: Edit Train</h2>
+
+      <div class="ops-right">
+        <p><a href="Ops_Trains.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <p>The Edit Train window is opened from the Trains Window using the
+      <span class="textbutton">Edit</span> button for any train in the list.</p>
+
+      <p><img src="images/Ops_EditTrain.png" alt="edit" height="869" width="675">
+      </p>
+
+      <h3>Menu bar</h3>
+
+      <p><img src="images/Ops_EditTrainMenu.png" height="140" width="255" alt="">
+      </p>
+
+      <h4>Tools</h4>
+
+      <table>
+        <tbody>
+          <tr>
+            <td rowspan="10" style="width: 25%"><img style="width: 245px; height: 366px;" alt=
+            "Edit train" src="images/Ops_EditTrainTools.png"><br>
+            </td>
+            <td><strong><a href="Ops_AddTrainBuildOptions.shtml">Train Build Options</a></strong>
+            <strong>--<br></strong></td>
+          </tr>
+
+          <tr>
+            <td>
+              <a id="manifest"><span style="font-weight: bold;">Manifest Options
+              --<br></span></a><span style="font-weight: bold;"><img style=
+              "width: 407px; height: 300px;" alt="option" src=
+              "images/Ops_AddTrainOption.png"><br></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Copy Train --<br>
+            <img style="width: 400px; height: 150px;" alt="copy train" src=
+            "images/Ops_EditTrainCopyTrain.png"></strong>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Scripts</strong>-- Opens the Scripts window allow scripts to be added to
+            the build</td>
+          </tr>
+
+          <tr>
+            <td><strong>Show Car Types Serviced</strong><br>
+            <img src="images/Ops_CarsServiced.01.png" height="273" width="405" alt=""><br>
+            <span style="font-weight: bold;">Train Conductor</span><br>
+            <img style="width: 600px; height: 500px;" alt="conductor" src=
+            "images/Ops_train_conductor.png"><br>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Print<br>
+            <img style="width: 607px; height: 282px;" alt="print" src=
+            "images/Ops_TrainPrint.png"></strong>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Preview</strong><br>
+            <img style="width: 674px; height: 369px;" alt="preview" src=
+            "images/Ops_TrainPreview.png">
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong><a href="Ops_ManifestPrint.shtml">Print Manifest</a></strong>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong><a href="Ops_ManifestPreview.shtml">Preview Manifest</a></strong>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong><a href="Ops_BuildReportPrint.shtml">Print Build Report</a><br></strong>
+            <strong><a href="Ops_BuildReportPreveiw.shtml">Preview Build Report</a></strong></td>
+          </tr>
+
+          <tr>
+            <td><strong><a href="Ops_BuildReportPreveiw.shtml"><br></a></strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <span class="textbutton">Reset Train</span> allows you to remove
+      Locomotives and Cars that have been assigned to a Train. Useful when you want to try various
+      build options and don't want to physically move Locomotive and Cars on the railroad.
+      <p>Press <span class="textbutton">Save Train</span> to save your
+      train. The program will create a file (OperationsTrainRoster.xml) in your JMRI directory in a
+      folder called "operations". A backup file with the last settings for all of your Trains is
+      also created each time the <span class="textbutton">Save Train</span> button is pressed.</p>
+
+      <p>Note that the edited Train is now shown in the <a href="Ops_Trains.shtml">Trains</a>
+      window.</p>
+
+      <hr>
+
+      <div class="ops-right">
+        <p><a href="Ops_Trains.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Operations">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+  </div>
+</body>
+</html>

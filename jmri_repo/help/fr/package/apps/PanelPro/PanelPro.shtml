@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Blorec Herv&#233; 2013-10-09-->
+<head>
+  <title>JMRI: PanelPro Main Window</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help preferences">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Fen&ecirc;tre Principale Window</h1>La
+      fen&ecirc;tre principale PanelPro vous donne acc&egrave;s
+      &agrave; toutes les capacit&eacute;s de JMRI
+
+      <p>Aide sur des menus sp&eacute;cifiques:</p>
+
+      <ul>
+        <li>Edit - (<a href=
+        "../TabbedPreferences.shtml">Pr&eacute;f&eacute;rences</a>)</li>
+
+        <li><a href=
+        "../../jmri/jmrit/ToolsMenu.shtml">Outils</a></li>
+
+        <li><a href=
+        "../../../html/apps/DecoderPro/Roster.shtml#menu">Liste</a></li>
+
+        <li><a href=
+        "../../jmri/jmrit/display/PanelMenuHelp.shtml">Panneaux</a></li>
+
+        <li>((Menus sp&eacute;cifiques &agrave; votre connexion de
+        mise en page appara&icirc;t ici)</li>
+
+        <li><a href=
+        "../../../package/jmri/jmrit/DebugMenu.shtml">Debogage</a></li>
+
+        <li>Fen&ecirc;tre - Affiche les fen&ecirc;tres actuellement
+        disponibles
+
+          <ul>
+            <li>R&eacute;duire - r&eacute;duit la fen&ecirc;tre
+            actuelle, elle la cache.</li>
+          </ul>
+        </li>
+
+        <li>Aide
+
+          <ul>
+            <li>Fen&ecirc;tre Aide - Ouvre une page d'aide
+            sp&eacute;cifique pour la fen&ecirc;tre courante. Pour
+            la fen&ecirc;tre principale, c'est cette page.</li>
+
+            <li>Aide G&eacute;n&eacute;rale - Ouvre la page d'aide
+            principale JMRI</li>
+
+            <li>Licence - Affiche la licence JMRI.</li>
+
+            <li>Emplacements - Montrer o&ugrave; les
+            r&eacute;pertoires et les pr&eacute;f&eacute;rences du
+            programme JMRI sont situ&eacute;s</li>
+
+            <li>Contexte - Affiche des informations sur votre
+            configuration de JMRI qui pourraient &ecirc;tre utiles
+            quand quelqu'un essaie de vous aider &agrave;
+            r&eacute;soudre un probl&egrave;me.</li>
+
+            <li>T&eacute;l&eacute;chargement Infos de
+            D&eacute;bogage - Ouvre une fen&ecirc;tre pour le
+            t&eacute;l&eacute;chargement d'info d&eacute;bogage
+            .</li>
+          </ul>
+        </li>
+      </ul>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

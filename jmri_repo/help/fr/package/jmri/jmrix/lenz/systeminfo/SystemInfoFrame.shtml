@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Updated by Blorec Herv&#233; bzh56420@yahoo.fr 2013-11-14-->
+  <title>JMRI: System Info Tool</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h2>JMRI: System Info Tool</h2>
+
+      <p>Ceci est la page d'aide
+      jmri.jmrix.lenxz.systeminfo.SystemInfoFrame</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

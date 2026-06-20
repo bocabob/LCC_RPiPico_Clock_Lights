@@ -1,0 +1,111 @@
+package jmri.jmrix.dccpp;
+
+import static jmri.jmrix.dccpp.DCCppConstants.MAX_TURNOUT_ADDRESS;
+import javax.annotation.Nonnull;
+import java.util.Locale;
+import jmri.Light;
+import jmri.managers.AbstractLightManager;
+
+/**
+ * Implement LightManager for DCC-EX systems.
+ * <p>
+ * System names are "DxppSnnn", where Dx is the system prefix and nnn is the sensor number without padding.
+ * <p>
+ * Based in part on SerialLightManager.java
+ *
+ * @author Paul Bender Copyright (C) 2008
+ * @author Mark Underwood Copyright (C) 2015
+ */
+public class DCCppLightManager extends AbstractLightManager {
+
+    private DCCppTrafficController tc = null;
+
+    /**
+     * Create an new DCC-EX LightManager.
+     * Has to register for DCC-EX events.
+     *
+     * @param memo the supporting system connection memo
+     */
+    public DCCppLightManager(DCCppSystemConnectionMemo memo) {
+        super(memo);
+        this.tc = memo.getDCCppTrafficController();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Nonnull
+    public DCCppSystemConnectionMemo getMemo() {
+        return (DCCppSystemConnectionMemo) memo;
+    }
+
+    /**
+     * Create a new Light based on the system name.
+     * Assumes calling method has checked that a Light with this
+     * system name does not already exist.
+     *
+     * @return null if the system name is not in a valid format
+     */
+    @Override
+    @Nonnull
+    protected Light createNewLight(String systemName, String userName) throws IllegalArgumentException {
+        // check if the output bit is available
+        int bitNum = getBitFromSystemName(systemName);
+        if (bitNum == 0) {
+            throw new IllegalArgumentException("Invalid Bit from System Name: " + systemName);
+        }
+        // Normalize the systemName
+        String sName = getSystemNamePrefix() + bitNum;   // removes any leading zeros
+        // make the new Light object
+        return new DCCppLight(tc, this, sName, userName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public NameValidity validSystemNameFormat(@Nonnull String systemName) {
+        return (getBitFromSystemName(systemName) != 0) ? NameValidity.VALID : NameValidity.INVALID;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Nonnull
+    public String validateSystemNameFormat(@Nonnull String systemName, @Nonnull Locale locale) {
+        return validateIntegerSystemNameFormat(systemName, 1, MAX_TURNOUT_ADDRESS, locale);
+    }
+
+    /**
+     * Get the bit address from the system name.
+     * @param systemName a valid Light System Name
+     * @return the light number extracted from the system name
+     */
+    public int getBitFromSystemName(String systemName) {
+        try {
+            validateSystemNameFormat(systemName, Locale.getDefault());
+        } catch (IllegalArgumentException ex) {
+            return 0;
+        }
+        return Integer.parseInt(systemName.substring(getSystemNamePrefix().length()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean allowMultipleAdditions(@Nonnull String systemName) {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getEntryToolTip() {
+        return Bundle.getMessage("AddOutputEntryToolTip");
+    }
+
+}

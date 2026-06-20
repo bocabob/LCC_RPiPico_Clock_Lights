@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <!-- Copyright ($Author: bobm $) 2019 -->
+
+  <title>JMRI: Danish Simplified signal definition</title>
+  <!--#include virtual="/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/Header.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Danish Simplified signal definition</h1>
+
+      <p>B and I signals from Togdillen or Banestyrelsen - not exactly prototypical.<br></p>
+
+      <p>See the <a href="aspects.xml">aspect page</a>.</p>
+
+      <p>Signal Mast definitions:</p>
+
+      <ul>
+        <li>
+          <a href="appearance-B.xml">B</a>
+        </li>
+
+        <li>
+          <a href="appearance-B2.xml">B2</a>
+        </li>
+
+        <li>
+          <a href="appearance-I.xml">I</a>
+        </li>
+
+        <li>
+          <a href="appearance-buffer-stop.xml">Buffer stop</a>
+        </li>
+
+        <li>
+          <a href="appearance-feather.xml">Feather</a>
+        </li>
+      </ul>
+
+      <!--#include virtual="/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/main.js"></script>
+</body>
+</html>

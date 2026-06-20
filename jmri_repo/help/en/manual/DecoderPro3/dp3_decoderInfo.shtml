@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <title>DecoderPro&reg; Main Window</title><!--#include virtual="/help/en/parts/Style.shtml" -->
+  <!-- DecoderPro Styles -->
+
+  <style>
+    .dp-center {text-align: center;}
+    .dp-right {text-align: right;}
+  </style>
+</head>
+<body>
+  <!--#include virtual="/help/en/parts/Header.shtml" -->
+
+  <div id="mBody">
+    <!--#include virtual="Sidebar.shtml" -->
+
+    <div id="mainContent">
+      <h1>DecoderPro&reg; Main Window</h1>
+
+      <h2>Decoder Information Area</h2>
+
+      <div class="dp-right">
+        <p><a href="dp3_Main_Main.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <table>
+        <tr>
+          <td style="width: 40%"><img src="images/decoder_info.png" width="362" height="244" alt=
+          "decoder info">
+          </td>
+          <td>Displays the information about the current decoder selected.</td>
+        </tr>
+
+        <tr>
+          <td><img src="images/decoder_program_mode.png" width="259" height="132" alt=
+          "decoder program mode">
+          </td>
+          <td>
+            <p>You may select the progamming mode:<br>
+            <strong><a href="Programmer_ServiceMode.shtml"><input name="radio" type="radio" id=
+            "radio" value="radio" checked> Programming Track</a></strong><br>
+            <strong><a href="Programmer_OpsMode.shtml"><input type="radio" name="radio2" id=
+            "radio2" value="radio2"> Programming on Main</a></strong><br>
+            <strong><input type="radio" name="radio3" id="radio3" value="radio3"> Edit
+            Only</strong> allows you to edit the roster without programming the locomotive.</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td><img src="images/btn_basic_programmer.png" width="202" height="29" alt="button">
+          </td>
+          <td>
+            Opens the <strong><a href="Basic_Start.shtml">Default Programme</a></strong><a href=
+            "Basic_Start.shtml">r</a> for the selected decoder in the Roster List
+          </td>
+        </tr>
+
+        <tr>
+          <td><img src="images/btn_throttle_labels.png" width="201" height="30" alt="labels">
+          </td>
+          <td>
+            <p>Opens the Labels & Media Window for the selected roster member.</p>
+
+            <p><strong><a href="Adv_FunctionLabel.shtml">Functions labels</a></strong> TAB opens
+            the Function labels pane which allows you to label throttle function buttons</p>
+            <strong><a href="RosterMedia.shtml">Roster Media</a></strong> TAB opens the Roster
+            Media pane which allows you to assign an image to the roster entry
+          </td>
+        </tr>
+
+        <tr>
+          <td><img src="images/btn_lanch_throttle.png" width="198" height="30" alt="throttle">
+          </td>
+          <td>Opens a <strong><a href="dp3_Main_Throttle.shtml">throttle</a></strong> tool for the
+          selected loco in the Roster List.</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <div class="dp-right">
+        <p><a href="dp3_Main_Main.shtml">Back</a>
+        </p>
+
+        <p><a href="index.shtml#Main">Back to Index</a>
+        </p>
+      </div>
+      <!--#include virtual="/help/en/parts/Footer.shtml" -->
+    </div>
+    <!-- closes #mainContent-->
+  </div>
+  <!-- closes #mBody-->
+  <script src="/js/help.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Translated  by Blorec Herv&#233; le 2011-11-3-->
+  <title>JMRI: Menu D&eacute;bogage</title>
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>JMRI: Menu D&eacute;bogage</h1>
+      <p>Le menu JMRI "D&eacute;boger" contient les &eacute;l&eacute;ments suivants:</p>
+
+      <ul>
+        <li>Moniteur Utilisation M&eacute;moire</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>Importer Fichier D&eacute;codeur</li>
+
+        <li>Importer URL D&eacute;codeur</li>
+
+        <li>Recr&eacute;ez Index des D&eacute;codeurs</li>
+
+        <li>Recr&eacute;ez Indice Liste</li>
+
+        <li>Mise &agrave; jour d&eacute;finitions des
+        d&eacute;codeurs</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>V&eacute;rifiez fichier XML</li>
+
+        <li>Valider un fichier XML</li>
+
+        <li>V&eacute;rifiez les Noms D&eacute;codeur</li>
+
+        <li>V&eacute;rifier les Noms Programmateur</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>Charger Logixs D&eacute;sactiv&eacute;s</li>
+
+        <li>Message Connexion</li>
+
+        <li>Afficher un Message de Connexion</li>
+
+        <li>Afficher les Cat&eacute;gories de Connexions</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>D&eacute;codeur Son Virtuel</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>PRICOM</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>Contr&ocirc;ler Entr&eacute;e USB</li>
+
+        <li>Visionneur Mat&eacute;riel USB</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li>R&eacute;gulateur RailDriver</li>
+      </ul>
+      <hr>
+
+      <ul>
+        <li><a href="../../../html/web/index.shtml">D&eacute;marrer
+        Mini Serveur Web</a></li>
+      </ul>
+
+      <p>Ceci est la page d'aide
+      help/en/package/jmri/jmrit.DebugMenu.</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>

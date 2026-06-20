@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Copyright Bob Jacobsen 2008 -->
+<head>
+  <title>JMRI: Outil Configuration Tie</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help OpenLCB Tie">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>OpenLCB Outil Configuration Tie</h1>
+
+      <img src="FrameExample.gif" alt="Tie Config Frame Tool image">
+      <p>Pas de description</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <!-- close #mBody -->
+  <script src="/js/help.js"></script>
+</body>
+</html>

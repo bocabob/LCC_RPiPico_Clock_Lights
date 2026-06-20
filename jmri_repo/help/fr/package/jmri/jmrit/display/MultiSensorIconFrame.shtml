@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Updated by Herv&eacute; Blorec <bzh56420@yahoo.fr> 2013-11-01-->
+<head>
+  <title>JMRI: MultiSensorIcon Help</title>
+  <meta name="author" content="Bob Jacobsen">
+  <meta name="keywords" content="JMRI help MultiSensorIcon">
+  <!--#include virtual="/help/fr/parts/Style.shtml" -->
+</head>
+
+<body>
+  <!--#include virtual="/help/fr/parts/Header_fr.shtml" -->
+  <div id="mBody">
+    <div id="mainContent" class="no-sidebar">
+
+      <h1>The MultiSensorIcon</h1>
+
+      <p>This is the help/jmri/jmrit/display/MultiSensorIconFrame help page</p>
+
+      <!--#include virtual="/help/fr/parts/Footer_fr.shtml" -->
+    </div>
+  </div>
+  <script src="/js/help.js"></script>
+</body>
+</html>
