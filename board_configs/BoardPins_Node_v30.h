@@ -10,7 +10,7 @@
  * LCC_NODE_STANDARD.md §3 / §6.1 in LCC_RPiPico_Common.
  *
  * Connector layout — 10-pin IDC (IO1, IO2):
- *   Pins 1-4  signal | Pin 5 VCC | Pin 6 GND | Pins 7-10 signal
+ *   Pins 1-4  signal | Pin 5 GND | Pin 6 Vselect (jumper-selectable 3.3V/5V) | Pins 7-10 signal
  *
  * IO3 is a 5-pin analog header:
  *   Pin 1-2 signal | Pin 3 AGND | Pin 4 VREF | Pin 5 signal
@@ -34,8 +34,8 @@
 #define IO1_PIN2    9
 #define IO1_PIN3   10
 #define IO1_PIN4   11
-#define IO1_PIN5   PWR_VCC
-#define IO1_PIN6   PWR_GND
+#define IO1_PIN5   PWR_GND
+#define IO1_PIN6   PWR_VCC   // Vselect — jumper-selectable 3.3V/5V, not fixed VCC
 #define IO1_PIN7   12
 #define IO1_PIN8   13
 #define IO1_PIN9   14
@@ -49,8 +49,8 @@
 #define IO2_PIN2   17
 #define IO2_PIN3   18
 #define IO2_PIN4   19
-#define IO2_PIN5   PWR_VCC
-#define IO2_PIN6   PWR_GND
+#define IO2_PIN5   PWR_GND
+#define IO2_PIN6   PWR_VCC   // Vselect — jumper-selectable 3.3V/5V, not fixed VCC
 #define IO2_PIN7   20
 #define IO2_PIN8   21
 #define IO2_PIN9   22
