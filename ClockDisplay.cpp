@@ -13,11 +13,13 @@
  *  Button panel (both styles)
  *    [0] BTN A     — configurable LCC producer event
  *    [1] BTN B     — configurable LCC producer event
- *    [2] RUN/PAUSE — green when running, red when stopped
+ *    [2] RUN/PAUSE — green when running, red when stopped; sends a Start/Stop
+ *                    *command* to the fast clock generator (master) — this
+ *                    node only consumes the clock, it does not own it
  *    [3] STYLE     — cycle clock face  (always bottom-right)
  *
- *  Touch support is stubbed out (processTouchDisplay is a no-op).
- *  Wired up in Phase 3 once the XPT2046 breakout is available.
+ *  Touch is wired up via the XPT2046 breakout (processTouchDisplay(), called
+ *  from loop()) when TOUCH_CS is defined for the active board/breakout.
  */
 
 #include "ClockDisplay.h"
@@ -26,6 +28,10 @@
 #include <math.h>
 #include <SPI.h>
 #include <EEPROM.h>   // RP2040 internal flash EEPROM — separate from external I2C EEPROM
+
+#include "openlcb_user_config.h"
+#include "src/openlcb/openlcb_defines.h"
+#include "src/openlcb/openlcb_application_broadcast_time.h"
 
 static const int STYLE_EEPROM_ADDR  = 0;  // address within RP2040 EEPROM emulation
 static const int HOUR12_EEPROM_ADDR = 1;  // 0 = 24h, 1 = 12h
@@ -146,7 +152,7 @@ static void _drawOneButton(uint8_t idx) {
 
     // Label centred in button
     const char* label = _btnLabel[idx];
-    if (idx == 2) label = _running ? "PAUSE" : "RESUME";  // dynamic Run/Pause label
+    if (idx == 2) label = _running ? "PAUSE" : "RUN";  // dynamic Run/Pause label
 
     tft.setTextColor(C_BTN_TXT, bg);
     tft.setTextDatum(MC_DATUM);
@@ -763,15 +769,44 @@ void drawFastClock(int hour, int minute) {
 }
 
 // ---------------------------------------------------------------------------
+//  _setRunning — shared by updateClockStatus() and updateClockRunningState().
+//  Redraws the Run/Pause button only when the running state actually changes.
+// ---------------------------------------------------------------------------
+static void _setRunning(bool running) {
+    if (running != _running) {
+        _running = running;
+        _drawOneButton(2);  // RUN/PAUSE is button index 2
+    }
+}
+
+// ---------------------------------------------------------------------------
 //  updateClockStatus — call with clock->state.rate.rate on every time event.
-//  Redraws the Run/Pause button only when the running state changes.
+//
+//  NOTE: rate and running are separate, orthogonal pieces of OpenLCB
+//  Broadcast Time state — a clock can have a nonzero configured rate while
+//  stopped. This rate>0 heuristic is a reasonable proxy only because this
+//  callback (on_time_changed) is itself gated by is_running in the library —
+//  it simply never fires while the clock is stopped, so this path can never
+//  see rate>0 while actually paused. updateClockRunningState() below is the
+//  authoritative path; this one is kept for the brief running→running case.
 // ---------------------------------------------------------------------------
 void updateClockStatus(float rate) {
-    const bool nowRunning = (rate > 0.0f);
-    if (nowRunning != _running) {
-        _running = nowRunning;
-        _drawOneButton(2);  // RUN/PAUSE is now button index 2
-    }
+    _setRunning(rate > 0.0f);
+}
+
+// ---------------------------------------------------------------------------
+//  updateClockRunningState — call every loop() iteration with the fast
+//  clock's actual is_running flag (see LCC_RPiPico_Clock_Lights.ino).
+//
+//  This is the authoritative path for the Run/Pause button. on_time_changed
+//  (and therefore updateClockStatus above) only fires while the clock is
+//  actively ticking — once the master stops the clock, no more time events
+//  arrive and updateClockStatus is never called again, leaving the button
+//  stuck showing "running" forever. Polling is_running directly here is
+//  what actually catches the stop (and the resulting resume).
+// ---------------------------------------------------------------------------
+void updateClockRunningState(bool running) {
+    _setRunning(running);
 }
 
 // ---------------------------------------------------------------------------
@@ -805,6 +840,27 @@ void setClockStyle(ClockStyle s) {
 ClockStyle getClockStyle() { return _style; }
 
 bool is12HourMode() { return _hour12; }
+
+// ---------------------------------------------------------------------------
+//  _requestRunPauseToggle — touch handler for the RUN/PAUSE button.
+//
+//  This node is only a *consumer* of the fast clock, not the generator
+//  (master), so pressing this button does not change anything locally —
+//  it sends a Start or Stop *command* event over LCC asking the clock
+//  generator to change its state. The button's label/colour will only
+//  flip once the generator complies and broadcasts the resulting Start or
+//  Stop event back out, which updateClockStatus() picks up from the next
+//  time event's rate.
+// ---------------------------------------------------------------------------
+static void _requestRunPauseToggle() {
+    if (_running) {
+        Serial.println(F("RUN/PAUSE: requesting clock STOP"));
+        OpenLcbApplicationBroadcastTime_send_command_stop(OpenLcbUserConfig_node_id, BROADCAST_TIME_ID_DEFAULT_FAST_CLOCK);
+    } else {
+        Serial.println(F("RUN/PAUSE: requesting clock START"));
+        OpenLcbApplicationBroadcastTime_send_command_start(OpenLcbUserConfig_node_id, BROADCAST_TIME_ID_DEFAULT_FAST_CLOCK);
+    }
+}
 
 void toggle12HourMode() {
     _hour12 = !_hour12;
@@ -957,7 +1013,7 @@ void processTouchDisplay() {
                     switch (i) {
                         case 0: Serial.println(F("Touch: BTN A"));     break;
                         case 1: Serial.println(F("Touch: BTN B"));     break;
-                        case 2: Serial.println(F("Touch: RUN/PAUSE")); break;
+                        case 2: Serial.println(F("Touch: RUN/PAUSE")); _requestRunPauseToggle(); break;
                         case 3: Serial.println(F("Touch: STYLE")); setClockStyle((ClockStyle)(((int)getClockStyle() + 1) % STYLE_COUNT)); break;
                     }
                     break;
@@ -980,6 +1036,7 @@ void processTouchDisplay() {}
 void       setupDisplay()                  {}
 void       drawFastClock(int, int)         {}
 void       updateClockStatus(float)        {}
+void       updateClockRunningState(bool)   {}
 void       setClockStyle(ClockStyle)       {}
 ClockStyle getClockStyle()                 { return STYLE_ANALOG; }
 void       toggle12HourMode()              {}

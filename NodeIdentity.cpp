@@ -3,6 +3,7 @@
  * See NodeIdentity.h and LCC_NODE_STANDARD.md §7.1 for the design.
  */
 
+#include "Arduino.h"
 #include <string.h>
 #include "NodeIdentity.h"
 #include "src/pico/rpi_pico_drivers.h"
@@ -60,7 +61,17 @@ bool NodeIdentity_write(uint64_t node_id) {
   block.crc = _checksum((uint8_t *)&block, sizeof(block) - sizeof(block.crc));
 
   uint16_t n = RPiPicoDrivers_nvm_raw_write(NODE_IDENTITY_ADDR, (uint8_t *)&block, sizeof(block));
-  return n == sizeof(block);
+  if (n != sizeof(block)) {
+    return false;
+  }
+
+  // EEPROM chips need a few ms after the write transaction to internally
+  // commit the page — without this, an immediate reboot (as the 'Y' serial
+  // command does) can read back stale/blank data on the very next boot.
+  delay(20);
+
+  // Verify by reading back rather than trusting the write call alone.
+  return NodeIdentity_read() == node_id;
 }
 
 void NodeIdentity_begin_provision(uint64_t node_id) {

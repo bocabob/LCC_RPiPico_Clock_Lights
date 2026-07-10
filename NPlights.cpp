@@ -100,10 +100,10 @@ bool pixelsOn = false;
 //  NeoPixelBus Show() blocks forever in while(!CanShow()){} if Begin() was
 //  not called (e.g. NeoPixel_Pin* = UNUSED_PIN on boards without NeoPixels).
 // ---------------------------------------------------------------------------
-static inline void _showA() { if (PixelPinA != UNUSED_PIN) _showA(); }
-static inline void _showB() { if (PixelPinB != UNUSED_PIN) _showB(); }
-static inline void _showC() { if (PixelPinC != UNUSED_PIN) _showC(); }
-static inline void _showD() { if (PixelPinD != UNUSED_PIN) _showD(); }
+static inline void _showA() { if (PixelPinA != UNUSED_PIN) stripA.Show(); }
+static inline void _showB() { if (PixelPinB != UNUSED_PIN) stripB.Show(); }
+static inline void _showC() { if (PixelPinC != UNUSED_PIN) stripC.Show(); }
+static inline void _showD() { if (PixelPinD != UNUSED_PIN) stripD.Show(); }
 
 /* NeoPixel parameters
 */

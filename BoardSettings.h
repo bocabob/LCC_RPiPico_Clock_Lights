@@ -39,6 +39,7 @@
   #include "board_configs/BoardPins_Node_v295.h"
 #elif defined(LCC_BOARD_NODE_V30)
   #include "board_configs/BoardPins_Node_v30.h"
+  #include "NodeConfig.h"   // v3.0 needs the functional pin layer — see NodeConfig.h
 #else
   #error "No board version defined. Set LCC_BOARD_NODE_V25/V26/V27/V28/V295/V30 in ProjectConfig.h"
 #endif
@@ -58,23 +59,6 @@
 
 // --------------------------------------------
 
-// -------------------------------------------
-// Select ONE of these for Configuration Memory Size
-// --------------------------------------------
-// #define CONFIG_MEM_SIZE      65536
-// 32768 minus 64 bytes reserved for the protected NVM region above config
-// memory (node identity block + headroom — see LCC_NODE_STANDARD.md §7.1)
-#define CONFIG_MEM_SIZE      32704
-// #define CONFIG_MEM_SIZE      16384
-//#define CONFIG_MEM_SIZE      8192
-//#define CONFIG_MEM_SIZE      4096
-//#define CONFIG_MEM_SIZE      2048
-//#define CONFIG_MEM_SIZE      1024
-//#define CONFIG_MEM_SIZE      512
-//#define CONFIG_MEM_SIZE      256
-//#define CONFIG_MEM_SIZE      128
-// --------------------------------------------
-
 // Define the size of the EEPROM chip or use 4096 if using emulated internal flash storage
 // #define I2C_DEVICESIZE      65536  // 24LC512
 #define I2C_DEVICESIZE      32768  // 24LC256
@@ -86,6 +70,22 @@
 // #define I2C_DEVICESIZE        512  // 24LC04
 // #define I2C_DEVICESIZE        256  // 24LC02
 // #define I2C_DEVICESIZE        128  // 24LC01
+
+// -------------------------------------------
+// Configuration Memory Size — derived from I2C_DEVICESIZE above
+// --------------------------------------------
+// subtract 64 bytes reserved for the protected NVM region above config
+// memory (node identity block + headroom — see LCC_NODE_STANDARD.md §7.1)
+// Parenthesized deliberately: unparenthesized "I2C_DEVICESIZE-64" expands
+// wrong wherever CONFIG_MEM_SIZE is used in a division, e.g.
+// "CONFIG_MEM_SIZE / sizeof(buffer)" becomes "I2C_DEVICESIZE-64 / sizeof(buffer)"
+// = I2C_DEVICESIZE - (64/sizeof(buffer)), not (I2C_DEVICESIZE-64) / sizeof(buffer).
+// Found 2026-06-28 (LCC_RPiPico_Turntable): this silently made
+// ConfigMemHelper_reset_config_mem()/_clear_config_mem() ('r'/'c' commands)
+// loop ~32767 times instead of 511, hammering the same clamped address with
+// rapid-fire writes and producing consistent I2C Wire timeouts (error code 5).
+#define CONFIG_MEM_SIZE      (I2C_DEVICESIZE-64)
+// --------------------------------------------
 
 /////////////////////////////////////////////////////////////////////////////////////
 //  Define a valid (and free) I2C address, 0x60 is the default.

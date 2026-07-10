@@ -4,6 +4,6 @@ default_profile: pico2_defaults
 
 profiles:
   pico2_defaults:
-    fqbn: rp2040:rp2040:rpipico2:flash=4194304_2097152,dbgport=Disabled,dbglvl=None,usbstack=picosdk,opt=Small,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,wificountry=Disabled,ipbtstack=ipv4only,uploadmethod=default,freertos=None,profiling=Disabled
+    fqbn: rp2040:rp2040:rpipico2:flash=4194304_2097152,dbgport=Disabled,dbglvl=None,usbstack=picosdk,opt=Small,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,ipbtstack=ipv4only,uploadmethod=default,profile=Disabled
     platforms:
       - platform: rp2040:rp2040

@@ -342,9 +342,9 @@ const node_parameters_t OpenLcbUserConfig_node_parameters = {
 
     .snip.mfg_version = 4,
     .snip.name = "Gamble",
-    .snip.model = "Lighting Controller",
-    .snip.hardware_version = "2.6A",
-    .snip.software_version = "2.2.0",
+    .snip.model = "Fastclock & Lights",
+    .snip.hardware_version = "3.0",
+    .snip.software_version = "2.3.0",
     .snip.user_version = 2,
 
     .protocol_support = (PSI_DATAGRAM |

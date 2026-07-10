@@ -69,7 +69,7 @@ public:
     // If the image appears shifted or shows sync artifacts, adjust the five
     // horizontal/vertical timing parameters to match your panel's datasheet.
     bool init() {
-        if (!RA8876_RP2040::begin(20000000))  // 20 MHz — safe for breadboard; try 40 MHz if stable
+        if (!RA8876_RP2040::begin(20000000))  // 20 MHz — confirmed working at this rate; 30 MHz failed on every cable length tested, including the working 20" run
             return false;
         lcdRegDataWrite(0x13, 0xC0);
         lcdHorizontalWidthVerticalHeight(800, 480);

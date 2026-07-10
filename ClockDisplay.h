@@ -18,6 +18,7 @@ enum ClockStyle {
 void       setupDisplay();                       // call once from setup()
 void       drawFastClock(int hour, int minute);  // call on LCC time-changed event
 void       updateClockStatus(float rate);        // call on LCC time-changed event (rate ≥ 0)
+void       updateClockRunningState(bool running); // call every loop() iteration with the fast clock's is_running flag — authoritative Run/Pause button state
 void       setClockStyle(ClockStyle style);      // cycle styles; call from touch handler
 ClockStyle getClockStyle();
 void       toggle12HourMode();                   // toggle 12/24h format; persisted to EEPROM

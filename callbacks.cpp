@@ -93,14 +93,13 @@ void Callbacks_on_consumed_event_identified(openlcb_node_t *openlcb_node, uint16
 
   } else {
 
-    switch (openlcb_node->consumers.list[index].status) {
-      case EVENT_STATUS_UNKNOWN:
-      case EVENT_STATUS_SET:
-      case EVENT_STATUS_CLEAR:
-        break;
-    }
-    
-    ConfigMemHelper_config_data.consumer_status[index] = openlcb_node->consumers.list[index].status;
+    // Use the real status this Identified message actually carries (the
+    // `status` parameter), not openlcb_node->consumers.list[index].status —
+    // that field is only ever written once, at consumer registration time
+    // (see openlcb_application.c/openlcb_node.c), and is never updated by
+    // incoming network traffic, so it can't reflect what this specific
+    // message says.
+    ConfigMemHelper_config_data.consumer_status[index] = status;
 
     PixelCallback(index);
   }
