@@ -45,6 +45,24 @@
 #endif
 
 // --------------------------------------------
+//  SNIP hardware_version string — derived from the board macro above so it
+//  can't drift from the board actually selected. See LCC_NODE_STANDARD.md §7.3.
+// --------------------------------------------
+#if defined(LCC_BOARD_NODE_V25)
+  #define BOARD_HARDWARE_VERSION_STR "2.5"
+#elif defined(LCC_BOARD_NODE_V26)
+  #define BOARD_HARDWARE_VERSION_STR "2.6"
+#elif defined(LCC_BOARD_NODE_V27)
+  #define BOARD_HARDWARE_VERSION_STR "2.7"
+#elif defined(LCC_BOARD_NODE_V28)
+  #define BOARD_HARDWARE_VERSION_STR "2.8"
+#elif defined(LCC_BOARD_NODE_V295)
+  #define BOARD_HARDWARE_VERSION_STR "2.95"
+#elif defined(LCC_BOARD_NODE_V30)
+  #define BOARD_HARDWARE_VERSION_STR "3.0"
+#endif
+
+// --------------------------------------------
 // Select ONE of these for Non-volatile Memory Storage
 // --------------------------------------------
 // #define USE_INTERNAL_FLASH_STORAGE

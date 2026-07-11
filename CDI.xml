@@ -2,10 +2,10 @@
 <?xml-stylesheet type="text/xsl" href="http://openlcb.org/trunk/prototypes/xml/xslt/cdi.xsl"?>
 <cdi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://openlcb.org/schema/cdi/1/4/cdi.xsd">
     <identification>
-        <manufacturer>MANU</manufacturer>
-        <model>MODEL</model>
-        <hardwareVersion>2.6A</hardwareVersion>
-        <softwareVersion>2.1</softwareVersion>
+        <manufacturer>Gamble</manufacturer>
+        <model>Fastclock &amp; Lights</model>
+        <hardwareVersion>3.0</hardwareVersion>
+        <softwareVersion>14.1</softwareVersion>
     </identification>
     <acdi/>
     <segment origin="0" space="253">
