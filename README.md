@@ -19,6 +19,24 @@ Claude Code sessions working across the family.
 
 ---
 
+## Safety
+
+This is a hobby project, not a certified product. It has had no FCC or other compliance testing,
+it is not a toy, and it comes with no warranty ([LICENSE](LICENSE)). Build and run it at your own
+risk.
+
+- **Power:** use listed (UL or ETL) supplies, and fuse each supply's output for the wiring it
+  feeds.
+- **LCC bus power:** if the node feeds the bus, follow the bus power rules in the
+  [Node Standard](https://github.com/bocabob/LCC_RPiPico_Common/blob/master/LCC_NODE_STANDARD.md): inject only from a 9–15 V supply that powers nothing else,
+  never from a track, motor or LED supply.
+- **LED strings draw real current:** up to about 60 mA per pixel at full white (WS2812-type).
+  Size the LED supply, its wiring and anything that carries LED power, the board's connectors
+  included, for the total. Feed long strings power at more than one point, and fuse the LED supply.
+- **Do not leave it running unattended.**
+
+---
+
 ## Features
 
 - Fast clock display: LCC broadcast time shown centred on the 7″ screen via the native
@@ -238,5 +256,12 @@ Key modules:
 
 ## License
 
-BSD 2-Clause. Copyright © 2026 Jim Kueneman & Bob Gamble. See source file headers for
-full license text (no separate `LICENSE` file in this repo).
+- **This project's own files** are under the BSD 2-Clause License, in [LICENSE](LICENSE).
+- **Third-party code:** [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) lists every library in
+  the firmware, vendored or linked at build time, with its license and notices.
+  [licenses/](licenses/) holds the long license texts. Both go with every firmware image.
+- The OpenLCB stack is Jim Kueneman's [OpenLcbCLib](https://github.com/JimKueneman/OpenLcbCLib),
+  BSD-2-Clause.
+- `nixie_images.h` and `pragotron_images.h` hold JMRI's Nixie and Pragotron clock digits,
+  under JMRI's license: GPL-2.0 with a linking exception, in
+  [licenses/JMRI-LICENSE.txt](licenses/JMRI-LICENSE.txt). THIRD_PARTY_NOTICES.md says more.
