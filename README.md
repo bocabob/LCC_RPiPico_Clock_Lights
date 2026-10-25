@@ -30,6 +30,9 @@ risk.
 - **LCC bus power:** if the node feeds the bus, follow the bus power rules in the
   [Node Standard](https://github.com/bocabob/LCC_RPiPico_Common/blob/master/LCC_NODE_STANDARD.md): inject only from a 9–15 V supply that powers nothing else,
   never from a track, motor or LED supply.
+- **USB is for the bench:** flashing and the serial console. A USB cable to a mains-powered PC
+  ties the PC's ground to the node's, and through the LCC bus to the layout's, which can create a
+  ground loop. On the layout, configure the node over the LCC bus.
 - **LED strings draw real current:** up to about 60 mA per pixel at full white (WS2812-type).
   Size the LED supply, its wiring and anything that carries LED power, the board's connectors
   included, for the total. Feed long strings power at more than one point, and fuse the LED supply.
@@ -209,7 +212,7 @@ Effect cycle period is set by `effect_cycle_frequency` in the Attributes segment
 
 ## Serial CLI Commands
 
-Connect at **115200 baud**. Commands common across the node family (Node Standard §11)
+Connect at **115200 baud** (USB, on the bench). Commands common across the node family (Node Standard §11)
 plus this project's own:
 
 | Key | Action |
