@@ -161,7 +161,7 @@ do not modify files under `src/`.
 
 ## Build Configuration
 
-See [`sketch.yaml`](sketch.yaml) for the full build profile:
+See [`sketch.yaml`](sketch.yaml) for the full settings arduino-cli uses. The Arduino IDE doesn't read that file, so set Flash Size and Optimize under **Tools** there:
 
 - Flash: 4 MB — 2 MB filesystem space for firmware updates
 - Optimization: `Small`

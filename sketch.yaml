@@ -1,9 +1,7 @@
-default_fqbn: rp2040:rp2040:rpipico2
-
-default_profile: pico2_defaults
-
-profiles:
-  pico2_defaults:
-    fqbn: rp2040:rp2040:rpipico2:flash=4194304_2097152,dbgport=Disabled,dbglvl=None,usbstack=picosdk,opt=Small,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,ipbtstack=ipv4only,uploadmethod=default,profile=Disabled
-    platforms:
-      - platform: rp2040:rp2040
+# arduino-cli only. The Arduino IDE does not read this file: it keeps each sketch's board settings
+# itself, and there Tools > Flash Size must be "4MB (Sketch: 2MB, FS: 2MB)".
+#
+# `arduino-cli compile .` builds for the Pico 2 with that flash split, using the libraries in
+# arduino-cli's sketchbook. If yours are elsewhere, add `--libraries <folder>`.
+# No profiles: a profile build sees only the libraries it lists (Node Standard §10.1).
+default_fqbn: rp2040:rp2040:rpipico2:flash=4194304_2097152,dbgport=Disabled,dbglvl=None,usbstack=picosdk,opt=Small,rtti=Disabled,stackprotect=Disabled,exceptions=Disabled,ipbtstack=ipv4only,uploadmethod=default,profile=Disabled
