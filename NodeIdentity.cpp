@@ -99,3 +99,27 @@ bool NodeIdentity_confirm_provision(void) {
 void NodeIdentity_cancel_provision(void) {
   _pending = false;
 }
+
+uint8_t NodeIdentity_read_eeprom_version(void) {
+
+  uint8_t version = 0xFF;
+  uint16_t n = RPiPicoDrivers_nvm_raw_read(EEPROM_VERSION_MARKER_ADDR, &version, sizeof(version));
+
+  if (n != sizeof(version)) {
+    return 0xFF;
+  }
+
+  return version;
+}
+
+bool NodeIdentity_write_eeprom_version(uint8_t version) {
+
+  uint16_t n = RPiPicoDrivers_nvm_raw_write(EEPROM_VERSION_MARKER_ADDR, &version, sizeof(version));
+  if (n != sizeof(version)) {
+    return false;
+  }
+
+  delay(20);  // same page-commit settling as NodeIdentity_write()
+
+  return NodeIdentity_read_eeprom_version() == version;
+}

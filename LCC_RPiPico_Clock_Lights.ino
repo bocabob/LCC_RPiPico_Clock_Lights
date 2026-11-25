@@ -111,6 +111,7 @@ void _check_factory_reset_gesture(void) {
       Serial.println("Wiping configuration memory to factory defaults...");
       ConfigMemHelper_reset_config_mem();
       ConfigMemHelper_reset_and_write_default(OpenLcbUserConfig_node_id);
+      NodeIdentity_write_eeprom_version(EEPROM_VERSION);  // this chip now matches the current layout
       Serial.println("NVM wiped and reinitialized. Continuing boot...");
       return;
     }
@@ -123,18 +124,42 @@ void _check_factory_reset_gesture(void) {
 void _check_for_nvm_initialization(void) {
 
   Serial.println("Checking for initialized NVM");
-  // If the first byte of the configuration memory is 0xFF then the space has never been accessed (fresh firmware load) and need to be initialized to 0x00
-  if (ConfigMemHelper_is_config_mem_reset()) {
-   
+  // LCC_NODE_STANDARD.md §7.1 (+12): the EEPROM_VERSION marker records which layout last wrote this
+  // chip's defaults (backported from LCC_RPiPico_Booster, 2026-11-25). Defaults are (re)written when
+  // the first byte of configuration memory is 0xFF (a fresh chip), or when the marker holds another
+  // EEPROM_VERSION (the CDI/config_mem_t layout changed). A chip with a configuration but no marker
+  // yet (written by firmware from before the marker) keeps its configuration: it is taken as this
+  // version and marked, so the update that brings the marker does not wipe a working node's
+  // settings. If that same update also changes the layout, send 'i' once for the new defaults.
+  bool blank = ConfigMemHelper_is_config_mem_reset();
+  uint8_t stored_version = NodeIdentity_read_eeprom_version();
+
+  if (!blank && stored_version == 0xFF) {
+
+    Serial.print("No EEPROM_VERSION marker yet: keeping the configuration, marked as version ");
+    Serial.println(EEPROM_VERSION);
+    NodeIdentity_write_eeprom_version(EEPROM_VERSION);
+
+  } else if (blank || stored_version != EEPROM_VERSION) {
+
+    if (!blank) {
+      Serial.print("EEPROM_VERSION changed (stored=");
+      Serial.print(stored_version);
+      Serial.print(", firmware=");
+      Serial.print(EEPROM_VERSION);
+      Serial.println(") -- resetting configuration memory");
+    }
+
     Serial.println("Initializing Configuration Memory to 0x00");
     ConfigMemHelper_clear_config_mem();
     Serial.println("Writing default values to the Configuration Memory");
     ConfigMemHelper_reset_and_write_default(OpenLcbUserConfig_node_id);
+    NodeIdentity_write_eeprom_version(EEPROM_VERSION);
     Serial.println("Defaults set...");
 
   } else {
 
-    Serial.println("Configuration Memory has been previously initalized");
+    Serial.println("Configuration Memory has been previously initialized");
 
   }
 
@@ -266,6 +291,7 @@ void loop() {
       case 'i':
         Serial.println("Resetting NVM to default values...");
         ConfigMemHelper_reset_and_write_default(OpenLcbUserConfig_node_id);  // reset all EEPROM to CDI defined defaults
+        NodeIdentity_write_eeprom_version(EEPROM_VERSION);  // this chip now matches the current layout
         Serial.println("Resetting NVM to default values COMPLETE");
       break;
       case 'r':
