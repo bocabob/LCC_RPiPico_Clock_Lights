@@ -218,9 +218,9 @@ plus this project's own:
 | Key | Action |
 |---|---|
 | `h` | Print help |
-| `c` | Clear NVM to `0x00` |
+| `clear` | NVM to `0x00`, then a reboot. Typed whole, confirmed with `Y` within 15 s |
 | `i` | Reset NVM to CDI default values |
-| `r` | Factory reset (NVM to `0xFF`, then reinitialize) |
+| `erase` | Factory reset: NVM to `0xFF`, then a reboot that writes the CDI defaults. Typed whole, confirmed with `Y` within 15 s |
 | `p` | Toggle LCC message logging |
 | `m` | Toggle config memory read/write logging |
 | `t` | Display current fast clock time |

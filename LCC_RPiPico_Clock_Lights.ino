@@ -265,39 +265,100 @@ void setup1() {
   Serial.println("Loop 1 started \n");
 }
 
+// The console's two wipes of the configuration (LCC_NODE_STANDARD.md §11, Rev 32): whole words,
+// "erase" (to 0xFF: the boot then writes the CDI's defaults) and "clear" (to 0x00), each confirmed
+// with 'Y' within 15 s; any other key cancels. Each ends with a reboot: CDI reads and writes go
+// through the RAM copy (config_mem_helper.cpp), which a wipe leaves as it was, so without the reboot
+// the node and JMRI went on showing the old settings, and a CDI write then landed alone in the wiped
+// EEPROM. Until 2026-11-26 they were the single letters 'r' and 'c'; an 'r' typed for 't' wiped the
+// Booster's settings on its layout. Neither touches the protected region above CONFIG_MEM_SIZE
+// (node ID, EEPROM_VERSION marker).
+typedef enum { _WIPE_NONE = 0, _WIPE_ERASE, _WIPE_CLEAR } _wipe_t;
+#define _WIPE_CONFIRM_MS 15000UL
+static _wipe_t _wipe_pending = _WIPE_NONE;
+static uint32_t _wipe_asked_ms = 0;
+
+// 'e' and 'c': the rest of the line must make the word "erase" or "clear".
+static void _console_wipe_word(char first) {
+  char buf[16];
+  size_t n = Serial.readBytesUntil('\n', buf, sizeof(buf) - 1);
+  while (n > 0 && (buf[n - 1] == '\r' || buf[n - 1] == ' ')) {
+    n--;
+  }
+  buf[n] = '\0';
+  bool erase = (first == 'e');
+  if (strcmp(buf, erase ? "rase" : "lear") != 0) {
+    Serial.println("The configuration's wipes are whole words, \"erase\" and \"clear\" ('h' for help). Nothing done.");
+    return;
+  }
+  NodeIdentity_cancel_provision();   // one confirmation waits at a time
+  _wipe_pending = erase ? _WIPE_ERASE : _WIPE_CLEAR;
+  _wipe_asked_ms = millis();
+  if (erase) {
+    Serial.println("erase: every byte of the configuration to 0xFF, then a reboot, and the boot writes the CDI's defaults.");
+    Serial.println("  The node name and every setting go. The node ID stays (the protected region).");
+  } else {
+    Serial.println("clear: every byte of the configuration to 0x00, then a reboot. The node then runs on zeros");
+    Serial.println("  (no name, every setting and event 0) until 'i' writes the CDI's defaults. The node ID stays.");
+  }
+  Serial.println("  'Y' within 15 s to go ahead; any other key cancels.");
+}
+
+static void _console_wipe_confirmed(void) {
+  _wipe_t which = _wipe_pending;
+  _wipe_pending = _WIPE_NONE;
+  if ((uint32_t)(millis() - _wipe_asked_ms) > _WIPE_CONFIRM_MS) {
+    Serial.println("Too late: more than 15 s. Nothing done; type the word again.");
+    return;
+  }
+  if (which == _WIPE_ERASE) {
+    Serial.println("Setting NVM to 0xFF (factory fresh configuration)...");
+    ConfigMemHelper_reset_config_mem();
+  } else {
+    Serial.println("Setting NVM to 0x00...");
+    ConfigMemHelper_clear_config_mem();
+  }
+  Serial.println("COMPLETE. Rebooting...");
+  Serial.flush();
+  delay(100);
+  rp2040.reboot();
+}
+
 // ==== Loop One for LCC processes ==========================
 void loop() {
 
   if (Serial.available()) {
 
-    switch (Serial.read()) {
+    char ch = (char)Serial.read();
+
+    if (_wipe_pending != _WIPE_NONE && ch != 'Y' && ch != '\r' && ch != '\n') {
+      _wipe_pending = _WIPE_NONE;
+      Serial.println("Configuration wipe cancelled: nothing done");
+    }
+
+    switch (ch) {
 
       case 'h':
         Serial.println("'h': Help");
-        Serial.println("'c': Setting NVM to 0x00");
         Serial.println("'i': Resetting NVM to CDI default values");
+        Serial.println("'erase': the configuration to 0xFF, then a reboot: the boot writes the CDI's defaults (confirm with 'Y')");
+        Serial.println("'clear': the configuration to 0x00, then a reboot: zeros until 'i' (confirm with 'Y')");
+        Serial.println("  Neither touches the node ID.");
         Serial.println("'p': Toggle Message Logging");
-        Serial.println("'r': Resetting NVM to 0xFF for a fresh boot");
         Serial.println("'m': Toggle Config Mem read/write Logging");
         Serial.println("'t': Display current time");
         Serial.println("'q': Query current time");
         Serial.println("'N<12 hex digits>': Provision node identity, e.g. N050101019437 — confirm with 'Y'");
       break;
+      case 'e':
       case 'c':
-        Serial.println("Setting NVM to 0x00...");
-        ConfigMemHelper_clear_config_mem();  // reset all EEPROM to initalized nulls 0x00
-        Serial.println("Setting NVM to 0x00 COMPLETE");
+        _console_wipe_word(ch);   // "erase" or "clear", then 'Y' (above)
       break;
       case 'i':
         Serial.println("Resetting NVM to default values...");
         ConfigMemHelper_reset_and_write_default(OpenLcbUserConfig_node_id);  // reset all EEPROM to CDI defined defaults
         NodeIdentity_write_eeprom_version(EEPROM_VERSION);  // this chip now matches the current layout
         Serial.println("Resetting NVM to default values COMPLETE");
-      break;
-      case 'r':
-        Serial.println("Setting NVM to 0xFF (factory fresh configuration...)");
-        ConfigMemHelper_reset_config_mem();  // reset all EEPROM to factory new 0xFF
-        Serial.println("Setting NVM to 0xFF (factory fresh configuration) COMPLETE");
       break;
       case 'p':
         Serial.print("Toggling Message Logging...)");
@@ -340,7 +401,9 @@ void loop() {
       }
       break;
       case 'Y':
-        if (NodeIdentity_provision_pending()) {
+        if (_wipe_pending != _WIPE_NONE) {
+          _console_wipe_confirmed();   // reboots, unless too late
+        } else if (NodeIdentity_provision_pending()) {
           if (NodeIdentity_confirm_provision()) {
             // Config memory (including the node-ID-based default event IDs
             // computed in config_mem_helper.cpp) was written using whatever
@@ -358,7 +421,7 @@ void loop() {
             Serial.println("Failed to write node identity.");
           }
         } else {
-          Serial.println("No pending provisioning request.");
+          Serial.println("Nothing is waiting for 'Y' (N<node ID>, erase, clear).");
         }
       break;
     };
